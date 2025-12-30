@@ -80,3 +80,9 @@ _Alle Lerninhalte wurden nach bestem Wissen und Gewissen auf Basis der aktuellen
 Gefällt dir das Projekt? Unterstütze meine Arbeit gerne mit einem Kaffee!
 
 <a href="https://www.buymeacoffee.com/cwillam" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+---
+
+## 📜 Lizenz
+
+Dieses Projekt ist unter der **GNU Affero General Public License v3.0 (AGPLv3)** lizienziert.
