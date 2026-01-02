@@ -80,6 +80,7 @@
   </head>
 
   <body class="flex flex-col min-h-screen">
+    <!-- Loading Overlay -->
     <div
       id="loadingOverlay"
       class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-dark-bg transition-opacity duration-500"
@@ -98,6 +99,7 @@
       </p>
     </div>
 
+    <!-- Legal Modal -->
     <div
       id="legalModal"
       class="fixed inset-0 z-[90] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print"
@@ -120,6 +122,7 @@
       </div>
     </div>
 
+    <!-- Navigation -->
     <nav class="glass-header sticky top-0 z-50 no-print">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
@@ -149,6 +152,23 @@
                 <span id="headerCountdown" class="text-dark-accent">--</span> Tage
               </span>
             </div>
+
+            <!-- Update Button (Desktop only) -->
+            <a
+              href="updates.html"
+              class="hidden md:flex mr-4 group items-center gap-2 px-3 py-1.5 rounded-full bg-dark-card border border-dark-border hover:border-dark-accent transition-all"
+            >
+              <div class="relative flex h-2 w-2">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+                ></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              </div>
+              <span
+                class="text-xs font-bold text-dark-muted group-hover:text-white transition-colors"
+                >Updates</span
+              >
+            </a>
 
             <a
               href="https://buymeacoffee.com/cwillam"
@@ -189,7 +209,9 @@
       </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <!-- Info Box -->
       <div
         id="infoBox"
         class="bg-gradient-to-r from-slate-900 to-dark-card border border-dark-border rounded-xl p-5 relative shadow-card flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group no-print"
@@ -231,7 +253,9 @@
         </button>
       </div>
 
+      <!-- Dashboard Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 no-print">
+        <!-- Stats Card -->
         <div
           class="lg:col-span-8 bg-dark-card border border-dark-border rounded-xl p-5 relative overflow-hidden shadow-card flex flex-col gap-5 justify-between group min-h-[160px]"
         >
@@ -321,7 +345,9 @@
           </div>
         </div>
 
+        <!-- Sidebar Widgets -->
         <div class="lg:col-span-4 grid grid-cols-2 gap-4">
+          <!-- Focus Timer -->
           <div
             class="col-span-2 bg-dark-card border border-dark-border rounded-xl p-3 shadow-card relative overflow-hidden group flex flex-col justify-between min-h-[140px]"
           >
@@ -369,6 +395,7 @@
             </div>
           </div>
 
+          <!-- Random Button -->
           <button
             onclick="app.randomTopic()"
             class="col-span-1 bg-dark-card border border-dark-border rounded-xl p-3 hover:border-dark-warning/50 hover:bg-dark-warning/5 transition-all text-left group relative overflow-hidden flex flex-col justify-center outline-none focus:ring-1 focus:ring-dark-warning/50"
@@ -378,6 +405,7 @@
             <p class="text-[9px] text-dark-muted">Lern-Roulette</p>
           </button>
 
+          <!-- Smart Focus Button -->
           <button
             onclick="app.scrollToRec()"
             class="col-span-1 bg-dark-card border border-dark-border rounded-xl p-3 hover:border-dark-success/50 hover:bg-dark-success/5 transition-all text-left group relative flex flex-col justify-center outline-none focus:ring-1 focus:ring-dark-success/50"
@@ -394,6 +422,7 @@
         </div>
       </div>
 
+      <!-- Filter Bar -->
       <div class="sticky top-4 sm:top-4 z-40 no-print" id="filterBar">
         <div
           class="bg-dark-bg/95 backdrop-blur-md border border-dark-border rounded-xl p-2 flex flex-col sm:flex-row gap-3 justify-between items-center shadow-2xl ring-1 ring-white/5"
@@ -437,8 +466,10 @@
         </div>
       </div>
 
+      <!-- Content Container -->
       <div id="contentList" class="space-y-8 pb-20 min-h-[300px]"></div>
 
+      <!-- Empty State -->
       <div
         id="emptyState"
         class="hidden flex-col items-center justify-center py-20 text-center opacity-50 no-print"
@@ -458,6 +489,7 @@
       </div>
     </main>
 
+    <!-- Footer -->
     <footer class="border-t border-dark-border bg-dark-card mt-auto py-8 no-print">
       <div
         class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted"
@@ -473,6 +505,23 @@
           >
             <i class="fa-solid fa-mug-hot"></i> Spendier nen Kaffee
           </a>
+
+          <!-- Footer Updates Button (Mobile & Desktop) -->
+          <a
+            href="updates.html"
+            class="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-dark-card border border-dark-border hover:border-dark-accent transition-all"
+          >
+            <div class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+              ></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </div>
+            <span class="text-xs font-bold text-dark-muted group-hover:text-white transition-colors"
+              >Updates</span
+            >
+          </a>
+
           <a href="https://github.com/cwillam" target="_blank" class="hover:text-white transition">
             <i class="fa-brands fa-github mr-1"></i>GitHub
           </a>
@@ -486,6 +535,7 @@
       </div>
     </footer>
 
+    <!-- Templates -->
     <template id="tpl-category">
       <div class="scroll-mt-32 category-block">
         <div

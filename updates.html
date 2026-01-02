@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Updates & Roadmap | AP1 Tracker</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="assets/css/fontawesome/css/all.min.css" rel="stylesheet" />
+
+    <!-- Tailwind Configuration -->
+    <script src="assets/js/tailwind.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'dark-bg': '#020617',
+              'dark-card': '#0f172a',
+              'dark-border': '#1e293b',
+              'dark-muted': '#64748b',
+              'dark-text': '#f8fafc',
+              'dark-accent': '#3b82f6',
+              'dark-accent-hover': '#2563eb',
+              'dark-success': '#10b981',
+              'dark-warning': '#f59e0b',
+              'dark-danger': '#ef4444',
+            },
+            fontFamily: {
+              sans: [
+                'system-ui',
+                '-apple-system',
+                'BlinkMacSystemFont',
+                'Segoe UI',
+                'Roboto',
+                'sans-serif',
+              ],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .delay-100 {
+        animation-delay: 100ms;
+      }
+      .delay-200 {
+        animation-delay: 200ms;
+      }
+      .delay-300 {
+        animation-delay: 300ms;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white"
+  >
+    <!-- Header -->
+    <header
+      class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50"
+    >
+      <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+        <a
+          href="index.html"
+          class="flex items-center gap-3 group hover:opacity-80 transition-opacity"
+        >
+          <div
+            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors"
+          >
+            <i
+              class="fa-solid fa-arrow-left text-dark-muted group-hover:text-dark-accent transition-colors"
+            ></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-lg tracking-tight leading-none">AP1 Tracker</span>
+            <span class="text-[10px] text-dark-muted font-mono">Zurück zum Dashboard</span>
+          </div>
+        </a>
+
+        <div class="flex items-center gap-4">
+          <span
+            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
+            >v1.1</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-12">
+      <!-- Intro Section -->
+      <div class="text-center mb-12 fade-in">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-dark-accent to-indigo-400 bg-clip-text text-transparent mb-4 pb-2 leading-tight"
+        >
+          Changelog & Roadmap
+        </h1>
+        <p class="text-dark-muted max-w-xl mx-auto text-lg">
+          Was ist neu im AP1 Tracker und was kommt als Nächstes?
+        </p>
+
+        <!-- Navigation Tabs -->
+        <div
+          class="flex justify-center mt-8 gap-2 bg-dark-card/50 p-1 rounded-full border border-dark-border inline-flex mx-auto"
+        >
+          <button
+            onclick="switchTab('updates')"
+            id="btn-updates"
+            class="px-6 py-2 rounded-full text-sm font-bold transition-all bg-dark-accent text-white shadow-lg shadow-blue-900/20"
+          >
+            Updates
+          </button>
+          <button
+            onclick="switchTab('roadmap')"
+            id="btn-roadmap"
+            class="px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all"
+          >
+            Roadmap
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Content: Updates -->
+      <div id="tab-updates" class="space-y-8 fade-in delay-100">
+        <!-- v1.1 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8">
+            <div
+              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-dark-accent items-center justify-center z-10 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+            >
+              <div class="w-2.5 h-2.5 rounded-full bg-dark-accent"></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-xl p-6 hover:border-dark-muted/50 transition-all duration-300 relative overflow-hidden"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/5 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded text-xs font-bold"
+                  >v1.1</span
+                >
+                <span class="text-dark-muted text-xs">02. Jan 2026</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Update & Roadmap</h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                Die neue Unterseite für Updates und zukünftige Planungen ist jetzt live. Transparenz
+                für alle Features.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-accent mt-1 mr-2 text-xs"></i>
+                  <span>Roadmap Übersicht integriert</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-accent mt-1 mr-2 text-xs"></i>
+                  <span>Changelog Historie</span>
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v1.0 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+            <div
+              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-dark-border z-10"
+            ></div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-xl p-6 hover:border-dark-muted/50 transition-all duration-300"
+            >
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-xs font-bold"
+                  >v1.0</span
+                >
+                <span class="text-dark-muted text-xs">30. Dez 2025</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Launch Day</h3>
+              <p class="text-dark-muted text-sm leading-relaxed">
+                Erste Version des AP1 Trackers ist online. Alles lokal, kein Login nötig. Beinhaltet
+                grundlegende Lernfelder und Checklisten.
+              </p>
+              <ul class="space-y-2 mt-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-emerald-500 mt-1 mr-2 text-xs"></i>
+                  <span>Dark Mode Support</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-emerald-500 mt-1 mr-2 text-xs"></i>
+                  <span>Export/Import Funktion</span>
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Roadmap -->
+      <div id="tab-roadmap" class="hidden space-y-8 fade-in delay-100">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Column: Planned -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-dark-muted">
+              <i class="fa-regular fa-lightbulb"></i>
+              <span class="font-bold text-sm uppercase tracking-wider">Geplant</span>
+            </div>
+
+            <!-- Item: Lernskripte -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm hover:border-dark-muted/50 transition-colors"
+            >
+              <h4 class="font-bold text-gray-200 mb-1">Lern-Skripte</h4>
+              <p class="text-xs text-dark-muted mb-3">
+                Zusammenfassende Skripte je Unterthema zum direkten Lernen im Tool.
+              </p>
+              <div class="flex items-center gap-1 text-xs text-dark-accent">
+                <i class="fa-solid fa-arrow-up"></i> High Priority
+              </div>
+            </div>
+
+            <!-- Item: Druck Ansicht -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm hover:border-dark-muted/50 transition-colors"
+            >
+              <h4 class="font-bold text-gray-200 mb-1">Druck-Ansicht</h4>
+              <p class="text-xs text-dark-muted">
+                Optimiertes CSS für den Ausdruck der Checklisten auf Papier.
+              </p>
+            </div>
+
+            <!-- Item: PWA -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm hover:border-dark-muted/50 transition-colors"
+            >
+              <h4 class="font-bold text-gray-200 mb-1">PWA Support</h4>
+              <p class="text-xs text-dark-muted">
+                Installierbar auf dem Homescreen (iOS/Android) für besseres mobiles Lernen.
+              </p>
+            </div>
+          </div>
+
+          <!-- Column: In Progress -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-blue-400">
+              <i class="fa-solid fa-hammer"></i>
+              <span class="font-bold text-sm uppercase tracking-wider">In Arbeit</span>
+            </div>
+
+            <!-- Item: Mehr Lernfelder -->
+            <div
+              class="bg-dark-card border border-blue-500/30 p-4 rounded-xl shadow-[0_0_10px_rgba(59,130,246,0.1)] relative overflow-hidden"
+            >
+              <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+              <h4 class="font-bold text-white mb-1">Mehr Lernfelder</h4>
+              <p class="text-xs text-dark-muted mb-2">
+                Erweiterung der Unterthemen und Aktualisierung der Unterthemen abgestimmt auf dem
+                neuen Prüfungskatalog
+              </p>
+              <div
+                class="inline-block bg-blue-500/10 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/20 font-mono"
+              >
+                Release: bis 03.01.26
+              </div>
+            </div>
+          </div>
+
+          <!-- Column: Done -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-emerald-400">
+              <i class="fa-solid fa-check"></i>
+              <span class="font-bold text-sm uppercase tracking-wider">Erledigt</span>
+            </div>
+
+            <!-- Item: Updates Seite -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through decoration-dark-muted">
+                Roadmap Seite
+              </h4>
+              <p class="text-xs text-dark-muted">Diese Seite hier wurde erstellt.</p>
+            </div>
+
+            <!-- Item: Mobile Responsive -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through decoration-dark-muted">
+                Mobile Responsive
+              </h4>
+              <p class="text-xs text-dark-muted">Layout für mobile Endgeräte optimiert.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-dark-border bg-dark-card mt-auto py-8">
+      <div
+        class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted"
+      >
+        <div class="flex items-center justify-center md:justify-start gap-2 w-full md:w-auto">
+          <span class="font-bold text-white">cwillam</span> &copy; 2026
+        </div>
+
+        <div
+          class="flex gap-6 items-center flex-wrap justify-center md:justify-end w-full md:w-auto"
+        >
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold"
+          >
+            <i class="fa-solid fa-mug-hot"></i> Spendier nen Kaffee
+          </a>
+
+          <a
+            href="index.html"
+            class="group flex items-center gap-2 text-dark-muted hover:text-white transition-colors font-bold"
+          >
+            <i class="fa-solid fa-arrow-left"></i> Zurück zum Tracker
+          </a>
+
+          <a href="https://github.com/cwillam" target="_blank" class="hover:text-white transition">
+            <i class="fa-brands fa-github mr-1"></i>GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Tab Logic -->
+    <script>
+      function switchTab(tab) {
+        const contentUpdates = document.getElementById('tab-updates');
+        const contentRoadmap = document.getElementById('tab-roadmap');
+        const btnUpdates = document.getElementById('btn-updates');
+        const btnRoadmap = document.getElementById('btn-roadmap');
+
+        if (tab === 'updates') {
+          contentUpdates.classList.remove('hidden');
+          contentRoadmap.classList.add('hidden');
+
+          btnUpdates.className =
+            'px-6 py-2 rounded-full text-sm font-bold transition-all bg-dark-accent text-white shadow-lg shadow-blue-900/20';
+          btnRoadmap.className =
+            'px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all';
+        } else {
+          contentUpdates.classList.add('hidden');
+          contentRoadmap.classList.remove('hidden');
+
+          btnUpdates.className =
+            'px-6 py-2 rounded-full text-sm font-bold text-dark-muted hover:text-white transition-all';
+          btnRoadmap.className =
+            'px-6 py-2 rounded-full text-sm font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-900/20';
+        }
+      }
+    </script>
+  </body>
+</html>
