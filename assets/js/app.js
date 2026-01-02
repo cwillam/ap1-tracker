@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------
 // DATEI: assets/js/app.js
-// INHALT: App Logik, Timer, Rendering (OHNE DATEN)
+// INHALT: App Logik, Timer, Rendering (MIT ALLEN FEATURES & GEWICHTUNG 1-5)
 // ----------------------------------------------------------------------
 
 // 1. Daten holen (aus data.js)
@@ -64,6 +64,7 @@ const app = {
     };
 
     try {
+      // WICHTIG: Nutzt deinen existierenden State-Key, damit Daten nicht verloren gehen
       const s = localStorage.getItem('ap1_dark_state_v1');
       if (s) this.state = JSON.parse(s);
 
@@ -98,7 +99,8 @@ const app = {
   },
 
   hideInfoBox() {
-    document.getElementById('infoBox').remove();
+    const el = document.getElementById('infoBox');
+    if (el) el.remove();
     localStorage.setItem('ap1_infobox_dismissed', 'true');
   },
 
@@ -197,9 +199,6 @@ const app = {
           this.timerRunning = false;
           this.timeLeft = 1500;
 
-          // SOUND ENTFERNT FÜR DSGVO (kein Google Request)
-          // Stattdessen nur visueller Alert
-
           alert('Pomodoro beendet! Gönn dir eine Pause.');
           btn.innerHTML = '<i class="fa-solid fa-play text-lg ml-1"></i>';
           btn.classList.remove('bg-dark-accent', 'text-white', 'scale-105');
@@ -294,6 +293,7 @@ const app = {
         });
       }
     }
+    this.updateStats(); // Update stats immediately
   },
 
   toggleSub(id, idx, checked, element) {
@@ -337,6 +337,7 @@ const app = {
     s.last = Date.now();
     this.trackActivity();
     this.save();
+    this.updateStats(); // Update stats immediately
   },
 
   randomTopic() {
@@ -689,17 +690,28 @@ const app = {
           )}`;
         });
 
+        // -------------------------------------------------------------
+        // NEUE GEWICHTUNGSLOGIK (1-5)
+        // -------------------------------------------------------------
         const wb = node.querySelector('.weight-badge');
-        if (t.weight === 3) {
-          wb.textContent = 'HOCH';
+        if (t.weight >= 4) {
+          // 4 & 5 -> SEHR HOCH (Rot)
+          wb.textContent = 'SEHR HOCH';
           wb.classList.add('text-dark-danger', 'border-dark-danger/30', 'bg-dark-danger/10');
-        } else if (t.weight === 2) {
-          wb.textContent = 'MITTEL';
+        } else if (t.weight === 3) {
+          // 3 -> HOCH (Orange)
+          wb.textContent = 'HOCH';
           wb.classList.add('text-dark-warning', 'border-dark-warning/30', 'bg-dark-warning/10');
-        } else {
-          wb.textContent = 'NIEDRIG';
+        } else if (t.weight === 2) {
+          // 2 -> MITTEL (Grün)
+          wb.textContent = 'MITTEL';
           wb.classList.add('text-dark-success', 'border-dark-success/30', 'bg-dark-success/10');
+        } else {
+          // 1 -> NIEDRIG (Grau)
+          wb.textContent = 'NIEDRIG';
+          wb.classList.add('text-dark-muted', 'border-dark-border', 'bg-dark-bg');
         }
+        // -------------------------------------------------------------
 
         const cb = node.querySelector('.topic-check');
         cb.checked = s.done;
