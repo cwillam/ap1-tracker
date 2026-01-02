@@ -94,7 +94,7 @@
         <div class="flex items-center gap-4">
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
-            >v1.1</span
+            >v1.2</span
           >
         </div>
       </div>
@@ -136,7 +136,7 @@
 
       <!-- Tab Content: Updates -->
       <div id="tab-updates" class="space-y-8 fade-in delay-100">
-        <!-- v1.1 -->
+        <!-- v1.2 (NEU) -->
         <div class="relative md:pl-0 group">
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
@@ -144,18 +144,59 @@
 
           <div class="md:flex items-center justify-between gap-8">
             <div
-              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-dark-accent items-center justify-center z-10 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-indigo-500 items-center justify-center z-10 shadow-[0_0_15px_rgba(99,102,241,0.3)]"
             >
-              <div class="w-2.5 h-2.5 rounded-full bg-dark-accent"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>
             </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-xl p-6 hover:border-indigo-500/30 transition-all duration-300 relative overflow-hidden"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-2 py-0.5 rounded text-xs font-bold"
+                  >v1.2</span
+                >
+                <span class="text-dark-muted text-xs">03. Jan 2026</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Katalog Update</h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                Großes inhaltliches Update. Alle Kategorien und Unterthemen wurden überarbeitet und
+                an den aktuellen Prüfungskatalog angepasst.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-indigo-500 mt-1 mr-2 text-xs"></i>
+                  <span>Prüfungskatalog Synchronisation</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-indigo-500 mt-1 mr-2 text-xs"></i>
+                  <span>Themen Gewichtung optimiert</span>
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v1.1 (Verschoben nach Rechts für Zick-Zack) -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+            <div
+              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-dark-border z-10"
+            ></div>
 
             <div
               class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-xl p-6 hover:border-dark-muted/50 transition-all duration-300 relative overflow-hidden"
             >
-              <div
-                class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/5 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
-              ></div>
-
               <div class="flex items-center justify-between mb-3">
                 <span
                   class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded text-xs font-bold"
@@ -183,13 +224,13 @@
           </div>
         </div>
 
-        <!-- v1.0 -->
+        <!-- v1.0 (Verschoben nach Links für Zick-Zack) -->
         <div class="relative md:pl-0 group">
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2"
           ></div>
 
-          <div class="md:flex items-center justify-between gap-8 flex-row-reverse">
+          <div class="md:flex items-center justify-between gap-8">
             <div
               class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-dark-border z-10"
             ></div>
@@ -235,19 +276,6 @@
               <span class="font-bold text-sm uppercase tracking-wider">Geplant</span>
             </div>
 
-            <!-- Item: Lernskripte -->
-            <div
-              class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm hover:border-dark-muted/50 transition-colors"
-            >
-              <h4 class="font-bold text-gray-200 mb-1">Lern-Skripte</h4>
-              <p class="text-xs text-dark-muted mb-3">
-                Zusammenfassende Skripte je Unterthema zum direkten Lernen im Tool.
-              </p>
-              <div class="flex items-center gap-1 text-xs text-dark-accent">
-                <i class="fa-solid fa-arrow-up"></i> High Priority
-              </div>
-            </div>
-
             <!-- Item: Druck Ansicht -->
             <div
               class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm hover:border-dark-muted/50 transition-colors"
@@ -276,20 +304,17 @@
               <span class="font-bold text-sm uppercase tracking-wider">In Arbeit</span>
             </div>
 
-            <!-- Item: Mehr Lernfelder -->
+            <!-- Item: Lernskripte (Verschoben von Geplant) -->
             <div
               class="bg-dark-card border border-blue-500/30 p-4 rounded-xl shadow-[0_0_10px_rgba(59,130,246,0.1)] relative overflow-hidden"
             >
               <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
-              <h4 class="font-bold text-white mb-1">Mehr Lernfelder</h4>
-              <p class="text-xs text-dark-muted mb-2">
-                Erweiterung der Unterthemen und Aktualisierung der Unterthemen abgestimmt auf dem
-                neuen Prüfungskatalog
+              <h4 class="font-bold text-white mb-1">Lern-Skripte</h4>
+              <p class="text-xs text-dark-muted mb-3">
+                Zusammenfassende Skripte je Unterthema zum direkten Lernen im Tool.
               </p>
-              <div
-                class="inline-block bg-blue-500/10 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-500/20 font-mono"
-              >
-                Release: bis 03.01.26
+              <div class="flex items-center gap-1 text-xs text-dark-accent">
+                <i class="fa-solid fa-clock-rotate-left"></i> Work in Progress
               </div>
             </div>
           </div>
@@ -299,6 +324,18 @@
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-emerald-400">
               <i class="fa-solid fa-check"></i>
               <span class="font-bold text-sm uppercase tracking-wider">Erledigt</span>
+            </div>
+
+            <!-- Item: Mehr Lernfelder (Verschoben von In Arbeit) -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through decoration-dark-muted">
+                Mehr Lernfelder
+              </h4>
+              <p class="text-xs text-dark-muted">
+                Erweiterung der Unterthemen und Aktualisierung auf den neuen Prüfungskatalog (v1.2).
+              </p>
             </div>
 
             <!-- Item: Updates Seite -->
