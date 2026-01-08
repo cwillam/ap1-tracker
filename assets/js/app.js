@@ -689,6 +689,12 @@ const app = {
             t.title
           )}`;
         });
+        const duckduckgoLink = node.querySelectorAll('.duckduckgo-link, .duckduckgo-link-mobile');
+        duckduckgoLink.forEach((dl) => {
+          dl.href = `https://www.duckduckgo.com/?q=Fachinformatiker+AP1+${encodeURIComponent(
+              t.title
+          )}`;
+        });
 
         // -------------------------------------------------------------
         // NEUE GEWICHTUNGSLOGIK (1-5)
