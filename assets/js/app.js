@@ -73,7 +73,7 @@ const app = {
         if (infoBox) infoBox.classList.add('hidden');
       }
 
-      if (!localStorage.getItem('ap2_announcement_dismissed')) {
+      if (!localStorage.getItem('ap2_announcement_dismissed_v2')) {
         setTimeout(() => {
           const ap2Modal = document.getElementById('ap2Modal');
           if (ap2Modal) ap2Modal.classList.remove('hidden');
