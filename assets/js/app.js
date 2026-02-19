@@ -73,6 +73,13 @@ const app = {
         if (infoBox) infoBox.classList.add('hidden');
       }
 
+      if (!localStorage.getItem('ap2_announcement_dismissed')) {
+        setTimeout(() => {
+          const ap2Modal = document.getElementById('ap2Modal');
+          if (ap2Modal) ap2Modal.classList.remove('hidden');
+        }, 2000);
+      }
+
       const quoteEl = document.getElementById('motivationQuote');
       if (quoteEl)
         quoteEl.textContent = this.quotes[Math.floor(Math.random() * this.quotes.length)];
@@ -535,6 +542,12 @@ const app = {
 
   closeLegal() {
     document.getElementById('legalModal').classList.add('hidden');
+  },
+
+  closeAP2Modal() {
+    const modal = document.getElementById('ap2Modal');
+    if (modal) modal.classList.add('hidden');
+    localStorage.setItem('ap2_announcement_dismissed', 'true');
   },
 
   // --- RENDER ---
