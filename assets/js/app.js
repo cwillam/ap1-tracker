@@ -151,7 +151,7 @@ const app = {
 
   // --- TIMER ---
   updateCountdown() {
-    const target = new Date('2026-02-26T08:00:00');
+    const target = new Date('2026-02-25T08:00:00');
     const now = new Date();
     const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
     const el = document.getElementById('headerCountdown');
