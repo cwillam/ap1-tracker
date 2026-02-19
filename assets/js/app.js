@@ -547,6 +547,10 @@ const app = {
   closeAP2Modal() {
     const modal = document.getElementById('ap2Modal');
     if (modal) modal.classList.add('hidden');
+  },
+
+  dismissAP2Modal() {
+    this.closeAP2Modal();
     localStorage.setItem('ap2_announcement_dismissed_v2', 'true');
   },
 
