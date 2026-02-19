@@ -305,28 +305,16 @@
               </a>
             </p>
           </div>
-      <!-- Motivation Quote & Small Announcement -->
-      <div class="flex flex-col sm:flex-row gap-4 items-stretch no-print">
-        <!-- Motivation Quote (was part of infoBox before) -->
-        <div class="flex-1 bg-dark-card border border-dark-border rounded-xl p-4 flex items-center justify-center text-center">
-          <p class="text-xs text-dark-accent font-mono italic opacity-80" id="motivationQuote">
+          <p class="text-xs text-dark-accent mt-2 font-mono italic opacity-80" id="motivationQuote">
             „Code is poetry.“
           </p>
         </div>
-        
-        <!-- Small Announcement Box -->
-        <div class="flex-1 bg-gradient-to-br from-indigo-900/20 to-dark-card border border-indigo-500/30 rounded-xl p-4 flex items-center gap-4 group hover:border-indigo-500/50 transition-all">
-          <div class="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center shrink-0 border border-indigo-500/30">
-            <i class="fa-solid fa-bullhorn text-indigo-400 animate-pulse"></i>
-          </div>
-          <div class="flex flex-col gap-0.5">
-            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">News</span>
-            <p class="text-[11px] text-dark-text leading-tight">
-              <span class="font-bold">AP2 Tracker</span> (März) & <span class="font-bold">Lernzettel</span> (April) kommen!
-              <a href="updates.html" class="text-indigo-400 hover:underline ml-1">Details &rarr;</a>
-            </p>
-          </div>
-        </div>
+        <button
+          onclick="app.hideInfoBox()"
+          class="text-xs font-mono text-dark-muted hover:text-white bg-dark-bg/50 px-4 py-2 rounded border border-dark-border transition-colors whitespace-nowrap self-start md:self-center"
+        >
+          Verstanden & Ausblenden
+        </button>
       </div>
 
       <!-- Dashboard Grid -->
