@@ -1,26 +1,26 @@
 // ----------------------------------------------------------------------
 // DATEI: assets/js/data.js
-// INHALT: Lerninhalte AP1 Fachinformatiker - Finaler Abgleich Katalog 2025 + Historie
-// STATUS: 100% Katalog-Konform + Gewichtung (Prio) korrigiert nach Häufigkeits-Analyse
+// INHALT: Lerninhalte AP1 Fachinformatiker - Katalog 2025 (ZPA Nord-West)
+// STATUS: 100% Katalog-Konform (Fokus auf AP1 Punkte 01-07)
 // ----------------------------------------------------------------------
 
 window.AP1_DATA = [
   {
     id: 'LF1',
-    name: 'LF 1: Unternehmen & Umfeld',
-    desc: 'Rechtsformen, Organisation, Change Mgmt',
+    name: 'LF 1: Unternehmen & Prozesse',
+    desc: 'Markt, Organisation & Change Mgmt',
     topics: [
       {
         id: '1.1',
-        title: 'Rechtsformen & Strukturen',
+        title: 'Markt & Unternehmensziele',
         weight: 3,
         time: 90,
         sub: [
-          'GmbH & UG (Haftung, Gründung, Stammkapital)',
-          'KG & OHG (Unterschied Komplementär/Kommanditist)',
-          'AG (Organe: Vorstand, Aufsichtsrat, HV)',
-          'Gemeinnützige Vereine (e.V.) & Satzung',
-          'Genossenschaften (eG) Basics',
+          'Marktformen (Monopol, Oligopol, Polypol)',
+          'Käufer- vs. Verkäufermarkt',
+          'Zielgruppen (Definition & Abgrenzung)',
+          'Ökonomische Ziele (Umsatz, Gewinn)',
+          'Ökologische & Soziale Ziele (Nachhaltigkeit)',
         ],
       },
       {
@@ -29,61 +29,35 @@ window.AP1_DATA = [
         weight: 2,
         time: 60,
         sub: [
-          'Aufbau- vs. Prozessorganisation',
-          'Einlinien-, Mehrlinien-, Stabliniensystem',
+          'Einlinien- & Mehrliniensystem',
+          'Stabliniensystem',
           'Matrixorganisation (Vor-/Nachteile)',
-          'Prokura vs. Handlungsvollmacht (Art/Umfang)',
-          'Organigramme analysieren & erstellen',
+          'Spartenorganisation (Divisionale Struktur)',
+          'Prokura & Handlungsvollmacht (Basics)',
         ],
       },
       {
         id: '1.3',
         title: 'Vertragsrecht & Störungen',
-        weight: 5, // Erhöht: Kaufvertrag & Störungen sind Dauerbrenner
+        weight: 5,
         time: 90,
         sub: [
-          'Zustandekommen von Verträgen (Antrag/Annahme)',
-          'Kauf-, Werk-, Dienst-, Mietvertrag (Abgrenzung)',
-          'Nichtigkeit & Anfechtbarkeit von Rechtsgeschäften',
-          'Lieferungsverzug & Zahlungsverzug (Mahnung)',
-          'Mängelrechte (Nacherfüllung, Minderung, Rücktritt)',
+          'Kauf-, Miet-, Leasingvertrag (Abgrenzung)',
+          'Werk- vs. Dienstvertrag (Basics)',
+          'SLA (Service Level Agreement) Inhalte',
+          'Mängelarten (Schlecht-, Falsch-, Minderlieferung)',
+          'Verzug (Lieferungs- & Zahlungsverzug)',
         ],
       },
       {
         id: '1.4',
-        title: 'Arbeitswelt & Mitbestimmung',
-        weight: 2,
-        time: 45,
-        sub: [
-          'Arbeitsvertrag (Pflichten AN/AG)',
-          'Kündigungsschutz & Fristen',
-          'Betriebsrat (Mitbestimmungsrechte)',
-          'Jugendarbeitsschutzgesetz (JArbSchG)',
-          'Tarifvertragsarten (Mantel/Lohn)',
-        ],
-      },
-      {
-        id: '1.5',
-        title: 'Berufsbildung & Nachhaltigkeit',
-        weight: 2,
-        time: 45,
-        sub: [
-          'Rechte/Pflichten Azubi & Ausbilder (BBiG)',
-          'Duales System (Lernorte)',
-          'Green IT (Ressourceneffizienz, Recycling)',
-          'Ökonomische, Ökologische, Soziale Ziele',
-          'Lieferkettengesetz (Grundgedanke)',
-        ],
-      },
-      {
-        id: '1.6',
         title: 'Change Management',
         weight: 3,
         time: 60,
         sub: [
           'Phasen von Veränderungsprozessen',
           'Promoter, Bremser, Widerständler, Skeptiker',
-          'Ursachen für Widerstände (Angst, fehlendes Wissen)',
+          'Ursachen für Widerstände (Angst, Wissen)',
           'Maßnahmen: Kommunikation & Partizipation',
           'Blended Learning & Multiplikatoren',
         ],
@@ -98,27 +72,27 @@ window.AP1_DATA = [
       {
         id: '2.1',
         title: 'Beschaffungsprozesse',
-        weight: 4, // Nutzwertanalyse (8 Pkt im Ranking)
+        weight: 4,
         time: 90,
         sub: [
           'Nutzwertanalyse (Gewichtung & Berechnung)',
-          'ABC-Analyse (Klassifizierung A/B/C-Güter)',
           'Angebotsvergleich (Quantitativ/Qualitativ)',
-          'Make or Buy (Eigenfertigung vs. Fremdbezug)',
-          'Bestellpunkt-, Meldebestand & eiserner Bestand',
+          'Lastenheft vs. Pflichtenheft (Zweck/Inhalt)',
+          'Make or Buy (Grundüberlegung)',
+          'TCO (Total Cost of Ownership)',
         ],
       },
       {
         id: '2.2',
-        title: 'Finanzierung & Wirtschaft',
+        title: 'Kaufmännische Kalkulation',
         weight: 3,
         time: 60,
         sub: [
-          'Kauf vs. Leasing vs. Miete (Vorteile/Nachteile)',
-          'Rentabilität (Eigenkapital/Gesamtkapital)',
-          'Liquidität (Grades 1, 2, 3)',
-          'Skonto & Rabatt Berechnungen',
-          'TCO (Total Cost of Ownership)',
+          'Skonto- & Rabatt-Berechnungen',
+          'Brutto/Netto & Umsatzsteuer',
+          'Kostenvergleich (Leasing vs. Kauf)',
+          'Variable und fixe Kosten (Einführung)',
+          'Finanzierungskosten (Basics)',
         ],
       },
       {
@@ -127,11 +101,11 @@ window.AP1_DATA = [
         weight: 2,
         time: 45,
         sub: [
-          'Ergonomie (Tisch, Stuhl, Beleuchtung, 2-Sinne)',
-          'DGUV Vorschrift 3 (Elektrische Prüfung)',
+          'Ergonomie (Tisch, Stuhl, Beleuchtung)',
           'Barrierefreiheit am Arbeitsplatz',
-          'Entsorgung (ElektroG) & Datenschutz bei Entsorgung',
-          'Energielabels & Blauer Engel',
+          'Entsorgung (ElektroG & Datenschutz)',
+          'Energielabels & Gütesiegel (Blauer Engel)',
+          'Ressourceneffizienz im IT-Betrieb',
         ],
       },
     ],
@@ -144,7 +118,7 @@ window.AP1_DATA = [
       {
         id: '3.1',
         title: 'Hardware & Schnittstellen',
-        weight: 4, // Erhöht: USV (7 Pkt) ist sehr wichtig
+        weight: 4,
         time: 90,
         sub: [
           'CPU, RAM, Mainboard (Formfaktoren, Busse)',
@@ -157,7 +131,7 @@ window.AP1_DATA = [
       {
         id: '3.2',
         title: 'Netzwerktechnik (IPv4/IPv6)',
-        weight: 5, // Top Prio: Subnetting & IPv6
+        weight: 5,
         time: 120,
         sub: [
           'OSI-Modell (7 Schichten, PDU, Protokolle)',
@@ -170,7 +144,7 @@ window.AP1_DATA = [
       {
         id: '3.3',
         title: 'WLAN & VLAN',
-        weight: 4, // Erhöht: VLAN (7 Pkt)
+        weight: 4,
         time: 60,
         sub: [
           'WLAN Standards (Wi-Fi 5/6/7) & Frequenzen',
@@ -182,20 +156,20 @@ window.AP1_DATA = [
       {
         id: '3.4',
         title: 'Speicher & Backup',
-        weight: 4, // Erhöht: Datensicherung (10 Pkt!)
+        weight: 4,
         time: 60,
         sub: [
           'Backup: Voll, Differenziell, Inkrementell',
           'Generationenprinzip (Großvater-Vater-Sohn)',
           '3-2-1 Regel der Datensicherung',
-          'NAS (Network Attached Storage) vs. SAN (Basics)',
-          'Archivierungspflichten & GoBD',
+          'NAS (Network Attached Storage) zur Verfügbarkeit',
+          'Archivierungspflichten (Basics)',
         ],
       },
       {
         id: '3.5',
         title: 'IT-Berechnungen',
-        weight: 5, // KORRIGIERT: Top Prio (9 Pkt Ranking)
+        weight: 5,
         time: 60,
         sub: [
           'Übertragungsdauer (Größe / Geschwindigkeit)',
@@ -241,7 +215,7 @@ window.AP1_DATA = [
       {
         id: '4.3',
         title: 'Datenschutz (DSGVO)',
-        weight: 5, // KORRIGIERT: Absolute Top Prio (11 Pkt)
+        weight: 5,
         time: 90,
         sub: [
           'Personenbezogene vs. Besondere Daten',
@@ -261,7 +235,7 @@ window.AP1_DATA = [
       {
         id: '5.1',
         title: 'Projektmanagement',
-        weight: 5, // KORRIGIERT: Top Prio wegen Netzplan (9 Pkt)
+        weight: 5,
         time: 90,
         sub: [
           'Wasserfallmodell vs. Scrum (Rollen, Artefakte)',
@@ -280,7 +254,7 @@ window.AP1_DATA = [
           'ERP (Enterprise Resource Planning)',
           'CRM (Customer Relationship Management)',
           'SCM (Supply Chain Management)',
-          'Künstliche Intelligenz (Machine vs. Deep Learning)',
+          'Künstliche Intelligenz (Unterstützung)',
           'Social Media & Barrierefreiheit (BITV)',
         ],
       },
@@ -345,7 +319,7 @@ window.AP1_DATA = [
       {
         id: '6.2',
         title: 'IT-Sicherheit (Concepts)',
-        weight: 5, // Top Prio
+        weight: 5,
         time: 120,
         sub: [
           'Schutzziele (CIA): Vertraulichkeit, Integrität, Verfügbarkeit',
