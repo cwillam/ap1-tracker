@@ -1,11 +1,11 @@
 # 🚀 AP1 Tracker - Dein Lernbegleiter
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap1-tracker)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
 
-> **Ein moderner, lokaler Fortschritts-Tracker für die Fachinformatiker Abschlussprüfung Teil 1.** > Keine Anmeldung. Kein Tracking. Deine Daten gehören dir.
+> **Ein moderner, lokaler Fortschritts-Tracker für die Fachinformatiker Abschlussprüfung Teil 1.**  Keine Anmeldung. Kein Tracking. Deine Daten gehören dir.
 
 ---
 
