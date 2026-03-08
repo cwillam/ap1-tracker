@@ -9,13 +9,33 @@
       content="AP1 Tracker - Der kostenlose, lokale Lernbegleiter für Fachinformatiker zur Abschlussprüfung Teil 1."
     />
     <meta name="author" content="Christoph Willam" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ap1.cwillam.de" />
     <meta property="og:title" content="AP1 Tracker | Dein Lernbegleiter" />
     <meta
       property="og:description"
       content="Kostenlos, ohne Anmeldung, alles lokal. Bereite dich strukturiert auf die FI-Abschlussprüfung Teil 1 vor."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ap1.cwillam.de" />
+    <meta property="og:image" content="https://ap1.cwillam.de/assets/img/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ap1.cwillam.de" />
+    <meta property="twitter:title" content="AP1 Tracker | Dein Lernbegleiter" />
+    <meta
+      property="twitter:description"
+      content="Kostenlos, ohne Anmeldung, alles lokal. Bereite dich strukturiert auf die FI-Abschlussprüfung Teil 1 vor."
+    />
+    <meta property="twitter:image" content="https://ap1.cwillam.de/assets/img/og-image.png" />
+
     <meta name="robots" content="index, follow" />
 
     <title>AP1 Tracker | cwillam</title>
@@ -68,6 +88,9 @@
             },
             animation: {
               'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            screens: {
+              xs: '400px',
             },
           },
         },
@@ -126,10 +149,10 @@
             
             <div class="text-dark-muted leading-relaxed mb-6 space-y-4 text-sm text-left sm:text-center">
               <p>
-                Der <span class="text-white font-bold">AP2 Tracker</span> für Anwendungsentwickler ist aktuell im Bau (Release Mitte März).
+                Die <span class="text-white font-bold">AP2 Tracker</span> für FIAE und FISI sind ab sofort einsatzbereit!
               </p>
               <p>
-                Zusätzlich kommen ab April <span class="text-white font-bold">exklusive Lernzettel</span> für die AP1 (Diagramme, IHK-Tipps, Fragen & Antworten) direkt auf diese Seite!
+                In Zukunft kommen zusätzlich <span class="text-white font-bold">exklusive Lernzettel</span> für die AP1 (Diagramme, IHK-Tipps, Fragen & Antworten) direkt auf diese Seite!
               </p>
               <p class="pt-2 italic border-t border-dark-border/50 text-xs">
                 Alles bleibt natürlich weiterhin <span class="text-dark-success font-bold">100% kostenlos</span>. Über eine kleine freiwillige Unterstützung für Serverkosten und den Aufwand freue ich mich aber sehr. ☕
@@ -147,7 +170,7 @@
               <span class="text-[10px] font-bold text-dark-muted uppercase tracking-widest block">Andere Tracker</span>
               <div class="grid grid-cols-2 gap-2">
                 <!-- Link zu FIAE -->
-                <a href="https://ap2-fiae.cwillam.de" target="_blank" class="flex items-center gap-2 p-2 rounded-lg bg-dark-card border border-dark-border hover:border-dark-accent transition-all group">
+                <a href="https://ap2.cwillam.de" target="_blank" class="flex items-center gap-2 p-2 rounded-lg bg-dark-card border border-dark-border hover:border-dark-accent transition-all group">
                   <div class="w-2 h-2 rounded-full bg-dark-accent group-hover:animate-pulse"></div>
                   <span class="text-xs font-bold text-white text-left">FIAE Edition (AP2)</span>
                 </a>
@@ -216,7 +239,7 @@
         <div class="flex justify-between h-16 items-center">
           <!-- Logo & Titel -->
           <div
-            class="flex items-center gap-2 sm:gap-3 cursor-pointer group"
+            class="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
             onclick="window.scrollTo({top:0, behavior:'smooth'})"
           >
             <div
@@ -227,7 +250,7 @@
             <div class="flex flex-col">
               <h1 class="font-bold text-base sm:text-lg leading-none text-white tracking-tight text-nowrap">
                 AP1 <span class="text-dark-accent">Tracker</span>
-                <span class="ml-0.5 text-[9px] bg-dark-accent/20 text-dark-accent px-1 py-0.5 rounded border border-dark-accent/30">CORE</span>
+                <span class="hidden xs:inline-block ml-0.5 text-[9px] bg-dark-accent/20 text-dark-accent px-1 py-0.5 rounded border border-dark-accent/30">CORE</span>
               </h1>
               <div class="hidden sm:flex items-center gap-2 mt-0.5">
                 <span class="text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
@@ -237,7 +260,7 @@
           </div>
 
           <!-- Action Buttons -->
-          <div class="flex items-center gap-0.5 sm:gap-2">
+          <div class="flex items-center gap-1 sm:gap-2">
             <!-- Countdown (Desktop only) -->
             <div class="hidden lg:flex flex-col items-end mr-4">
               <span class="text-[10px] font-mono text-dark-muted uppercase">Prüfung: vorauss. 30.09.2026</span>
@@ -249,7 +272,7 @@
             <!-- Update Button (Glocke) -->
             <a
               href="updates.html"
-              class="p-2 text-dark-muted hover:text-white transition-all"
+              class="p-1.5 sm:p-2 text-dark-muted hover:text-white transition-all"
               title="Updates"
             >
               <div class="relative">
@@ -265,19 +288,19 @@
             <a
               href="https://buymeacoffee.com/cwillam"
               target="_blank"
-              class="p-2 text-dark-muted hover:text-[#FFDD00] transition-transform"
+              class="p-1.5 sm:p-2 text-dark-muted hover:text-[#FFDD00] transition-transform"
               title="Support"
             >
               <i class="fa-solid fa-mug-hot text-xs sm:text-sm"></i>
             </a>
 
             <!-- Trenner -->
-            <div class="h-4 w-px bg-dark-border mx-1"></div>
+            <div class="h-4 w-px bg-dark-border mx-0.5 sm:mx-1"></div>
 
             <!-- Export -->
             <button
               onclick="app.exportData()"
-              class="p-2 text-dark-muted hover:text-white transition-colors"
+              class="p-1.5 sm:p-2 text-dark-muted hover:text-white transition-colors"
               title="Backup speichern"
             >
               <i class="fa-solid fa-download text-xs sm:text-sm"></i>
@@ -286,7 +309,7 @@
             <!-- Import -->
             <button
               onclick="document.getElementById('importFile').click()"
-              class="p-2 text-dark-muted hover:text-white transition-colors"
+              class="p-1.5 sm:p-2 text-dark-muted hover:text-white transition-colors"
               title="Backup laden"
             >
               <i class="fa-solid fa-upload text-xs sm:text-sm"></i>
@@ -296,7 +319,7 @@
             <!-- Reset -->
             <button
               onclick="app.resetData()"
-              class="p-2 text-dark-muted hover:text-dark-danger transition-colors"
+              class="p-1.5 sm:p-2 text-dark-muted hover:text-dark-danger transition-colors"
               title="Alles zurücksetzen"
             >
               <i class="fa-solid fa-trash-can text-xs sm:text-sm"></i>
