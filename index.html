@@ -136,10 +136,27 @@
               </p>
             </div>
             
-            <div class="bg-dark-bg/50 rounded-xl p-4 border border-dark-border mb-8">
+            <div class="bg-dark-bg/50 rounded-xl p-4 border border-dark-border mb-6">
               <p class="text-xs font-mono text-dark-muted">
                 Kein Zwang, nur eine Option. Danke für deinen Support!
               </p>
+            </div>
+
+            <!-- Andere Tracker Section -->
+            <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-3 space-y-2 mb-6">
+              <span class="text-[10px] font-bold text-dark-muted uppercase tracking-widest block">Andere Tracker</span>
+              <div class="grid grid-cols-2 gap-2">
+                <!-- Link zu FIAE -->
+                <a href="https://ap2-fiae.cwillam.de" target="_blank" class="flex items-center gap-2 p-2 rounded-lg bg-dark-card border border-dark-border hover:border-dark-accent transition-all group">
+                  <div class="w-2 h-2 rounded-full bg-dark-accent group-hover:animate-pulse"></div>
+                  <span class="text-xs font-bold text-white text-left">FIAE Edition (AP2)</span>
+                </a>
+                <!-- Link zu FISI -->
+                <a href="https://ap2-fisi.cwillam.de" target="_blank" class="flex items-center gap-2 p-2 rounded-lg bg-dark-card border border-dark-border hover:border-dark-accent transition-all group">
+                  <div class="w-2 h-2 rounded-full bg-dark-success group-hover:animate-pulse"></div>
+                  <span class="text-xs font-bold text-white text-left">FISI Edition (AP2)</span>
+                </a>
+              </div>
             </div>
 
             <div class="flex flex-col gap-3">
@@ -197,83 +214,92 @@
     <nav class="glass-header sticky top-0 z-50 no-print">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
+          <!-- Logo & Titel -->
           <div
-            class="flex items-center gap-3 cursor-pointer group"
+            class="flex items-center gap-2 sm:gap-3 cursor-pointer group"
             onclick="window.scrollTo({top:0, behavior:'smooth'})"
           >
             <div
-              class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-glow transition-transform group-hover:scale-105"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-glow transition-transform group-hover:scale-105 shrink-0"
             >
-              <i class="fa-solid fa-code text-white"></i>
+              <i class="fa-solid fa-code text-white text-sm sm:text-base"></i>
             </div>
             <div class="flex flex-col">
-              <h1 class="font-bold text-lg leading-none text-white tracking-tight">
+              <h1 class="font-bold text-base sm:text-lg leading-none text-white tracking-tight text-nowrap">
                 AP1 <span class="text-dark-accent">Tracker</span>
+                <span class="ml-0.5 text-[9px] bg-dark-accent/20 text-dark-accent px-1 py-0.5 rounded border border-dark-accent/30">CORE</span>
               </h1>
-              <span class="text-[10px] font-mono text-dark-muted mt-0.5">by cwillam</span>
+              <div class="hidden sm:flex items-center gap-2 mt-0.5">
+                <span class="text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
+                <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v2.1</span>
+              </div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 sm:gap-4">
+          <!-- Action Buttons -->
+          <div class="flex items-center gap-0.5 sm:gap-2">
+            <!-- Countdown (Desktop only) -->
             <div class="hidden lg:flex flex-col items-end mr-4">
-              <span class="text-[10px] font-mono text-dark-muted uppercase"
-                >Prüfung: vorauss. 30.09.2026</span
-              >
+              <span class="text-[10px] font-mono text-dark-muted uppercase">Prüfung: vorauss. 30.09.2026</span>
               <span class="text-sm font-bold text-white font-mono">
                 <span id="headerCountdown" class="text-dark-accent">--</span> Tage
               </span>
             </div>
 
-            <!-- Update Button (Desktop only) -->
+            <!-- Update Button (Glocke) -->
             <a
               href="updates.html"
-              class="hidden md:flex mr-4 group items-center gap-2 px-3 py-1.5 rounded-full bg-dark-card border border-dark-border hover:border-dark-accent transition-all"
+              class="p-2 text-dark-muted hover:text-white transition-all"
+              title="Updates"
             >
-              <div class="relative flex h-2 w-2">
-                <span
-                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
-                ></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              <div class="relative">
+                <i class="fa-solid fa-bell text-xs sm:text-sm"></i>
+                <span class="absolute -top-1 -right-1 flex h-1.5 w-1.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dark-accent opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dark-accent"></span>
+                </span>
               </div>
-              <span
-                class="text-xs font-bold text-dark-muted group-hover:text-white transition-colors"
-                >Updates</span
-              >
             </a>
 
+            <!-- Support -->
             <a
               href="https://buymeacoffee.com/cwillam"
               target="_blank"
-              class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#FFDD00] text-black hover:scale-110 transition-transform shadow-lg"
-              title="Spendier mir einen Kaffee ☕"
+              class="p-2 text-dark-muted hover:text-[#FFDD00] transition-transform"
+              title="Support"
             >
-              <i class="fa-solid fa-mug-hot"></i>
+              <i class="fa-solid fa-mug-hot text-xs sm:text-sm"></i>
             </a>
 
-            <div class="h-6 w-px bg-dark-border hidden md:block"></div>
+            <!-- Trenner -->
+            <div class="h-4 w-px bg-dark-border mx-1"></div>
 
+            <!-- Export -->
             <button
               onclick="app.exportData()"
-              class="p-2 text-dark-muted hover:text-white hover:bg-dark-border/50 rounded-lg transition-colors"
+              class="p-2 text-dark-muted hover:text-white transition-colors"
               title="Backup speichern"
             >
-              <i class="fa-solid fa-download"></i>
+              <i class="fa-solid fa-download text-xs sm:text-sm"></i>
             </button>
+
+            <!-- Import -->
             <button
               onclick="document.getElementById('importFile').click()"
-              class="p-2 text-dark-muted hover:text-white hover:bg-dark-border/50 rounded-lg transition-colors"
+              class="p-2 text-dark-muted hover:text-white transition-colors"
               title="Backup laden"
             >
-              <i class="fa-solid fa-upload"></i>
+              <i class="fa-solid fa-upload text-xs sm:text-sm"></i>
             </button>
             <input type="file" id="importFile" class="hidden" onchange="app.importData(this)" />
 
+            <!-- Reset -->
             <button
               onclick="app.resetData()"
-              class="p-2 text-dark-muted hover:text-dark-danger hover:bg-dark-danger/10 rounded-lg transition-colors"
+              class="p-2 text-dark-muted hover:text-dark-danger transition-colors"
               title="Alles zurücksetzen"
             >
-              <i class="fa-solid fa-trash-can"></i>
+              <i class="fa-solid fa-trash-can text-xs sm:text-sm"></i>
             </button>
           </div>
         </div>
