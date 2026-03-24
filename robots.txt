@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ap1.cwillam.de/sitemap.xml
