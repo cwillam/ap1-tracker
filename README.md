@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.0.1-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > **Ein moderner, lokaler Fortschritts-Tracker für die Fachinformatiker Abschlussprüfung Teil 1.**  Keine Anmeldung. Kein Tracking. Deine Daten gehören dir.
 
@@ -21,7 +22,7 @@ Das Projekt ist live und einsatzbereit gehostet:
 
 Der **AP1 Tracker** wurde entwickelt, um Fachinformatikern eine strukturierte Übersicht über die Lerninhalte der Abschlussprüfung Teil 1 zu geben.
 
-Das Ziel war eine **„Offline-First“ Web-App**, die sich wie eine native Anwendung anfühlt, aber komplett im Browser läuft. Der Fokus lag auf sauberem Code, Performance und maximalem Datenschutz.
+Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwendung anfühlt, aber komplett im Browser läuft. Der Fokus lag auf sauberem Code, Performance und maximalem Datenschutz.
 
 ### ✨ Features
 
@@ -31,6 +32,8 @@ Das Ziel war eine **„Offline-First“ Web-App**, die sich wie eine native Anwe
 - **Smart Search:** Echtzeit-Filterung und direkte Google-Suche für Themen.
 - **Responsive Design:** Optimiert für Desktop und Mobile (Tailwind CSS).
 - **Import/Export:** JSON-basierte Backup-Funktion der eigenen Daten.
+- **Lernkarten:** 1.228 Karten für alle 27 Themen (Anki-Style mit Strategie-Modus).
+- **Safety-Fixes:** Import-Validierung, Storage-Monitoring, Corrupt-Data-Protection.
 
 ---
 
@@ -56,6 +59,23 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 1.  **Keine Cookies:** Es werden keine Tracking-Cookies gesetzt.
 2.  **Keine externen Requests:** Alle Bibliotheken (Tailwind, FontAwesome, JS) liegen lokal auf dem Server. Es fließen keine Daten an Google-Server oder CDNs (USA).
 3.  **Local Data:** Alle User-Eingaben bleiben auf dem Endgerät des Nutzers.
+
+---
+
+## 📝 Changelog
+
+### v2.0.1 (24. März 2026)
+- ✅ **Lernkarten-System:** 1.228 Karten für alle 27 Themen (optimiert für AP1)
+- ✅ **Safety-Fixes:** Import-Validierung, Storage-Monitoring, Corrupt-Data-Protection
+- ✅ **Smart Focus 2.0:** Intelligente Empfehlung (Gewicht + Fortschritt + Reps)
+- ✅ **Firefox-Fix:** Lernkarten-Button jetzt in allen Browsern klickbar
+- ✅ **Modal:** Full-Screen Design (Strategie-Modus + Freies Training)
+- ✅ **Optimiert:** Pseudocode-Fragen, Diagramm-Fragen, Verständnis-Fragen
+
+### v1.3 (05. März 2026)
+- AP1 Themen bereinigt (SQL, RAID, SAN, Rechtsformen entfernt)
+- Prüfungs-Timer auf Herbst 2026 (30.09.) aktualisiert
+- Kaufmännische Basics & Marktformen präzisiert
 
 ---
 

@@ -20,6 +20,214 @@ const app = {
   timerRunning: false,
   timeLeft: 1500,
   searchQuery: '',
+  _quotaWarningShown: false,
+  _saveError: null,
+
+  // Anki/Lernkarten System (wie AP2-Tracker)
+  anki: {
+    currentTopicId: null,
+    cards: [],
+    currentIndex: 0,
+    mode: 'manual', // 'manual' oder 'spaced'
+
+    open(topicId) {
+      // Debug-Log für Fehlersuche (Browser-Kompatibilität)
+      console.log('[AP1] 🎴 Opening Anki for topic:', topicId);
+      console.log('[AP1] 📚 Cards available:', window.ANKI_QUESTIONS?.[topicId]?.length || 0);
+
+      const allQuestions = window.ANKI_QUESTIONS || {};
+      this.cards = allQuestions[topicId] || [];
+      if (this.cards.length === 0) {
+        console.warn('[AP1] ⚠️ No cards found for topic:', topicId);
+        app.showNotification(
+          'Keine Lernkarten',
+          `Für Topic ${topicId} sind noch keine Karten verfügbar.`,
+          'info'
+        );
+        return;
+      }
+
+      this.currentTopicId = topicId;
+
+      const topic = app.findTopic(topicId);
+      document.getElementById('ankiTopicTitle').textContent = topic ? topic.title : 'Lernkarten';
+
+      // Statistiken laden
+      if (!app.state.ankiStats) app.state.ankiStats = {};
+      const stats = app.state.ankiStats[topicId] || { total: 0, correct: 0, sessions: 0 };
+
+      const statsContainer = document.getElementById('ankiTopicStats');
+      if (statsContainer) {
+        if (stats.total > 0) {
+          const accuracy = Math.round((stats.correct / stats.total) * 100);
+          statsContainer.innerHTML = `
+            <div class="flex items-center justify-center gap-6 mt-4 p-3 bg-dark-bg/50 rounded-xl border border-dark-border/50">
+              <div class="text-center">
+                <span class="block text-[10px] text-dark-muted uppercase font-bold">Gelernt</span>
+                <span class="text-sm font-bold text-white">${stats.total} Karten</span>
+              </div>
+              <div class="w-px h-6 bg-dark-border"></div>
+              <div class="text-center">
+                <span class="block text-[10px] text-dark-muted uppercase font-bold">Quote</span>
+                <span class="text-sm font-bold text-dark-success">${accuracy}%</span>
+              </div>
+              <div class="w-px h-6 bg-dark-border"></div>
+              <div class="text-center">
+                <span class="block text-[10px] text-dark-muted uppercase font-bold">Sessions</span>
+                <span class="text-sm font-bold text-dark-accent">${stats.sessions}x</span>
+              </div>
+            </div>
+          `;
+          statsContainer.classList.remove('hidden');
+        } else {
+          statsContainer.classList.add('hidden');
+        }
+      }
+
+      // Reset Views
+      document.getElementById('ankiModeView').classList.remove('hidden');
+      document.getElementById('ankiQuestionView').classList.add('hidden');
+      document.getElementById('ankiAnswerView').classList.add('hidden');
+      document.getElementById('ankiFinishView').classList.add('hidden');
+      document.getElementById('ankiModeBadge').classList.add('hidden');
+      document.getElementById('ankiProgress').style.width = '0%';
+
+      const modal = document.getElementById('ankiModal');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    },
+
+    start(mode) {
+      this.mode = mode;
+      this.currentIndex = 0;
+
+      // Global Stats tracken (Session zählt ab Start)
+      if (!app.state.ankiStats) app.state.ankiStats = {};
+      if (!app.state.ankiStats[this.currentTopicId]) {
+        app.state.ankiStats[this.currentTopicId] = { total: 0, correct: 0, sessions: 0 };
+      }
+      app.state.ankiStats[this.currentTopicId].sessions++;
+      app.save();
+      app.updateStats(); // UI sofort aktualisieren
+
+      // Karten für diese Session mischen (Fisher-Yates Shuffle)
+      const shuffled = [...this.cards];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      this.cards = shuffled;
+
+      const badge = document.getElementById('ankiModeBadge');
+      badge.classList.remove('hidden');
+      if (mode === 'spaced') {
+        badge.innerHTML = '<i class="fa-solid fa-brain mr-1"></i> Strategie-Modus';
+        badge.className = 'text-[9px] font-bold uppercase tracking-widest text-dark-accent';
+      } else {
+        badge.innerHTML = '<i class="fa-solid fa-dumbbell mr-1"></i> Freies Training';
+        badge.className = 'text-[9px] font-bold uppercase tracking-widest text-dark-warning';
+      }
+
+      document.getElementById('ankiModeView').classList.add('hidden');
+      document.getElementById('ankiQuestionView').classList.remove('hidden');
+      this.showCard();
+    },
+
+    showCard() {
+      const card = this.cards[this.currentIndex];
+      const progress = (this.currentIndex / this.cards.length) * 100;
+
+      document.getElementById('ankiProgress').style.width = `${progress}%`;
+      document.getElementById('ankiCardCounter').textContent = `Karte ${this.currentIndex + 1} von ${this.cards.length}`;
+      document.getElementById('ankiQuestionText').textContent = card.q;
+      document.getElementById('ankiAnswerText').textContent = card.a;
+
+      document.getElementById('ankiQuestionView').classList.remove('hidden');
+      document.getElementById('ankiAnswerView').classList.add('hidden');
+    },
+
+    showAnswer() {
+      document.getElementById('ankiQuestionView').classList.add('hidden');
+      document.getElementById('ankiAnswerView').classList.remove('hidden');
+    },
+
+    next(isCorrect) {
+      // Global Stats tracken
+      if (!app.state.ankiStats) app.state.ankiStats = {};
+      if (!app.state.ankiStats[this.currentTopicId]) {
+        app.state.ankiStats[this.currentTopicId] = { total: 0, correct: 0, sessions: 0 };
+      }
+      const gStats = app.state.ankiStats[this.currentTopicId];
+      gStats.total++;
+      if (isCorrect) gStats.correct++;
+
+      // Im freien Training markieren wir neue Karten als gelernt (Stufe 1)
+      if (isCorrect && this.mode !== 'spaced') {
+        if (!app.state.anki) app.state.anki = {};
+        const cardId = this.cards[this.currentIndex].id;
+        if (!app.state.anki[cardId]) {
+          app.state.anki[cardId] = { level: 1, nextReview: Date.now() + 86400000 };
+        }
+      }
+
+      if (this.mode === 'spaced') {
+        this.updateCardLevel(this.cards[this.currentIndex].id, isCorrect);
+      }
+
+      this.currentIndex++;
+      if (this.currentIndex < this.cards.length) {
+        this.showCard();
+      } else {
+        this.showFinish();
+      }
+      app.save();
+    },
+
+    updateCardLevel(cardId, isCorrect) {
+      if (!app.state.anki) app.state.anki = {};
+      if (!app.state.anki[cardId]) {
+        app.state.anki[cardId] = { level: 0, nextReview: 0 };
+      }
+
+      const cardData = app.state.anki[cardId];
+      if (isCorrect) {
+        cardData.level = Math.min(cardData.level + 1, 5);
+      } else {
+        cardData.level = 1; // Zurück auf Stufe 1 bei Fehler
+      }
+
+      // Intervalle in Tagen: 1, 3, 7, 14, 30
+      const intervals = [0, 1, 3, 7, 14, 30];
+      const daysToAdd = intervals[cardData.level] || 1;
+
+      const nextDate = new Date();
+      nextDate.setDate(nextDate.getDate() + daysToAdd);
+      cardData.nextReview = nextDate.getTime();
+
+      app.save();
+    },
+
+    showFinish() {
+      document.getElementById('ankiProgress').style.width = '100%';
+      document.getElementById('ankiAnswerView').classList.add('hidden');
+      document.getElementById('ankiFinishView').classList.remove('hidden');
+
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#0ea5e9', '#10b981']
+        });
+      }
+    },
+
+    close() {
+      const modal = document.getElementById('ankiModal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  },
 
   quotes: [
     '„Jede Zeile Code ist ein Schritt zur Meisterschaft.“',
@@ -66,9 +274,36 @@ const app = {
     try {
       // WICHTIG: Nutzt deinen existierenden State-Key, damit Daten nicht verloren gehen
       const s = localStorage.getItem('ap1_dark_state_v1');
-      if (s) this.state = JSON.parse(s);
+      if (s) {
+        try {
+          this.state = JSON.parse(s);
+          console.log('[AP1] State geladen:', this._getStateSummary());
+        } catch (parseErr) {
+          console.error('[AP1] Corrupt LocalStorage data:', parseErr);
+          const corruptData = s.substring(0, 100);
+          console.error('[AP1] Corrupt data preview:', corruptData);
 
-      if (localStorage.getItem('ap1_infobox_dismissed')) {
+          if (confirm(
+            'Deine gespeicherten Daten sind beschädigt. \n\n' +
+            'Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n' +
+            'Klicke "Abbrechen" um die Seite im Debug-Modus zu öffnen.'
+          )) {
+            localStorage.removeItem('ap1_dark_state_v1');
+            location.reload();
+          } else {
+            // Debug-Modus: leeren State verwenden
+            this.state = {};
+            this.showNotification(
+              'Daten korrupt',
+              'Bitte Export machen und Support kontaktieren.',
+              'error',
+              0
+            );
+          }
+        }
+      }
+
+      if (localStorage.getItem('ap1_infobox_dismissed_v2')) {
         const infoBox = document.getElementById('infoBox');
         if (infoBox) infoBox.classList.add('hidden');
       }
@@ -96,19 +331,98 @@ const app = {
   },
 
   // --- SAVE & STATE ---
-  save() {
+  save(silent = false) {
     try {
-      localStorage.setItem('ap1_dark_state_v1', JSON.stringify(this.state));
+      const serialized = JSON.stringify(this.state);
+      const size = new Blob([serialized]).size;
+
+      // Warnung bei >80% Auslastung (ca. 4 MB von 5 MB Limit)
+      if (size > 4 * 1024 * 1024 && !this._quotaWarningShown) {
+        this._quotaWarningShown = true;
+        console.warn('[AP1] LocalStorage bei 80% - bitte Export machen!');
+        if (!silent) {
+          this.showNotification(
+            'Speicher fast voll',
+            'Bitte mach einen Export, um deine Daten zu sichern.',
+            'warning'
+          );
+        }
+      }
+
+      localStorage.setItem('ap1_dark_state_v1', serialized);
+      this._saveError = null;
     } catch (e) {
-      console.error('Storage quota exceeded or error', e);
+      this._saveError = e;
+      console.error('[AP1] Save failed:', e.name, e.message);
+
+      if (e.name === 'QuotaExceededError') {
+        if (!silent) {
+          this.showNotification(
+            'Speicher voll!',
+            'Bitte Export machen und alte Daten löschen.',
+            'error',
+            0 // Kein Auto-Close
+          );
+        }
+      }
     }
     this.updateStats();
+  },
+
+  showNotification(title, message, type = 'info', duration = 5000) {
+    const colors = {
+      info: 'bg-dark-accent',
+      success: 'bg-dark-success',
+      warning: 'bg-dark-warning',
+      error: 'bg-dark-danger'
+    };
+    const icons = {
+      info: 'fa-info-circle',
+      success: 'fa-check-circle',
+      warning: 'fa-exclamation-triangle',
+      error: 'fa-times-circle'
+    };
+
+    const existing = document.getElementById('appNotification');
+    if (existing) existing.remove();
+
+    const notification = document.createElement('div');
+    notification.id = 'appNotification';
+    notification.className = `fixed top-20 right-4 z-[100] ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl max-w-sm animate-in fade-in slide-in-from-top-2`;
+    notification.innerHTML = `
+      <div class="flex items-start gap-3">
+        <i class="fa-solid ${icons[type]} text-lg mt-0.5"></i>
+        <div class="flex-1">
+          <p class="font-bold text-sm">${title}</p>
+          <p class="text-xs opacity-90 mt-1">${message}</p>
+        </div>
+        <button onclick="this.parentElement.parentElement.remove()" class="opacity-70 hover:opacity-100">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    if (duration > 0) {
+      setTimeout(() => notification.remove(), duration);
+    }
+  },
+
+  /**
+   * Gibt eine Zusammenfassung des States für Debug-Zwecke zurück
+   */
+  _getStateSummary() {
+    const summary = { keys: Object.keys(this.state).length };
+    if (this.state.activity) summary.activityDays = Object.keys(this.state.activity).length;
+    if (this.state.ankiStats) summary.ankiTopics = Object.keys(this.state.ankiStats).length;
+    return summary;
   },
 
   hideInfoBox() {
     const el = document.getElementById('infoBox');
     if (el) el.remove();
-    localStorage.setItem('ap1_infobox_dismissed', 'true');
+    localStorage.setItem('ap1_infobox_dismissed_v2', 'true');
   },
 
   getState(id) {
@@ -119,6 +433,7 @@ const app = {
         stars: 0,
         reps: [false, false, false],
         last: null,
+        ankiStats: { sessions: 0, lastSession: null },
       };
     return this.state[id];
   },
@@ -229,27 +544,194 @@ const app = {
     linkElement.click();
   },
 
+  /**
+   * Validiert die Struktur eines importierten State-Objekts
+   */
+  validateImport(data) {
+    // 1. Typ-Check
+    if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+      return { valid: false, error: 'Ungültiges Format: Erwartet wird ein JSON-Objekt.' };
+    }
+
+    // 2. Minimale Struktur-Checks
+    const requiredKeys = ['activity'];
+    for (const key of requiredKeys) {
+      if (!(key in data)) {
+        return { valid: false, error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.` };
+      }
+    }
+
+    // 3. Größen-Check (max 5 MB = LocalStorage Limit)
+    const size = new Blob([JSON.stringify(data)]).size;
+    if (size > 5 * 1024 * 1024) {
+      return { valid: false, error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)` };
+    }
+
+    // 4. Versions-Erkennung
+    const version = data._version || 'v1';
+    const supportedVersions = ['v1', 'v2'];
+
+    if (!supportedVersions.includes(version)) {
+      return {
+        valid: false,
+        error: `Unbekannte Version: "${version}". Bitte Tracker aktualisieren.`,
+        needsMigration: true
+      };
+    }
+
+    // 5. Plausibilitäts-Check
+    if (data.activity && typeof data.activity !== 'object') {
+      return { valid: false, error: 'Feld "activity" muss ein Objekt sein.' };
+    }
+
+    if (data.ankiStats && typeof data.ankiStats !== 'object') {
+      return { valid: false, error: 'Feld "ankiStats" muss ein Objekt sein.' };
+    }
+
+    return { valid: true, version };
+  },
+
+  /**
+   * Führt Migrationen zwischen verschiedenen State-Versionen durch
+   */
+  migrateState(data) {
+    const currentVersion = data._version || 'v1';
+    let migrated = { ...data };
+
+    // Beispiel für zukünftige Migrationen:
+    // if (currentVersion === 'v1') {
+    //   migrated = { ...migrated, newField: defaultValue };
+    //   migrated._version = 'v2';
+    // }
+
+    if (!migrated._version) {
+      migrated._version = 'v1';
+    }
+
+    console.log(`[AP1] Migration: ${currentVersion} -> ${migrated._version}`);
+    return migrated;
+  },
+
   importData(input) {
     const file = input.files[0];
     if (!file) return;
+
+    // Reset input damit gleiche Datei erneut gewählt werden kann
+    input.value = '';
+
+    // Größen-Check vor dem Lesen (max 10 MB Raw-Datei)
+    if (file.size > 10 * 1024 * 1024) {
+      this.showNotification(
+        'Datei zu groß',
+        `Maximale Größe: 10 MB. Deine Datei: ${(file.size / 1024 / 1024).toFixed(2)} MB`,
+        'error'
+      );
+      return;
+    }
+
     const reader = new FileReader();
+
+    reader.onerror = () => {
+      console.error('[AP1] File read error:', reader.error);
+      this.showNotification('Lesefehler', 'Die Datei konnte nicht gelesen werden.', 'error');
+    };
+
     reader.onload = (e) => {
+      const content = e.target.result;
+
+      // 1. JSON parsen
+      let parsed;
       try {
-        this.state = JSON.parse(e.target.result);
-        this.save();
-        alert('Backup erfolgreich geladen!');
-        location.reload();
+        parsed = JSON.parse(content);
       } catch (err) {
-        alert('Fehler beim Laden der Datei. Format ungültig.');
+        console.error('[AP1] JSON parse error:', err);
+        this.showNotification(
+          'Ungültiges JSON',
+          'Die Datei ist kein gültiges JSON-Format.',
+          'error'
+        );
+        return;
+      }
+
+      // 2. Struktur validieren
+      const validation = this.validateImport(parsed);
+      if (!validation.valid) {
+        console.error('[AP1] Validation failed:', validation.error);
+        this.showNotification('Import fehlgeschlagen', validation.error, 'error', 0);
+        return;
+      }
+
+      // 3. Migration durchführen (falls nötig)
+      const migrated = this.migrateState(parsed);
+
+      // 4. State ersetzen und speichern
+      const oldState = this.state;
+      this.state = migrated;
+
+      try {
+        this.save();
+
+        // 5. Erfolg melden
+        const stats = this.getImportStats(migrated);
+        this.showNotification(
+          'Import erfolgreich',
+          `Lade Fortschritt: ${stats.topics} Themen, ${stats.cards} Karten${stats.days ? `, ${stats.days} Tage Aktivität` : ''}`,
+          'success'
+        );
+
+        // 6. Reload nach kurzer Verzögerung
+        setTimeout(() => location.reload(), 1500);
+      } catch (err) {
+        console.error('[AP1] Import save failed:', err);
+        // Rollback bei Save-Fehler
+        this.state = oldState;
+        this.showNotification(
+          'Speicherfehler',
+          'Import erfolgreich validiert, aber Speicher voll. Bitte erst Export machen.',
+          'error',
+          0
+        );
       }
     };
+
     reader.readAsText(file);
+  },
+
+  /**
+   * Extrahiert Statistik-Infos aus importiertem State für User-Feedback
+   */
+  getImportStats(state) {
+    const stats = { topics: 0, cards: 0, days: 0 };
+
+    // Gezählte Topics
+    if (state) {
+      Object.keys(state).forEach(key => {
+        if (/^\d+\.\d+$/.test(key)) { // Topic-ID Pattern (z.B. "1.1", "2.3")
+          stats.topics++;
+          if (state[key].done) stats.cards++;
+        }
+      });
+    }
+
+    // Anki-Karten
+    if (state.ankiStats) {
+      Object.values(state.ankiStats).forEach(s => {
+        stats.cards += (s.correct || 0);
+      });
+    }
+
+    // Aktivitätstage
+    if (state.activity) {
+      stats.days = Object.keys(state.activity).filter(d => state.activity[d] > 0).length;
+    }
+
+    return stats;
   },
 
   resetData() {
     if (confirm('Wirklich ALLE Daten unwiderruflich löschen?')) {
       localStorage.removeItem('ap1_dark_state_v1');
-      localStorage.removeItem('ap1_infobox_dismissed');
+      localStorage.removeItem('ap1_infobox_dismissed_v2');
       location.reload();
     }
   },
@@ -601,26 +1083,54 @@ const app = {
       rankBar.style.backgroundColor = currentRank.color;
     }
 
+    // Smart Focus 2.0: Berechnet das nächste beste Thema basierend auf:
+    // 1. Gewichtung (weight) - höhere Priorität = wichtiger
+    // 2. Fortschritt (subDone) - weniger erledigt = dringender
+    // 3. Wiederholungen (reps) - weniger wiederholt = dringender
+    // 4. Leichter Zufall (für Varianz bei gleichen Scores)
+
     let best = null,
       maxScore = -1;
+
     all.forEach((t) => {
       const s = this.getState(t.id);
       if (!s.done) {
-        const score = t.weight * 10 + Math.random() * 5;
+        // Basis-Score aus Gewichtung (max 50 Punkte bei weight=5)
+        const weightScore = t.weight * 10;
+
+        // Fortschritts-Score: Wie viele SubTasks sind NOCH offen? (max 20 Punkte)
+        const totalSub = t.sub ? t.sub.length : 1;
+        const doneSub = s.subDone ? s.subDone.filter(Boolean).length : (s.done ? totalSub : 0);
+        const progressScore = ((totalSub - doneSub) / totalSub) * 20;
+
+        // Wiederholungs-Score: Wie viele Reps sind NOCH offen? (max 15 Punkte)
+        const totalReps = 3;
+        const doneReps = s.reps ? s.reps.filter(Boolean).length : 0;
+        const repScore = ((totalReps - doneReps) / totalReps) * 15;
+
+        // Leichter Zufall für Varianz (max 5 Punkte)
+        const randomScore = Math.random() * 5;
+
+        // Gesamt-Score (max ~90 Punkte)
+        const score = weightScore + progressScore + repScore + randomScore;
+
         if (score > maxScore) {
           maxScore = score;
           best = t;
         }
       }
     });
+
     const recShort = document.getElementById('recShort');
     if (recShort) {
       if (best) {
         this.recId = best.id;
         recShort.textContent = `${best.title}`;
+        console.log('[AP1] 🎯 Smart Focus:', best.title, `(Score: ${maxScore.toFixed(1)})`);
       } else {
         this.recId = null;
-        recShort.textContent = 'Alles erledigt!';
+        recShort.textContent = 'Bereit für die AP1!';
+        console.log('[AP1] ✅ Alle Themen erledigt!');
       }
     }
   },
@@ -683,9 +1193,6 @@ const app = {
         }
 
         node.querySelector('.topic-title').textContent = t.title;
-        node.querySelector(
-          '.time-label'
-        ).innerHTML = `<i class="fa-regular fa-clock mr-1"></i>~${t.time} min`;
 
         const repIndicator = node.querySelector('.rep-indicator');
         const repCount = s.reps.filter(Boolean).length;
@@ -712,6 +1219,33 @@ const app = {
               t.title
           )}`;
         });
+
+        // ANKI Button Logik
+        const ankiBtn = node.querySelector('.anki-btn');
+        const ankiBadge = node.querySelector('.anki-badge');
+        const hasQuestions = window.ANKI_QUESTIONS && window.ANKI_QUESTIONS[t.id];
+
+        if (ankiBtn && hasQuestions) {
+          ankiBtn.classList.remove('hidden');
+          ankiBtn.classList.add('flex');
+
+          // Badge-Status bestimmen - IMMER "NEU" anzeigen
+          if (ankiBadge) {
+            ankiBadge.classList.remove('hidden');
+            ankiBadge.textContent = "NEU";
+            ankiBadge.classList.add('border-dark-accent/30', 'text-dark-accent');
+            ankiBadge.title = "Lernkarten verfügbar";
+          }
+
+          // FIX: addEventListener mit capture:true für Firefox-Kompatibilität
+          // Verhindert dass Parent-Element (Accordion) den Klick abfängt
+          ankiBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('[AP1] 🎴 Anki Button clicked for topic:', t.id);
+            this.anki.open(t.id);
+          }, { once: false, capture: true });
+        }
 
         // -------------------------------------------------------------
         // NEUE GEWICHTUNGSLOGIK (1-5)
