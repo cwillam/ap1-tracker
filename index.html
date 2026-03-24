@@ -152,94 +152,6 @@
       </p>
     </div>
 
-    <!-- AP2 Announcement Modal -->
-    <div
-      id="ap2Modal"
-      class="fixed inset-0 z-[100] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print flex items-center justify-center p-4"
-    >
-      <div class="w-full max-w-lg relative transition-all transform">
-        <div
-          class="bg-dark-card border border-dark-accent/30 shadow-[0_0_30px_rgba(14,165,233,0.2)] rounded-2xl relative overflow-hidden p-8"
-        >
-          <div class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
-          
-          <button
-            onclick="app.closeAP2Modal()"
-            class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors z-10"
-          >
-            <i class="fa-solid fa-xmark text-xl"></i>
-          </button>
-
-          <div class="relative z-10 text-center">
-            <div class="w-16 h-16 bg-dark-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-dark-accent/30">
-              <i class="fa-solid fa-rocket text-dark-accent text-3xl"></i>
-            </div>
-            
-            <h2 class="text-2xl font-bold text-white mb-4">Große Neuigkeiten!</h2>
-            
-            <div class="text-dark-muted leading-relaxed mb-6 space-y-4 text-sm text-left sm:text-center">
-              <p>
-                Die <span class="text-white font-bold">AP2 Tracker</span> für FIAE und FISI sind ab sofort einsatzbereit!
-              </p>
-              <p>
-                In Zukunft kommen zusätzlich <span class="text-white font-bold">exklusive Lernzettel</span> für die AP1 (Diagramme, IHK-Tipps, Fragen & Antworten) direkt auf diese Seite!
-              </p>
-              <p class="pt-2 italic border-t border-dark-border/50 text-xs">
-                Alles bleibt natürlich weiterhin <span class="text-dark-success font-bold">100% kostenlos</span>. Über eine kleine freiwillige Unterstützung für Serverkosten und den Aufwand freue ich mich aber sehr. ☕
-              </p>
-            </div>
-            
-            <div class="bg-dark-bg/50 rounded-xl p-4 border border-dark-border mb-6">
-              <p class="text-xs font-mono text-dark-muted">
-                Kein Zwang, nur eine Option. Danke für deinen Support!
-              </p>
-            </div>
-
-            <!-- Andere Tracker Section -->
-            <div class="bg-dark-bg/50 border border-dark-border rounded-xl p-3 space-y-2 mb-6">
-              <span class="text-[10px] font-bold text-dark-muted uppercase tracking-widest block">Andere Tracker</span>
-              <div class="grid grid-cols-2 gap-2">
-                <!-- Link zu FIAE -->
-                <a href="https://ap2.cwillam.de" target="_blank" class="flex items-center gap-2 p-2 rounded-lg bg-dark-card border border-dark-border hover:border-dark-accent transition-all group">
-                  <div class="w-2 h-2 rounded-full bg-dark-accent group-hover:animate-pulse"></div>
-                  <span class="text-xs font-bold text-white text-left">FIAE Edition (AP2)</span>
-                </a>
-                <!-- Link zu FISI -->
-                <a href="https://ap2-fisi.cwillam.de" target="_blank" class="flex items-center gap-2 p-2 rounded-lg bg-dark-card border border-dark-border hover:border-dark-accent transition-all group">
-                  <div class="w-2 h-2 rounded-full bg-dark-success group-hover:animate-pulse"></div>
-                  <span class="text-xs font-bold text-white text-left">FISI Edition (AP2)</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="flex flex-col gap-3">
-              <div class="flex flex-col sm:flex-row gap-3">
-                <a
-                  href="https://buymeacoffee.com/cwillam"
-                  target="_blank"
-                  class="flex-1 py-3 px-6 bg-[#FFDD00] text-black font-bold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
-                >
-                  <i class="fa-solid fa-mug-hot"></i> Support ☕
-                </a>
-                <button
-                  onclick="app.closeAP2Modal()"
-                  class="flex-1 py-3 px-6 bg-dark-accent hover:bg-sky-400 text-white font-bold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-glow"
-                >
-                  Schließen
-                </button>
-              </div>
-              <button
-                onclick="app.dismissAP2Modal()"
-                class="text-[10px] text-dark-muted hover:text-white transition-colors uppercase font-bold tracking-widest"
-              >
-                Nicht mehr anzeigen
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Legal Modal -->
     <div
       id="legalModal"
@@ -284,7 +196,7 @@
               </h1>
               <div class="hidden sm:flex items-center gap-2 mt-0.5">
                 <span class="text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
-                <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v2.0.1</span>
+                <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v2.1.0</span>
               </div>
             </div>
           </div>
@@ -367,7 +279,7 @@
       >
         <div class="max-w-3xl">
           <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
-            <i class="fa-solid fa-layer-group text-dark-accent"></i> Neu in v2.0.1: Lernkarten
+            <i class="fa-solid fa-layer-group text-dark-accent"></i> Neu in v2.1.0: Update-Modal & SEO
           </h3>
           <div class="text-xs text-dark-muted leading-relaxed space-y-2 tracking-wide">
             <p>
