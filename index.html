@@ -127,7 +127,6 @@
       };
     </script>
 
-    <link href="assets/css/fontawesome/css/all.min.css" rel="stylesheet" />
 
     <link href="assets/css/style.css" rel="stylesheet" />
   </head>
@@ -167,7 +166,7 @@
             onclick="app.closeLegal()"
             class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
           >
-            <i class="fa-solid fa-xmark text-xl"></i>
+            <i data-lucide="x" class="text-xl"></i>
           </button>
 
           <div id="legalContent" class="prose prose-invert prose-sm max-w-none"></div>
@@ -177,17 +176,17 @@
 
     <!-- Navigation -->
     <nav class="glass-header sticky top-0 z-50 no-print">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
           <!-- Logo & Titel -->
           <div
-            class="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
+            class="flex items-center gap-2 sm:gap-3.5 cursor-pointer group shrink-0"
             onclick="window.scrollTo({top:0, behavior:'smooth'})"
           >
             <div
-              class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-glow transition-transform group-hover:scale-105 shrink-0"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-accent/5 border border-dark-accent/25 flex items-center justify-center transition-all group-hover:bg-dark-accent/15 group-hover:border-dark-accent/40 shrink-0"
             >
-              <i class="fa-solid fa-code text-white text-sm sm:text-base"></i>
+              <i data-lucide="graduation-cap" class="text-dark-accent text-xs sm:text-base transition-transform group-hover:-rotate-6"></i>
             </div>
             <div class="flex flex-col">
               <h1 class="font-bold text-base sm:text-lg leading-none text-white tracking-tight text-nowrap">
@@ -196,7 +195,7 @@
               </h1>
               <div class="hidden sm:flex items-center gap-2 mt-0.5">
                 <span class="text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
-                <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v2.1.0</span>
+                <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v2.1.1</span>
               </div>
             </div>
           </div>
@@ -204,7 +203,7 @@
           <!-- Action Buttons -->
           <div class="flex items-center gap-1 sm:gap-2">
             <!-- Countdown (Desktop only) -->
-            <div class="hidden lg:flex flex-col items-end mr-4">
+            <div class="hidden lg:flex flex-col items-end mr-2">
               <span class="text-[10px] font-mono text-dark-muted uppercase">Prüfung: vorauss. 30.09.2026</span>
               <span class="text-sm font-bold text-white font-mono">
                 <span id="headerCountdown" class="text-dark-accent">--</span> Tage
@@ -214,57 +213,52 @@
             <!-- Update Button (Glocke) -->
             <a
               href="updates.html"
-              class="p-1.5 sm:p-2 text-dark-muted hover:text-white transition-all"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group relative shrink-0"
               title="Updates"
             >
-              <div class="relative">
-                <i class="fa-solid fa-bell text-xs sm:text-sm"></i>
-                <span class="absolute -top-1 -right-1 flex h-1.5 w-1.5">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dark-accent opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dark-accent"></span>
-                </span>
-              </div>
+              <i data-lucide="bell" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform animate-bell-ring-hover"></i>
+              <span class="absolute top-[6px] right-[6px] sm:top-[8px] sm:right-[8px] flex h-1.5 w-1.5 sm:h-2 sm:w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dark-accent opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-dark-accent"></span>
+              </span>
             </a>
 
             <!-- Support -->
             <a
               href="https://buymeacoffee.com/cwillam"
               target="_blank"
-              class="p-1.5 sm:p-2 text-dark-muted hover:text-[#FFDD00] transition-transform"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-[#FFDD00] flex items-center justify-center transition-all hover:border-[#FFDD00]/30 hover:bg-[#FFDD00]/5 group shrink-0"
               title="Support"
             >
-              <i class="fa-solid fa-mug-hot text-xs sm:text-sm"></i>
+              <i data-lucide="coffee" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"></i>
             </a>
-
-            <!-- Trenner -->
-            <div class="h-4 w-px bg-dark-border mx-0.5 sm:mx-1"></div>
 
             <!-- Export -->
             <button
               onclick="app.exportData()"
-              class="p-1.5 sm:p-2 text-dark-muted hover:text-white transition-colors"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
               title="Backup speichern"
             >
-              <i class="fa-solid fa-download text-xs sm:text-sm"></i>
+              <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-y-[-1px]"></i>
             </button>
 
             <!-- Import -->
             <button
               onclick="document.getElementById('importFile').click()"
-              class="p-1.5 sm:p-2 text-dark-muted hover:text-white transition-colors"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
               title="Backup laden"
             >
-              <i class="fa-solid fa-upload text-xs sm:text-sm"></i>
+              <i data-lucide="upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-y-[1px]"></i>
             </button>
             <input type="file" id="importFile" class="hidden" onchange="app.importData(this)" />
 
             <!-- Reset -->
             <button
               onclick="app.resetData()"
-              class="p-1.5 sm:p-2 text-dark-muted hover:text-dark-danger transition-colors"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-dark-danger flex items-center justify-center transition-all hover:border-dark-danger/30 hover:bg-dark-danger/5 group shrink-0"
               title="Alles zurücksetzen"
             >
-              <i class="fa-solid fa-trash-can text-xs sm:text-sm"></i>
+              <i data-lucide="trash-2" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform animate-trash-hover"></i>
             </button>
           </div>
         </div>
@@ -279,18 +273,18 @@
       >
         <div class="max-w-3xl">
           <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
-            <i class="fa-solid fa-layer-group text-dark-accent"></i> Neu in v2.1.0: Update-Modal & SEO
+            <i data-lucide="layers" class="text-dark-accent"></i> Neu in v2.1.1: Lucide-Icons & Header-Redesign
           </h3>
           <div class="text-xs text-dark-muted leading-relaxed space-y-2 tracking-wide">
             <p>
-              Ab sofort mit <strong>1.228 Lernkarten</strong> für alle 27 Themen! Wähle zwischen <strong>Strategie-Modus</strong> (intelligente Wiederholung) oder <strong>Freies Training</strong>.
+              Komplette Umstellung auf ressourcenschonende <strong>Lucide Icons</strong> (offline-fähig) sowie ein hochwertiges <strong>Header-Kacheldesign</strong> mit flüssigen Schwebungs-Effekten.
             </p>
             <p>
-              <strong>Safety-Updates:</strong> Import-Validierung, Storage-Monitoring, Smart Focus 2.0 und mehr.
+              <strong>Lernkarten-Optimierung:</strong> Verbesserte Zentrierung der Antworten und mobil-optimierte Textgrößen.
             </p>
             <p class="text-dark-warning">
-              <i class="fa-solid fa-triangle-exclamation mr-1"></i>
-              <strong>Tipp:</strong> Bei Anzeigeproblemen <strong>Hard Refresh</strong> durchführen (Windows/Linux: Strg+F5, Mac: Cmd+Shift+R).
+              <i data-lucide="alert-triangle" class="mr-1"></i>
+              <strong>Tipp:</strong> Bei Anzeigeproblemen nach Updates bitte einen <strong>Hard Refresh</strong> durchführen (Strg+F5 / Cmd+Shift+R).
             </p>
           </div>
         </div>
@@ -298,7 +292,7 @@
           href="updates.html"
           class="text-xs font-bold text-dark-accent hover:text-white bg-dark-accent/10 hover:bg-dark-accent px-4 py-2 rounded border border-dark-accent/30 transition-colors whitespace-nowrap self-start md:self-center inline-flex items-center gap-2"
         >
-          <i class="fa-solid fa-arrow-right"></i> Alle Updates
+          <i data-lucide="arrow-right"></i> Alle Updates
         </a>
       </div>
 
@@ -355,7 +349,7 @@
               <div
                 class="w-8 h-8 rounded bg-dark-card border border-dark-border flex items-center justify-center"
               >
-                <i class="fa-solid fa-crown text-dark-warning"></i>
+                <i data-lucide="crown" class="text-dark-warning"></i>
               </div>
               <div class="flex flex-col">
                 <span class="text-[9px] font-mono text-dark-muted uppercase">Aktueller Rang</span>
@@ -401,8 +395,8 @@
             class="col-span-2 bg-dark-card border border-dark-border rounded-xl p-3 shadow-card relative overflow-hidden group flex flex-col justify-between min-h-[140px]"
           >
             <div class="flex justify-between items-center mb-1">
-              <p class="text-[10px] font-mono text-dark-muted uppercase">
-                <i class="fa-regular fa-clock mr-1"></i>Focus Timer
+              <p class="text-[10px] font-mono text-dark-muted uppercase flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i><span>Focus Timer</span>
               </p>
             </div>
 
@@ -418,7 +412,7 @@
                 id="pomoBtn"
                 class="w-10 h-10 rounded-xl bg-dark-border hover:bg-dark-accent hover:text-white text-dark-muted flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg"
               >
-                <i class="fa-solid fa-play text-lg ml-1"></i>
+                <i data-lucide="play" class="w-5 h-5 ml-0.5"></i>
               </button>
             </div>
 
@@ -449,7 +443,7 @@
             onclick="app.randomTopic()"
             class="col-span-1 bg-dark-card border border-dark-border rounded-xl p-3 hover:border-dark-warning/50 hover:bg-dark-warning/5 transition-all text-left group relative overflow-hidden flex flex-col justify-center outline-none focus:ring-1 focus:ring-dark-warning/50"
           >
-            <i class="fa-solid fa-dice text-dark-warning text-xl mb-1 animate-dice-hover"></i>
+            <i data-lucide="dice-5" class="text-dark-warning text-xl mb-1 animate-dice-hover"></i>
             <p class="text-xs font-bold text-white">Zufall</p>
             <p class="text-[9px] text-dark-muted">Lern-Roulette</p>
           </button>
@@ -463,7 +457,7 @@
               class="absolute top-2 right-2 w-2 h-2 bg-dark-success rounded-full animate-pulse-slow"
             ></div>
             <i
-              class="fa-solid fa-crosshairs text-dark-success text-xl mb-1 animate-focus-hover"
+              data-lucide="crosshair" class="text-dark-success text-xl mb-1 animate-focus-hover"
             ></i>
             <p class="text-xs font-bold text-white">Smart Focus</p>
             <p class="text-[9px] text-dark-muted truncate w-full" id="recShort">Berechne...</p>
@@ -502,7 +496,7 @@
 
           <div class="relative w-full sm:w-auto group">
             <i
-              class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-dark-muted text-xs group-focus-within:text-dark-accent transition-colors"
+              data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-dark-muted text-xs group-focus-within:text-dark-accent transition-colors"
             ></i>
             <input
               type="text"
@@ -526,7 +520,7 @@
         <div
           class="w-20 h-20 bg-dark-card rounded-full flex items-center justify-center mb-4 border border-dark-border"
         >
-          <i class="fa-solid fa-check-double text-3xl text-dark-success"></i>
+          <i data-lucide="check-check" class="text-3xl text-dark-success"></i>
         </div>
         <p class="text-dark-muted text-sm font-medium">Nichts gefunden.</p>
         <button
@@ -548,7 +542,7 @@
         </div>
         <div class="flex-1 flex justify-end">
           <button onclick="app.anki.close()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-[#020617] border border-dark-border text-dark-muted hover:text-white transition-all hover:scale-105 active:scale-95 shrink-0">
-            <i class="fa-solid fa-xmark text-lg"></i>
+            <i data-lucide="x" class="text-lg"></i>
           </button>
         </div>
       </div>
@@ -563,7 +557,7 @@
           <div id="ankiModeView" class="w-full space-y-6 animate-in fade-in zoom-in duration-300">
             <div class="mb-10">
               <div class="w-20 h-20 bg-dark-accent/10 rounded-2xl flex items-center justify-center text-dark-accent mx-auto mb-6 border border-dark-accent/20">
-                <i class="fa-solid fa-layer-group text-4xl"></i>
+                <i data-lucide="layers" class="text-4xl"></i>
               </div>
               <h3 class="text-2xl font-bold text-white tracking-tight">Lern-Zentrale</h3>
               <p class="text-dark-muted mt-2 text-sm">Wähle deine Strategie für dieses Modul.</p>
@@ -573,7 +567,7 @@
               <button onclick="app.anki.start('spaced')" class="w-full p-6 bg-dark-card border border-dark-accent/30 hover:border-dark-accent rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-accent/5">
                 <div class="flex flex-col items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-dark-accent/20 flex items-center justify-center text-dark-accent group-hover:scale-110 transition-transform shrink-0">
-                    <i class="fa-solid fa-brain text-xl"></i>
+                    <i data-lucide="brain" class="text-xl"></i>
                   </div>
                   <div>
                     <h4 class="text-base font-bold text-white group-hover:text-dark-accent transition-colors">Strategie-Modus</h4>
@@ -587,7 +581,7 @@
               <button onclick="app.anki.start('manual')" class="w-full p-6 bg-dark-card border border-dark-border hover:border-dark-muted rounded-2xl text-center group transition-all shadow-lg">
                 <div class="flex flex-col items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-dark-bg flex items-center justify-center text-dark-muted group-hover:scale-110 transition-transform shrink-0">
-                    <i class="fa-solid fa-dumbbell text-xl"></i>
+                    <i data-lucide="dumbbell" class="text-xl"></i>
                   </div>
                   <div>
                     <h4 class="text-base font-bold text-white">Freies Training</h4>
@@ -600,43 +594,43 @@
             </div>
           </div>
 
-          <div id="ankiQuestionView" class="w-full hidden animate-in fade-in slide-in-from-bottom-8 duration-500 text-center">
-            <div class="mb-12">
+          <div id="ankiQuestionView" class="w-full hidden animate-in fade-in slide-in-from-bottom-8 duration-500 text-center flex flex-col items-center">
+            <div class="mb-10 w-full">
               <span class="inline-block px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-[10px] text-dark-muted uppercase font-mono tracking-widest mb-6" id="ankiCardCounter">Karte 1 von 10</span>
-              <h4 id="ankiQuestionText" class="text-2xl sm:text-4xl font-bold text-white leading-tight tracking-tight px-4">Frage wird geladen...</h4>
+              <h4 id="ankiQuestionText" class="text-xl sm:text-3xl font-bold text-white leading-tight tracking-tight px-4 max-w-xl mx-auto">Frage wird geladen...</h4>
             </div>
-            <button onclick="app.anki.showAnswer()" class="w-full py-6 px-8 bg-dark-accent hover:bg-sky-400 text-white font-bold rounded-2xl transition-all shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-lg">
-              Antwort aufdecken <i class="fa-solid fa-eye ml-2"></i>
+            <button onclick="app.anki.showAnswer()" class="w-full max-w-md py-4 px-6 bg-dark-accent hover:bg-sky-400 text-white font-bold rounded-xl transition-all shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-base flex items-center justify-center gap-2">
+              <span>Antwort aufdecken</span> <i data-lucide="eye" class="w-5 h-5"></i>
             </button>
           </div>
 
-          <div id="ankiAnswerView" class="w-full hidden animate-in fade-in zoom-in duration-300 text-center">
-            <div class="mb-8 flex flex-col items-center">
+          <div id="ankiAnswerView" class="w-full hidden animate-in fade-in zoom-in duration-300 text-center flex flex-col items-center">
+            <div class="mb-8 w-full max-w-xl">
               <span class="inline-block px-3 py-1 bg-dark-accent/10 border border-dark-accent/30 rounded-full text-[10px] text-dark-accent uppercase font-bold tracking-widest mb-6">Lösung</span>
-              <div class="bg-dark-card border border-dark-border rounded-3xl p-8 sm:p-12 shadow-2xl w-full">
-                <p id="ankiAnswerText" class="text-lg sm:text-2xl text-white leading-relaxed font-medium">Antwort wird geladen...</p>
+              <div class="bg-dark-card border border-dark-border rounded-2xl p-6 sm:p-10 shadow-2xl w-full">
+                <p id="ankiAnswerText" class="text-base sm:text-xl text-white leading-relaxed font-medium">Antwort wird geladen...</p>
               </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button onclick="app.anki.next(false)" class="order-2 sm:order-1 py-5 px-6 bg-dark-bg border border-dark-danger/30 text-dark-danger hover:bg-dark-danger/10 font-bold rounded-2xl transition-all flex items-center justify-center gap-3 group">
-                <i class="fa-solid fa-xmark text-lg group-hover:rotate-12 transition-transform"></i> Nicht gewusst
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+              <button onclick="app.anki.next(false)" class="order-2 sm:order-1 py-3.5 px-6 bg-dark-bg border border-dark-danger/30 text-dark-danger hover:bg-dark-danger/10 font-bold rounded-xl transition-all flex items-center justify-center gap-2 group text-base">
+                <i data-lucide="x" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i> <span>Nicht gewusst</span>
               </button>
-              <button onclick="app.anki.next(true)" class="order-1 sm:order-2 py-5 px-6 bg-dark-success text-dark-bg font-bold rounded-2xl transition-all flex items-center justify-center gap-3 shadow-lg transform hover:scale-[1.02] active:scale-[0.98]">
-                <i class="fa-solid fa-check text-lg"></i> Sicher gewusst
+              <button onclick="app.anki.next(true)" class="order-1 sm:order-2 py-3.5 px-6 bg-dark-success text-dark-bg font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg transform hover:scale-[1.02] active:scale-[0.98] text-base">
+                <i data-lucide="check" class="w-5 h-5"></i> <span>Sicher gewusst</span>
               </button>
             </div>
           </div>
 
           <div id="ankiFinishView" class="w-full hidden animate-in fade-in zoom-in duration-500 flex flex-col items-center text-center">
             <div class="relative mb-8">
-              <div class="w-32 h-32 bg-dark-success/20 rounded-full flex items-center justify-center mx-auto border border-dark-success/30 relative z-10">
-                <i class="fa-solid fa-circle-check text-5xl text-dark-success"></i>
+              <div class="w-28 h-28 bg-dark-success/20 rounded-full flex items-center justify-center mx-auto border border-dark-success/30 relative z-10">
+                <i data-lucide="circle-check" class="text-4xl text-dark-success"></i>
               </div>
               <div class="absolute inset-0 bg-dark-success/10 blur-3xl rounded-full"></div>
             </div>
-            <h3 class="text-3xl font-bold text-white mb-4 tracking-tight">Thema abgeschlossen!</h3>
-            <p class="text-dark-muted mb-12 max-w-xs mx-auto text-sm leading-relaxed">Hervorragend! Du hast alle Karten für dieses Modul durchgearbeitet.</p>
-            <button onclick="app.anki.close()" class="w-full py-5 px-8 bg-dark-accent text-white font-bold rounded-2xl shadow-glow transform hover:scale-[1.02] active:scale-[0.98]">
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Thema abgeschlossen!</h3>
+            <p class="text-dark-muted mb-10 max-w-xs mx-auto text-xs sm:text-sm leading-relaxed">Hervorragend! Du hast alle Karten für dieses Modul durchgearbeitet.</p>
+            <button onclick="app.anki.close()" class="w-full max-w-md py-4 px-6 bg-dark-accent text-white font-bold rounded-xl shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-base">
               Zurück zur Übersicht
             </button>
           </div>
@@ -659,7 +653,7 @@
             target="_blank"
             class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold"
           >
-            <i class="fa-solid fa-mug-hot"></i> Spendier nen Kaffee
+            <i data-lucide="coffee"></i> Spendier nen Kaffee
           </a>
 
           <!-- Footer Updates Button (Mobile & Desktop) -->
@@ -679,7 +673,7 @@
           </a>
 
           <a href="https://github.com/cwillam" target="_blank" class="hover:text-white transition">
-            <i class="fa-brands fa-github mr-1"></i>GitHub
+            GitHub
           </a>
           <button onclick="app.openLegal('impressum')" class="hover:text-white transition">
             Impressum
@@ -714,7 +708,7 @@
                 class="cat-reset text-[9px] text-dark-danger hover:underline hidden group-hover:block transition-all opacity-70 hover:opacity-100 whitespace-nowrap"
                 title="Kategorie zurücksetzen"
               >
-                <i class="fa-solid fa-rotate-left mr-1"></i>Reset
+                <i data-lucide="rotate-ccw" class="mr-1"></i>Reset
               </button>
             </div>
           </div>
@@ -766,15 +760,15 @@
                   </div>
 
                   <div class="hidden sm:flex gap-2 items-center border-l border-dark-border/50 pl-3">
-                    <a href="#" target="_blank" class="google-link inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i class="fa-brands fa-google mr-1"></i>Suche</a>
-                    <a href="#" target="_blank" class="duckduckgo-link inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i class="fa-solid fa-magnifying-glass mr-1"></i>DuckDuckGo</a>
+                    <a href="#" target="_blank" class="google-link inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i data-lucide="globe" class="mr-1"></i>Suche</a>
+                    <a href="#" target="_blank" class="duckduckgo-link inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold" onclick="event.stopPropagation()"><i data-lucide="search" class="mr-1"></i>DuckDuckGo</a>
                   </div>
                 </div>
 
                 <!-- Rechts/Unten: Lernkarten -->
                 <div class="relative flex items-center group/anki w-fit mt-0.5 sm:mt-0">
                   <button class="anki-btn hidden items-center text-dark-accent hover:bg-dark-accent hover:text-white transition-all text-[10px] bg-dark-accent/10 px-2.5 py-1 rounded border border-dark-accent/30 uppercase tracking-wider font-bold">
-                    <i class="fa-solid fa-layer-group mr-1.5"></i> Lernkarten
+                    <i data-lucide="layers" class="mr-1.5"></i> Lernkarten
                   </button>
                   <span class="anki-badge hidden absolute -top-2 -right-2 text-[7px] sm:text-[8px] font-extrabold px-1.5 py-0.5 rounded border bg-dark-bg leading-none transition-transform group-hover/anki:scale-110 shadow-sm z-10"></span>
                 </div>
@@ -784,7 +778,7 @@
             <div
               class="w-8 h-8 flex items-center justify-center text-dark-muted accordion-icon transition-transform duration-300 bg-dark-bg/50 rounded-full border border-dark-border group-hover:border-dark-muted shrink-0"
             >
-              <i class="fa-solid fa-chevron-down text-xs"></i>
+              <i data-lucide="chevron-down" class="text-xs"></i>
             </div>
           </div>
         </div>
@@ -794,7 +788,7 @@
             <div>
               <div class="flex justify-between items-center mb-3">
                 <h4 class="text-[10px] font-bold text-dark-muted uppercase flex items-center gap-2">
-                  <i class="fa-solid fa-list-check"></i> Lerninhalte
+                  <i data-lucide="list-checks"></i> Lerninhalte
                 </h4>
                 <div class="flex gap-3 sm:hidden">
                   <a
@@ -803,7 +797,7 @@
                     class="google-link-mobile inline-flex items-center text-dark-accent text-[10px] uppercase font-bold"
                     onclick="event.stopPropagation()"
                   >
-                    <i class="fa-brands fa-google mr-1"></i> Google
+                    <i data-lucide="globe" class="mr-1"></i> Google
                   </a>
                   <a
                     href="#"
@@ -811,7 +805,7 @@
                     class="duckduckgo-link-mobile inline-flex items-center text-dark-muted text-[10px] uppercase font-bold"
                     onclick="event.stopPropagation()"
                   >
-                    <i class="fa-solid fa-magnifying-glass mr-1"></i> DuckDuckGo
+                    <i data-lucide="search" class="mr-1"></i> DuckDuckGo
                   </a>
                 </div>
               </div>
@@ -859,6 +853,11 @@
     <script src="assets/js/data.js"></script>
     <script src="assets/js/questions.js"></script>
 
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/lucide.min.js"></script>
+  <script>
+    // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
+    if (window.lucide) lucide.createIcons();
+  </script>
+  <script src="assets/js/app.js"></script>
   </body>
 </html>

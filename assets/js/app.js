@@ -79,6 +79,7 @@ const app = {
             </div>
           `;
           statsContainer.classList.remove('hidden');
+          app.refreshIcons();
         } else {
           statsContainer.classList.add('hidden');
         }
@@ -121,12 +122,11 @@ const app = {
       const badge = document.getElementById('ankiModeBadge');
       badge.classList.remove('hidden');
       if (mode === 'spaced') {
-        badge.innerHTML = '<i class="fa-solid fa-brain mr-1"></i> Strategie-Modus';
-        badge.className = 'text-[9px] font-bold uppercase tracking-widest text-dark-accent';
+        badge.innerHTML = '<i data-lucide="brain" class="w-3.5 h-3.5 mr-1 text-dark-accent"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-accent">Strategie-Modus</span>';
       } else {
-        badge.innerHTML = '<i class="fa-solid fa-dumbbell mr-1"></i> Freies Training';
-        badge.className = 'text-[9px] font-bold uppercase tracking-widest text-dark-warning';
+        badge.innerHTML = '<i data-lucide="dumbbell" class="w-3.5 h-3.5 mr-1 text-dark-warning"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-warning">Freies Training</span>';
       }
+      app.refreshIcons();
 
       document.getElementById('ankiModeView').classList.add('hidden');
       document.getElementById('ankiQuestionView').classList.remove('hidden');
@@ -373,10 +373,10 @@ const app = {
       error: 'bg-dark-danger'
     };
     const icons = {
-      info: 'fa-info-circle',
-      success: 'fa-check-circle',
-      warning: 'fa-exclamation-triangle',
-      error: 'fa-times-circle'
+      info: 'info',
+      success: 'check-circle-2',
+      warning: 'alert-triangle',
+      error: 'x-circle'
     };
 
     const existing = document.getElementById('appNotification');
@@ -387,18 +387,19 @@ const app = {
     notification.className = `fixed top-20 right-4 z-[100] ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl max-w-sm animate-in fade-in slide-in-from-top-2`;
     notification.innerHTML = `
       <div class="flex items-start gap-3">
-        <i class="fa-solid ${icons[type]} text-lg mt-0.5"></i>
+        <i data-lucide="${icons[type]}" class="text-lg mt-0.5"></i>
         <div class="flex-1">
           <p class="font-bold text-sm">${title}</p>
           <p class="text-xs opacity-90 mt-1">${message}</p>
         </div>
         <button onclick="this.parentElement.parentElement.remove()" class="opacity-70 hover:opacity-100">
-          <i class="fa-solid fa-xmark"></i>
+          <i data-lucide="x"></i>
         </button>
       </div>
     `;
 
     document.body.appendChild(notification);
+    this.refreshIcons();
 
     if (duration > 0) {
       setTimeout(() => notification.remove(), duration);
@@ -413,6 +414,14 @@ const app = {
     if (this.state.activity) summary.activityDays = Object.keys(this.state.activity).length;
     if (this.state.ankiStats) summary.ankiTopics = Object.keys(this.state.ankiStats).length;
     return summary;
+  },
+
+
+  // Lucide Icons nach dynamischen DOM-Updates neu initialisieren
+  refreshIcons() {
+    if (window.lucide && typeof lucide.createIcons === 'function') {
+      lucide.createIcons();
+    }
   },
 
   hideInfoBox() {
@@ -482,7 +491,7 @@ const app = {
       clearInterval(this.timer);
       this.timerRunning = false;
       document.getElementById('pomoBtn').innerHTML =
-        '<i class="fa-solid fa-play text-lg ml-1"></i>';
+        '<i data-lucide="play" class="text-lg ml-1"></i>';
     }
     this.timeLeft = min * 60;
     this.updateTimerDisplay();
@@ -502,14 +511,16 @@ const app = {
     if (this.timerRunning) {
       clearInterval(this.timer);
       this.timerRunning = false;
-      btn.innerHTML = '<i class="fa-solid fa-play text-lg ml-1"></i>';
+      btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
       btn.classList.remove('bg-dark-accent', 'text-white', 'scale-105');
       btn.classList.add('bg-dark-border', 'text-dark-muted');
+      app.refreshIcons();
     } else {
       this.timerRunning = true;
-      btn.innerHTML = '<i class="fa-solid fa-pause text-lg"></i>';
+      btn.innerHTML = '<i data-lucide="pause" class="w-5 h-5"></i>';
       btn.classList.add('bg-dark-accent', 'text-white', 'scale-105');
       btn.classList.remove('bg-dark-border', 'text-dark-muted');
+      app.refreshIcons();
       this.timer = setInterval(() => {
         this.timeLeft--;
         if (this.timeLeft <= 0) {
@@ -517,10 +528,11 @@ const app = {
           this.timerRunning = false;
           this.timeLeft = 1500;
 
-          alert('Pomodoro beendet! Gönn dir eine Pause.');
-          btn.innerHTML = '<i class="fa-solid fa-play text-lg ml-1"></i>';
+          app.showNotification('Pomodoro beendet!', 'Gönn dir eine Pause.', 'info');
+          btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
           btn.classList.remove('bg-dark-accent', 'text-white', 'scale-105');
           btn.classList.add('bg-dark-border', 'text-dark-muted');
+          app.refreshIcons();
         }
         this.updateTimerDisplay();
       }, 1000);
@@ -1024,11 +1036,11 @@ const app = {
 
   // --- UPDATE NOTIFICATION ---
   checkForUpdate() {
-    if (!localStorage.getItem('ap1_update_never_again')) {
+    if (!localStorage.getItem('ap1_update_never_again_v211')) {
       const update = {
-        title: '📚 AP1 Tracker Update',
-        message: 'Neue Lernkarten und Features für deine Prüfungsvorbereitung!',
-        icon: 'fa-graduation-cap'
+        title: '📚 AP1 Tracker Update v2.1.1',
+        message: 'Wir haben den Tracker modernisiert! Lerne jetzt noch performanter.',
+        icon: 'graduation-cap'
       };
       this.showUpdateModal(update.title, update.message, update.icon);
     }
@@ -1045,7 +1057,7 @@ const app = {
         <!-- HEADER -->
         <div class="flex items-center gap-3 sm:gap-4 mb-5 shrink-0">
           <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-dark-success/20 border-2 border-dark-success flex items-center justify-center shrink-0">
-            <i class="fa-solid ${iconClass} text-dark-success text-xl sm:text-2xl"></i>
+            <i data-lucide="${iconClass}" class="text-dark-success text-xl sm:text-2xl"></i>
           </div>
           <div class="min-w-0 flex-1">
             <h3 class="text-lg sm:text-xl font-bold text-white truncate">Neues Update!</h3>
@@ -1062,25 +1074,25 @@ const app = {
         <!-- NEU IN DIESER VERSION -->
         <div class="bg-dark-bg/50 rounded-xl p-4 sm:p-5 mb-5 border border-dark-border shrink-0 overflow-hidden">
           <p class="text-[10px] sm:text-xs text-dark-muted mb-3 font-bold uppercase flex items-center gap-2">
-            <i class="fa-solid fa-sparkles text-dark-accent"></i>
+            <i data-lucide="sparkles" class="text-dark-accent"></i>
             Neu in dieser Version:
           </p>
           <ul class="space-y-2 text-xs sm:text-sm text-gray-300">
             <li class="flex items-start gap-2">
-              <i class="fa-solid fa-layer-group text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
-              <span>Neue Lernkarten für alle Prüfungsthemen</span>
+              <i data-lucide="zap" class="text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span><strong>Lucide-Icons & Header:</strong> Umstellung auf ressourcenschonende Vektorgrafiken und neues Header-Kacheldesign</span>
             </li>
             <li class="flex items-start gap-2">
-              <i class="fa-solid fa-brain text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
-              <span>Verbesserte Anki-Strategien für besseres Lernen</span>
+              <i data-lucide="check-square" class="text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span><strong>Lernkarten-Fixes:</strong> Trainings-Modi repariert; Antwortaufdeckung verkleinert und zentriert</span>
             </li>
             <li class="flex items-start gap-2">
-              <i class="fa-solid fa-mobile-screen text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
-              <span>Mobile-optimierte Ansicht für unterwegs</span>
+              <i data-lucide="play-circle" class="text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span><strong>Fokus-Timer:</strong> Play/Pause-Steuerung und Widget-Layout-Zentrierung korrigiert</span>
             </li>
             <li class="flex items-start gap-2">
-              <i class="fa-solid fa-bug text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
-              <span>Fehlerbehebungen und Performance-Verbesserungen</span>
+              <i data-lucide="shield" class="text-dark-accent mt-0.5 text-[10px] sm:text-xs shrink-0"></i>
+              <span><strong>Stabilität:</strong> Präzise Positionierung der Glocken-Dot und allgemeine Fehlerbehebungen</span>
             </li>
           </ul>
         </div>
@@ -1088,29 +1100,29 @@ const app = {
         <!-- WERBUNG FÜR ANDERE TRACKER -->
         <div class="bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 rounded-xl p-3 sm:p-4 mb-5 shrink-0">
           <p class="text-[10px] sm:text-xs text-indigo-300 mb-2.5 sm:mb-3 font-bold uppercase flex items-center gap-1.5 sm:gap-2">
-            <i class="fa-solid fa-star text-[10px] sm:text-xs"></i>
+            <i data-lucide="star" class="text-[10px] sm:text-xs"></i>
             Mehr Tracker
           </p>
           <div class="space-y-2">
             <a href="https://ap2.cwillam.de/" target="_blank" class="group flex items-center gap-3 bg-dark-card/60 hover:bg-indigo-900/25 border border-dark-border/50 hover:border-indigo-500/40 rounded-lg p-2.5 sm:p-3 no-underline">
               <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-laptop-code text-indigo-400 text-xs group-hover:text-indigo-300 transition-colors"></i>
+                <i data-lucide="laptop" class="text-indigo-400 text-xs group-hover:text-indigo-300 transition-colors"></i>
               </div>
               <div class="min-w-0 flex-1">
                 <p class="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-300 transition-colors truncate">AP2 FIAE</p>
                 <p class="text-[10px] text-dark-muted truncate">Fachinformatiker Anwendungsentwicklung</p>
               </div>
-              <i class="fa-solid fa-arrow-up-right-from-square text-dark-muted group-hover:text-indigo-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
+              <i data-lucide="external-link" class="text-dark-muted group-hover:text-indigo-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
             </a>
             <a href="https://ap2-fisi.cwillam.de/" target="_blank" class="group flex items-center gap-3 bg-dark-card/60 hover:bg-purple-900/25 border border-dark-border/50 hover:border-purple-500/40 rounded-lg p-2.5 sm:p-3 no-underline">
               <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-server text-purple-400 text-xs group-hover:text-purple-300 transition-colors"></i>
+                <i data-lucide="server" class="text-purple-400 text-xs group-hover:text-purple-300 transition-colors"></i>
               </div>
               <div class="min-w-0 flex-1">
                 <p class="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 transition-colors truncate">AP2 FISI</p>
                 <p class="text-[10px] text-dark-muted truncate">Fachinformatiker für Systemintegration</p>
               </div>
-              <i class="fa-solid fa-arrow-up-right-from-square text-dark-muted group-hover:text-purple-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
+              <i data-lucide="external-link" class="text-dark-muted group-hover:text-purple-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-xs shrink-0"></i>
             </a>
           </div>
         </div>
@@ -1125,14 +1137,14 @@ const app = {
              onclick="document.getElementById('updateNotificationModal').remove()"
              class="flex-1 bg-dark-card hover:bg-dark-border border border-dark-border text-white font-bold py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl transition-all text-center text-xs sm:text-sm whitespace-nowrap no-underline flex items-center justify-center gap-2">
             <span>Änderungen</span>
-            <i class="fa-solid fa-external-link-alt text-[10px] sm:text-xs"></i>
+            <i data-lucide="external-link" class="text-[10px] sm:text-xs"></i>
           </a>
         </div>
 
         <!-- NIE WIEDER ANZEIGEN OPTION -->
         <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-dark-border shrink-0">
           <label class="flex items-center gap-2 cursor-pointer group">
-            <input type="checkbox" id="neverShowAgain" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent focus:ring-2" onchange="localStorage.setItem('ap1_update_never_again', this.checked ? 'true' : '')">
+            <input type="checkbox" id="neverShowAgain" class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-dark-border bg-dark-bg text-dark-accent focus:ring-dark-accent focus:ring-2" onchange="localStorage.setItem('ap1_update_never_again_v211', this.checked ? 'true' : '')">
             <span class="text-[10px] sm:text-xs text-dark-muted group-hover:text-white transition-colors">Nicht wieder anzeigen</span>
           </label>
         </div>
@@ -1140,6 +1152,7 @@ const app = {
     `;
 
     document.body.appendChild(modal);
+    this.refreshIcons();
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -1399,7 +1412,7 @@ const app = {
                       <input type="checkbox" class="peer appearance-none w-4 h-4 rounded border border-dark-border bg-dark-bg checked:bg-dark-accent checked:border-dark-accent cursor-pointer transition-colors" ${
                         isDone ? 'checked' : ''
                       }>
-                      <i class="fa-solid fa-check text-[10px] text-white absolute pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                      <i data-lucide="check" class="text-[10px] text-white absolute pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"></i>
                   </div>
                   <span class="transition-colors cursor-pointer pt-0.5 ${
                     isDone ? 'line-through opacity-50' : 'group-hover/item:text-white'
@@ -1429,6 +1442,7 @@ const app = {
     const emptyState = document.getElementById('emptyState');
     if (emptyState) emptyState.classList.toggle('hidden', hasVisible);
     this.updateStats();
+    this.refreshIcons();
   },
 };
 
