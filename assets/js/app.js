@@ -318,6 +318,52 @@ const app = {
       this.renderActivityGraph();
       this.updateCountdown();
       setInterval(() => this.updateCountdown(), 60000);
+
+      // Keyboard Shortcuts für Lernkarten (Anki)
+      window.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('ankiModal');
+        if (modal && !modal.classList.contains('hidden')) {
+          const modeView = document.getElementById('ankiModeView');
+          const questionView = document.getElementById('ankiQuestionView');
+          const answerView = document.getElementById('ankiAnswerView');
+          const finishView = document.getElementById('ankiFinishView');
+
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            this.anki.close();
+            return;
+          }
+
+          if (modeView && !modeView.classList.contains('hidden')) {
+            if (e.key === '1') {
+              e.preventDefault();
+              this.anki.start('manual');
+            } else if (e.key === '2') {
+              e.preventDefault();
+              this.anki.start('spaced');
+            }
+          } else if (questionView && !questionView.classList.contains('hidden')) {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              this.anki.showAnswer();
+            }
+          } else if (answerView && !answerView.classList.contains('hidden')) {
+            if (e.key === '1' || e.key === 'ArrowLeft') {
+              e.preventDefault();
+              this.anki.next(false);
+            } else if (e.key === '2' || e.key === 'ArrowRight') {
+              e.preventDefault();
+              this.anki.next(true);
+            }
+          } else if (finishView && !finishView.classList.contains('hidden')) {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              this.anki.close();
+            }
+          }
+        }
+      });
+
       this.render();
     } catch (err) {
       console.error('Critical Init Error:', err);
@@ -455,7 +501,7 @@ const app = {
     const container = document.getElementById('streakGraph');
     if (!container) return;
     container.innerHTML = '';
-    const days = 40;
+    const days = 80;
     const now = new Date();
 
     for (let i = days; i >= 0; i--) {
@@ -1297,6 +1343,43 @@ const app = {
       const descEl = catNode.querySelector('.cat-desc');
       if (descEl) descEl.textContent = cat.desc;
       catNode.querySelector('.cat-reset').onclick = () => this.resetCategory(cat.id);
+
+      // Icon/Nummer setzen (z.B. LF1, LF6/7)
+      const iconEl = catNode.querySelector('.cat-icon');
+      if (iconEl) {
+        iconEl.textContent = cat.id.replace('_', '/');
+      }
+
+      // Fortschritt berechnen (nur fertige Themen im Verhältnis zu allen Themen dieser Kategorie)
+      const doneTopics = cat.topics.filter((t) => this.getState(t.id).done).length;
+      const totalTopics = cat.topics.length;
+      const pct = totalTopics === 0 ? 0 : Math.round((doneTopics / totalTopics) * 100);
+
+      // SVG Ring steuern
+      const progressRing = catNode.querySelector('.cat-progress-ring');
+      if (progressRing) {
+        progressRing.setAttribute('stroke-dasharray', `${pct} 100`);
+        if (pct === 100) {
+          progressRing.classList.remove('text-dark-accent');
+          progressRing.classList.add('text-dark-success');
+        } else {
+          progressRing.classList.add('text-dark-accent');
+          progressRing.classList.remove('text-dark-success');
+        }
+      }
+
+      // Prozent-Badge steuern
+      const pctEl = catNode.querySelector('.cat-pct');
+      if (pctEl) {
+        pctEl.textContent = `${pct}%`;
+        if (pct === 100) {
+          pctEl.classList.remove('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
+          pctEl.classList.add('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+        } else {
+          pctEl.classList.add('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
+          pctEl.classList.remove('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+        }
+      }
 
       const container = catNode.querySelector('.cat-topics');
 

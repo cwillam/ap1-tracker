@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.1.1-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.2.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > **Ein moderner, lokaler Fortschritts-Tracker für die Fachinformatiker Abschlussprüfung Teil 1.** Keine Anmeldung. Kein Tracking. Deine Daten gehören dir.
 
@@ -32,7 +32,7 @@ Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwend
 - **Smart Search:** Echtzeit-Filterung und direkte Google-Suche für Themen.
 - **Responsive Design:** Optimiert für Desktop und Mobile (Tailwind CSS).
 - **Import/Export:** JSON-basierte Backup-Funktion der eigenen Daten.
-- **Lernkarten:** 1.228 Karten für alle 27 Themen (Anki-Style mit Strategie-Modus).
+- **Lernkarten:** 1.228 Karten für alle 27 Themen (Anki-Style mit Strategie-Modus und Tastatur-Shortcuts).
 - **Safety-Fixes:** Import-Validierung, Storage-Monitoring, Corrupt-Data-Protection.
 
 ---
@@ -63,6 +63,12 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 ---
 
 ## Changelog
+
+### v2.2.0 (23. Juni 2026)
+- **Modul-Fortschrittskreise:** Zirkuläre SVG-Verlaufsringe visualisieren den Lernfortschritt pro Modul und leuchten grün bei 100%
+- **Tastatur-Shortcuts:** Lernkarten-Steuerung über Leertaste, Eingabe, Pfeiltasten und Esc (ausführliche Erklärungen in der neuen Hilfe-Sektion)
+- **Aktivitäts-Graph:** Erhöhung des Aktivitätszeitfensters von 40 auf 80 Tage für einen besseren Lernüberblick
+- **Hilfe-System:** Integration einer ausführlichen Hilfeseite (`help.html`) mit praktischen Tipps zu Caching, Backups und Fehlerberichten
 
 ### v2.1.1 (22. Juni 2026)
 - **Lucide Icons:** Komplette Migration auf ressourcenschonende Vektorgrafiken (vollständig offline-fähig)
@@ -95,11 +101,11 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 
 ## Roadmap
 
-Das Projekt wird stetig optimiert. Geplante Erweiterungen:
+Das Projekt wird stetig optimiert. Aktueller Entwicklungsstand:
 
-- [ ] **Lernzettel & Skripte:** Bereitstellung von Zusammenfassungen (PDF/Markdown) direkt an den Themen.
-- [ ] **Dark/Light Mode Toggle:** Manuelle Umschaltung des Designs.
-- [ ] **PWA Support:** Installation als App auf dem Homescreen.
+- [ ] **In Arbeit: PWA-Unterstützung:** Installation als App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.
+- [ ] **In Arbeit: Lernzettel & Skripte:** Inkl. Fragen, Diagramme und Zusammenfassungen für alle AP1 Themen.
+- [ ] **Geplant: Druck-Ansicht:** CSS-Optimierungen für den Ausdruck der Checklisten auf Papier.
 
 ---
 

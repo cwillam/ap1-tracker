@@ -15,10 +15,6 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="alternate icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -43,6 +39,7 @@
     <meta name="robots" content="index, follow" />
 
     <title>AP1 Tracker | Kostenlose Lernkarten für Fachinformatiker (IHK)</title>
+    <link rel="canonical" href="https://ap1.cwillam.de/" />
 
     <!-- Structured Data (Schema.org) -->
     <script type="application/ld+json">
@@ -195,7 +192,7 @@
               </h1>
               <div class="hidden sm:flex items-center gap-2 mt-0.5">
                 <span class="text-[10px] font-mono text-dark-muted leading-none">by cwillam</span>
-                <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v2.1.1</span>
+                <span class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded">v2.2.0</span>
               </div>
             </div>
           </div>
@@ -221,6 +218,15 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dark-accent opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-dark-accent"></span>
               </span>
+            </a>
+
+            <!-- Help Button (Hilfe) -->
+            <a
+              href="help.html"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
+              title="Hilfe & FAQ"
+            >
+              <i data-lucide="help-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"></i>
             </a>
 
             <!-- Support -->
@@ -273,14 +279,14 @@
       >
         <div class="max-w-3xl">
           <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
-            <i data-lucide="layers" class="text-dark-accent"></i> Neu in v2.1.1: Lucide-Icons & Header-Redesign
+            <i data-lucide="layers" class="text-dark-accent"></i> Neu in v2.2.0: Fortschrittskreise & Shortcuts
           </h3>
           <div class="text-xs text-dark-muted leading-relaxed space-y-2 tracking-wide">
             <p>
-              Komplette Umstellung auf ressourcenschonende <strong>Lucide Icons</strong> (offline-fähig) sowie ein hochwertiges <strong>Header-Kacheldesign</strong> mit flüssigen Schwebungs-Effekten.
+              <strong>Modul-Fortschrittskreise:</strong> Zirkuläre Verlaufsanzeigen pro Lernfeld visualisieren den exakten Wissensstand und leuchten grün bei 100%. Der Aktivitätsverlauf wurde auf 80 Tage erweitert.
             </p>
             <p>
-              <strong>Lernkarten-Optimierung:</strong> Verbesserte Zentrierung der Antworten und mobil-optimierte Textgrößen.
+              <strong>Tastatur-Shortcuts:</strong> Bequeme Steuerung der Lernkarten via Leertaste (Antwort/Schließen), Pfeiltasten oder Tasten 1 & 2. Details dazu findest du auf der neuen <strong>Hilfe-Seite</strong>.
             </p>
             <p class="text-dark-warning">
               <i data-lucide="alert-triangle" class="mr-1"></i>
@@ -311,7 +317,7 @@
               <div class="flex items-center justify-between mb-2">
                 <span
                   class="text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider"
-                  >Aktivität (40 Tage)</span
+                  >Aktivität (80 Tage)</span
                 >
                 <span
                   class="text-[10px] font-mono text-dark-success uppercase bg-dark-success/10 px-2 py-0.5 rounded border border-dark-success/20 hidden sm:inline-block"
@@ -592,6 +598,9 @@
                 </div>
               </button>
             </div>
+            <div class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono">
+              Shortcuts: [1] Freies Training &nbsp;|&nbsp; [2] Strategie-Modus &nbsp;|&nbsp; [Esc] Schließen
+            </div>
           </div>
 
           <div id="ankiQuestionView" class="w-full hidden animate-in fade-in slide-in-from-bottom-8 duration-500 text-center flex flex-col items-center">
@@ -602,6 +611,9 @@
             <button onclick="app.anki.showAnswer()" class="w-full max-w-md py-4 px-6 bg-dark-accent hover:bg-sky-400 text-white font-bold rounded-xl transition-all shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-base flex items-center justify-center gap-2">
               <span>Antwort aufdecken</span> <i data-lucide="eye" class="w-5 h-5"></i>
             </button>
+            <div class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono">
+              Shortcuts: [Leertaste] Antwort aufdecken &nbsp;|&nbsp; [Esc] Schließen
+            </div>
           </div>
 
           <div id="ankiAnswerView" class="w-full hidden animate-in fade-in zoom-in duration-300 text-center flex flex-col items-center">
@@ -619,6 +631,9 @@
                 <i data-lucide="check" class="w-5 h-5"></i> <span>Sicher gewusst</span>
               </button>
             </div>
+            <div class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono">
+              Shortcuts: [1] / [←] Nicht gewusst &nbsp;|&nbsp; [2] / [→] Sicher gewusst &nbsp;|&nbsp; [Esc] Schließen
+            </div>
           </div>
 
           <div id="ankiFinishView" class="w-full hidden animate-in fade-in zoom-in duration-500 flex flex-col items-center text-center">
@@ -633,6 +648,9 @@
             <button onclick="app.anki.close()" class="w-full max-w-md py-4 px-6 bg-dark-accent text-white font-bold rounded-xl shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-base">
               Zurück zur Übersicht
             </button>
+            <div class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono">
+              Shortcuts: [Leertaste] Schließen
+            </div>
           </div>
 
         </div>
@@ -645,7 +663,7 @@
         class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted"
       >
         <div class="flex items-center gap-2">
-          <span class="font-bold text-white">cwillam</span> &copy; 2025
+          <span class="font-bold text-white">cwillam</span> &copy; 2026
         </div>
         <div class="flex gap-6 items-center flex-wrap justify-center">
           <a
@@ -691,10 +709,14 @@
         <div
           class="flex items-center gap-4 mb-4 pb-2 border-b border-dark-border sticky top-0 bg-dark-bg/95 backdrop-blur z-10 py-2"
         >
-          <div
-            class="w-10 h-10 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center text-dark-accent font-bold text-sm cat-icon shadow-sm shrink-0"
-          >
-            LF
+          <div class="relative w-10 h-10 flex items-center justify-center shrink-0">
+            <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+              <circle class="text-dark-border" stroke-width="3" stroke="currentColor" fill="none" r="15.9155" cx="18" cy="18" />
+              <circle class="text-dark-accent transition-all duration-500 stroke-dash cat-progress-ring" stroke-width="3" stroke-dasharray="0 100" stroke-linecap="round" stroke="currentColor" fill="none" r="15.9155" cx="18" cy="18" />
+            </svg>
+            <div class="z-10 text-[10px] font-bold text-white font-mono cat-icon flex items-center justify-center">
+              LF
+            </div>
           </div>
           <div class="flex-1 min-w-0">
             <h2 class="text-lg font-bold text-white cat-title truncate">Kategorie</h2>
@@ -711,6 +733,9 @@
                 <i data-lucide="rotate-ccw" class="mr-1"></i>Reset
               </button>
             </div>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="cat-pct text-xs font-mono font-bold text-dark-accent bg-dark-accent/10 px-2 py-0.5 rounded border border-dark-accent/20">0%</span>
           </div>
         </div>
         <div class="grid gap-3 cat-topics"></div>

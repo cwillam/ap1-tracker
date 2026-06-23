@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Updates & Roadmap | AP1 Tracker</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css" />
@@ -91,10 +93,18 @@
           </div>
         </a>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <!-- Help Link -->
+          <a
+            href="help.html"
+            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center hover:border-dark-accent transition-colors text-dark-muted hover:text-white"
+            title="Hilfe & FAQ"
+          >
+            <i class="fa-solid fa-circle-question w-3.5 h-3.5 flex items-center justify-center"></i>
+          </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
-            >v2.1.1</span
+            >v2.2.0</span
           >
         </div>
       </div>
@@ -136,7 +146,7 @@
 
       <!-- Tab Content: Updates -->
       <div id="tab-updates" class="space-y-8 fade-in delay-100">
-        <!-- v2.1.1 (AKTUELL) -->
+        <!-- v2.2.0 (AKTUELL) -->
         <div class="relative md:pl-0 group">
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
@@ -151,6 +161,60 @@
 
             <div
               class="w-full md:w-[45%] bg-dark-card border border-dark-success/30 rounded-xl p-6 hover:border-dark-success/50 transition-all duration-300 relative overflow-hidden"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-success/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="bg-dark-success/10 text-dark-success border border-dark-success/20 px-2 py-0.5 rounded text-xs font-bold"
+                  >v2.2.0</span
+                >
+                <span class="text-dark-muted text-xs">23. Juni 2026</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Fortschrittskreise & Tastatur-Shortcuts</h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                Zirkuläre Fortschrittsanzeigen pro Modul, Tastatur-Shortcuts zur Steuerung der Lernkarten und Erhöhung des Aktivitätsverlaufs auf 80 Tage.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span><strong>Modul-Fortschrittskreise:</strong> Zirkuläre SVG-Verlaufsanzeigen visualisieren den exakten Wissensstand pro Lernbereich</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span><strong>Tastatur-Shortcuts:</strong> Bequeme Steuerung der Lernkarten via Leertaste, Eingabetaste, Pfeiltasten, Tasten 1/2 und Esc</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span><strong>Aktivitätserweiterung:</strong> Erhöhung des Verlaufs auf 80 Tage für einen besseren Lernüberblick</span>
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <span><strong>Hilfe-Dokumentation:</strong> Ausführliche Beschreibung aller Shortcuts in der neuen Hilfe-Sektion</span>
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v2.1.1 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8">
+            <div
+              class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-dark-bg border-2 border-dark-border items-center justify-center z-10"
+            >
+              <div class="w-2.5 h-2.5 rounded-full bg-dark-border"></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-xl p-6 hover:border-dark-muted/50 transition-all duration-300 relative overflow-hidden"
             >
               <div
                 class="absolute top-0 right-0 w-32 h-32 bg-dark-success/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
@@ -529,16 +593,6 @@
                 Optimiertes CSS für den Ausdruck der Checklisten auf Papier.
               </p>
             </div>
-
-            <!-- Item: PWA -->
-            <div
-              class="bg-dark-card border border-dark-border p-4 rounded-xl shadow-sm hover:border-dark-muted/50 transition-colors"
-            >
-              <h4 class="font-bold text-gray-200 mb-1">PWA Support</h4>
-              <p class="text-xs text-dark-muted">
-                Installierbar auf dem Homescreen (iOS/Android) für besseres mobiles Lernen.
-              </p>
-            </div>
           </div>
 
           <!-- Column: In Progress -->
@@ -548,18 +602,15 @@
               <span class="font-bold text-sm uppercase tracking-wider">In Arbeit</span>
             </div>
 
-            <!-- Item: AP2 Tracker -->
+            <!-- Item: PWA-Unterstützung -->
             <div
               class="bg-dark-card border border-dark-accent/30 p-4 rounded-xl shadow-[0_0_10px_rgba(59,130,246,0.1)] relative overflow-hidden"
             >
               <div class="absolute top-0 left-0 w-1 h-full bg-dark-accent"></div>
-              <h4 class="font-bold text-white mb-1">AP2 Tracker</h4>
-              <p class="text-xs text-dark-muted mb-3">
-                Neues Tool speziell für Anwendungsentwickler (Teil 2 der Abschlussprüfung).
+              <h4 class="font-bold text-white mb-1">PWA-Unterstützung</h4>
+              <p class="text-xs text-dark-muted leading-relaxed">
+                Installation als native App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.
               </p>
-              <div class="flex items-center gap-1 text-xs text-dark-accent">
-                <i class="fa-solid fa-rocket"></i> Release Mitte März
-              </div>
             </div>
 
             <!-- Item: Lernzettel -->
@@ -568,12 +619,9 @@
             >
               <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
               <h4 class="font-bold text-white mb-1">Lernzettel & Skripte</h4>
-              <p class="text-xs text-dark-muted mb-3">
+              <p class="text-xs text-dark-muted">
                 Inkl. Fragen, Diagramme, IHK-Tipps und Zusammenfassungen für alle AP1 Themen.
               </p>
-              <div class="flex items-center gap-1 text-xs text-dark-accent">
-                <i class="fa-solid fa-clock-rotate-left"></i> Ab April verfügbar
-              </div>
             </div>
           </div>
 
@@ -582,6 +630,42 @@
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-emerald-400">
               <i class="fa-solid fa-check"></i>
               <span class="font-bold text-sm uppercase tracking-wider">Erledigt</span>
+            </div>
+
+            <!-- Item: Modul-Fortschrittskreise -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through decoration-dark-muted">
+                Modul-Fortschrittskreise
+              </h4>
+              <p class="text-xs text-dark-muted">
+                Zirkuläre Fortschrittsanzeigen pro Lernbereich zur präzisen Visualisierung des Wissensstandes.
+              </p>
+            </div>
+
+            <!-- Item: Tastatur-Shortcuts -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through decoration-dark-muted">
+                Tastatur-Shortcuts
+              </h4>
+              <p class="text-xs text-dark-muted">
+                Anki-Style Shortcut-Steuerung für schnelles Beantworten von Lernkarten (z.B. Space, Tasten 1 & 2).
+              </p>
+            </div>
+
+            <!-- Item: AP2 Tracker -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through decoration-dark-muted">
+                AP2 Tracker
+              </h4>
+              <p class="text-xs text-dark-muted">
+                Neues Tool speziell für Anwendungsentwickler (Teil 2 der Abschlussprüfung).
+              </p>
             </div>
 
             <!-- Item: Trennschärfe Update -->
