@@ -122,9 +122,11 @@ const app = {
       const badge = document.getElementById('ankiModeBadge');
       badge.classList.remove('hidden');
       if (mode === 'spaced') {
-        badge.innerHTML = '<i data-lucide="brain" class="w-3.5 h-3.5 mr-1 text-dark-accent"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-accent">Strategie-Modus</span>';
+        badge.innerHTML =
+          '<i data-lucide="brain" class="w-3.5 h-3.5 mr-1 text-dark-accent"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-accent">Strategie-Modus</span>';
       } else {
-        badge.innerHTML = '<i data-lucide="dumbbell" class="w-3.5 h-3.5 mr-1 text-dark-warning"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-warning">Freies Training</span>';
+        badge.innerHTML =
+          '<i data-lucide="dumbbell" class="w-3.5 h-3.5 mr-1 text-dark-warning"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-warning">Freies Training</span>';
       }
       app.refreshIcons();
 
@@ -138,7 +140,8 @@ const app = {
       const progress = (this.currentIndex / this.cards.length) * 100;
 
       document.getElementById('ankiProgress').style.width = `${progress}%`;
-      document.getElementById('ankiCardCounter').textContent = `Karte ${this.currentIndex + 1} von ${this.cards.length}`;
+      document.getElementById('ankiCardCounter').textContent =
+        `Karte ${this.currentIndex + 1} von ${this.cards.length}`;
       document.getElementById('ankiQuestionText').textContent = card.q;
       document.getElementById('ankiAnswerText').textContent = card.a;
 
@@ -217,7 +220,7 @@ const app = {
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#0ea5e9', '#10b981']
+          colors: ['#0ea5e9', '#10b981'],
         });
       }
     },
@@ -226,7 +229,7 @@ const app = {
       const modal = document.getElementById('ankiModal');
       modal.classList.add('hidden');
       document.body.style.overflow = '';
-    }
+    },
   },
 
   quotes: [
@@ -283,11 +286,13 @@ const app = {
           const corruptData = s.substring(0, 100);
           console.error('[AP1] Corrupt data preview:', corruptData);
 
-          if (confirm(
-            'Deine gespeicherten Daten sind beschädigt. \n\n' +
-            'Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n' +
-            'Klicke "Abbrechen" um die Seite im Debug-Modus zu öffnen.'
-          )) {
+          if (
+            confirm(
+              'Deine gespeicherten Daten sind beschädigt. \n\n' +
+                'Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n' +
+                'Klicke "Abbrechen" um die Seite im Debug-Modus zu öffnen.'
+            )
+          ) {
             localStorage.removeItem('ap1_dark_state_v1');
             location.reload();
           } else {
@@ -416,13 +421,13 @@ const app = {
       info: 'bg-dark-accent',
       success: 'bg-dark-success',
       warning: 'bg-dark-warning',
-      error: 'bg-dark-danger'
+      error: 'bg-dark-danger',
     };
     const icons = {
       info: 'info',
       success: 'check-circle-2',
       warning: 'alert-triangle',
-      error: 'x-circle'
+      error: 'x-circle',
     };
 
     const existing = document.getElementById('appNotification');
@@ -461,7 +466,6 @@ const app = {
     if (this.state.ankiStats) summary.ankiTopics = Object.keys(this.state.ankiStats).length;
     return summary;
   },
-
 
   // Lucide Icons nach dynamischen DOM-Updates neu initialisieren
   refreshIcons() {
@@ -611,14 +615,20 @@ const app = {
     const requiredKeys = ['activity'];
     for (const key of requiredKeys) {
       if (!(key in data)) {
-        return { valid: false, error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.` };
+        return {
+          valid: false,
+          error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.`,
+        };
       }
     }
 
     // 3. Größen-Check (max 5 MB = LocalStorage Limit)
     const size = new Blob([JSON.stringify(data)]).size;
     if (size > 5 * 1024 * 1024) {
-      return { valid: false, error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)` };
+      return {
+        valid: false,
+        error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)`,
+      };
     }
 
     // 4. Versions-Erkennung
@@ -629,7 +639,7 @@ const app = {
       return {
         valid: false,
         error: `Unbekannte Version: "${version}". Bitte Tracker aktualisieren.`,
-        needsMigration: true
+        needsMigration: true,
       };
     }
 
@@ -759,8 +769,9 @@ const app = {
 
     // Gezählte Topics
     if (state) {
-      Object.keys(state).forEach(key => {
-        if (/^\d+\.\d+$/.test(key)) { // Topic-ID Pattern (z.B. "1.1", "2.3")
+      Object.keys(state).forEach((key) => {
+        if (/^\d+\.\d+$/.test(key)) {
+          // Topic-ID Pattern (z.B. "1.1", "2.3")
           stats.topics++;
           if (state[key].done) stats.cards++;
         }
@@ -769,14 +780,14 @@ const app = {
 
     // Anki-Karten
     if (state.ankiStats) {
-      Object.values(state.ankiStats).forEach(s => {
-        stats.cards += (s.correct || 0);
+      Object.values(state.ankiStats).forEach((s) => {
+        stats.cards += s.correct || 0;
       });
     }
 
     // Aktivitätstage
     if (state.activity) {
-      stats.days = Object.keys(state.activity).filter(d => state.activity[d] > 0).length;
+      stats.days = Object.keys(state.activity).filter((d) => state.activity[d] > 0).length;
     }
 
     return stats;
@@ -837,6 +848,7 @@ const app = {
       }
     }
     this.updateStats(); // Update stats immediately
+    this.render();
   },
 
   toggleSub(id, idx, checked, element) {
@@ -881,6 +893,7 @@ const app = {
     this.trackActivity();
     this.save();
     this.updateStats(); // Update stats immediately
+    this.render();
   },
 
   randomTopic() {
@@ -1086,7 +1099,7 @@ const app = {
       const update = {
         title: '📚 AP1 Tracker Update v2.1.1',
         message: 'Wir haben den Tracker modernisiert! Lerne jetzt noch performanter.',
-        icon: 'graduation-cap'
+        icon: 'graduation-cap',
       };
       this.showUpdateModal(update.title, update.message, update.icon);
     }
@@ -1095,7 +1108,8 @@ const app = {
   showUpdateModal(title, message, iconClass) {
     const modal = document.createElement('div');
     modal.id = 'updateNotificationModal';
-    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto';
+    modal.className =
+      'fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto';
     modal.innerHTML = `
       <div class="bg-dark-card border border-dark-success/50 rounded-2xl p-5 sm:p-6 md:p-8 max-w-lg w-full shadow-2xl relative animate-in fade-in zoom-in duration-300 my-auto">
         <div class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
@@ -1209,100 +1223,113 @@ const app = {
 
   // --- RENDER ---
   updateStats() {
-    const all = AP1_DATA.flatMap((c) => c.topics);
-    const total = all.length;
-    const done = all.filter((t) => this.getState(t.id).done).length;
-    const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+    try {
+      const all = AP1_DATA.flatMap((c) => c.topics);
+      const total = all.length;
+      const done = all.filter((t) => this.getState(t.id).done).length;
+      const pct = total === 0 ? 0 : Math.round((done / total) * 100);
 
-    const totalTopEl = document.getElementById('totalPercentTop');
-    if (totalTopEl) totalTopEl.textContent = pct + '%';
+      const totalTopEl = document.getElementById('totalPercentTop');
+      if (totalTopEl) totalTopEl.textContent = pct + '%';
 
-    const mainProgress = document.getElementById('mainProgressBar');
-    if (mainProgress) mainProgress.style.width = pct + '%';
+      const mainProgress = document.getElementById('mainProgressBar');
+      if (mainProgress) mainProgress.style.width = pct + '%';
 
-    const doneCountEl = document.getElementById('doneCount');
-    if (doneCountEl) doneCountEl.textContent = done;
+      const doneCountEl = document.getElementById('doneCount');
+      if (doneCountEl) doneCountEl.textContent = done;
 
-    let currentRank = this.ranks[0];
-    let nextRank = null;
-    let rankPct = 0;
+      let currentRank = this.ranks[0];
+      let nextRank = null;
+      let rankPct = 0;
 
-    for (let i = 0; i < this.ranks.length; i++) {
-      if (done >= this.ranks[i].min) {
-        currentRank = this.ranks[i];
-        nextRank = this.ranks[i + 1] || null;
-      }
-    }
-
-    const rankNameEl = document.getElementById('levelName');
-    if (rankNameEl) {
-      rankNameEl.textContent = currentRank.name;
-      rankNameEl.style.color = currentRank.color;
-    }
-
-    if (nextRank) {
-      const range = nextRank.min - currentRank.min;
-      const currentInRank = done - currentRank.min;
-      rankPct = (currentInRank / range) * 100;
-    } else {
-      rankPct = 100;
-    }
-
-    const rankBar = document.getElementById('levelProgress');
-    if (rankBar) {
-      rankBar.style.width = rankPct + '%';
-      rankBar.style.backgroundColor = currentRank.color;
-    }
-
-    // Smart Focus 2.0: Berechnet das nächste beste Thema basierend auf:
-    // 1. Gewichtung (weight) - höhere Priorität = wichtiger
-    // 2. Fortschritt (subDone) - weniger erledigt = dringender
-    // 3. Wiederholungen (reps) - weniger wiederholt = dringender
-    // 4. Leichter Zufall (für Varianz bei gleichen Scores)
-
-    let best = null,
-      maxScore = -1;
-
-    all.forEach((t) => {
-      const s = this.getState(t.id);
-      if (!s.done) {
-        // Basis-Score aus Gewichtung (max 50 Punkte bei weight=5)
-        const weightScore = t.weight * 10;
-
-        // Fortschritts-Score: Wie viele SubTasks sind NOCH offen? (max 20 Punkte)
-        const totalSub = t.sub ? t.sub.length : 1;
-        const doneSub = s.subDone ? s.subDone.filter(Boolean).length : (s.done ? totalSub : 0);
-        const progressScore = ((totalSub - doneSub) / totalSub) * 20;
-
-        // Wiederholungs-Score: Wie viele Reps sind NOCH offen? (max 15 Punkte)
-        const totalReps = 3;
-        const doneReps = s.reps ? s.reps.filter(Boolean).length : 0;
-        const repScore = ((totalReps - doneReps) / totalReps) * 15;
-
-        // Leichter Zufall für Varianz (max 5 Punkte)
-        const randomScore = Math.random() * 5;
-
-        // Gesamt-Score (max ~90 Punkte)
-        const score = weightScore + progressScore + repScore + randomScore;
-
-        if (score > maxScore) {
-          maxScore = score;
-          best = t;
+      for (let i = 0; i < this.ranks.length; i++) {
+        if (done >= this.ranks[i].min) {
+          currentRank = this.ranks[i];
+          nextRank = this.ranks[i + 1] || null;
         }
       }
-    });
 
-    const recShort = document.getElementById('recShort');
-    if (recShort) {
-      if (best) {
-        this.recId = best.id;
-        recShort.textContent = `${best.title}`;
-        console.log('[AP1] 🎯 Smart Focus:', best.title, `(Score: ${maxScore.toFixed(1)})`);
-      } else {
-        this.recId = null;
-        recShort.textContent = 'Bereit für die AP1!';
-        console.log('[AP1] ✅ Alle Themen erledigt!');
+      const rankNameEl = document.getElementById('levelName');
+      if (rankNameEl) {
+        rankNameEl.textContent = currentRank.name;
+        rankNameEl.style.color = currentRank.color;
       }
+
+      if (nextRank) {
+        const range = nextRank.min - currentRank.min;
+        const currentInRank = done - currentRank.min;
+        rankPct = Math.min(100, Math.max(0, (currentInRank / range) * 100));
+      } else {
+        rankPct = 100;
+      }
+
+      const rankBar = document.getElementById('levelProgress');
+      if (rankBar) {
+        rankBar.style.width = rankPct + '%';
+        rankBar.style.backgroundColor = currentRank.color;
+      }
+
+      // Smart Focus 2.0: Berechnet das nächste beste Thema basierend auf:
+      // 1. Gewichtung (weight) - höhere Priorität = wichtiger
+      // 2. Fortschritt (subDone) - weniger erledigt = dringender
+      // 3. Wiederholungen (reps) - weniger wiederholt = dringender
+      // 4. Leichter Zufall (für Varianz bei gleichen Scores)
+
+      let best = null,
+        maxScore = -1;
+
+      all.forEach((t) => {
+        const s = this.getState(t.id);
+        if (!s.done) {
+          // Basis-Score aus Gewichtung (max 50 Punkte bei weight=5)
+          const weightScore = t.weight * 10;
+
+          // Fortschritts-Score: Wie viele SubTasks sind NOCH offen? (max 20 Punkte)
+          const totalSub = t.sub ? t.sub.length : 1;
+          const doneSub = s.subDone ? s.subDone.filter(Boolean).length : s.done ? totalSub : 0;
+          const progressScore = ((totalSub - doneSub) / totalSub) * 20;
+
+          // Wiederholungs-Score: Wie viele Reps sind NOCH offen? (max 15 Punkte)
+          const totalReps = 3;
+          const doneReps = s.reps ? s.reps.filter(Boolean).length : 0;
+          const repScore = ((totalReps - doneReps) / totalReps) * 15;
+
+          // Leichter Zufall für Varianz (max 5 Punkte)
+          const randomScore = Math.random() * 5;
+
+          // Gesamt-Score (max ~90 Punkte)
+          const score = weightScore + progressScore + repScore + randomScore;
+
+          if (score > maxScore) {
+            maxScore = score;
+            best = t;
+          }
+        }
+      });
+
+      // FIX: Smart Focus IMMER setzen (mit Fallback für leere Daten)
+      const recShort = document.getElementById('recShort');
+      if (recShort) {
+        if (best) {
+          this.recId = best.id;
+          recShort.textContent = best.title;
+          recShort.title = best.title;
+          recShort.classList.remove('text-dark-muted');
+          recShort.classList.add('text-white');
+          console.log('[AP1] 🎯 Smart Focus:', best.title, `(Score: ${maxScore.toFixed(1)})`);
+        } else if (all.length === 0) {
+          this.recId = null;
+          recShort.textContent = 'Lade Daten...';
+        } else {
+          this.recId = null;
+          recShort.textContent = 'Bereit für die AP1!';
+          console.log('[AP1] ✅ Alle Themen erledigt!');
+        }
+      }
+    } catch (err) {
+      console.error('[AP1] updateStats Fehler:', err);
+      const recShort = document.getElementById('recShort');
+      if (recShort) recShort.textContent = '—';
     }
   },
 
@@ -1377,7 +1404,11 @@ const app = {
           pctEl.classList.add('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
         } else {
           pctEl.classList.add('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
-          pctEl.classList.remove('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
+          pctEl.classList.remove(
+            'text-dark-success',
+            'bg-dark-success/10',
+            'border-dark-success/20'
+          );
         }
       }
 
@@ -1424,7 +1455,7 @@ const app = {
         const duckduckgoLink = node.querySelectorAll('.duckduckgo-link, .duckduckgo-link-mobile');
         duckduckgoLink.forEach((dl) => {
           dl.href = `https://www.duckduckgo.com/?q=Fachinformatiker+AP1+${encodeURIComponent(
-              t.title
+            t.title
           )}`;
         });
 
@@ -1440,19 +1471,23 @@ const app = {
           // Badge-Status bestimmen - IMMER "NEU" anzeigen
           if (ankiBadge) {
             ankiBadge.classList.remove('hidden');
-            ankiBadge.textContent = "NEU";
+            ankiBadge.textContent = 'NEU';
             ankiBadge.classList.add('border-dark-accent/30', 'text-dark-accent');
-            ankiBadge.title = "Lernkarten verfügbar";
+            ankiBadge.title = 'Lernkarten verfügbar';
           }
 
           // FIX: addEventListener mit capture:true für Firefox-Kompatibilität
           // Verhindert dass Parent-Element (Accordion) den Klick abfängt
-          ankiBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('[AP1] 🎴 Anki Button clicked for topic:', t.id);
-            this.anki.open(t.id);
-          }, { once: false, capture: true });
+          ankiBtn.addEventListener(
+            'click',
+            (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log('[AP1] 🎴 Anki Button clicked for topic:', t.id);
+              this.anki.open(t.id);
+            },
+            { once: false, capture: true }
+          );
         }
 
         // -------------------------------------------------------------

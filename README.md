@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.2.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.2.1-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > **Ein moderner, lokaler Fortschritts-Tracker für die Fachinformatiker Abschlussprüfung Teil 1.** Keine Anmeldung. Kein Tracking. Deine Daten gehören dir.
 
@@ -64,7 +64,7 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 
 ## Changelog
 
-### v2.2.0 (23. Juni 2026)
+### v2.2.1 (23. Juni 2026)
 - **Modul-Fortschrittskreise:** Zirkuläre SVG-Verlaufsringe visualisieren den Lernfortschritt pro Modul und leuchten grün bei 100%
 - **Tastatur-Shortcuts:** Lernkarten-Steuerung über Leertaste, Eingabe, Pfeiltasten und Esc (ausführliche Erklärungen in der neuen Hilfe-Sektion)
 - **Aktivitäts-Graph:** Erhöhung des Aktivitätszeitfensters von 40 auf 80 Tage für einen besseren Lernüberblick
