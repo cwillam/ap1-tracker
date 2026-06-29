@@ -1,0 +1,15 @@
+# Cache-Control: HTML-Dateien niemals cachen (immer vom Server validieren)
+<FilesMatch "\.(html|htm|xml|json)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+    </IfModule>
+</FilesMatch>
+
+# Cache-Control: CSS- und JS-Dateien im Browser cachen, aber bei jedem Laden auf Änderungen prüfen lassen
+<FilesMatch "\.(css|js)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, must-revalidate"
+    </IfModule>
+</FilesMatch>

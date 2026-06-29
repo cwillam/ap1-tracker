@@ -8,11 +8,10 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link href="assets/css/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css?v=2.2.1" />
 
     <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js"></script>
+    <script src="assets/js/tailwind.js?v=2.2.1"></script>
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -84,7 +83,8 @@
             class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors"
           >
             <i
-              class="fa-solid fa-arrow-left text-dark-muted group-hover:text-dark-accent transition-colors"
+              data-lucide="arrow-left"
+              class="text-dark-muted group-hover:text-dark-accent transition-colors w-4 h-4"
             ></i>
           </div>
           <div class="flex flex-col">
@@ -97,10 +97,10 @@
           <!-- Help Link -->
           <a
             href="help.html"
-            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center hover:border-dark-accent transition-colors text-dark-muted hover:text-white"
+            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center hover:border-dark-accent transition-colors text-dark-muted hover:text-white flex items-center justify-center"
             title="Hilfe & FAQ"
           >
-            <i class="fa-solid fa-circle-question w-3.5 h-3.5 flex items-center justify-center"></i>
+            <i data-lucide="help-circle" class="w-3.5 h-3.5 flex items-center justify-center"></i>
           </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
@@ -179,7 +179,7 @@
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Smart-Focus-Bug behoben:</strong> Der Status "Berechne..." wird jetzt
                     korrekt durch den Thementitel ersetzt. Zusätzlicher Try/Catch-Schutz für
@@ -187,21 +187,21 @@
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Fortschrittsringe synchron:</strong> Modul-Ringe und Prozent-Anzeigen
                     aktualisieren sich beim Abhaken sofort ohne Verzögerung.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Cross-Promo im Footer:</strong> Neue Sektion "Andere Fachrichtungen
                     entdecken" bewirbt AP2 FIAE und AP2 FISI prominent unterhalb des Inhalts.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Robustere Update-Logik:</strong> Sauberere Berechnung der Ränge und
                     Schutz vor Division durch Null.</span
@@ -249,28 +249,28 @@
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Modul-Fortschrittskreise:</strong> Zirkuläre SVG-Verlaufsanzeigen
                     visualisieren den exakten Wissensstand pro Lernbereich</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Tastatur-Shortcuts:</strong> Bequeme Steuerung der Lernkarten via
                     Leertaste, Eingabetaste, Pfeiltasten, Tasten 1/2 und Esc</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Aktivitätserweiterung:</strong> Erhöhung des Verlaufs auf 80 Tage für
                     einen besseren Lernüberblick</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Hilfe-Dokumentation:</strong> Ausführliche Beschreibung aller Shortcuts
                     in der neuen Hilfe-Sektion</span
@@ -316,35 +316,35 @@
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Lucide-Icons:</strong> Migration auf ressourcenschonende,
                     offline-fähige Vektorsymbole</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Sleek Header Tiles:</strong> Moderne Kachel-Buttons für alle
                     Dashboard-Aktionen</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Glocken-Ausrichtung:</strong> Präzise Positionierung der
                     Benachrichtigungs-Dot</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Micro-Animations:</strong> Interaktives Feedback (Glockenwackeln &
                     Trash-Shake) bei Hover</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Anki Lernkarten:</strong> Layout-Zentrierung der Fragen und optimierte
                     mobile Textgrößen</span
@@ -390,36 +390,36 @@
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Update-Notification Modal:</strong> Informiert Nutzer über neue
                     Features</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>SEO-Optimierung:</strong> Meta-Tags für alle Fachrichtungen (FI-AE,
                     FI-SI, FI-DP, Digitale Vernetzung)</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><strong>Sitemap & robots.txt:</strong> Für bessere Google-Indexierung</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Structured Data:</strong> Schema.org Markup für
                     EducationalApplication</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><strong>Werbung für AP2:</strong> FIAE & FISI Tracker im Modal</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span><strong>Checkbox:</strong> "Nicht wieder anzeigen" Option</span>
                 </li>
               </ul>
@@ -462,47 +462,47 @@
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Import: 5-stufige Validierung blockiert korrupte Backups</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Storage: Proaktive Warnung bei 80% LocalStorage-Auslastung</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     >Smart Focus 2.0: Intelligente Empfehlung (Gewicht + Fortschritt + Reps)</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     ><strong>Lernkarten: 1.228 Karten</strong> für alle 27 Topics (optimiert für
                     AP1)</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
                     >Modal: Full-Screen Design wie AP2-Tracker (Strategie-Modus + Freies
                     Training)</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Notification-System: Schöne Benachrichtigungen statt alert()</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Firefox-Fix: Lernkarten-Button jetzt in allen Browsern klickbar</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Corrupt-Data-Protection: Erkennt und behandelt beschädigte Daten</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-success mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Optimiert: Pseudocode-Fragen, Diagramm-Fragen, Verständnis-Fragen</span>
                 </li>
               </ul>
@@ -545,15 +545,15 @@
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-accent mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
                   <span>AP2 Themen bereinigt (SQL, RAID, SAN, Rechtsformen entfernt)</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-accent mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Prüfungs-Timer auf Herbst 2026 (30.09.) aktualisiert</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-accent mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Kaufmännische Basics & Marktformen präzisiert</span>
                 </li>
               </ul>
@@ -596,11 +596,11 @@
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-indigo-500 mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-indigo-500 mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Prüfungskatalog Synchronisation</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-indigo-500 mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-indigo-500 mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Themen Gewichtung optimiert</span>
                 </li>
               </ul>
@@ -637,11 +637,11 @@
               </p>
               <ul class="space-y-2 mb-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-accent mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Roadmap Übersicht integriert</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-dark-accent mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-dark-accent mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Changelog Historie</span>
                 </li>
               </ul>
@@ -678,11 +678,11 @@
               </p>
               <ul class="space-y-2 mt-4">
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-emerald-500 mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-emerald-500 mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Dark Mode Support</span>
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
-                  <i class="fa-solid fa-check text-emerald-500 mt-1 mr-2 text-xs"></i>
+                  <i data-lucide="check" class="text-emerald-500 mt-1 mr-3 text-xs shrink-0"></i>
                   <span>Export/Import Funktion</span>
                 </li>
               </ul>
@@ -698,7 +698,7 @@
           <!-- Column: Planned -->
           <div class="space-y-4">
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-dark-muted">
-              <i class="fa-regular fa-lightbulb"></i>
+              <i data-lucide="lightbulb" class="w-4 h-4"></i>
               <span class="font-bold text-sm uppercase tracking-wider">Geplant</span>
             </div>
 
@@ -716,7 +716,7 @@
           <!-- Column: In Progress -->
           <div class="space-y-4">
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-blue-400">
-              <i class="fa-solid fa-hammer"></i>
+              <i data-lucide="hammer" class="w-4 h-4"></i>
               <span class="font-bold text-sm uppercase tracking-wider">In Arbeit</span>
             </div>
 
@@ -747,7 +747,7 @@
           <!-- Column: Done -->
           <div class="space-y-4">
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-emerald-400">
-              <i class="fa-solid fa-check"></i>
+              <i data-lucide="check" class="w-4 h-4"></i>
               <span class="font-bold text-sm uppercase tracking-wider">Erledigt</span>
             </div>
 
@@ -842,18 +842,18 @@
             target="_blank"
             class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold"
           >
-            <i class="fa-solid fa-mug-hot"></i> Spendier nen Kaffee
+            <i data-lucide="coffee" class="w-4 h-4"></i> Spendier nen Kaffee
           </a>
 
           <a
             href="index.html"
             class="group flex items-center gap-2 text-dark-muted hover:text-white transition-colors font-bold"
           >
-            <i class="fa-solid fa-arrow-left"></i> Zurück zum Dashboard
+            <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform"></i> Zurück zum Dashboard
           </a>
 
-          <a href="https://github.com/cwillam" target="_blank" class="hover:text-white transition">
-            <i class="fa-brands fa-github mr-1"></i>GitHub
+          <a href="https://github.com/cwillam" target="_blank" class="hover:text-white transition flex items-center gap-1.5 font-bold">
+            <i data-lucide="github" class="w-4 h-4"></i>GitHub
           </a>
         </div>
       </div>
@@ -885,6 +885,15 @@
             'px-6 py-2 rounded-full text-sm font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-900/20';
         }
       }
+    </script>
+    <!-- Scripts -->
+    <script src="assets/js/lucide.min.js?v=2.2.1"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      });
     </script>
   </body>
 </html>
