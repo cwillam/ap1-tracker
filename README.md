@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.2.1-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.3.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > **Ein moderner, lokaler Fortschritts-Tracker für die Fachinformatiker Abschlussprüfung Teil 1.** Keine Anmeldung. Kein Tracking. Deine Daten gehören dir.
 
@@ -64,6 +64,12 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 
 ## Changelog
 
+### v2.3.0 (12. Juli 2026)
+- **PWA-Support:** Vollwertige Progressive Web App mit Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der Lernkarten.
+- **Homescreen-Installation:** Mobil-optimierte PWA-Meta-Tags und `apple-touch-icon` für die Homescreen-Installation auf iOS & Android.
+- **Kaffeekasse-Modal:** Neues Spenden-Modal mit direkten Optionen für PayPal (spendenfrei) und Buy Me a Coffee.
+- **Theme-Konsistenz:** Vereinheitlichung der theme-color Meta-Tags und des PWA-Brandings auf allen Unterseiten.
+
 ### v2.2.1 (23. Juni 2026)
 - **Modul-Fortschrittskreise:** Zirkuläre SVG-Verlaufsringe visualisieren den Lernfortschritt pro Modul und leuchten grün bei 100%
 - **Tastatur-Shortcuts:** Lernkarten-Steuerung über Leertaste, Eingabe, Pfeiltasten und Esc (ausführliche Erklärungen in der neuen Hilfe-Sektion)
@@ -103,7 +109,7 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 
 Das Projekt wird stetig optimiert. Aktueller Entwicklungsstand:
 
-- [ ] **In Arbeit: PWA-Unterstützung:** Installation als App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.
+- [x] **PWA-Unterstützung:** Installation als App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.
 - [ ] **In Arbeit: Lernzettel & Skripte:** Inkl. Fragen, Diagramme und Zusammenfassungen für alle AP1 Themen.
 - [ ] **Geplant: Druck-Ansicht:** CSS-Optimierungen für den Ausdruck der Checklisten auf Papier.
 

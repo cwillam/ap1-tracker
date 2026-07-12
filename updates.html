@@ -16,10 +16,10 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.2.1" />
+    <link rel="stylesheet" href="assets/css/style.css?v=2.3.0" />
 
     <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js?v=2.2.1"></script>
+    <script src="assets/js/tailwind.js?v=2.3.0"></script>
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -112,7 +112,7 @@
           </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
-            >v2.2.1</span
+            >v2.3.0</span
           >
         </div>
       </div>
@@ -154,7 +154,7 @@
 
       <!-- Tab Content: Updates -->
       <div id="tab-updates" class="space-y-12 fade-in delay-100">
-        <!-- v2.2.1 (AKTUELL) -->
+        <!-- v2.3.0 (AKTUELL) -->
         <div class="relative md:pl-0 group">
           <div
             class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
@@ -169,6 +169,62 @@
 
             <div
               class="w-full md:w-[45%] bg-dark-card border border-dark-success/50 rounded-2xl p-6 hover:border-dark-success transition-all duration-300 relative overflow-hidden shadow-2xl"
+            >
+              <div
+                class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
+              ></div>
+
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="bg-dark-success text-white px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-sm"
+                  >v2.3.0 (PWA & Offline Support)</span
+                >
+                <span class="text-dark-muted text-xs font-bold">12. Juli 2026</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">PWA & Offline Support</h3>
+              <p class="text-dark-muted text-sm mb-4 leading-relaxed">
+                Großes Update für App-Store-Kompatibilität und echte Offline-Verwendung der Lernkarten.
+              </p>
+              <ul class="space-y-2 mb-4">
+                <li class="flex items-start text-sm text-gray-300">
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
+                  <span
+                    ><strong>Echter Offline-Modus:</strong> Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der gesamten Web-App im Zug oder Prüfungsraum.</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
+                  <span
+                    ><strong>Homescreen-App:</strong> PWA-Manifest und responsive Apple-Touch-Icons ermöglichen die direkte Installation als mobile App.</span
+                  >
+                </li>
+                <li class="flex items-start text-sm text-gray-300">
+                  <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
+                  <span
+                    ><strong>Kaffeekasse-Modal:</strong> Integriertes Spenden-Modal mit direkten Spenden-Optionen für PayPal und Buy Me a Coffee.</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="w-full md:w-[45%]"></div>
+          </div>
+        </div>
+
+        <!-- v2.2.1 -->
+        <div class="relative md:pl-0 group">
+          <div
+            class="hidden md:block absolute left-[50%] top-0 bottom-0 w-px bg-dark-border -translate-x-1/2 last:bottom-auto"
+          ></div>
+
+          <div class="md:flex items-center justify-between gap-8">
+            <div
+              class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-bg border-2 border-dark-border items-center justify-center z-10"
+            >
+              <div class="w-3 h-3 rounded-full bg-dark-border"></div>
+            </div>
+
+            <div
+              class="w-full md:w-[45%] bg-dark-card border border-dark-border rounded-2xl p-6 hover:border-dark-muted/50 transition-all duration-300 relative overflow-hidden shadow-2xl"
             >
               <div
                 class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"
@@ -894,7 +950,7 @@
       }
     </script>
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=2.2.1"></script>
+    <script src="assets/js/lucide.min.js?v=2.3.0"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) {
@@ -907,7 +963,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.2.1')
+          navigator.serviceWorker.register('sw.js?v=2.3.0')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });
