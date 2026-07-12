@@ -366,14 +366,11 @@
     <!-- Support Modal -->
     <div
       id="supportModal"
-      class="fixed inset-0 z-[90] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print"
+      class="fixed inset-0 z-[90] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print flex items-center justify-center p-4"
     >
-      <div class="min-h-screen px-4 text-center">
-        <span class="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
-
-        <div
-          class="inline-block w-full max-w-md p-6 my-8 text-left align-middle transition-all transform bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative"
-        >
+      <div
+        class="w-full max-w-md p-6 bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative transition-all transform"
+      >
           <button
             onclick="document.getElementById('supportModal').classList.add('hidden')"
             class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
@@ -428,6 +425,5 @@
           </div>
         </div>
       </div>
-    </div>
   </body>
 </html>
