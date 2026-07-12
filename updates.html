@@ -189,7 +189,7 @@
                 <li class="flex items-start text-sm text-gray-300">
                   <i data-lucide="check" class="text-dark-success mt-1 mr-3 text-xs shrink-0"></i>
                   <span
-                    ><strong>Echter Offline-Modus:</strong> Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der gesamten Web-App im Zug oder Prüfungsraum.</span
+                    ><strong>Echter Offline-Modus:</strong> Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der gesamten Web-App im Zug oder bei schlechter Internetverbindung.</span
                   >
                 </li>
                 <li class="flex items-start text-sm text-gray-300">
@@ -784,18 +784,6 @@
               <span class="font-bold text-sm uppercase tracking-wider">In Arbeit</span>
             </div>
 
-            <!-- Item: PWA-Unterstützung -->
-            <div
-              class="bg-dark-card border border-dark-accent/30 p-4 rounded-xl shadow-[0_0_10px_rgba(59,130,246,0.1)] relative overflow-hidden"
-            >
-              <div class="absolute top-0 left-0 w-1 h-full bg-dark-accent"></div>
-              <h4 class="font-bold text-white mb-1">PWA-Unterstützung</h4>
-              <p class="text-xs text-dark-muted leading-relaxed">
-                Installation als native App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit
-                via Service Worker.
-              </p>
-            </div>
-
             <!-- Item: Lernzettel -->
             <div
               class="bg-dark-card border border-blue-500/30 p-4 rounded-xl shadow-[0_0_10px_rgba(59,130,246,0.1)] relative overflow-hidden"
@@ -813,6 +801,18 @@
             <div class="flex items-center gap-2 pb-2 border-b border-dark-border text-emerald-400">
               <i data-lucide="check" class="w-4 h-4"></i>
               <span class="font-bold text-sm uppercase tracking-wider">Erledigt</span>
+            </div>
+
+            <!-- Item: PWA-Unterstützung -->
+            <div
+              class="bg-dark-card border border-dark-border p-4 rounded-xl opacity-75 grayscale hover:grayscale-0 transition-all"
+            >
+              <h4 class="font-bold text-gray-300 mb-1 line-through decoration-dark-muted">
+                PWA-Unterstützung
+              </h4>
+              <p class="text-xs text-dark-muted leading-relaxed">
+                Installation als native App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.
+              </p>
             </div>
 
             <!-- Item: Modul-Fortschrittskreise -->
@@ -998,7 +998,7 @@
           <div class="flex flex-col gap-4">
             <!-- PayPal Button -->
             <a
-              href="https://www.paypal.com/donate/?business=christoph.w@malliwid.com"
+              href="https://www.paypal.com/paypalme/parablepanorama"
               target="_blank"
               class="flex items-center justify-between p-4 rounded-xl bg-[#003087]/5 border border-[#003087]/20 hover:border-[#003087]/50 hover:bg-[#003087]/10 transition-all group"
             >
