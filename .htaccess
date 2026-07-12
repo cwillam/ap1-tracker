@@ -13,3 +13,11 @@
         Header set Cache-Control "no-cache, must-revalidate"
     </IfModule>
 </FilesMatch>
+
+# Digital Asset Links niemals cachen (Google Play Trusted Web Activity Verifizierung)
+<Files "assetlinks.json">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-store, max-age=0"
+        Header set Content-Type "application/json"
+    </IfModule>
+</Files>

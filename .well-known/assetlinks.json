@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "de.cwillam.ap1.tracker",
+        "sha256_cert_fingerprints": ["3D:AA:4C:8A:A4:10:F5:D3:1E:B8:D4:22:D1:D7:AD:E2:61:EF:98:50:94:4B:AA:0E:BA:6D:BC:F8:BF:A4:A9:97"]
+      }
+    }]
