@@ -1096,14 +1096,8 @@ const app = {
 
   // --- UPDATE NOTIFICATION ---
   checkForUpdate() {
-    if (!localStorage.getItem('ap1_update_never_again_v211')) {
-      const update = {
-        title: '📚 AP1 Tracker Update v2.1.1',
-        message: 'Wir haben den Tracker modernisiert! Lerne jetzt noch performanter.',
-        icon: 'graduation-cap',
-      };
-      this.showUpdateModal(update.title, update.message, update.icon);
-    }
+    // Start-Modals komplett deaktiviert (Updates sind über die Glocke in der Navigationsleiste einsehbar)
+    return;
   },
 
   showUpdateModal(title, message, iconClass) {
