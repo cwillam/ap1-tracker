@@ -1,17 +1,17 @@
-const CACHE_NAME = 'ap1-tracker-v2.3.0';
+const CACHE_NAME = 'ap1-tracker-v2.3.1';
 const ASSETS = [
   'index.html',
   'updates.html',
   'help.html',
   'favicon.svg',
   'manifest.json',
-  'assets/css/style.css?v=2.3.0',
-  'assets/js/tailwind.js?v=2.3.0',
-  'assets/js/lucide.min.js?v=2.3.0',
-  'assets/js/confetti.js?v=2.3.0',
-  'assets/js/data.js?v=2.3.0',
-  'assets/js/questions.js?v=2.3.0',
-  'assets/js/app.js?v=2.3.0'
+  'assets/css/style.css?v=2.3.1',
+  'assets/js/tailwind.js?v=2.3.1',
+  'assets/js/lucide.min.js?v=2.3.1',
+  'assets/js/confetti.js?v=2.3.1',
+  'assets/js/data.js?v=2.3.1',
+  'assets/js/questions.js?v=2.3.1',
+  'assets/js/app.js?v=2.3.1'
 ];
 
 self.addEventListener('install', event => {
