@@ -1,0 +1,17 @@
+{
+  "name": "AP1 Tracker",
+  "short_name": "AP1 Tracker",
+  "description": "IHK Prüfungstracker für Fachinformatiker AP1",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

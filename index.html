@@ -48,6 +48,13 @@
     <meta name="robots" content="index, follow" />
 
     <title>AP1 Tracker | Kostenlose Lernkarten für Fachinformatiker (IHK)</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#3b82f6" />
     <link rel="canonical" href="https://ap1.cwillam.de/" />
 
     <!-- Structured Data (Schema.org) -->
@@ -179,6 +186,73 @@
       </div>
     </div>
 
+    <!-- Support Modal -->
+    <div
+      id="supportModal"
+      class="fixed inset-0 z-[90] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print"
+    >
+      <div class="min-h-screen px-4 text-center">
+        <span class="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
+
+        <div
+          class="inline-block w-full max-w-md p-6 my-8 text-left align-middle transition-all transform bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative"
+        >
+          <button
+            onclick="document.getElementById('supportModal').classList.add('hidden')"
+            class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
+            title="Schließen"
+          >
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+
+          <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
+            <i data-lucide="coffee" class="text-[#FFDD00]"></i> Kaffeekasse
+          </h2>
+          <p class="text-dark-muted text-sm mb-6 leading-relaxed">
+            Die Tracker sind komplett kostenlos und open-source. Wenn sie dir geholfen haben, freue ich mich riesig über eine freiwillige Spende zur Unterstützung des Projekts!
+          </p>
+
+          <div class="flex flex-col gap-4">
+            <!-- PayPal Button -->
+            <a
+              href="https://www.paypal.com/donate/?business=christoph.w@malliwid.com"
+              target="_blank"
+              class="flex items-center justify-between p-4 rounded-xl bg-[#003087]/5 border border-[#003087]/20 hover:border-[#003087]/50 hover:bg-[#003087]/10 transition-all group"
+            >
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-[#003087]/15 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
+                  <i data-lucide="wallet" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold text-white text-sm">PayPal</span>
+                  <span class="text-[11px] text-dark-muted">In Deutschland am beliebtesten</span>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+            </a>
+
+            <!-- Buy Me A Coffee Button -->
+            <a
+              href="https://buymeacoffee.com/cwillam"
+              target="_blank"
+              class="flex items-center justify-between p-4 rounded-xl bg-[#FFDD00]/5 border border-[#FFDD00]/20 hover:border-[#FFDD00]/50 hover:bg-[#FFDD00]/10 transition-all group"
+            >
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-[#FFDD00]/15 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
+                  <i data-lucide="coffee" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold text-white text-sm">Buy Me a Coffee</span>
+                  <span class="text-[11px] text-dark-muted">Kreditkarte, Apple Pay, Google Pay</span>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="glass-header sticky top-0 z-50 no-print">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -262,17 +336,16 @@
             </a>
 
             <!-- Support -->
-            <a
-              href="https://buymeacoffee.com/cwillam"
-              target="_blank"
+            <button
+              onclick="document.getElementById('supportModal').classList.remove('hidden'); if(window.lucide) { lucide.createIcons(); }"
               class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-[#FFDD00] flex items-center justify-center transition-all hover:border-[#FFDD00]/30 hover:bg-[#FFDD00]/5 group shrink-0"
-              title="Support"
+              title="Kaffeekasse"
             >
               <i
                 data-lucide="coffee"
                 class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
               ></i>
-            </a>
+            </button>
 
             <!-- Export -->
             <button
@@ -868,13 +941,12 @@
           <span class="font-bold text-white">cwillam</span> &copy; 2026
         </div>
         <div class="flex gap-6 items-center flex-wrap justify-center">
-          <a
-            href="https://buymeacoffee.com/cwillam"
-            target="_blank"
+          <button
+            onclick="document.getElementById('supportModal').classList.remove('hidden'); if(window.lucide) { lucide.createIcons(); }"
             class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold"
           >
             <i data-lucide="coffee"></i> Spendier nen Kaffee
-          </a>
+          </button>
 
           <!-- Footer Updates Button (Mobile & Desktop) -->
           <a
@@ -1141,5 +1213,16 @@
       if (window.lucide) lucide.createIcons();
     </script>
     <script src="assets/js/app.js?v=2.2.1"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js?v=2.2.1')
+            .then(reg => console.log('PWA Service Worker registered successfully', reg))
+            .catch(err => console.error('PWA Service Worker registration failed', err));
+        });
+      }
+    </script>
   </body>
 </html>
