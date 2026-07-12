@@ -369,6 +369,7 @@ const app = {
         }
       });
 
+      this.setupPwaInstall();
       this.render();
     } catch (err) {
       console.error('Critical Init Error:', err);
@@ -1098,6 +1099,49 @@ const app = {
   checkForUpdate() {
     // Start-Modals komplett deaktiviert (Updates sind über die Glocke in der Navigationsleiste einsehbar)
     return;
+  },
+
+  setupPwaInstall() {
+    let deferredPrompt;
+    const installBtn = document.getElementById('pwa-install-btn');
+    const container = document.getElementById('pwa-install-container');
+    const iosInstructions = document.getElementById('pwa-ios-instructions');
+
+    if (!container) return;
+
+    // Detect iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+    if (isStandalone) {
+      return;
+    }
+
+    if (isIOS && iosInstructions) {
+      container.classList.remove('hidden');
+      iosInstructions.classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+      return;
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      container.classList.remove('hidden');
+      if (installBtn) installBtn.classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User choice: ${outcome}`);
+        deferredPrompt = null;
+        container.classList.add('hidden');
+      });
+    }
   },
 
   showUpdateModal(title, message, iconClass) {

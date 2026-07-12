@@ -83,7 +83,7 @@
       }
     </script>
 
-    <script src="assets/js/tailwind.js?v=2.3.2"></script>
+    <script src="assets/js/tailwind.js?v=2.3.3"></script>
 
     <script>
       tailwind.config = {
@@ -140,7 +140,7 @@
       };
     </script>
 
-    <link href="assets/css/style.css?v=2.3.2" rel="stylesheet" />
+    <link href="assets/css/style.css?v=2.3.3" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen">
@@ -404,6 +404,21 @@
             <p>
               <strong>Google Play Release:</strong> Der Tracker wird in Kürze für einen geschlossenen Betatest direkt im Google Play Store als App veröffentlicht.
             </p>
+            <!-- PWA Install Prompts (Hidden by default, shown via JS) -->
+            <div id="pwa-install-container" class="hidden mt-3 flex flex-wrap gap-2">
+              <button
+                id="pwa-install-btn"
+                class="bg-dark-accent hover:bg-dark-accent/90 text-white font-bold py-1.5 px-3 rounded-lg text-[11px] flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
+              >
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> Jetzt als App installieren (Offline-Modus)
+              </button>
+              <span
+                id="pwa-ios-instructions"
+                class="hidden text-[10px] text-dark-accent bg-dark-accent/10 border border-dark-accent/20 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5"
+              >
+                <i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i> Für iPhone: Tippe in Safari auf Teilen <i data-lucide="share" class="inline w-3 h-3"></i> -> Zum Home-Bildschirm!
+              </span>
+            </div>
             <p class="text-dark-warning">
               <i data-lucide="alert-triangle" class="mr-1"></i>
               <strong>Tipp:</strong> Bei Anzeigeproblemen nach Updates bitte einen
@@ -1196,23 +1211,23 @@
       </div>
     </template>
 
-    <script src="assets/js/confetti.js?v=2.3.2"></script>
+    <script src="assets/js/confetti.js?v=2.3.3"></script>
 
-    <script src="assets/js/data.js?v=2.3.2"></script>
-    <script src="assets/js/questions.js?v=2.3.2"></script>
+    <script src="assets/js/data.js?v=2.3.3"></script>
+    <script src="assets/js/questions.js?v=2.3.3"></script>
 
-    <script src="assets/js/lucide.min.js?v=2.3.2"></script>
+    <script src="assets/js/lucide.min.js?v=2.3.3"></script>
     <script>
       // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
       if (window.lucide) lucide.createIcons();
     </script>
-    <script src="assets/js/app.js?v=2.3.2"></script>
+    <script src="assets/js/app.js?v=2.3.3"></script>
     
     <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.3.2')
+          navigator.serviceWorker.register('sw.js?v=2.3.3')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });
