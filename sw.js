@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ap1-tracker-v2.3.5';
+const CACHE_NAME = 'ap1-tracker-v2.3.6';
 const ASSETS = [
   'index.html',
   'updates.html',

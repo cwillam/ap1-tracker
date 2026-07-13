@@ -425,5 +425,37 @@
           </div>
         </div>
       </div>
-  </body>
+      <!-- TWA Kaffeekasse Redirect Weiche -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const isTWA = window.matchMedia('(display-mode: standalone)').matches || 
+                      window.navigator.standalone || 
+                      document.referrer.includes('android-app://') || 
+                      window.location.search.includes('mode=twa');
+        if (isTWA) {
+          const coffeeButtons = document.querySelectorAll('button[title="Kaffeekasse"], a[title="Kaffeekasse"]');
+          coffeeButtons.forEach(btn => {
+            btn.removeAttribute('onclick');
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const targetUrl = window.location.protocol + "//" + window.location.host + "/?openKaffeekasse=true";
+              window.open(targetUrl, '_blank');
+            });
+          });
+        } else {
+          if (window.location.search.includes('openKaffeekasse=true')) {
+            const modal = document.getElementById('supportModal');
+            if (modal) {
+              modal.classList.remove('hidden');
+              if (window.lucide) { lucide.createIcons(); }
+              const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+              window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+            }
+          }
+        }
+      });
+    </script>
+
+</body>
 </html>

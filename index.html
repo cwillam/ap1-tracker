@@ -1221,17 +1221,49 @@
       // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
       if (window.lucide) lucide.createIcons();
     </script>
-    <script src="assets/js/app.js?v=2.3.5"></script>
+    <script src="assets/js/app.js?v=2.3.6"></script>
     
     <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.3.5')
+          navigator.serviceWorker.register('sw.js?v=2.3.6')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });
       }
     </script>
-  </body>
+      <!-- TWA Kaffeekasse Redirect Weiche -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const isTWA = window.matchMedia('(display-mode: standalone)').matches || 
+                      window.navigator.standalone || 
+                      document.referrer.includes('android-app://') || 
+                      window.location.search.includes('mode=twa');
+        if (isTWA) {
+          const coffeeButtons = document.querySelectorAll('button[title="Kaffeekasse"], a[title="Kaffeekasse"]');
+          coffeeButtons.forEach(btn => {
+            btn.removeAttribute('onclick');
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const targetUrl = window.location.protocol + "//" + window.location.host + "/?openKaffeekasse=true";
+              window.open(targetUrl, '_blank');
+            });
+          });
+        } else {
+          if (window.location.search.includes('openKaffeekasse=true')) {
+            const modal = document.getElementById('supportModal');
+            if (modal) {
+              modal.classList.remove('hidden');
+              if (window.lucide) { lucide.createIcons(); }
+              const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+              window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+            }
+          }
+        }
+      });
+    </script>
+
+</body>
 </html>
