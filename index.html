@@ -811,6 +811,9 @@
               <div
                 class="bg-dark-card border border-dark-border rounded-2xl p-6 sm:p-10 shadow-2xl w-full"
               >
+                <div class="text-xs sm:text-sm text-violet-400 font-bold mb-4 border-b border-dark-border/40 pb-4 text-center tracking-wider uppercase">
+                  Frage: <span id="ankiAnswerQuestionText" class="text-white font-semibold normal-case block mt-1 leading-snug"></span>
+                </div>
                 <p
                   id="ankiAnswerText"
                   class="text-base sm:text-xl text-white leading-relaxed font-medium"
@@ -1221,13 +1224,13 @@
       // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
       if (window.lucide) lucide.createIcons();
     </script>
-    <script src="assets/js/app.js?v=2.3.7"></script>
+    <script src="assets/js/app.js?v=2.3.8"></script>
     
     <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.3.7')
+          navigator.serviceWorker.register('sw.js?v=2.3.8')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });

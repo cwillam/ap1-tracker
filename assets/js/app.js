@@ -143,6 +143,8 @@ const app = {
       document.getElementById('ankiCardCounter').textContent =
         `Karte ${this.currentIndex + 1} von ${this.cards.length}`;
       document.getElementById('ankiQuestionText').textContent = card.q;
+      const ansQElement = document.getElementById('ankiAnswerQuestionText');
+      if (ansQElement) ansQElement.textContent = card.q;
       document.getElementById('ankiAnswerText').textContent = card.a;
 
       document.getElementById('ankiQuestionView').classList.remove('hidden');
