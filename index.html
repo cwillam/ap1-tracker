@@ -1221,13 +1221,13 @@
       // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
       if (window.lucide) lucide.createIcons();
     </script>
-    <script src="assets/js/app.js?v=2.3.6"></script>
+    <script src="assets/js/app.js?v=2.3.7"></script>
     
     <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.3.6')
+          navigator.serviceWorker.register('sw.js?v=2.3.7')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });
@@ -1247,7 +1247,7 @@
             btn.addEventListener('click', (e) => {
               e.preventDefault();
               e.stopPropagation();
-              const targetUrl = window.location.protocol + "//" + window.location.host + "/?openKaffeekasse=true";
+              const targetUrl = "https://cwillam.de/spende.html";
               window.open(targetUrl, '_blank');
             });
           });
