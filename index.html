@@ -391,18 +391,26 @@
         class="bg-gradient-to-r from-slate-900 to-dark-card border border-dark-accent/30 rounded-xl p-5 relative shadow-card flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group no-print"
       >
         <div class="max-w-3xl">
-          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
-            <i data-lucide="layers" class="text-dark-accent"></i> Neu in v2.3.0: PWA-Support & Kaffeekasse
+                    <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <span class="inline-block px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 rounded text-[9px] font-black uppercase tracking-wider text-dark-accent">Neu</span>
+            <i data-lucide="smartphone" class="text-dark-accent"></i> Google Play Store: Beta-Test läuft!
           </h3>
           <div class="text-xs text-dark-muted leading-relaxed space-y-2 tracking-wide">
             <p>
-              <strong>App-Installation & Offline-Modus:</strong> Installiere den Tracker als App auf deinem Smartphone (iOS & Android). Sie läuft jetzt vollständig offline (100% offline-fähig).
+              Die Tracker sind jetzt auch als offizielle Android-Apps im Google Play Store verfügbar! Um an der geschlossenen Beta teilzunehmen, trage ich dich gerne als Tester ein.
             </p>
-            <p>
-              <strong>Kaffeekasse-Modal:</strong> Klick auf die Kaffeetasse öffnet ein Modal mit direkten Optionen für PayPal (spendenfrei) und Buy Me a Coffee.
+            <p class="text-white font-medium">
+              Sende mir dazu einfach eine E-Mail mit deiner Google-Mail-Adresse und den gewünschten Versionen (AP1, AP2 FIAE, AP2 FISI oder alle) an 
+              <a href="mailto:christoph.willam@googlemail.com?subject=Anmeldung%20Google%20Play%20Beta-Test&body=Hallo%20Christoph%2C%0A%0Aich%20m%C3%B6chte%20gerne%20am%20Google%20Play%20Beta-Test%20teilnehmen.%0A%0AMeine%20Google-Mail-Adresse%3A%20%0A%0AGew%C3%BCnschte%20Versionen%20(AP1%20%2F%20AP2%20FIAE%20%2F%20AP2%20FISI)%3A%20%0A%0ALiebe%20Gr%C3%BC%C3%9Fe" class="text-dark-accent hover:underline font-bold">christoph.willam@googlemail.com</a>. 
+              Alternativ kannst du mir auch eine 
+              <a href="https://www.reddit.com/message/compose/?to=Ammonox&subject=Play%20Store%20Beta%20Tracker" target="_blank" class="text-dark-accent hover:underline font-bold">Reddit-PN</a> schicken.
             </p>
-            <p>
-              <strong>Google Play Release:</strong> Der Tracker wird in Kürze für einen geschlossenen Betatest direkt im Google Play Store als App veröffentlicht.
+            <p class="text-[11px] text-dark-warning/90 font-semibold flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 shrink-0 text-dark-warning animate-pulse"></i>
+              <strong>Mitgestalten:</strong> Als Beta-Tester kannst du Verbesserungen vorschlagen und zukünftige Features aktiv mitbestimmen!
+            </p>
+            <p class="text-[10px] text-dark-muted mt-1">
+              Ich trage deine E-Mail in der Google Play Console ein und sende dir anschließend den Einladungslink zu.
             </p>
             <!-- PWA Install Prompts (Hidden by default, shown via JS) -->
             <div id="pwa-install-container" class="hidden mt-3 flex flex-wrap gap-2">
@@ -1224,13 +1232,13 @@
       // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
       if (window.lucide) lucide.createIcons();
     </script>
-    <script src="assets/js/app.js?v=2.3.8"></script>
+    <script src="assets/js/app.js?v=2.3.9"></script>
     
     <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.3.8')
+          navigator.serviceWorker.register('sw.js?v=2.3.9')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });
