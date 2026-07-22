@@ -1045,7 +1045,7 @@ const app = {
       content.innerHTML = `
               <h1 class="text-2xl font-bold text-dark-accent mb-6">Impressum</h1>
               <div class="space-y-4 text-dark-text">
-                <p><strong>Angaben gemäß § 5 TMG</strong></p>
+                <p><strong>Angaben gemäß § 5 DDG</strong></p>
                 <p>
                   Christoph Willam<br />
                   Tocklergasse 14<br />
@@ -1088,6 +1088,16 @@ const app = {
 
                   <h2 class="text-lg font-bold text-white mt-4">5. Ihre Rechte</h2>
                   <p>Bezüglich der Server-Logs haben Sie das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung. Da die Lerndaten nur auf Ihrem Gerät liegen, haben wir auf diese keinen Zugriff – Sie können diese Daten jederzeit selbst löschen, indem Sie den Browser-Cache leeren oder den "Reset"-Button in der App nutzen.</p>
+
+                  <h2 class="text-lg font-bold text-white mt-4">6. Auftragsverarbeitung</h2>
+                  <p>Für das Hosting dieser Website setzen wir als Auftragsverarbeiter die <strong>IONOS SE</strong> (Elgendorfer Str. 57, 56410 Montabaur) ein. Mit IONOS besteht ein Vertrag zur Auftragsverarbeitung gemäß Art. 28 DSGVO. Die Verarbeitung der Server-Logfiles (siehe Abschnitt 2) erfolgt im Auftrag des Betreibers auf Servern innerhalb der EU.</p>
+
+                  <h2 class="text-lg font-bold text-white mt-4">7. Beschwerderecht</h2>
+                  <p>Sie haben gemäß Art. 77 DSGVO das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Die für uns zuständige Aufsichtsbehörde ist:</p>
+                  <p>Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
+                  Promenade 18<br>
+                  91522 Ansbach<br>
+                  poststelle@lda.bayern.de</p>
                 </div>
             `;
     }
