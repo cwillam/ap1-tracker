@@ -388,7 +388,8 @@
     <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <!-- Info Box -->
       <div
-        class="bg-gradient-to-r from-slate-900 to-dark-card border border-dark-accent/30 rounded-xl p-5 relative shadow-card flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group no-print"
+        id="infoBox"
+        class="bg-gradient-to-r from-dark-accent/5 via-slate-900 to-dark-card border-y border-r border-l-4 border-y-dark-border/40 border-r-dark-border/40 border-l-dark-accent rounded-xl p-5 relative shadow-card flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group no-print"
       >
         <div class="max-w-3xl">
                     <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
@@ -406,7 +407,7 @@
               <a href="https://www.reddit.com/message/compose/?to=Ammonox&subject=Play%20Store%20Beta%20Tracker" target="_blank" class="text-dark-accent hover:underline font-bold">Reddit-PN</a> schicken.
             </p>
             <p class="text-[11px] text-dark-warning/90 font-semibold flex items-center gap-1.5">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5 shrink-0 text-dark-warning animate-pulse"></i>
+              <i data-lucide="users" class="w-3.5 h-3.5 shrink-0 text-dark-accent"></i>
               <strong>Mitgestalten:</strong> Als Beta-Tester kannst du Verbesserungen vorschlagen und zukünftige Features aktiv mitbestimmen!
             </p>
             <p class="text-[10px] text-dark-muted mt-1">
@@ -1232,13 +1233,13 @@
       // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
       if (window.lucide) lucide.createIcons();
     </script>
-    <script src="assets/js/app.js?v=2.3.9"></script>
+    <script src="assets/js/app.js?v=2.4.0"></script>
     
     <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.3.9')
+          navigator.serviceWorker.register('sw.js?v=2.4.0')
             .then(reg => console.log('PWA Service Worker registered successfully', reg))
             .catch(err => console.error('PWA Service Worker registration failed', err));
         });
