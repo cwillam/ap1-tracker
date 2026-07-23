@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.3.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.4.1-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
@@ -65,6 +65,14 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 ---
 
 ## Changelog
+
+### v2.4.1 (23. Juli 2026)
+- **Bugfix GitHub-Templates:** Syntaxfehler in `bug.yml` behoben, so dass das Bug-Formular nun reibungslos von GitHub erkannt wird.
+- **Cache-Aktualisierung:** Anhebung von CACHE_NAME auf `v2.4.1` und Asset-Versioning (`?v=2.4.1`) durchgeführt, um automatische Updates beim Nutzer anzustoßen.
+
+### v2.4.0 (23. Juli 2026)
+- **Berufsschul-Portal:** Neue Infoseite (`bildungseinrichtungen.html`) für Schulen und Dozenten bezüglich datenschutzkonformem und freiem Einsatz im Unterricht.
+- **Outreach & Feedback:** Integration direkter Verlinkungen für Fehlerberichte und Feature-Wünsche im Footer sowie Google Forms für Closed-Beta-Anmeldungen.
 
 ### v2.3.0 (12. Juli 2026)
 - **PWA-Support:** Vollwertige Progressive Web App mit Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der Lernkarten.
