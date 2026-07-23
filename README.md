@@ -6,6 +6,8 @@
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
 [![Version](https://img.shields.io/badge/Version-v2.3.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
+> 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
+
 > **Ein moderner, lokaler Fortschritts-Tracker für die Fachinformatiker Abschlussprüfung Teil 1.** Keine Anmeldung. Kein Tracking. Deine Daten gehören dir.
 
 ---

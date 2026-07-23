@@ -1,0 +1,10 @@
+# .github/ISSUE_TEMPLATE/config.yml
+# Erzwingt Template-Auswahl (kein "Blank issue" mehr)
+# und fuegt einen Direktkontakt-Link fuer schnelle Fragen hinzu.
+
+blank_issues_enabled: false
+
+contact_links:
+  - name: "📧 Direktkontakt zu Christoph"
+    url: "mailto:christoph.willam@googlemail.com?subject=AP-Tracker%20Frage"
+    about: "Schnelle Frage? Lieber direkt mailen statt ein Issue anlegen."
