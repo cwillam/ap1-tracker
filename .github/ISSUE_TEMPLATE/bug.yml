@@ -1,0 +1,123 @@
+name: Bug Report
+description: Melde einen Bug in einem der AP-Tracker (Web, PWA oder Android-App)
+title: "[Bug]: "
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: dropdown
+    id: tracker
+    attributes:
+      label: Welcher Tracker?
+      description: Auf welchem Tracker tritt der Bug auf?
+      options:
+        - AP1 (alle Fachrichtungen)
+        - AP2 FIAE (Anwendungsentwicklung)
+        - AP2 FISI (Systemintegration)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: Gerät
+      description: Auf welchem Gerät tritt der Bug auf?
+      options:
+        - Smartphone
+        - Tablet
+        - Desktop / Laptop
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install-type
+    attributes:
+      label: Installations-Typ
+      description: Wie nutzt du den Tracker?
+      options:
+        - Im Web-Browser (keine Installation)
+        - Als PWA installiert (Browser-App)
+        - Über Google Play Store (Android-App)
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser + Version
+      description: z.B. Chrome 120, Firefox 121, Safari 17, Samsung Internet 23
+      placeholder: Chrome 120
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Betriebssystem + Version
+      description: z.B. Windows 11, macOS 14, Android 14, iOS 17
+      placeholder: Windows 11
+    validations:
+      required: true
+
+  - type: input
+    id: tracker-version
+    attributes:
+      label: Tracker-Version
+      description: Welche Version läuft? (steht im Footer der App, z.B. "v2.4.0")
+      placeholder: v2.4.0
+    validations:
+      required: false
+
+  - type: input
+    id: url
+    attributes:
+      label: URL der Seite
+      description: Auf welcher Seite trat der Bug auf?
+      placeholder: https://ap1.cwillam.de/
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zur Reproduktion
+      description: Wie kann man den Bug reproduzieren? (so konkret wie möglich)
+      placeholder: |
+        1. Gehe zu '...'
+        2. Klicke auf '...'
+        3. Scrolle zu '...'
+        4. Siehe Fehler
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Erwartetes Verhalten
+      description: Was sollte passieren?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Tatsächliches Verhalten
+      description: Was passiert stattdessen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: console-errors
+    attributes:
+      label: Konsolen-Fehler (optional)
+      description: Falls sichtbar: F12 drücken, Tab "Console" öffnen, rote Fehlermeldung hier einfügen.
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (optional)
+      description: Bitte anhängen oder Links einfügen.
+    validations:
+      required: false

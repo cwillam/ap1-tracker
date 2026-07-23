@@ -2,7 +2,7 @@
   "id": "/",
   "name": "AP1 Tracker",
   "short_name": "AP1 Tracker",
-  "description": "IHK Prüfungstracker für Fachinformatiker AP1",
+  "description": "AP-Tracker für die Fachinformatiker AP1",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#020617",

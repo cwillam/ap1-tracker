@@ -1,0 +1,79 @@
+name: Feature Request
+description: Schlage ein neues Feature für einen der AP-Tracker vor
+title: "[Feature]: "
+labels: ["enhancement"]
+assignees: []
+
+body:
+  - type: dropdown
+    id: tracker
+    attributes:
+      label: Welcher Tracker?
+      description: Für welchen Tracker ist das Feature?
+      options:
+        - AP1 (alle Fachrichtungen)
+        - AP2 FIAE (Anwendungsentwicklung)
+        - AP2 FISI (Systemintegration)
+        - Alle drei
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Art des Features
+      description: Um was für eine Art von Feature handelt es sich?
+      options:
+        - Neue Lernfunktion (z.B. neuer Lernmodus, Karteikarten-Funktion)
+        - UI/UX-Verbesserung
+        - Neue Lernkarten / Inhalte
+        - Performance-Verbesserung
+        - Barrierefreiheit
+        - Mehrsprachigkeit
+        - Sonstiges
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Wie wichtig ist das Feature für dich?
+      description: Hilft bei der Priorisierung
+      options:
+        - Nice-to-have (kann warten)
+        - Würde den Tracker deutlich besser machen
+        - Blockiert meinen Lernfluss aktuell
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Use Case
+      description: Welches Problem löst das Feature oder welcher Use Case wird besser unterstützt?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Vorgeschlagene Lösung
+      description: Wie könnte das Feature umgesetzt werden? (grobe Beschreibung reicht)
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Lösungen
+      description: Welche Alternativen hast du erwogen?
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Zusätzlicher Kontext
+      description: Screenshots, Links zu ähnlichen Features in anderen Apps, verwandte Issues, etc.
+    validations:
+      required: false

@@ -88,7 +88,7 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 - **SEO-Optimierung:** Google Indexierung für alle Fachrichtungen (FI-AE, FI-SI, FI-DP, Digitale Vernetzung)
 - **Sitemap & robots.txt:** Für bessere Suchmaschinen-Integration
 - **Structured Data:** Schema.org Markup für EducationalApplication
-- **Meta-Tags:** Optimierte Beschreibungen & Keywords für alle IHK-Fachrichtungen
+- **Meta-Tags:** Optimierte Beschreibungen & Keywords für alle Fachrichtungen der Abschlussprüfung
 
 ### v2.0.1 (24. März 2026)
 - **Lernkarten-System:** 1.228 Karten für alle 27 Themen (optimiert für AP1)
@@ -117,7 +117,7 @@ Das Projekt wird stetig optimiert. Aktueller Entwicklungsstand:
 
 ## Disclaimer
 
-_Alle Lerninhalte wurden nach bestem Wissen und Gewissen auf Basis der aktuellen IHK-Prüfungskataloge zusammengestellt. Ich gebe mein Bestes, alles aktuell und korrekt zu halten, übernehme jedoch keine Gewähr für die Vollständigkeit oder Richtigkeit der prüfungsrelevanten Themen._
+_Alle Lerninhalte wurden nach bestem Wissen und Gewissen auf Basis der aktuellen amtlichen Rahmenlehrpläne und Prüfungsanforderungen zusammengestellt. Ich gebe mein Bestes, alles aktuell und korrekt zu halten, übernehme jedoch keine Gewähr für die Vollständigkeit oder Richtigkeit der prüfungsrelevanten Themen._
 
 ---
 

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP-Tracker für Berufsschulen & Bildungsträger</title>
+    <meta name="description" content="Kostenlose, werbefreie Prüfungs-Lernkarten für den Berufsschul-Unterricht. 1.228 AP1-Fragen, 897 AP2-FIAE, 840 AP2-FISI. Open Source, DSGVO-konform, läuft komplett im Browser.">
+    <meta name="author" content="Christoph Willam">
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('assets/fonts/Inter-Regular.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('assets/fonts/Inter-SemiBold.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('assets/fonts/Inter-Bold.woff2') format('woff2');
+        }
+
+        * { box-sizing: border-box; }
+
+        :root {
+            --bg: #020617;
+            --card: #0f172a;
+            --card-2: #131a2a;
+            --border: #1e293b;
+            --border-2: #334155;
+            --text: #f8fafc;
+            --text-muted: #cbd5e1;
+            --text-dim: #94a3b8;
+            --text-faint: #64748b;
+            --accent: #0ea5e9;
+            --accent-2: #38bdf8;
+            --accent-3: #7dd3fc;
+            --accent-bg: rgba(14, 165, 233, 0.15);
+            --accent-bg-2: rgba(14, 165, 233, 0.22);
+            --accent-border-2: rgba(14, 165, 233, 0.25);
+            --accent-glow: rgba(14, 165, 233, 0.18);
+        }
+
+        html, body {
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 15px;
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 20px 64px;
+        }
+
+        /* === Unified icon-box (matches AP1 tracker) === */
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border-2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-2);
+            flex-shrink: 0;
+        }
+        .icon-box svg { width: 18px; height: 18px; }
+        .icon-box.compact { width: 28px; height: 28px; border-radius: 6px; }
+        .icon-box.compact svg { width: 14px; height: 14px; }
+
+        /* === Top bar - matches AP1 tracker logo style === */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .topbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+            text-decoration: none;
+        }
+        .topbar .brand .icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border-2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-2);
+        }
+        .topbar .brand .icon svg { width: 18px; height: 18px; }
+        .topbar .brand .text { display: flex; flex-direction: column; line-height: 1.2; }
+        .topbar .brand .name {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text);
+        }
+        .topbar .brand .badge {
+            display: inline-block;
+            padding: 1px 6px;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border-2);
+            color: var(--accent-2);
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+            align-self: flex-start;
+        }
+        .topbar .back {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+        }
+        .topbar .back:hover { color: var(--text); border-color: var(--border); }
+        .topbar .back svg { width: 14px; height: 14px; }
+
+        /* === Hero === */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            border: 1px solid var(--accent-border-2);
+            border-radius: 12px;
+            padding: 32px 32px 28px;
+            margin-bottom: 48px;
+            box-shadow: 0 0 24px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border-2);
+            color: var(--accent-2);
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .hero .label svg { width: 11px; height: 11px; }
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 0 0 16px 0;
+            color: var(--text);
+            position: relative;
+        }
+        .hero .lede {
+            font-size: 15.5px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0;
+            position: relative;
+        }
+        .hero .lede strong { color: var(--text); font-weight: 600; }
+
+        /* === Section base === */
+        section {
+            margin-top: 48px;
+        }
+        section h2 {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin: 0 0 18px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        section h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        section h2 .num {
+            color: var(--accent);
+            font-variant-numeric: tabular-nums;
+        }
+        section p {
+            color: var(--text-muted);
+            margin: 0 0 14px 0;
+        }
+        section p strong { color: var(--text); font-weight: 600; }
+        section a {
+            color: var(--accent-2);
+            text-decoration: none;
+        }
+        section a:hover { color: var(--accent-3); text-decoration: underline; }
+
+        /* === Tracker list === */
+        .tracker-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        a.tracker-item {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: grid;
+            grid-template-columns: 40px 1fr auto auto;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+        a.tracker-item:hover {
+            border-color: var(--accent-border-2);
+            background-color: var(--card-2);
+        }
+        a.tracker-item:hover .arrow { color: var(--accent-2); }
+        .tracker-item .name {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 15px;
+        }
+        .tracker-item .name small {
+            display: block;
+            font-weight: 400;
+            color: var(--text-dim);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        .tracker-item .count {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        .tracker-item .count .num {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-2);
+            line-height: 1;
+        }
+        .tracker-item .count .lbl {
+            display: block;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 4px;
+        }
+        .tracker-item .arrow {
+            color: var(--text-faint);
+            display: flex;
+            transition: all 0.2s;
+        }
+        .tracker-item .arrow svg { width: 16px; height: 16px; }
+
+        /* === Scenarios === */
+        .scenarios {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .scenario {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 14px;
+            align-items: start;
+        }
+        .scenario h4 {
+            margin: 0 0 4px 0;
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .scenario p {
+            margin: 0;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* === Data flow === */
+        .dataflow {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin: 12px 0;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Code", "Courier New", monospace;
+            font-size: 12.5px;
+            line-height: 2.1;
+            color: var(--text-muted);
+            overflow-x: auto;
+        }
+        .dataflow .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .dataflow .row.indent { padding-left: 14px; }
+        .dataflow .arrow { color: var(--text-faint); }
+        .dataflow .here { color: var(--accent-2); font-weight: 600; }
+        .dataflow .away {
+            color: var(--text-faint);
+            text-decoration: line-through;
+            text-decoration-color: var(--text-faint);
+        }
+        .dataflow .lbl {
+            color: var(--text-faint);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            min-width: 70px;
+            display: inline-block;
+        }
+        .dataflow .desc {
+            color: var(--text-faint);
+            font-size: 11px;
+            font-style: italic;
+        }
+
+        /* === Google Play section === */
+        .play-section {
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            border: 1px solid var(--accent-border-2);
+            border-radius: 12px;
+            padding: 28px;
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 18px;
+            align-items: start;
+            box-shadow: 0 0 24px var(--accent-glow);
+        }
+        .play-section .icon-box { width: 48px; height: 48px; border-radius: 10px; }
+        .play-section .icon-box svg { width: 22px; height: 22px; }
+        .play-section h3 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .play-section h3 .tag {
+            display: inline-block;
+            padding: 2px 7px;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border-2);
+            color: var(--accent-2);
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .play-section p {
+            margin: 0 0 18px 0;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .play-section p strong { color: var(--text); font-weight: 600; }
+
+        /* === Contact === */
+        .contact {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-text { margin: 0; }
+        .contact-text p { margin: 0; color: var(--text-muted); font-size: 14.5px; line-height: 1.6; }
+        .contact-cta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border-2);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s;
+            min-width: 0;
+        }
+        .contact-cta:hover {
+            background: var(--accent-bg-2);
+            border-color: var(--accent-2);
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+        .contact-cta .icon-box { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; }
+        .contact-cta .icon-box svg { width: 20px; height: 20px; }
+        .contact-cta-text {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+        .contact-cta .title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            word-break: break-all;
+        }
+        .contact-cta .sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        .contact-cta .arrow {
+            color: var(--text-faint);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .contact-cta .arrow svg { width: 18px; height: 18px; }
+        .contact-cta:hover .arrow { color: var(--accent-2); transform: translateX(2px); }
+
+        /* === Unified action button (small, same style for both) === */
+        .action {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 8px 8px;
+            background: var(--accent-bg);
+            border: 1px solid var(--accent-border-2);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .action:hover {
+            background: var(--accent-bg-2);
+            border-color: var(--accent-2);
+            text-decoration: none;
+        }
+        .action .icon-box { width: 32px; height: 32px; border-radius: 7px; }
+        .action .icon-box svg { width: 15px; height: 15px; }
+        .action .text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+        .action .title { font-size: 13.5px; font-weight: 700; color: var(--text); }
+        .action .sub { font-size: 11.5px; font-weight: 400; color: var(--text-dim); margin-top: 1px; }
+        .action .arrow { color: var(--text-faint); transition: all 0.2s; flex-shrink: 0; }
+        .action .arrow svg { width: 14px; height: 14px; }
+        .action:hover .arrow { color: var(--accent-2); transform: translateX(2px); }
+
+        /* === Footer === */
+        footer {
+            margin-top: 56px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+        footer .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            margin-bottom: 16px;
+        }
+        footer .links a {
+            color: var(--text-dim);
+            text-decoration: none;
+        }
+        footer .links a:hover { color: var(--text); }
+        footer .meta {
+            color: var(--text-faint);
+            line-height: 1.7;
+            font-size: 11.5px;
+        }
+        footer .meta a { color: var(--text-dim); text-decoration: underline; text-decoration-color: var(--border-2); }
+        footer .meta a:hover { color: var(--text-muted); }
+
+        @media (max-width: 640px) {
+            .container { padding: 24px 14px 40px; }
+            .topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .hero { padding: 24px 20px 20px; }
+            .hero h1 { font-size: 23px; }
+            .hero .lede { font-size: 14.5px; }
+            a.tracker-item { grid-template-columns: 40px 1fr; padding: 12px 14px; gap: 12px; }
+            .tracker-item .count { grid-column: 2 / 3; text-align: left; }
+            .tracker-item .count .num { display: inline-block; }
+            .tracker-item .count .lbl { display: inline-block; margin-left: 6px; }
+            .tracker-item .arrow { display: none; }
+            .dataflow { font-size: 11.5px; padding: 14px 16px; }
+            .scenario { padding: 12px 14px; }
+            .play-section { padding: 20px; grid-template-columns: 40px 1fr; gap: 14px; }
+            .play-section .icon-box { width: 40px; height: 40px; }
+            .play-section .icon-box svg { width: 18px; height: 18px; }
+            .contact { padding: 20px; gap: 16px; }
+            .contact-cta { padding: 14px 16px; gap: 12px; }
+            .contact-cta .icon-box { width: 40px; height: 40px; }
+            .contact-cta .icon-box svg { width: 18px; height: 18px; }
+            .contact-cta .title { font-size: 14px; }
+            .contact-cta .sub { font-size: 11.5px; }
+            section h2 { font-size: 10.5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="topbar">
+            <a href="index.html" class="brand">
+                <span class="icon"><i data-lucide="graduation-cap"></i></span>
+                <span class="text">
+                    <span class="name">AP-Tracker</span>
+                    <span class="badge">Berufsschule &amp; Bildungsträger</span>
+                </span>
+            </a>
+            <a href="index.html" class="back">
+                <i data-lucide="arrow-left"></i> Zurück zur App
+            </a>
+        </div>
+
+        <div class="hero">
+            <span class="label">
+                <i data-lucide="shield-check"></i>
+                Kostenlos · Werbefrei · DSGVO-konform
+            </span>
+            <h1>Prüfungs-Lernkarten, die im Klassenzimmer tatsächlich funktionieren.</h1>
+            <p class="lede">
+                Hallo, ich bin Christoph, FI für Anwendungsentwicklung. Diese drei Tracker habe ich gebaut, weil ich in meiner eigenen Ausbildung gemerkt habe, dass es für die AP-Vorbereitung (Abschlussprüfung Teil 1 und Teil 2) entweder teure Lernplattformen oder unübersichtliche PDF-Sammlungen gibt. Hier ist die kostenlose Alternative – direkt im Browser, ohne Anmeldung, ohne Schüler-Tracking.
+            </p>
+        </div>
+
+        <section>
+            <h2><span class="num">01</span>Die drei Tracker</h2>
+            <p style="margin-bottom: 16px;">Insgesamt <strong>2.965 Lernkarten</strong>, alle nach den offiziellen Lehrplan-Lernfeldern sortiert, jede mit ausführlicher Antwort.</p>
+            <div class="tracker-list">
+                <a class="tracker-item" href="https://ap1.cwillam.de/" target="_blank" rel="noopener">
+                    <div class="icon-box"><i data-lucide="graduation-cap"></i></div>
+                    <div class="name">AP1 Tracker<small>Alle Fachrichtungen · FI-AE, FI-SI, FI-DP, DV</small></div>
+                    <div class="count"><span class="num">1.228</span><span class="lbl">Karten</span></div>
+                    <div class="arrow"><i data-lucide="arrow-up-right"></i></div>
+                </a>
+                <a class="tracker-item" href="https://ap2.cwillam.de/" target="_blank" rel="noopener">
+                    <div class="icon-box"><i data-lucide="code-2"></i></div>
+                    <div class="name">AP2 FIAE<small>Anwendungsentwicklung</small></div>
+                    <div class="count"><span class="num">897</span><span class="lbl">Karten</span></div>
+                    <div class="arrow"><i data-lucide="arrow-up-right"></i></div>
+                </a>
+                <a class="tracker-item" href="https://ap2-fisi.cwillam.de/" target="_blank" rel="noopener">
+                    <div class="icon-box"><i data-lucide="server"></i></div>
+                    <div class="name">AP2 FISI<small>Systemintegration</small></div>
+                    <div class="count"><span class="num">840</span><span class="lbl">Karten</span></div>
+                    <div class="arrow"><i data-lucide="arrow-up-right"></i></div>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">02</span>Wie kann man die App einsetzen</h2>
+            <p style="margin-bottom: 16px;">Ein paar bewährte Szenarien für den Unterrichtsalltag:</p>
+            <div class="scenarios">
+                <div class="scenario">
+                    <div class="icon-box"><i data-lucide="graduation-cap"></i></div>
+                    <div>
+                        <h4>Flipped Classroom</h4>
+                        <p>Schüler lernen die Prüfungsthemen zu Hause mit den Lernkarten, im Unterricht wird vertieft und diskutiert. Funktioniert, weil man ohne Anmeldung sofort loslegen kann.</p>
+                    </div>
+                </div>
+                <div class="scenario">
+                    <div class="icon-box"><i data-lucide="monitor-play"></i></div>
+                    <div>
+                        <h4>Präsenzunterricht am Beamer</h4>
+                        <p>Lehrer zeigt eine Frage über den Beamer oder das Whiteboard, die Klasse diskutiert und löst gemeinsam. Funktioniert auf jedem Gerät mit Bildschirm.</p>
+                    </div>
+                </div>
+                <div class="scenario">
+                    <div class="icon-box"><i data-lucide="house"></i></div>
+                    <div>
+                        <h4>Selbststudium zu Hause</h4>
+                        <p>Schüler wiederholen eigenständig, die App speichert alles im Browser. Kein Account, keine Mail, keine Bestätigungsmails an die Eltern.</p>
+                    </div>
+                </div>
+                <div class="scenario">
+                    <div class="icon-box"><i data-lucide="user-check"></i></div>
+                    <div>
+                        <h4>Vertretungsstunden</h4>
+                        <p>Funktioniert ohne Lehrer-Anleitung. Schüler können selbstständig üben, weil die Bedienung selbsterklärend ist.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">03</span>Wo die Daten bleiben</h2>
+            <p>Das ist mir wichtig. Hier der genaue Datenfluss, damit du das deinen Schülern erklären kannst, falls die fragen:</p>
+            <div class="dataflow">
+                <div class="row"><span class="lbl">Browser</span> <span class="here">LocalStorage</span> <span class="desc">// Lernfortschritt: abgehakte Karten, Streak, Timer</span></div>
+                <div class="row indent"><span class="arrow">↓</span> <span class="here">HTML + JS</span> <span class="desc">// läuft komplett im Browser, kein Server-Code</span></div>
+                <div class="row indent"><span class="arrow">↓</span> <span class="here">IONOS (EU)</span> <span class="desc">// liefert nur die HTML-Dateien aus, Server-Logs 7 Tage</span></div>
+                <div class="row indent"><span class="arrow">↓</span> <span class="away">an Dritte</span> <span class="desc">// geht nirgendwo hin</span></div>
+            </div>
+            <p>Keine Benutzer-Accounts, keine Cookies, keine externen CDNs, keine Google Fonts, keine Analyse-Tools. Wer das prüfen will: <a href="datenschutz.html">Datenschutzerklärung</a> oder einfach in den Browser-Devtools unter „Network" schauen, während die Seite offen ist.</p>
+        </section>
+
+        <section>
+            <h2><span class="num">04</span>Android-App im Google Play Store</h2>
+            <div class="play-section">
+                <div class="icon-box"><i data-lucide="smartphone"></i></div>
+                <div>
+                    <h3>Closed Beta <span class="tag">Aktiv</span></h3>
+                    <p>Die Tracker sind zusätzlich als <strong>offizielle Android-Apps im Google Play Store</strong> verfügbar – gerade in der geschlossenen Beta-Phase. Wenn deine Schüler die App nicht nur im Browser nutzen, sondern auch auf dem Handy mittesten und beim Verbessern helfen sollen, melde dich. Ich lade sie manuell in den Closed-Beta-Channel ein und stehe für Feedback-Runden zur Verfügung.</p>
+                    <a class="action" href="mailto:christoph.willam@googlemail.com?subject=Google%20Play%20Beta%20%E2%80%93%20Sch%C3%BCler%20sollen%20mitmachen&body=Hallo%20Christoph%2C%0A%0Aich%20m%C3%B6chte%2C%20dass%20meine%20Sch%C3%BCler%20die%20AP-Tracker%20im%20Google%20Play%20Closed-Beta%20mittesten.%0A%0AMeine%20Einrichtung%3A%20%0A%0AKlassen%20%2F%20Fachrichtung%3A%20%0A%0AAnzahl%20Sch%C3%BCler%3A%20%0A%0ALiebe%20Gr%C3%BC%C3%9Fe">
+                        <span class="icon-box"><i data-lucide="mail"></i></span>
+                        <span class="text">
+                            <span class="title">Schüler für Beta anmelden</span>
+                            <span class="sub">Wir senden dir die Google-Play-Einladung</span>
+                        </span>
+                        <i data-lucide="arrow-right" class="arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">05</span>Lizenz &amp; Kontakt</h2>
+            <p>Die Tracker stehen unter der <strong>AGPL-3.0-Lizenz</strong>. Eine spezielle „Schullizenz" gibt es nicht, weil nicht nötig: kommerzielle Nutzung im Bildungsbereich ist ausdrücklich erlaubt. Wer den Code anpassen will (eigene Lernfelder, andere Sprache, schulinternes Branding) – der Quellcode ist offen.</p>
+            <div class="contact">
+                <div class="contact-text">
+                    <p>Fragen, Feedback, Beta-Zugang für die ganze Klasse, oder einfach nur „ich setze das ein, danke" – schreib mir.</p>
+                </div>
+                <a class="contact-cta" href="mailto:christoph.willam@googlemail.com?subject=Anfrage%20Berufsschule%20%2F%20Bildungseinrichtung%20AP-Tracker&body=Hallo%20Christoph%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20den%20Einsatz%20der%20AP-Tracker%20im%20Unterricht.%0A%0AMeine%20Einrichtung%3A%20%0A%0AKlassen%20%2F%20Fachrichtung%3A%20%0A%0AVorhaben%20%2F%20Frage%3A%20%0A%0ALiebe%20Gr%C3%BC%C3%9Fe">
+                    <div class="icon-box"><i data-lucide="mail"></i></div>
+                    <div class="contact-cta-text">
+                        <span class="title">christoph.willam@googlemail.com</span>
+                        <span class="sub">Antwort max. innerhalb von 24 Stunden · Bei „DRINGEND" im Betreff</span>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="arrow"></i>
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="links">
+                <a href="https://ap1.cwillam.de/">AP1</a>
+                <a href="https://ap2.cwillam.de/">AP2 FIAE</a>
+                <a href="https://ap2-fisi.cwillam.de/">AP2 FISI</a>
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="index.html">Startseite</a>
+            </div>
+            <div class="meta">
+                Christoph Willam · Tocklergasse 14, 96129 Strullendorf · <a href="mailto:christoph.willam@googlemail.com">christoph.willam@googlemail.com</a><br>
+                Hosting: IONOS Webhosting Plus (Server in Deutschland) · Open Source unter AGPL-3.0<br>
+                Diese Seite enthält keine externen Skripte, keine CDNs, keine Cookies, kein Tracking. Nur Inter-Font (lokal) und Lucide-Icons (lokal).
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/js/lucide.min.js"></script>
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
