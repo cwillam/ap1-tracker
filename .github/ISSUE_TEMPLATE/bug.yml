@@ -6,7 +6,7 @@ assignees: []
 
 body:
   - type: dropdown
-    id: tracker
+    id: bug-tracker
     attributes:
       label: Welcher Tracker?
       description: Auf welchem Tracker tritt der Bug auf?
@@ -18,7 +18,7 @@ body:
       required: true
 
   - type: dropdown
-    id: device
+    id: bug-device
     attributes:
       label: Gerät
       description: Auf welchem Gerät tritt der Bug auf?
@@ -30,7 +30,7 @@ body:
       required: true
 
   - type: dropdown
-    id: install-type
+    id: bug-install
     attributes:
       label: Installations-Typ
       description: Wie nutzt du den Tracker?
@@ -42,16 +42,16 @@ body:
       required: true
 
   - type: input
-    id: browser
+    id: bug-browser
     attributes:
       label: Browser + Version
-      description: z.B. Chrome 120, Firefox 121, Safari 17, Samsung Internet 23
+      description: z.B. Chrome 120, Firefox 121, Safari 17
       placeholder: Chrome 120
     validations:
       required: true
 
   - type: input
-    id: os
+    id: bug-os
     attributes:
       label: Betriebssystem + Version
       description: z.B. Windows 11, macOS 14, Android 14, iOS 17
@@ -60,16 +60,16 @@ body:
       required: true
 
   - type: input
-    id: tracker-version
+    id: bug-version
     attributes:
       label: Tracker-Version
-      description: Welche Version läuft? (steht im Footer der App, z.B. "v2.4.0")
+      description: Welche Version läuft? (steht im Footer, z.B. v2.4.0)
       placeholder: v2.4.0
     validations:
       required: false
 
   - type: input
-    id: url
+    id: bug-url
     attributes:
       label: URL der Seite
       description: Auf welcher Seite trat der Bug auf?
@@ -78,20 +78,16 @@ body:
       required: true
 
   - type: textarea
-    id: steps
+    id: bug-steps
     attributes:
       label: Schritte zur Reproduktion
-      description: Wie kann man den Bug reproduzieren? (so konkret wie möglich)
-      placeholder: |
-        1. Gehe zu '...'
-        2. Klicke auf '...'
-        3. Scrolle zu '...'
-        4. Siehe Fehler
+      description: Wie kann man den Bug reproduzieren?
+      placeholder: "1. Gehe zu ... 2. Klicke auf ... 3. Siehe Fehler"
     validations:
       required: true
 
   - type: textarea
-    id: expected
+    id: bug-expected
     attributes:
       label: Erwartetes Verhalten
       description: Was sollte passieren?
@@ -99,7 +95,7 @@ body:
       required: true
 
   - type: textarea
-    id: actual
+    id: bug-actual
     attributes:
       label: Tatsächliches Verhalten
       description: Was passiert stattdessen?
@@ -107,15 +103,15 @@ body:
       required: true
 
   - type: textarea
-    id: console-errors
+    id: bug-console
     attributes:
       label: Konsolen-Fehler (optional)
-      description: Falls sichtbar: F12 drücken, Tab "Console" öffnen, rote Fehlermeldung hier einfügen.
+      description: Falls sichtbar: F12 drücken, Tab "Console" öffnen, Fehlermeldung hier einfügen.
     validations:
       required: false
 
   - type: textarea
-    id: screenshots
+    id: bug-screenshots
     attributes:
       label: Screenshots (optional)
       description: Bitte anhängen oder Links einfügen.
