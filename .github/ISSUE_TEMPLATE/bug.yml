@@ -106,7 +106,7 @@ body:
     id: bug-console
     attributes:
       label: Konsolen-Fehler (optional)
-      description: Falls sichtbar: F12 drücken, Tab "Console" öffnen, Fehlermeldung hier einfügen.
+      description: 'Falls sichtbar: F12 drücken, Tab "Console" öffnen, Fehlermeldung hier einfügen.'
     validations:
       required: false
 
