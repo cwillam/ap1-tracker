@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.4.1-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.4.2-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
@@ -65,6 +65,14 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 ---
 
 ## Changelog
+
+### v2.4.2 (26. Juli 2026)
+- **4-stufiges Confidence-Rating:** Anki-inspiriertes Bewertungssystem (Sofort, Nachgedacht, Geraten, Nicht gewusst) statt reinem Ja/Nein, um Pseudo-Sicherheit beim Lernen zu verhindern.
+- **Prüfungs-Modus:** Neuer Lernmodus mit halbierten Abfrageintervallen zur intensiveren Vorbereitung in den letzten Wochen vor der Prüfung.
+- **Automatischer Schwachstellen-Modus:** Filtert Karten automatisch, um gezielt nur Fragen zu wiederholen, die man falsch beantwortet, geraten oder noch nicht sicher gelernt hat.
+- **Mobile UI & Performance:** 2x2 Grid-Optimierungen der Buttons auf mobilen Geräten und Tastatur-Shortcuts (Tasten 1–4 sowie Pfeiltasten).
+- **Heatmap-Integration:** Lernkarten-Sessions werden direkt als Aktivität in der Dashboard-Heatmap getrackt.
+- **Cache-Aktualisierung (v2.4.2):** Service Worker Cache-Version und Asset-Tags aktualisiert, um sofortige Updates im Browser zu garantieren.
 
 ### v2.4.1 (23. Juli 2026)
 - **Bugfix GitHub-Templates:** Syntaxfehler in `bug.yml` behoben, so dass das Bug-Formular nun reibungslos von GitHub erkannt wird.

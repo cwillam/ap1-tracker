@@ -7,439 +7,630 @@
 const AP1_DATA = window.AP1_DATA || [];
 
 if (AP1_DATA.length === 0) {
-  console.error('FEHLER: data.js wurde nicht vor app.js geladen oder ist leer!');
+	console.error(
+		"FEHLER: data.js wurde nicht vor app.js geladen oder ist leer!",
+	);
 }
 
 // 2. App Logik
 const app = {
-  state: {},
-  openTopics: new Set(),
-  filter: 'all',
-  recId: null,
-  timer: null,
-  timerRunning: false,
-  timeLeft: 1500,
-  searchQuery: '',
-  _quotaWarningShown: false,
-  _saveError: null,
+	state: {},
+	openTopics: new Set(),
+	filter: "all",
+	recId: null,
+	timer: null,
+	timerRunning: false,
+	timeLeft: 1500,
+	searchQuery: "",
+	_quotaWarningShown: false,
+	_saveError: null,
 
-  // Anki/Lernkarten System (wie AP2-Tracker)
-  anki: {
-    currentTopicId: null,
-    cards: [],
-    currentIndex: 0,
-    mode: 'manual', // 'manual' oder 'spaced'
+	// Anki/Lernkarten System (wie AP2-Tracker)
+	anki: {
+		currentTopicId: null,
+		cards: [],
+		currentIndex: 0,
+		mode: "manual", // 'manual' oder 'spaced'
 
-    open(topicId) {
-      // Debug-Log für Fehlersuche (Browser-Kompatibilität)
-      console.log('[AP1] 🎴 Opening Anki for topic:', topicId);
-      console.log('[AP1] 📚 Cards available:', window.ANKI_QUESTIONS?.[topicId]?.length || 0);
+		open(topicId) {
+			// Debug-Log für Fehlersuche (Browser-Kompatibilität)
+			console.log("[AP1] 🎴 Opening Anki for topic:", topicId);
+			console.log(
+				"[AP1] 📚 Cards available:",
+				window.ANKI_QUESTIONS?.[topicId]?.length || 0,
+			);
 
-      const allQuestions = window.ANKI_QUESTIONS || {};
-      this.cards = allQuestions[topicId] || [];
-      if (this.cards.length === 0) {
-        console.warn('[AP1] ⚠️ No cards found for topic:', topicId);
-        app.showNotification(
-          'Keine Lernkarten',
-          `Für Topic ${topicId} sind noch keine Karten verfügbar.`,
-          'info'
-        );
-        return;
-      }
+			const allQuestions = window.ANKI_QUESTIONS || {};
+			this.cards = allQuestions[topicId] || [];
+			if (this.cards.length === 0) {
+				console.warn("[AP1] ⚠️ No cards found for topic:", topicId);
+				app.showNotification(
+					"Keine Lernkarten",
+					`Für Topic ${topicId} sind noch keine Karten verfügbar.`,
+					"info",
+				);
+				return;
+			}
 
-      this.currentTopicId = topicId;
+			this.currentTopicId = topicId;
 
-      const topic = app.findTopic(topicId);
-      document.getElementById('ankiTopicTitle').textContent = topic ? topic.title : 'Lernkarten';
+			const topic = app.findTopic(topicId);
+			document.getElementById("ankiTopicTitle").textContent = topic
+				? topic.title
+				: "Lernkarten";
 
-      // Statistiken laden
-      if (!app.state.ankiStats) app.state.ankiStats = {};
-      const stats = app.state.ankiStats[topicId] || { total: 0, correct: 0, sessions: 0 };
+			// Statistiken laden
+			if (!app.state.ankiStats) app.state.ankiStats = {};
+			const stats = app.state.ankiStats[topicId] || {
+				total: 0,
+				correct: 0,
+				sessions: 0,
+			};
 
-      const statsContainer = document.getElementById('ankiTopicStats');
-      if (statsContainer) {
-        if (stats.total > 0) {
-          const accuracy = Math.round((stats.correct / stats.total) * 100);
-          statsContainer.innerHTML = `
-            <div class="flex items-center justify-center gap-6 mt-4 p-3 bg-dark-bg/50 rounded-xl border border-dark-border/50">
-              <div class="text-center">
-                <span class="block text-[10px] text-dark-muted uppercase font-bold">Gelernt</span>
-                <span class="text-sm font-bold text-white">${stats.total} Karten</span>
-              </div>
-              <div class="w-px h-6 bg-dark-border"></div>
-              <div class="text-center">
-                <span class="block text-[10px] text-dark-muted uppercase font-bold">Quote</span>
-                <span class="text-sm font-bold text-dark-success">${accuracy}%</span>
-              </div>
-              <div class="w-px h-6 bg-dark-border"></div>
-              <div class="text-center">
-                <span class="block text-[10px] text-dark-muted uppercase font-bold">Sessions</span>
-                <span class="text-sm font-bold text-dark-accent">${stats.sessions}x</span>
-              </div>
-            </div>
-          `;
-          statsContainer.classList.remove('hidden');
-          app.refreshIcons();
-        } else {
-          statsContainer.classList.add('hidden');
-        }
-      }
+			const statsContainer = document.getElementById("ankiTopicStats");
+			if (statsContainer) {
+				// Karten-Zustände für dieses Thema zählen
+				let countSofort = 0;
+				let countNachgedacht = 0;
+				let countGeraten = 0;
+				let countNichtGewusst = 0;
+				let countUnbekannt = 0;
 
-      // Reset Views
-      document.getElementById('ankiModeView').classList.remove('hidden');
-      document.getElementById('ankiQuestionView').classList.add('hidden');
-      document.getElementById('ankiAnswerView').classList.add('hidden');
-      document.getElementById('ankiFinishView').classList.add('hidden');
-      document.getElementById('ankiModeBadge').classList.add('hidden');
-      document.getElementById('ankiProgress').style.width = '0%';
+				this.cards.forEach((card) => {
+					const cardData = app.state.anki?.[card.id];
+					if (!cardData) {
+						countUnbekannt++;
+					} else {
+						if (cardData.confidence === 0) countSofort++;
+						else if (cardData.confidence === 1) countNachgedacht++;
+						else if (cardData.confidence === 2) countGeraten++;
+						else if (cardData.confidence === 3) countNichtGewusst++;
+						else countUnbekannt++;
+					}
+				});
 
-      const modal = document.getElementById('ankiModal');
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    },
+				const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
 
-    start(mode) {
-      this.mode = mode;
-      this.currentIndex = 0;
+				statsContainer.innerHTML = `
+					<!-- Haupt-Statistiken -->
+					<div class="flex items-center justify-center gap-6 mt-4 p-3 bg-dark-bg/50 rounded-xl border border-dark-border/50">
+						<div class="text-center">
+							<span class="block text-[10px] text-dark-muted uppercase font-bold">Gelernt</span>
+							<span class="text-sm font-bold text-white">${stats.total} Karten</span>
+						</div>
+						<div class="w-px h-6 bg-dark-border"></div>
+						<div class="text-center">
+							<span class="block text-[10px] text-dark-muted uppercase font-bold">Quote</span>
+							<span class="text-sm font-bold text-dark-success">${accuracy}%</span>
+						</div>
+						<div class="w-px h-6 bg-dark-border"></div>
+						<div class="text-center">
+							<span class="block text-[10px] text-dark-muted uppercase font-bold">Sessions</span>
+							<span class="text-sm font-bold text-dark-accent">${stats.sessions}x</span>
+						</div>
+					</div>
 
-      // Global Stats tracken (Session zählt ab Start)
-      if (!app.state.ankiStats) app.state.ankiStats = {};
-      if (!app.state.ankiStats[this.currentTopicId]) {
-        app.state.ankiStats[this.currentTopicId] = { total: 0, correct: 0, sessions: 0 };
-      }
-      app.state.ankiStats[this.currentTopicId].sessions++;
-      app.save();
-      app.updateStats(); // UI sofort aktualisieren
+					<!-- Karten-Zustands-Auswertung (Anki-Style) -->
+					<div class="grid grid-cols-5 gap-1.5 mt-3 max-w-lg mx-auto w-full">
+						<div class="bg-dark-card/40 border border-dark-border/40 rounded-xl py-2 px-1 text-center" title="Noch nicht gelernte Karten">
+							<span class="block text-[8px] text-dark-muted font-black uppercase tracking-wider">Neu</span>
+							<span class="text-xs sm:text-sm font-black text-slate-300">${countUnbekannt}</span>
+						</div>
+						<div class="bg-dark-card/40 border border-dark-success/20 rounded-xl py-2 px-1 text-center" title="Auf Anhieb gewusst">
+							<span class="block text-[8px] text-dark-success font-black uppercase tracking-wider">Sofort</span>
+							<span class="text-xs sm:text-sm font-black text-white">${countSofort}</span>
+						</div>
+						<div class="bg-dark-card/40 border border-dark-accent/20 rounded-xl py-2 px-1 text-center" title="Nachgedacht &amp; gewusst">
+							<span class="block text-[8px] text-dark-accent font-black uppercase tracking-wider">Wissen</span>
+							<span class="text-xs sm:text-sm font-black text-white">${countNachgedacht}</span>
+						</div>
+						<div class="bg-dark-card/40 border border-dark-warning/20 rounded-xl py-2 px-1 text-center" title="Nur geraten oder unsicher">
+							<span class="block text-[8px] text-dark-warning font-black uppercase tracking-wider">Geraten</span>
+							<span class="text-xs sm:text-sm font-black text-white">${countGeraten}</span>
+						</div>
+						<div class="bg-dark-card/40 border border-dark-danger/20 rounded-xl py-2 px-1 text-center" title="Falsch beantwortet (Zurückgesetzt)">
+							<span class="block text-[8px] text-dark-danger font-black uppercase tracking-wider">Falsch</span>
+							<span class="text-xs sm:text-sm font-black text-white">${countNichtGewusst}</span>
+						</div>
+					</div>
+				`;
+				statsContainer.classList.remove("hidden");
+				app.refreshIcons();
+			}
 
-      // Karten für diese Session mischen (Fisher-Yates Shuffle)
-      const shuffled = [...this.cards];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      this.cards = shuffled;
+			// Reset Views
+			document.getElementById("ankiModeView").classList.remove("hidden");
+			document.getElementById("ankiQuestionView").classList.add("hidden");
+			document.getElementById("ankiAnswerView").classList.add("hidden");
+			document.getElementById("ankiFinishView").classList.add("hidden");
+			document.getElementById("ankiModeBadge").classList.add("hidden");
+			document.getElementById("ankiProgress").style.width = "0%";
 
-      const badge = document.getElementById('ankiModeBadge');
-      badge.classList.remove('hidden');
-      if (mode === 'spaced') {
-        badge.innerHTML =
-          '<i data-lucide="brain" class="w-3.5 h-3.5 mr-1 text-dark-accent"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-accent">Strategie-Modus</span>';
-      } else {
-        badge.innerHTML =
-          '<i data-lucide="dumbbell" class="w-3.5 h-3.5 mr-1 text-dark-warning"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-dark-warning">Freies Training</span>';
-      }
-      app.refreshIcons();
+			const modal = document.getElementById("ankiModal");
+			modal.classList.remove("hidden");
+			document.body.style.overflow = "hidden";
+		},
 
-      document.getElementById('ankiModeView').classList.add('hidden');
-      document.getElementById('ankiQuestionView').classList.remove('hidden');
-      this.showCard();
-    },
+		start(mode) {
+			this.mode = mode;
+			this.currentIndex = 0;
 
-    showCard() {
-      const card = this.cards[this.currentIndex];
-      const progress = (this.currentIndex / this.cards.length) * 100;
+			// Global Stats tracken (Session zählt ab Start)
+			if (!app.state.ankiStats) app.state.ankiStats = {};
+			if (!app.state.ankiStats[this.currentTopicId]) {
+				app.state.ankiStats[this.currentTopicId] = {
+					total: 0,
+					correct: 0,
+					sessions: 0,
+				};
+			}
+			app.state.ankiStats[this.currentTopicId].sessions++;
+			app.save();
+			app.updateStats(); // UI sofort aktualisieren
 
-      document.getElementById('ankiProgress').style.width = `${progress}%`;
-      document.getElementById('ankiCardCounter').textContent =
-        `Karte ${this.currentIndex + 1} von ${this.cards.length}`;
-      document.getElementById('ankiQuestionText').textContent = card.q;
-      const ansQElement = document.getElementById('ankiAnswerQuestionText');
-      if (ansQElement) ansQElement.textContent = card.q;
-      document.getElementById('ankiAnswerText').textContent = card.a;
+			// Filter-Logik für den Schwachstellen-Modus
+			if (mode === "weaknesses") {
+				const filtered = this.cards.filter((card) => {
+					const cardData = app.state.anki?.[card.id];
+					if (!cardData) return false;
+					return cardData.confidence === 2 || cardData.confidence === 3 || cardData.level === 1;
+				});
 
-      document.getElementById('ankiQuestionView').classList.remove('hidden');
-      document.getElementById('ankiAnswerView').classList.add('hidden');
-    },
+				if (filtered.length === 0) {
+					app.showNotification(
+						"Keine Schwachstellen",
+						"Super! Du hast in diesem Thema aktuell keine schwierigen oder unfertigen Karten.",
+						"success",
+					);
+					return;
+				}
+				this.cards = filtered;
+			}
 
-    showAnswer() {
-      document.getElementById('ankiQuestionView').classList.add('hidden');
-      document.getElementById('ankiAnswerView').classList.remove('hidden');
-    },
+			// Karten für diese Session mischen (Fisher-Yates Shuffle)
+			const shuffled = [...this.cards];
+			for (let i = shuffled.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+			}
+			this.cards = shuffled;
 
-    next(isCorrect) {
-      // Global Stats tracken
-      if (!app.state.ankiStats) app.state.ankiStats = {};
-      if (!app.state.ankiStats[this.currentTopicId]) {
-        app.state.ankiStats[this.currentTopicId] = { total: 0, correct: 0, sessions: 0 };
-      }
-      const gStats = app.state.ankiStats[this.currentTopicId];
-      gStats.total++;
-      if (isCorrect) gStats.correct++;
+			const badge = document.getElementById("ankiModeBadge");
+			badge.classList.remove("hidden");
+			const modeConfig = {
+				spaced: {
+					icon: "brain",
+					text: "Strategie-Modus",
+					color: "dark-accent",
+				},
+				"exam-prep": {
+					icon: "flame",
+					text: "Prüfungs-Modus",
+					color: "dark-danger",
+				},
+				weaknesses: {
+					icon: "alert-triangle",
+					text: "Schwachstellen-Modus",
+					color: "dark-warning",
+				},
+				manual: {
+					icon: "dumbbell",
+					text: "Freies Training",
+					color: "dark-muted",
+				},
+			};
+			const cfg = modeConfig[mode] || modeConfig.manual;
+			badge.innerHTML = `<i data-lucide="${cfg.icon}" class="w-3.5 h-3.5 mr-1 text-${cfg.color}"></i> <span class="text-[9px] font-bold uppercase tracking-widest text-${cfg.color}">${cfg.text}</span>`;
+			app.refreshIcons();
 
-      // Im freien Training markieren wir neue Karten als gelernt (Stufe 1)
-      if (isCorrect && this.mode !== 'spaced') {
-        if (!app.state.anki) app.state.anki = {};
-        const cardId = this.cards[this.currentIndex].id;
-        if (!app.state.anki[cardId]) {
-          app.state.anki[cardId] = { level: 1, nextReview: Date.now() + 86400000 };
-        }
-      }
+			document.getElementById("ankiModeView").classList.add("hidden");
+			document.getElementById("ankiQuestionView").classList.remove("hidden");
+			this.showCard();
+		},
 
-      if (this.mode === 'spaced') {
-        this.updateCardLevel(this.cards[this.currentIndex].id, isCorrect);
-      }
+		showCard() {
+			const card = this.cards[this.currentIndex];
+			const progress = (this.currentIndex / this.cards.length) * 100;
 
-      this.currentIndex++;
-      if (this.currentIndex < this.cards.length) {
-        this.showCard();
-      } else {
-        this.showFinish();
-      }
-      app.save();
-    },
+			document.getElementById("ankiProgress").style.width = `${progress}%`;
+			document.getElementById("ankiCardCounter").textContent =
+				`Karte ${this.currentIndex + 1} von ${this.cards.length}`;
+			document.getElementById("ankiQuestionText").textContent = card.q;
+			const ansQElement = document.getElementById("ankiAnswerQuestionText");
+			if (ansQElement) ansQElement.textContent = card.q;
+			document.getElementById("ankiAnswerText").textContent = card.a;
 
-    updateCardLevel(cardId, isCorrect) {
-      if (!app.state.anki) app.state.anki = {};
-      if (!app.state.anki[cardId]) {
-        app.state.anki[cardId] = { level: 0, nextReview: 0 };
-      }
+			document.getElementById("ankiQuestionView").classList.remove("hidden");
+			document.getElementById("ankiAnswerView").classList.add("hidden");
+		},
 
-      const cardData = app.state.anki[cardId];
-      if (isCorrect) {
-        cardData.level = Math.min(cardData.level + 1, 5);
-      } else {
-        cardData.level = 1; // Zurück auf Stufe 1 bei Fehler
-      }
+		showAnswer() {
+			document.getElementById("ankiQuestionView").classList.add("hidden");
+			document.getElementById("ankiAnswerView").classList.remove("hidden");
+		},
 
-      // Intervalle in Tagen: 1, 3, 7, 14, 30
-      const intervals = [0, 1, 3, 7, 14, 30];
-      const daysToAdd = intervals[cardData.level] || 1;
+		next(confidence) {
+			// Rückwärtskompatibilität: alte 2-Button-API akzeptiert boolean
+			if (typeof confidence === "boolean") {
+				confidence = confidence ? 0 : 3; // true = Sofort gewusst, false = Nicht gewusst
+			}
 
-      const nextDate = new Date();
-      nextDate.setDate(nextDate.getDate() + daysToAdd);
-      cardData.nextReview = nextDate.getTime();
+			// Confidence: 0=Sofort gewusst, 1=Nachgedacht, 2=Geraten, 3=Nicht gewusst
+			// Global-Stats: confidence < 2 zählt als "richtig beantwortet"
+			const isCorrect = confidence < 2;
 
-      app.save();
-    },
+			if (!app.state.ankiStats) app.state.ankiStats = {};
+			if (!app.state.ankiStats[this.currentTopicId]) {
+				app.state.ankiStats[this.currentTopicId] = {
+					total: 0,
+					correct: 0,
+					sessions: 0,
+				};
+			}
+			const gStats = app.state.ankiStats[this.currentTopicId];
+			gStats.total++;
+			if (isCorrect) gStats.correct++;
 
-    showFinish() {
-      document.getElementById('ankiProgress').style.width = '100%';
-      document.getElementById('ankiAnswerView').classList.add('hidden');
-      document.getElementById('ankiFinishView').classList.remove('hidden');
+			// Card-Data mit erweitertem Schema (rückwärtskompatibel)
+			const cardId = this.cards[this.currentIndex].id;
+			if (!app.state.anki) app.state.anki = {};
+			if (!app.state.anki[cardId]) {
+				app.state.anki[cardId] = {
+					level: 0,
+					nextReview: 0,
+					confidence: 0,
+					markedHard: false,
+				};
+			}
+			const cardData = app.state.anki[cardId];
+			// Migration: alte Einträge ohne neue Felder ergänzen
+			if (cardData.confidence === undefined) cardData.confidence = 0;
+			if (cardData.markedHard === undefined) cardData.markedHard = false;
+			cardData.confidence = confidence;
 
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#0ea5e9', '#10b981'],
-        });
-      }
-    },
+			// Im freien Training markieren wir neue Karten als gelernt (Stufe 1)
+			if (isCorrect && this.mode !== "spaced" && cardData.level === 0) {
+				cardData.level = 1;
+				cardData.nextReview = Date.now() + 86400000;
+			}
 
-    close() {
-      const modal = document.getElementById('ankiModal');
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
-    },
-  },
+			if (this.mode === "spaced" || this.mode === "exam-prep" || this.mode === "weaknesses") {
+				this.updateCardLevel(cardId, confidence);
+			}
 
-  quotes: [
-    '„Jede Zeile Code ist ein Schritt zur Meisterschaft.“',
-    '„Erfolg hat drei Buchstaben: TUN.“ - Goethe',
-    '„Der beste Weg, die Zukunft vorherzusagen, ist, sie zu erfinden.“ - Alan Kay',
-    '„Auch ein Wolkenkratzer fängt mal im Keller an.“',
-    '„Debugging ist wie ein Krimi, in dem du Täter und Detektiv zugleich bist.“',
-    '„IT ist 10% Technik und 90% Google.“',
-    '„Ein Experte ist jemand, der in einem begrenzten Feld alle möglichen Fehler gemacht hat.“',
-    '„Schmerz vergeht, der GitHub Commit bleibt.“',
-  ],
+			// Sichtbares Confidence-Feedback: kurze Notification mit dem gewählten Level
+			// und dem Hinweis, wann die Karte das nächste Mal kommt
+			const confLabels = [
+				{ text: "Sofort gewusst", type: "success", icon: "zap" },
+				{ text: "Nachgedacht", type: "info", icon: "brain" },
+				{ text: "Geraten", type: "warning", icon: "help-circle" },
+				{ text: "Nicht gewusst", type: "error", icon: "x" },
+			];
+			const conf = confLabels[confidence] || confLabels[0];
+			const nextReviewDate = new Date(cardData.nextReview);
+			const nextReviewStr = nextReviewDate.toLocaleDateString("de-DE", {
+				day: "2-digit",
+				month: "2-digit",
+			});
+			app.showNotification(
+				"Bewertung gespeichert",
+				`${conf.text} · Stufe ${cardData.level} · Nächste Wiederholung: ${nextReviewStr}`,
+				conf.type,
+				2000,
+			);
 
-  ranks: [
-    { min: 0, name: 'Hello World', color: '#94a3b8' },
-    { min: 2, name: 'Skript-Kiddie', color: '#64748b' },
-    { min: 5, name: 'Junior Dev', color: '#0ea5e9' },
-    { min: 8, name: 'Git Committer', color: '#10b981' },
-    { min: 12, name: 'Code Monkey', color: '#f59e0b' },
-    { min: 15, name: 'Stack Overflow Pro', color: '#f97316' },
-    { min: 18, name: 'Senior Dev', color: '#ec4899' },
-    { min: 21, name: 'Solution Architect', color: '#8b5cf6' },
-    { min: 23, name: 'Root User', color: '#ef4444' },
-    { min: 25, name: 'IT-Gott', color: '#FFDD00' },
-  ],
+			this.currentIndex++;
+			if (this.currentIndex < this.cards.length) {
+				this.showCard();
+			} else {
+				this.showFinish();
+			}
+			app.save();
+			app.trackActivity();
+		},
 
-  // --- INIT ---
-  init() {
-    const msgs = ['Lade Datenbank...', 'Initialisiere Module...', 'Berechne Lernpfad...'];
-    let msgIdx = 0;
-    const loadInt = setInterval(() => {
-      const el = document.getElementById('loadingText');
-      if (el) el.textContent = msgs[msgIdx++ % msgs.length];
-    }, 150);
+		updateCardLevel(cardId, confidence = 0) {
+			if (!app.state.anki) app.state.anki = {};
+			if (!app.state.anki[cardId]) {
+				app.state.anki[cardId] = {
+					level: 0,
+					nextReview: 0,
+					confidence: 0,
+					markedHard: false,
+				};
+			}
+			// Migration: alte Einträge ohne neue Felder ergänzen
+			const cardData = app.state.anki[cardId];
+			if (cardData.confidence === undefined) cardData.confidence = 0;
+			if (cardData.markedHard === undefined) cardData.markedHard = false;
 
-    const hideLoader = () => {
-      clearInterval(loadInt);
-      const el = document.getElementById('loadingOverlay');
-      if (el) {
-        el.classList.add('force-hide');
-        setTimeout(() => (el.style.display = 'none'), 600);
-      }
-    };
+			// Level-Anpassung basierend auf Confidence:
+			// 0 (Sofort gewusst) → +2 Stufen (max 5)
+			// 1 (Nachgedacht)    → +1 Stufe
+			// 2 (Geraten)        → -1 Stufe (zurück, mind. 1)
+			// 3 (Nicht gewusst)  → auf 1 zurücksetzen
+			if (confidence === 0) {
+				cardData.level = Math.min(cardData.level + 2, 5);
+			} else if (confidence === 1) {
+				cardData.level = Math.min(cardData.level + 1, 5);
+			} else if (confidence === 2) {
+				cardData.level = Math.max(cardData.level - 1, 1);
+			} else {
+				cardData.level = 1; // Reset bei Nicht gewusst
+			}
 
-    try {
-      // WICHTIG: Nutzt deinen existierenden State-Key, damit Daten nicht verloren gehen
-      const s = localStorage.getItem('ap1_dark_state_v1');
-      if (s) {
-        try {
-          this.state = JSON.parse(s);
-          console.log('[AP1] State geladen:', this._getStateSummary());
-        } catch (parseErr) {
-          console.error('[AP1] Corrupt LocalStorage data:', parseErr);
-          const corruptData = s.substring(0, 100);
-          console.error('[AP1] Corrupt data preview:', corruptData);
+			// Intervalle in Tagen: 0, 1, 2, 4, 7, 14 (kürzer als vorher [0, 1, 3, 7, 14, 30])
+			const intervals = [0, 1, 2, 4, 7, 14];
+			const daysToAdd = intervals[cardData.level] || 1;
 
-          if (
-            confirm(
-              'Deine gespeicherten Daten sind beschädigt. \n\n' +
-                'Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n' +
-                'Klicke "Abbrechen" um die Seite im Debug-Modus zu öffnen.'
-            )
-          ) {
-            localStorage.removeItem('ap1_dark_state_v1');
-            location.reload();
-          } else {
-            // Debug-Modus: leeren State verwenden
-            this.state = {};
-            this.showNotification(
-              'Daten korrupt',
-              'Bitte Export machen und Support kontaktieren.',
-              'error',
-              0
-            );
-          }
-        }
-      }
+			// Confidence-Multiplikator: "Geraten" kürzt das Intervall, "Sofort" verlängert
+			// 0=Sofort, 1=Nachgedacht, 2=Geraten, 3=Nicht gewusst
+			const confidenceMultiplier = [1.4, 1.0, 0.6, 0.3];
+			// Prüfungs-Modus: halbiert alle Intervalle für intensiveres Wiederholen vor der AP
+			const examPrepMultiplier = this.mode === "exam-prep" ? 0.5 : 1.0;
+			const adjustedDays = Math.max(
+				1,
+				Math.round(
+					daysToAdd * confidenceMultiplier[confidence] * examPrepMultiplier,
+				),
+			);
 
-      if (localStorage.getItem('ap1_infobox_dismissed_v2')) {
-        const infoBox = document.getElementById('infoBox');
-        if (infoBox) infoBox.classList.add('hidden');
-      }
+			const nextDate = new Date();
+			nextDate.setDate(nextDate.getDate() + adjustedDays);
+			cardData.nextReview = nextDate.getTime();
 
-      // --- UPDATE NOTIFICATION ---
-      this.checkForUpdate();
+			app.save();
+		},
 
-      const quoteEl = document.getElementById('motivationQuote');
-      if (quoteEl)
-        quoteEl.textContent = this.quotes[Math.floor(Math.random() * this.quotes.length)];
+		showFinish() {
+			document.getElementById("ankiProgress").style.width = "100%";
+			document.getElementById("ankiAnswerView").classList.add("hidden");
+			document.getElementById("ankiFinishView").classList.remove("hidden");
 
-      this.renderActivityGraph();
-      this.updateCountdown();
-      setInterval(() => this.updateCountdown(), 60000);
+			if (typeof confetti === "function") {
+				confetti({
+					particleCount: 100,
+					spread: 70,
+					origin: { y: 0.6 },
+					colors: ["#0ea5e9", "#10b981"],
+				});
+			}
+		},
 
-      // Keyboard Shortcuts für Lernkarten (Anki)
-      window.addEventListener('keydown', (e) => {
-        const modal = document.getElementById('ankiModal');
-        if (modal && !modal.classList.contains('hidden')) {
-          const modeView = document.getElementById('ankiModeView');
-          const questionView = document.getElementById('ankiQuestionView');
-          const answerView = document.getElementById('ankiAnswerView');
-          const finishView = document.getElementById('ankiFinishView');
+		close() {
+			const modal = document.getElementById("ankiModal");
+			modal.classList.add("hidden");
+			document.body.style.overflow = "";
+		},
+	},
 
-          if (e.key === 'Escape') {
-            e.preventDefault();
-            this.anki.close();
-            return;
-          }
+	quotes: [
+		"„Jede Zeile Code ist ein Schritt zur Meisterschaft.“",
+		"„Erfolg hat drei Buchstaben: TUN.“ - Goethe",
+		"„Der beste Weg, die Zukunft vorherzusagen, ist, sie zu erfinden.“ - Alan Kay",
+		"„Auch ein Wolkenkratzer fängt mal im Keller an.“",
+		"„Debugging ist wie ein Krimi, in dem du Täter und Detektiv zugleich bist.“",
+		"„IT ist 10% Technik und 90% Google.“",
+		"„Ein Experte ist jemand, der in einem begrenzten Feld alle möglichen Fehler gemacht hat.“",
+		"„Schmerz vergeht, der GitHub Commit bleibt.“",
+	],
 
-          if (modeView && !modeView.classList.contains('hidden')) {
-            if (e.key === '1') {
-              e.preventDefault();
-              this.anki.start('manual');
-            } else if (e.key === '2') {
-              e.preventDefault();
-              this.anki.start('spaced');
-            }
-          } else if (questionView && !questionView.classList.contains('hidden')) {
-            if (e.key === ' ' || e.key === 'Enter') {
-              e.preventDefault();
-              this.anki.showAnswer();
-            }
-          } else if (answerView && !answerView.classList.contains('hidden')) {
-            if (e.key === '1' || e.key === 'ArrowLeft') {
-              e.preventDefault();
-              this.anki.next(false);
-            } else if (e.key === '2' || e.key === 'ArrowRight') {
-              e.preventDefault();
-              this.anki.next(true);
-            }
-          } else if (finishView && !finishView.classList.contains('hidden')) {
-            if (e.key === ' ' || e.key === 'Enter') {
-              e.preventDefault();
-              this.anki.close();
-            }
-          }
-        }
-      });
+	ranks: [
+		{ min: 0, name: "Hello World", color: "#94a3b8" },
+		{ min: 2, name: "Skript-Kiddie", color: "#64748b" },
+		{ min: 5, name: "Junior Dev", color: "#0ea5e9" },
+		{ min: 8, name: "Git Committer", color: "#10b981" },
+		{ min: 12, name: "Code Monkey", color: "#f59e0b" },
+		{ min: 15, name: "Stack Overflow Pro", color: "#f97316" },
+		{ min: 18, name: "Senior Dev", color: "#ec4899" },
+		{ min: 21, name: "Solution Architect", color: "#8b5cf6" },
+		{ min: 23, name: "Root User", color: "#ef4444" },
+		{ min: 25, name: "IT-Gott", color: "#FFDD00" },
+	],
 
-      this.setupPwaInstall();
-      this.render();
-    } catch (err) {
-      console.error('Critical Init Error:', err);
-    } finally {
-      setTimeout(hideLoader, 600);
-    }
-  },
+	// --- INIT ---
+	init() {
+		const msgs = [
+			"Lade Datenbank...",
+			"Initialisiere Module...",
+			"Berechne Lernpfad...",
+		];
+		let msgIdx = 0;
+		const loadInt = setInterval(() => {
+			const el = document.getElementById("loadingText");
+			if (el) el.textContent = msgs[msgIdx++ % msgs.length];
+		}, 150);
 
-  // --- SAVE & STATE ---
-  save(silent = false) {
-    try {
-      const serialized = JSON.stringify(this.state);
-      const size = new Blob([serialized]).size;
+		const hideLoader = () => {
+			clearInterval(loadInt);
+			const el = document.getElementById("loadingOverlay");
+			if (el) {
+				el.classList.add("force-hide");
+				setTimeout(() => (el.style.display = "none"), 600);
+			}
+		};
 
-      // Warnung bei >80% Auslastung (ca. 4 MB von 5 MB Limit)
-      if (size > 4 * 1024 * 1024 && !this._quotaWarningShown) {
-        this._quotaWarningShown = true;
-        console.warn('[AP1] LocalStorage bei 80% - bitte Export machen!');
-        if (!silent) {
-          this.showNotification(
-            'Speicher fast voll',
-            'Bitte mach einen Export, um deine Daten zu sichern.',
-            'warning'
-          );
-        }
-      }
+		try {
+			// WICHTIG: Nutzt deinen existierenden State-Key, damit Daten nicht verloren gehen
+			const s = localStorage.getItem("ap1_dark_state_v1");
+			if (s) {
+				try {
+					this.state = JSON.parse(s);
+					console.log("[AP1] State geladen:", this._getStateSummary());
+				} catch (parseErr) {
+					console.error("[AP1] Corrupt LocalStorage data:", parseErr);
+					const corruptData = s.substring(0, 100);
+					console.error("[AP1] Corrupt data preview:", corruptData);
 
-      localStorage.setItem('ap1_dark_state_v1', serialized);
-      this._saveError = null;
-    } catch (e) {
-      this._saveError = e;
-      console.error('[AP1] Save failed:', e.name, e.message);
+					if (
+						confirm(
+							"Deine gespeicherten Daten sind beschädigt. \n\n" +
+								"Möchtest du einen Neustart machen? (Dabei gehen alte Daten verloren.)\n\n" +
+								'Klicke "Abbrechen" um die Seite im Debug-Modus zu öffnen.',
+						)
+					) {
+						localStorage.removeItem("ap1_dark_state_v1");
+						location.reload();
+					} else {
+						// Debug-Modus: leeren State verwenden
+						this.state = {};
+						this.showNotification(
+							"Daten korrupt",
+							"Bitte Export machen und Support kontaktieren.",
+							"error",
+							0,
+						);
+					}
+				}
+			}
 
-      if (e.name === 'QuotaExceededError') {
-        if (!silent) {
-          this.showNotification(
-            'Speicher voll!',
-            'Bitte Export machen und alte Daten löschen.',
-            'error',
-            0 // Kein Auto-Close
-          );
-        }
-      }
-    }
-    this.updateStats();
-  },
+			if (localStorage.getItem("ap1_infobox_dismissed_v2")) {
+				const infoBox = document.getElementById("infoBox");
+				if (infoBox) infoBox.classList.add("hidden");
+			}
 
-  showNotification(title, message, type = 'info', duration = 5000) {
-    const colors = {
-      info: 'bg-dark-accent',
-      success: 'bg-dark-success',
-      warning: 'bg-dark-warning',
-      error: 'bg-dark-danger',
-    };
-    const icons = {
-      info: 'info',
-      success: 'check-circle-2',
-      warning: 'alert-triangle',
-      error: 'x-circle',
-    };
+			// --- UPDATE NOTIFICATION ---
+			this.checkForUpdate();
 
-    const existing = document.getElementById('appNotification');
-    if (existing) existing.remove();
+			const quoteEl = document.getElementById("motivationQuote");
+			if (quoteEl)
+				quoteEl.textContent =
+					this.quotes[Math.floor(Math.random() * this.quotes.length)];
 
-    const notification = document.createElement('div');
-    notification.id = 'appNotification';
-    notification.className = `fixed top-20 right-4 z-[100] ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl max-w-sm animate-in fade-in slide-in-from-top-2`;
-    notification.innerHTML = `
+			this.renderActivityGraph();
+			this.updateCountdown();
+			setInterval(() => this.updateCountdown(), 60000);
+
+			// Keyboard Shortcuts für Lernkarten (Anki)
+			window.addEventListener("keydown", (e) => {
+				const modal = document.getElementById("ankiModal");
+				if (modal && !modal.classList.contains("hidden")) {
+					const modeView = document.getElementById("ankiModeView");
+					const questionView = document.getElementById("ankiQuestionView");
+					const answerView = document.getElementById("ankiAnswerView");
+					const finishView = document.getElementById("ankiFinishView");
+
+					if (e.key === "Escape") {
+						e.preventDefault();
+						this.anki.close();
+						return;
+					}
+
+					if (modeView && !modeView.classList.contains("hidden")) {
+						if (e.key === "1") {
+							e.preventDefault();
+							this.anki.start("manual");
+						} else if (e.key === "2") {
+							e.preventDefault();
+							this.anki.start("spaced");
+						} else if (e.key === "3") {
+							e.preventDefault();
+							this.anki.start("exam-prep");
+						} else if (e.key === "4") {
+							e.preventDefault();
+							this.anki.start("weaknesses");
+						}
+					} else if (
+						questionView &&
+						!questionView.classList.contains("hidden")
+					) {
+						if (e.key === " " || e.key === "Enter") {
+							e.preventDefault();
+							this.anki.showAnswer();
+						}
+					} else if (answerView && !answerView.classList.contains("hidden")) {
+						// 4-stufiges Confidence-Rating: 1=Sofort, 2=Nachgedacht, 3=Geraten, 4=Nicht gewusst
+						if (e.key === "1" || e.key === "ArrowLeft") {
+							e.preventDefault();
+							this.anki.next(0); // Sofort gewusst
+						} else if (e.key === "2" || e.key === "ArrowDown") {
+							e.preventDefault();
+							this.anki.next(1); // Nachgedacht
+						} else if (e.key === "3" || e.key === "ArrowRight") {
+							e.preventDefault();
+							this.anki.next(2); // Geraten
+						} else if (e.key === "4" || e.key === "ArrowUp") {
+							e.preventDefault();
+							this.anki.next(3); // Nicht gewusst
+						}
+					} else if (finishView && !finishView.classList.contains("hidden")) {
+						if (e.key === " " || e.key === "Enter") {
+							e.preventDefault();
+							this.anki.close();
+						}
+					}
+				}
+			});
+
+			this.setupPwaInstall();
+			this.render();
+		} catch (err) {
+			console.error("Critical Init Error:", err);
+		} finally {
+			setTimeout(hideLoader, 600);
+		}
+	},
+
+	// --- SAVE & STATE ---
+	save(silent = false) {
+		try {
+			const serialized = JSON.stringify(this.state);
+			const size = new Blob([serialized]).size;
+
+			// Warnung bei >80% Auslastung (ca. 4 MB von 5 MB Limit)
+			if (size > 4 * 1024 * 1024 && !this._quotaWarningShown) {
+				this._quotaWarningShown = true;
+				console.warn("[AP1] LocalStorage bei 80% - bitte Export machen!");
+				if (!silent) {
+					this.showNotification(
+						"Speicher fast voll",
+						"Bitte mach einen Export, um deine Daten zu sichern.",
+						"warning",
+					);
+				}
+			}
+
+			localStorage.setItem("ap1_dark_state_v1", serialized);
+			this._saveError = null;
+		} catch (e) {
+			this._saveError = e;
+			console.error("[AP1] Save failed:", e.name, e.message);
+
+			if (e.name === "QuotaExceededError") {
+				if (!silent) {
+					this.showNotification(
+						"Speicher voll!",
+						"Bitte Export machen und alte Daten löschen.",
+						"error",
+						0, // Kein Auto-Close
+					);
+				}
+			}
+		}
+		this.updateStats();
+	},
+
+	showNotification(title, message, type = "info", duration = 5000) {
+		const colors = {
+			info: "bg-dark-accent",
+			success: "bg-dark-success",
+			warning: "bg-dark-warning",
+			error: "bg-dark-danger",
+		};
+		const icons = {
+			info: "info",
+			success: "check-circle-2",
+			warning: "alert-triangle",
+			error: "x-circle",
+		};
+
+		const existing = document.getElementById("appNotification");
+		if (existing) existing.remove();
+
+		const notification = document.createElement("div");
+		notification.id = "appNotification";
+		notification.className = `fixed top-20 right-4 z-[20000] ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl max-w-sm animate-in fade-in slide-in-from-top-2`;
+		notification.innerHTML = `
       <div class="flex items-start gap-3">
         <i data-lucide="${icons[type]}" class="text-lg mt-0.5"></i>
         <div class="flex-1">
@@ -452,597 +643,633 @@ const app = {
       </div>
     `;
 
-    document.body.appendChild(notification);
-    this.refreshIcons();
-
-    if (duration > 0) {
-      setTimeout(() => notification.remove(), duration);
-    }
-  },
-
-  /**
-   * Gibt eine Zusammenfassung des States für Debug-Zwecke zurück
-   */
-  _getStateSummary() {
-    const summary = { keys: Object.keys(this.state).length };
-    if (this.state.activity) summary.activityDays = Object.keys(this.state.activity).length;
-    if (this.state.ankiStats) summary.ankiTopics = Object.keys(this.state.ankiStats).length;
-    return summary;
-  },
-
-  // Lucide Icons nach dynamischen DOM-Updates neu initialisieren
-  refreshIcons() {
-    if (window.lucide && typeof lucide.createIcons === 'function') {
-      lucide.createIcons();
-    }
-  },
-
-  hideInfoBox() {
-    const el = document.getElementById('infoBox');
-    if (el) el.remove();
-    localStorage.setItem('ap1_infobox_dismissed_v2', 'true');
-  },
-
-  getState(id) {
-    if (!this.state[id])
-      this.state[id] = {
-        done: false,
-        subDone: [],
-        stars: 0,
-        reps: [false, false, false],
-        last: null,
-        ankiStats: { sessions: 0, lastSession: null },
-      };
-    return this.state[id];
-  },
-
-  trackActivity() {
-    if (!this.state.activity) this.state.activity = {};
-    const today = new Date().toISOString().split('T')[0];
-    this.state.activity[today] = (this.state.activity[today] || 0) + 1;
-    this.save();
-    this.renderActivityGraph();
-  },
-
-  renderActivityGraph() {
-    const container = document.getElementById('streakGraph');
-    if (!container) return;
-    container.innerHTML = '';
-    const days = 80;
-    const now = new Date();
-
-    for (let i = days; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(now.getDate() - i);
-      const dateStr = d.toISOString().split('T')[0];
-      const count = this.state.activity ? this.state.activity[dateStr] || 0 : 0;
-
-      let colorClass = 'bg-dark-border';
-      if (count > 0) colorClass = 'bg-dark-accent/40';
-      if (count > 4) colorClass = 'bg-dark-accent/70';
-      if (count > 8) colorClass = 'bg-dark-accent';
-
-      const el = document.createElement('div');
-      el.className = `w-3 h-3 sm:w-4 sm:h-4 rounded-sm ${colorClass} streak-cell cursor-default`;
-      el.title = `${dateStr}: ${count} Aktionen`;
-      container.appendChild(el);
-    }
-  },
-
-  // --- TIMER ---
-  updateCountdown() {
-    const target = new Date('2026-09-30T08:00:00');
-    const now = new Date();
-    const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
-    const el = document.getElementById('headerCountdown');
-    if (el) el.textContent = diff > 0 ? diff : '0';
-  },
-
-  setPomoTime(min) {
-    if (this.timerRunning) {
-      if (!confirm('Timer läuft. Wirklich abbrechen?')) return;
-      clearInterval(this.timer);
-      this.timerRunning = false;
-      document.getElementById('pomoBtn').innerHTML =
-        '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
-      app.refreshIcons();
-    }
-    this.timeLeft = min * 60;
-    this.updateTimerDisplay();
-  },
-
-  updateTimerDisplay() {
-    const m = Math.floor(this.timeLeft / 60)
-      .toString()
-      .padStart(2, '0');
-    const s = (this.timeLeft % 60).toString().padStart(2, '0');
-    document.getElementById('pomoTimer').textContent = `${m}:${s}`;
-    document.title = this.timerRunning ? `${m}:${s} - Focus` : 'AP1 Tracker';
-  },
-
-  togglePomodoro() {
-    const btn = document.getElementById('pomoBtn');
-    if (this.timerRunning) {
-      clearInterval(this.timer);
-      this.timerRunning = false;
-      btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
-      btn.classList.remove('bg-dark-accent', 'text-white', 'scale-105');
-      btn.classList.add('bg-dark-border', 'text-dark-muted');
-      app.refreshIcons();
-    } else {
-      this.timerRunning = true;
-      btn.innerHTML = '<i data-lucide="pause" class="w-5 h-5"></i>';
-      btn.classList.add('bg-dark-accent', 'text-white', 'scale-105');
-      btn.classList.remove('bg-dark-border', 'text-dark-muted');
-      app.refreshIcons();
-      this.timer = setInterval(() => {
-        this.timeLeft--;
-        if (this.timeLeft <= 0) {
-          clearInterval(this.timer);
-          this.timerRunning = false;
-          this.timeLeft = 1500;
-
-          app.showNotification('Pomodoro beendet!', 'Gönn dir eine Pause.', 'info');
-          btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
-          btn.classList.remove('bg-dark-accent', 'text-white', 'scale-105');
-          btn.classList.add('bg-dark-border', 'text-dark-muted');
-          app.refreshIcons();
-        }
-        this.updateTimerDisplay();
-      }, 1000);
-    }
-  },
-
-  // --- IMPORT / EXPORT ---
-  exportData() {
-    const dataStr = JSON.stringify(this.state);
-    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute(
-      'download',
-      'ap1_master_backup_' + new Date().toISOString().slice(0, 10) + '.json'
-    );
-    linkElement.click();
-  },
-
-  /**
-   * Validiert die Struktur eines importierten State-Objekts
-   */
-  validateImport(data) {
-    // 1. Typ-Check
-    if (typeof data !== 'object' || data === null || Array.isArray(data)) {
-      return { valid: false, error: 'Ungültiges Format: Erwartet wird ein JSON-Objekt.' };
-    }
-
-    // 2. Minimale Struktur-Checks
-    const requiredKeys = ['activity'];
-    for (const key of requiredKeys) {
-      if (!(key in data)) {
-        return {
-          valid: false,
-          error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.`,
-        };
-      }
-    }
-
-    // 3. Größen-Check (max 5 MB = LocalStorage Limit)
-    const size = new Blob([JSON.stringify(data)]).size;
-    if (size > 5 * 1024 * 1024) {
-      return {
-        valid: false,
-        error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)`,
-      };
-    }
-
-    // 4. Versions-Erkennung
-    const version = data._version || 'v1';
-    const supportedVersions = ['v1', 'v2'];
-
-    if (!supportedVersions.includes(version)) {
-      return {
-        valid: false,
-        error: `Unbekannte Version: "${version}". Bitte Tracker aktualisieren.`,
-        needsMigration: true,
-      };
-    }
-
-    // 5. Plausibilitäts-Check
-    if (data.activity && typeof data.activity !== 'object') {
-      return { valid: false, error: 'Feld "activity" muss ein Objekt sein.' };
-    }
-
-    if (data.ankiStats && typeof data.ankiStats !== 'object') {
-      return { valid: false, error: 'Feld "ankiStats" muss ein Objekt sein.' };
-    }
-
-    return { valid: true, version };
-  },
-
-  /**
-   * Führt Migrationen zwischen verschiedenen State-Versionen durch
-   */
-  migrateState(data) {
-    const currentVersion = data._version || 'v1';
-    let migrated = { ...data };
-
-    // Beispiel für zukünftige Migrationen:
-    // if (currentVersion === 'v1') {
-    //   migrated = { ...migrated, newField: defaultValue };
-    //   migrated._version = 'v2';
-    // }
-
-    if (!migrated._version) {
-      migrated._version = 'v1';
-    }
-
-    console.log(`[AP1] Migration: ${currentVersion} -> ${migrated._version}`);
-    return migrated;
-  },
-
-  importData(input) {
-    const file = input.files[0];
-    if (!file) return;
-
-    // Reset input damit gleiche Datei erneut gewählt werden kann
-    input.value = '';
-
-    // Größen-Check vor dem Lesen (max 10 MB Raw-Datei)
-    if (file.size > 10 * 1024 * 1024) {
-      this.showNotification(
-        'Datei zu groß',
-        `Maximale Größe: 10 MB. Deine Datei: ${(file.size / 1024 / 1024).toFixed(2)} MB`,
-        'error'
-      );
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onerror = () => {
-      console.error('[AP1] File read error:', reader.error);
-      this.showNotification('Lesefehler', 'Die Datei konnte nicht gelesen werden.', 'error');
-    };
-
-    reader.onload = (e) => {
-      const content = e.target.result;
-
-      // 1. JSON parsen
-      let parsed;
-      try {
-        parsed = JSON.parse(content);
-      } catch (err) {
-        console.error('[AP1] JSON parse error:', err);
-        this.showNotification(
-          'Ungültiges JSON',
-          'Die Datei ist kein gültiges JSON-Format.',
-          'error'
-        );
-        return;
-      }
-
-      // 2. Struktur validieren
-      const validation = this.validateImport(parsed);
-      if (!validation.valid) {
-        console.error('[AP1] Validation failed:', validation.error);
-        this.showNotification('Import fehlgeschlagen', validation.error, 'error', 0);
-        return;
-      }
-
-      // 3. Migration durchführen (falls nötig)
-      const migrated = this.migrateState(parsed);
-
-      // 4. State ersetzen und speichern
-      const oldState = this.state;
-      this.state = migrated;
-
-      try {
-        this.save();
-
-        // 5. Erfolg melden
-        const stats = this.getImportStats(migrated);
-        this.showNotification(
-          'Import erfolgreich',
-          `Lade Fortschritt: ${stats.topics} Themen, ${stats.cards} Karten${stats.days ? `, ${stats.days} Tage Aktivität` : ''}`,
-          'success'
-        );
-
-        // 6. Reload nach kurzer Verzögerung
-        setTimeout(() => location.reload(), 1500);
-      } catch (err) {
-        console.error('[AP1] Import save failed:', err);
-        // Rollback bei Save-Fehler
-        this.state = oldState;
-        this.showNotification(
-          'Speicherfehler',
-          'Import erfolgreich validiert, aber Speicher voll. Bitte erst Export machen.',
-          'error',
-          0
-        );
-      }
-    };
-
-    reader.readAsText(file);
-  },
-
-  /**
-   * Extrahiert Statistik-Infos aus importiertem State für User-Feedback
-   */
-  getImportStats(state) {
-    const stats = { topics: 0, cards: 0, days: 0 };
-
-    // Gezählte Topics
-    if (state) {
-      Object.keys(state).forEach((key) => {
-        if (/^\d+\.\d+$/.test(key)) {
-          // Topic-ID Pattern (z.B. "1.1", "2.3")
-          stats.topics++;
-          if (state[key].done) stats.cards++;
-        }
-      });
-    }
-
-    // Anki-Karten
-    if (state.ankiStats) {
-      Object.values(state.ankiStats).forEach((s) => {
-        stats.cards += s.correct || 0;
-      });
-    }
-
-    // Aktivitätstage
-    if (state.activity) {
-      stats.days = Object.keys(state.activity).filter((d) => state.activity[d] > 0).length;
-    }
-
-    return stats;
-  },
-
-  resetData() {
-    if (confirm('Wirklich ALLE Daten unwiderruflich löschen?')) {
-      localStorage.removeItem('ap1_dark_state_v1');
-      localStorage.removeItem('ap1_infobox_dismissed_v2');
-      location.reload();
-    }
-  },
-
-  // --- INTERACTION ---
-  search() {
-    this.searchQuery = document.getElementById('searchInput').value.toLowerCase();
-    this.render();
-  },
-
-  toggleTopic(id, checked, element) {
-    const s = this.getState(id);
-    const t = this.findTopic(id);
-    s.done = checked;
-    s.last = Date.now();
-
-    if (t && t.sub) {
-      s.subDone = new Array(t.sub.length).fill(checked);
-      const card = element.closest('.topic-card');
-      const subs = card.querySelectorAll('.subtask-list input');
-      const texts = card.querySelectorAll('.subtask-list span');
-      subs.forEach((input) => (input.checked = checked));
-      texts.forEach((span) => {
-        if (checked) {
-          span.classList.add('line-through', 'opacity-50');
-          span.classList.remove('group-hover/item:text-white');
-        } else {
-          span.classList.remove('line-through', 'opacity-50');
-          span.classList.add('group-hover/item:text-white');
-        }
-      });
-    }
-
-    const card = element.closest('.topic-card');
-    if (checked) card.classList.add('border-dark-accent/30');
-    else card.classList.remove('border-dark-accent/30');
-
-    this.trackActivity();
-    this.save();
-
-    if (checked) {
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 60,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#0ea5e9', '#10b981'],
-        });
-      }
-    }
-    this.updateStats(); // Update stats immediately
-    this.render();
-  },
-
-  toggleSub(id, idx, checked, element) {
-    const s = this.getState(id);
-    const t = this.findTopic(id);
-    if (!s.subDone) s.subDone = [];
-    s.subDone[idx] = checked;
-
-    const doneCount = s.subDone.filter(Boolean).length;
-    const allDone = doneCount === t.sub.length && t.sub.length > 0;
-
-    if (s.done !== allDone) {
-      s.done = allDone;
-      const card = element.closest('.topic-card');
-      const mainCheck = card.querySelector('.topic-check');
-      if (mainCheck) {
-        mainCheck.checked = allDone;
-        if (allDone) {
-          card.classList.add('border-dark-accent/30');
-          if (typeof confetti === 'function') {
-            confetti({
-              particleCount: 40,
-              spread: 60,
-              origin: { y: 0.7 },
-              colors: ['#0ea5e9', '#10b981'],
-            });
-          }
-        } else card.classList.remove('border-dark-accent/30');
-      }
-    }
-
-    const span = element.parentElement.nextElementSibling;
-    if (checked) {
-      span.classList.add('line-through', 'opacity-50');
-      span.classList.remove('group-hover/item:text-white');
-    } else {
-      span.classList.remove('line-through', 'opacity-50');
-      span.classList.add('group-hover/item:text-white');
-    }
-
-    s.last = Date.now();
-    this.trackActivity();
-    this.save();
-    this.updateStats(); // Update stats immediately
-    this.render();
-  },
-
-  randomTopic() {
-    const open = [];
-    AP1_DATA.forEach((cat) => {
-      cat.topics.forEach((t) => {
-        if (!this.getState(t.id).done) open.push(t.id);
-      });
-    });
-
-    if (open.length === 0) {
-      alert('Wow! Alles erledigt! Du bist bereit.');
-      return;
-    }
-    const randId = open[Math.floor(Math.random() * open.length)];
-    this.recId = randId;
-    this.scrollToRec();
-  },
-
-  toggleAccordion(header) {
-    const body = header.nextElementSibling;
-    const icon = header.querySelector('.accordion-icon');
-    const topicId = header.closest('.topic-card').dataset.id;
-
-    if (body.classList.contains('open')) {
-      body.classList.remove('open');
-      icon.style.transform = 'rotate(0deg)';
-      icon.classList.remove('bg-dark-accent', 'text-white');
-      icon.classList.add('bg-dark-bg/50', 'text-dark-muted');
-      this.openTopics.delete(topicId);
-    } else {
-      body.classList.add('open');
-      icon.style.transform = 'rotate(180deg)';
-      icon.classList.add('bg-dark-accent', 'text-white');
-      icon.classList.remove('bg-dark-bg/50', 'text-dark-muted');
-      this.openTopics.add(topicId);
-    }
-  },
-
-  setRep(id, level, element) {
-    const s = this.getState(id);
-    let newState = [false, false, false];
-    let currentMax = -1;
-    if (s.reps[2]) currentMax = 2;
-    else if (s.reps[1]) currentMax = 1;
-    else if (s.reps[0]) currentMax = 0;
-
-    if (currentMax === level) {
-      if (level === 0) newState = [false, false, false];
-      else {
-        for (let i = 0; i < level; i++) newState[i] = true;
-      }
-    } else {
-      for (let i = 0; i <= level; i++) newState[i] = true;
-    }
-
-    s.reps = newState;
-    this.save();
-    const card = element.closest('.topic-card');
-    const checkboxes = card.querySelectorAll('.rep-check');
-    checkboxes.forEach((cb, idx) => {
-      cb.checked = s.reps[idx];
-    });
-    this.updateRepHeader(card, s.reps);
-  },
-
-  updateRepHeader(card, reps) {
-    const count = reps.filter(Boolean).length;
-    const badge = card.querySelector('.rep-indicator');
-    if (count > 0) {
-      badge.textContent = count + 'x Wiederholt';
-      badge.classList.remove('hidden');
-      if (count === 3)
-        badge.classList.add('bg-dark-success/20', 'text-dark-success', 'border-dark-success/30');
-      else
-        badge.classList.remove('bg-dark-success/20', 'text-dark-success', 'border-dark-success/30');
-    } else {
-      badge.classList.add('hidden');
-    }
-  },
-
-  setFilter(f) {
-    this.filter = f;
-    document.querySelectorAll('.filter-btn').forEach((b) => {
-      if (b.dataset.filter === f) {
-        b.classList.add('bg-dark-card', 'text-white', 'border-dark-border');
-        b.classList.remove('text-dark-muted', 'border-transparent');
-      } else {
-        b.classList.remove('bg-dark-card', 'text-white', 'border-dark-border');
-        b.classList.add('text-dark-muted', 'border-transparent');
-      }
-    });
-    this.render();
-  },
-
-  findTopic(id) {
-    for (const c of AP1_DATA) {
-      const f = c.topics.find((t) => t.id === id);
-      if (f) return f;
-    }
-    return null;
-  },
-
-  scrollToRec() {
-    if (!this.recId) return;
-    if (this.filter !== 'all') this.setFilter('all');
-    setTimeout(() => {
-      const el = document.querySelector(`.topic-card[data-id="${this.recId}"]`);
-      if (el) {
-        const body = el.querySelector('.topic-body');
-        const header = el.querySelector('.header-area');
-        if (!body.classList.contains('open')) {
-          this.toggleAccordion(header);
-        }
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        el.classList.add('ring-2', 'ring-dark-accent', 'shadow-glow');
-        setTimeout(() => el.classList.remove('ring-2', 'ring-dark-accent', 'shadow-glow'), 2000);
-      }
-    }, 100);
-  },
-
-  resetCategory(catId) {
-    if (!confirm('Wirklich den Fortschritt dieser Kategorie zurücksetzen?')) return;
-    const cat = AP1_DATA.find((c) => c.id === catId);
-    if (cat) {
-      cat.topics.forEach((t) => {
-        if (this.state[t.id]) {
-          this.state[t.id].done = false;
-          this.state[t.id].subDone = [];
-          this.state[t.id].reps = [false, false, false];
-        }
-      });
-      this.save();
-      this.render();
-    }
-  },
-
-  // --- LEGAL / MODALS ---
-  openLegal(type) {
-    const modal = document.getElementById('legalModal');
-    const content = document.getElementById('legalContent');
-    modal.classList.remove('hidden');
-
-    if (type === 'impressum') {
-      content.innerHTML = `
+		document.body.appendChild(notification);
+		this.refreshIcons();
+
+		if (duration > 0) {
+			setTimeout(() => notification.remove(), duration);
+		}
+	},
+
+	/**
+	 * Gibt eine Zusammenfassung des States für Debug-Zwecke zurück
+	 */
+	_getStateSummary() {
+		const summary = { keys: Object.keys(this.state).length };
+		if (this.state.activity)
+			summary.activityDays = Object.keys(this.state.activity).length;
+		if (this.state.ankiStats)
+			summary.ankiTopics = Object.keys(this.state.ankiStats).length;
+		return summary;
+	},
+
+	// Lucide Icons nach dynamischen DOM-Updates neu initialisieren
+	refreshIcons() {
+		if (window.lucide && typeof lucide.createIcons === "function") {
+			lucide.createIcons();
+		}
+	},
+
+	hideInfoBox() {
+		const el = document.getElementById("infoBox");
+		if (el) el.remove();
+		localStorage.setItem("ap1_infobox_dismissed_v2", "true");
+	},
+
+	getState(id) {
+		if (!this.state[id])
+			this.state[id] = {
+				done: false,
+				subDone: [],
+				stars: 0,
+				reps: [false, false, false],
+				last: null,
+				ankiStats: { sessions: 0, lastSession: null },
+			};
+		return this.state[id];
+	},
+
+	trackActivity() {
+		if (!this.state.activity) this.state.activity = {};
+		const today = new Date().toISOString().split("T")[0];
+		this.state.activity[today] = (this.state.activity[today] || 0) + 1;
+		this.save();
+		this.renderActivityGraph();
+	},
+
+	renderActivityGraph() {
+		const container = document.getElementById("streakGraph");
+		if (!container) return;
+		container.innerHTML = "";
+		const days = 80;
+		const now = new Date();
+
+		for (let i = days; i >= 0; i--) {
+			const d = new Date();
+			d.setDate(now.getDate() - i);
+			const dateStr = d.toISOString().split("T")[0];
+			const count = this.state.activity ? this.state.activity[dateStr] || 0 : 0;
+
+			let colorClass = "bg-dark-border";
+			if (count > 0) colorClass = "bg-dark-accent/40";
+			if (count > 4) colorClass = "bg-dark-accent/70";
+			if (count > 8) colorClass = "bg-dark-accent";
+
+			const el = document.createElement("div");
+			el.className = `w-3 h-3 sm:w-4 sm:h-4 rounded-sm ${colorClass} streak-cell cursor-default`;
+			el.title = `${dateStr}: ${count} Aktionen`;
+			container.appendChild(el);
+		}
+	},
+
+	// --- TIMER ---
+	updateCountdown() {
+		const target = new Date("2026-09-30T08:00:00");
+		const now = new Date();
+		const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+		const el = document.getElementById("headerCountdown");
+		if (el) el.textContent = diff > 0 ? diff : "0";
+	},
+
+	setPomoTime(min) {
+		if (this.timerRunning) {
+			if (!confirm("Timer läuft. Wirklich abbrechen?")) return;
+			clearInterval(this.timer);
+			this.timerRunning = false;
+			document.getElementById("pomoBtn").innerHTML =
+				'<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
+			app.refreshIcons();
+		}
+		this.timeLeft = min * 60;
+		this.updateTimerDisplay();
+	},
+
+	updateTimerDisplay() {
+		const m = Math.floor(this.timeLeft / 60)
+			.toString()
+			.padStart(2, "0");
+		const s = (this.timeLeft % 60).toString().padStart(2, "0");
+		document.getElementById("pomoTimer").textContent = `${m}:${s}`;
+		document.title = this.timerRunning ? `${m}:${s} - Focus` : "AP1 Tracker";
+	},
+
+	togglePomodoro() {
+		const btn = document.getElementById("pomoBtn");
+		if (this.timerRunning) {
+			clearInterval(this.timer);
+			this.timerRunning = false;
+			btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
+			btn.classList.remove("bg-dark-accent", "text-white", "scale-105");
+			btn.classList.add("bg-dark-border", "text-dark-muted");
+			app.refreshIcons();
+		} else {
+			this.timerRunning = true;
+			btn.innerHTML = '<i data-lucide="pause" class="w-5 h-5"></i>';
+			btn.classList.add("bg-dark-accent", "text-white", "scale-105");
+			btn.classList.remove("bg-dark-border", "text-dark-muted");
+			app.refreshIcons();
+			this.timer = setInterval(() => {
+				this.timeLeft--;
+				if (this.timeLeft <= 0) {
+					clearInterval(this.timer);
+					this.timerRunning = false;
+					this.timeLeft = 1500;
+
+					app.showNotification(
+						"Pomodoro beendet!",
+						"Gönn dir eine Pause.",
+						"info",
+					);
+					btn.innerHTML = '<i data-lucide="play" class="w-5 h-5 ml-0.5"></i>';
+					btn.classList.remove("bg-dark-accent", "text-white", "scale-105");
+					btn.classList.add("bg-dark-border", "text-dark-muted");
+					app.refreshIcons();
+				}
+				this.updateTimerDisplay();
+			}, 1000);
+		}
+	},
+
+	// --- IMPORT / EXPORT ---
+	exportData() {
+		const dataStr = JSON.stringify(this.state);
+		const dataUri =
+			"data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+		const linkElement = document.createElement("a");
+		linkElement.setAttribute("href", dataUri);
+		linkElement.setAttribute(
+			"download",
+			"ap1_master_backup_" + new Date().toISOString().slice(0, 10) + ".json",
+		);
+		linkElement.click();
+	},
+
+	/**
+	 * Validiert die Struktur eines importierten State-Objekts
+	 */
+	validateImport(data) {
+		// 1. Typ-Check
+		if (typeof data !== "object" || data === null || Array.isArray(data)) {
+			return {
+				valid: false,
+				error: "Ungültiges Format: Erwartet wird ein JSON-Objekt.",
+			};
+		}
+
+		// 2. Minimale Struktur-Checks
+		const requiredKeys = ["activity"];
+		for (const key of requiredKeys) {
+			if (!(key in data)) {
+				return {
+					valid: false,
+					error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.`,
+				};
+			}
+		}
+
+		// 3. Größen-Check (max 5 MB = LocalStorage Limit)
+		const size = new Blob([JSON.stringify(data)]).size;
+		if (size > 5 * 1024 * 1024) {
+			return {
+				valid: false,
+				error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)`,
+			};
+		}
+
+		// 4. Versions-Erkennung
+		const version = data._version || "v1";
+		const supportedVersions = ["v1", "v2"];
+
+		if (!supportedVersions.includes(version)) {
+			return {
+				valid: false,
+				error: `Unbekannte Version: "${version}". Bitte Tracker aktualisieren.`,
+				needsMigration: true,
+			};
+		}
+
+		// 5. Plausibilitäts-Check
+		if (data.activity && typeof data.activity !== "object") {
+			return { valid: false, error: 'Feld "activity" muss ein Objekt sein.' };
+		}
+
+		if (data.ankiStats && typeof data.ankiStats !== "object") {
+			return { valid: false, error: 'Feld "ankiStats" muss ein Objekt sein.' };
+		}
+
+		return { valid: true, version };
+	},
+
+	/**
+	 * Führt Migrationen zwischen verschiedenen State-Versionen durch
+	 */
+	migrateState(data) {
+		const currentVersion = data._version || "v1";
+		const migrated = { ...data };
+
+		// Beispiel für zukünftige Migrationen:
+		// if (currentVersion === 'v1') {
+		//   migrated = { ...migrated, newField: defaultValue };
+		//   migrated._version = 'v2';
+		// }
+
+		if (!migrated._version) {
+			migrated._version = "v1";
+		}
+
+		console.log(`[AP1] Migration: ${currentVersion} -> ${migrated._version}`);
+		return migrated;
+	},
+
+	importData(input) {
+		const file = input.files[0];
+		if (!file) return;
+
+		// Reset input damit gleiche Datei erneut gewählt werden kann
+		input.value = "";
+
+		// Größen-Check vor dem Lesen (max 10 MB Raw-Datei)
+		if (file.size > 10 * 1024 * 1024) {
+			this.showNotification(
+				"Datei zu groß",
+				`Maximale Größe: 10 MB. Deine Datei: ${(file.size / 1024 / 1024).toFixed(2)} MB`,
+				"error",
+			);
+			return;
+		}
+
+		const reader = new FileReader();
+
+		reader.onerror = () => {
+			console.error("[AP1] File read error:", reader.error);
+			this.showNotification(
+				"Lesefehler",
+				"Die Datei konnte nicht gelesen werden.",
+				"error",
+			);
+		};
+
+		reader.onload = (e) => {
+			const content = e.target.result;
+
+			// 1. JSON parsen
+			let parsed;
+			try {
+				parsed = JSON.parse(content);
+			} catch (err) {
+				console.error("[AP1] JSON parse error:", err);
+				this.showNotification(
+					"Ungültiges JSON",
+					"Die Datei ist kein gültiges JSON-Format.",
+					"error",
+				);
+				return;
+			}
+
+			// 2. Struktur validieren
+			const validation = this.validateImport(parsed);
+			if (!validation.valid) {
+				console.error("[AP1] Validation failed:", validation.error);
+				this.showNotification(
+					"Import fehlgeschlagen",
+					validation.error,
+					"error",
+					0,
+				);
+				return;
+			}
+
+			// 3. Migration durchführen (falls nötig)
+			const migrated = this.migrateState(parsed);
+
+			// 4. State ersetzen und speichern
+			const oldState = this.state;
+			this.state = migrated;
+
+			try {
+				this.save();
+
+				// 5. Erfolg melden
+				const stats = this.getImportStats(migrated);
+				this.showNotification(
+					"Import erfolgreich",
+					`Lade Fortschritt: ${stats.topics} Themen, ${stats.cards} Karten${stats.days ? `, ${stats.days} Tage Aktivität` : ""}`,
+					"success",
+				);
+
+				// 6. Reload nach kurzer Verzögerung
+				setTimeout(() => location.reload(), 1500);
+			} catch (err) {
+				console.error("[AP1] Import save failed:", err);
+				// Rollback bei Save-Fehler
+				this.state = oldState;
+				this.showNotification(
+					"Speicherfehler",
+					"Import erfolgreich validiert, aber Speicher voll. Bitte erst Export machen.",
+					"error",
+					0,
+				);
+			}
+		};
+
+		reader.readAsText(file);
+	},
+
+	/**
+	 * Extrahiert Statistik-Infos aus importiertem State für User-Feedback
+	 */
+	getImportStats(state) {
+		const stats = { topics: 0, cards: 0, days: 0 };
+
+		// Gezählte Topics
+		if (state) {
+			Object.keys(state).forEach((key) => {
+				if (/^\d+\.\d+$/.test(key)) {
+					// Topic-ID Pattern (z.B. "1.1", "2.3")
+					stats.topics++;
+					if (state[key].done) stats.cards++;
+				}
+			});
+		}
+
+		// Anki-Karten
+		if (state.ankiStats) {
+			Object.values(state.ankiStats).forEach((s) => {
+				stats.cards += s.correct || 0;
+			});
+		}
+
+		// Aktivitätstage
+		if (state.activity) {
+			stats.days = Object.keys(state.activity).filter(
+				(d) => state.activity[d] > 0,
+			).length;
+		}
+
+		return stats;
+	},
+
+	resetData() {
+		if (confirm("Wirklich ALLE Daten unwiderruflich löschen?")) {
+			localStorage.removeItem("ap1_dark_state_v1");
+			localStorage.removeItem("ap1_infobox_dismissed_v2");
+			location.reload();
+		}
+	},
+
+	// --- INTERACTION ---
+	search() {
+		this.searchQuery = document
+			.getElementById("searchInput")
+			.value.toLowerCase();
+		this.render();
+	},
+
+	toggleTopic(id, checked, element) {
+		const s = this.getState(id);
+		const t = this.findTopic(id);
+		s.done = checked;
+		s.last = Date.now();
+
+		if (t && t.sub) {
+			s.subDone = new Array(t.sub.length).fill(checked);
+			const card = element.closest(".topic-card");
+			const subs = card.querySelectorAll(".subtask-list input");
+			const texts = card.querySelectorAll(".subtask-list span");
+			subs.forEach((input) => (input.checked = checked));
+			texts.forEach((span) => {
+				if (checked) {
+					span.classList.add("line-through", "opacity-50");
+					span.classList.remove("group-hover/item:text-white");
+				} else {
+					span.classList.remove("line-through", "opacity-50");
+					span.classList.add("group-hover/item:text-white");
+				}
+			});
+		}
+
+		const card = element.closest(".topic-card");
+		if (checked) card.classList.add("border-dark-accent/30");
+		else card.classList.remove("border-dark-accent/30");
+
+		this.trackActivity();
+		this.save();
+
+		if (checked) {
+			if (typeof confetti === "function") {
+				confetti({
+					particleCount: 60,
+					spread: 70,
+					origin: { y: 0.6 },
+					colors: ["#0ea5e9", "#10b981"],
+				});
+			}
+		}
+		this.updateStats(); // Update stats immediately
+		this.render();
+	},
+
+	toggleSub(id, idx, checked, element) {
+		const s = this.getState(id);
+		const t = this.findTopic(id);
+		if (!s.subDone) s.subDone = [];
+		s.subDone[idx] = checked;
+
+		const doneCount = s.subDone.filter(Boolean).length;
+		const allDone = doneCount === t.sub.length && t.sub.length > 0;
+
+		if (s.done !== allDone) {
+			s.done = allDone;
+			const card = element.closest(".topic-card");
+			const mainCheck = card.querySelector(".topic-check");
+			if (mainCheck) {
+				mainCheck.checked = allDone;
+				if (allDone) {
+					card.classList.add("border-dark-accent/30");
+					if (typeof confetti === "function") {
+						confetti({
+							particleCount: 40,
+							spread: 60,
+							origin: { y: 0.7 },
+							colors: ["#0ea5e9", "#10b981"],
+						});
+					}
+				} else card.classList.remove("border-dark-accent/30");
+			}
+		}
+
+		const span = element.parentElement.nextElementSibling;
+		if (checked) {
+			span.classList.add("line-through", "opacity-50");
+			span.classList.remove("group-hover/item:text-white");
+		} else {
+			span.classList.remove("line-through", "opacity-50");
+			span.classList.add("group-hover/item:text-white");
+		}
+
+		s.last = Date.now();
+		this.trackActivity();
+		this.save();
+		this.updateStats(); // Update stats immediately
+		this.render();
+	},
+
+	randomTopic() {
+		const open = [];
+		AP1_DATA.forEach((cat) => {
+			cat.topics.forEach((t) => {
+				if (!this.getState(t.id).done) open.push(t.id);
+			});
+		});
+
+		if (open.length === 0) {
+			alert("Wow! Alles erledigt! Du bist bereit.");
+			return;
+		}
+		const randId = open[Math.floor(Math.random() * open.length)];
+		this.recId = randId;
+		this.scrollToRec();
+	},
+
+	toggleAccordion(header) {
+		const body = header.nextElementSibling;
+		const icon = header.querySelector(".accordion-icon");
+		const topicId = header.closest(".topic-card").dataset.id;
+
+		if (body.classList.contains("open")) {
+			body.classList.remove("open");
+			icon.style.transform = "rotate(0deg)";
+			icon.classList.remove("bg-dark-accent", "text-white");
+			icon.classList.add("bg-dark-bg/50", "text-dark-muted");
+			this.openTopics.delete(topicId);
+		} else {
+			body.classList.add("open");
+			icon.style.transform = "rotate(180deg)";
+			icon.classList.add("bg-dark-accent", "text-white");
+			icon.classList.remove("bg-dark-bg/50", "text-dark-muted");
+			this.openTopics.add(topicId);
+		}
+	},
+
+	setRep(id, level, element) {
+		const s = this.getState(id);
+		let newState = [false, false, false];
+		let currentMax = -1;
+		if (s.reps[2]) currentMax = 2;
+		else if (s.reps[1]) currentMax = 1;
+		else if (s.reps[0]) currentMax = 0;
+
+		if (currentMax === level) {
+			if (level === 0) newState = [false, false, false];
+			else {
+				for (let i = 0; i < level; i++) newState[i] = true;
+			}
+		} else {
+			for (let i = 0; i <= level; i++) newState[i] = true;
+		}
+
+		s.reps = newState;
+		this.save();
+		const card = element.closest(".topic-card");
+		const checkboxes = card.querySelectorAll(".rep-check");
+		checkboxes.forEach((cb, idx) => {
+			cb.checked = s.reps[idx];
+		});
+		this.updateRepHeader(card, s.reps);
+	},
+
+	updateRepHeader(card, reps) {
+		const count = reps.filter(Boolean).length;
+		const badge = card.querySelector(".rep-indicator");
+		if (count > 0) {
+			badge.textContent = count + "x Wiederholt";
+			badge.classList.remove("hidden");
+			if (count === 3)
+				badge.classList.add(
+					"bg-dark-success/20",
+					"text-dark-success",
+					"border-dark-success/30",
+				);
+			else
+				badge.classList.remove(
+					"bg-dark-success/20",
+					"text-dark-success",
+					"border-dark-success/30",
+				);
+		} else {
+			badge.classList.add("hidden");
+		}
+	},
+
+	setFilter(f) {
+		this.filter = f;
+		document.querySelectorAll(".filter-btn").forEach((b) => {
+			if (b.dataset.filter === f) {
+				b.classList.add("bg-dark-card", "text-white", "border-dark-border");
+				b.classList.remove("text-dark-muted", "border-transparent");
+			} else {
+				b.classList.remove("bg-dark-card", "text-white", "border-dark-border");
+				b.classList.add("text-dark-muted", "border-transparent");
+			}
+		});
+		this.render();
+	},
+
+	findTopic(id) {
+		for (const c of AP1_DATA) {
+			const f = c.topics.find((t) => t.id === id);
+			if (f) return f;
+		}
+		return null;
+	},
+
+	scrollToRec() {
+		if (!this.recId) return;
+		if (this.filter !== "all") this.setFilter("all");
+		setTimeout(() => {
+			const el = document.querySelector(`.topic-card[data-id="${this.recId}"]`);
+			if (el) {
+				const body = el.querySelector(".topic-body");
+				const header = el.querySelector(".header-area");
+				if (!body.classList.contains("open")) {
+					this.toggleAccordion(header);
+				}
+				el.scrollIntoView({ behavior: "smooth", block: "center" });
+				el.classList.add("ring-2", "ring-dark-accent", "shadow-glow");
+				setTimeout(
+					() =>
+						el.classList.remove("ring-2", "ring-dark-accent", "shadow-glow"),
+					2000,
+				);
+			}
+		}, 100);
+	},
+
+	resetCategory(catId) {
+		if (!confirm("Wirklich den Fortschritt dieser Kategorie zurücksetzen?"))
+			return;
+		const cat = AP1_DATA.find((c) => c.id === catId);
+		if (cat) {
+			cat.topics.forEach((t) => {
+				if (this.state[t.id]) {
+					this.state[t.id].done = false;
+					this.state[t.id].subDone = [];
+					this.state[t.id].reps = [false, false, false];
+				}
+			});
+			this.save();
+			this.render();
+		}
+	},
+
+	// --- LEGAL / MODALS ---
+	openLegal(type) {
+		const modal = document.getElementById("legalModal");
+		const content = document.getElementById("legalContent");
+		modal.classList.remove("hidden");
+
+		if (type === "impressum") {
+			content.innerHTML = `
               <h1 class="text-2xl font-bold text-dark-accent mb-6">Impressum</h1>
               <div class="space-y-4 text-dark-text">
                 <p><strong>Angaben gemäß § 5 DDG</strong></p>
@@ -1058,8 +1285,8 @@ const app = {
                 <p class="text-xs text-dark-muted mt-8">Quelle: <a href="https://www.e-recht24.de" target="_blank" class="hover:underline">e-recht24.de</a></p>
               </div>
             `;
-    } else {
-      content.innerHTML = `
+		} else {
+			content.innerHTML = `
                 <h1 class="text-2xl font-bold text-dark-accent mb-6">Datenschutz</h1>
                 <div class="space-y-4 text-dark-text text-sm">
 
@@ -1100,68 +1327,71 @@ const app = {
                   poststelle@lda.bayern.de</p>
                 </div>
             `;
-    }
-  },
+		}
+	},
 
-  closeLegal() {
-    document.getElementById('legalModal').classList.add('hidden');
-  },
+	closeLegal() {
+		document.getElementById("legalModal").classList.add("hidden");
+	},
 
-  // --- UPDATE NOTIFICATION ---
-  checkForUpdate() {
-    // Start-Modals komplett deaktiviert (Updates sind über die Glocke in der Navigationsleiste einsehbar)
-    return;
-  },
+	// --- UPDATE NOTIFICATION ---
+	checkForUpdate() {
+		// Start-Modals komplett deaktiviert (Updates sind über die Glocke in der Navigationsleiste einsehbar)
+		return;
+	},
 
-  setupPwaInstall() {
-    let deferredPrompt;
-    const installBtn = document.getElementById('pwa-install-btn');
-    const container = document.getElementById('pwa-install-container');
-    const iosInstructions = document.getElementById('pwa-ios-instructions');
+	setupPwaInstall() {
+		let deferredPrompt;
+		const installBtn = document.getElementById("pwa-install-btn");
+		const container = document.getElementById("pwa-install-container");
+		const iosInstructions = document.getElementById("pwa-ios-instructions");
 
-    if (!container) return;
+		if (!container) return;
 
-    // Detect iOS
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+		// Detect iOS
+		const isIOS =
+			/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+		const isStandalone =
+			window.matchMedia("(display-mode: standalone)").matches ||
+			window.navigator.standalone;
 
-    if (isStandalone) {
-      return;
-    }
+		if (isStandalone) {
+			return;
+		}
 
-    if (isIOS && iosInstructions) {
-      container.classList.remove('hidden');
-      iosInstructions.classList.remove('hidden');
-      if (window.lucide) lucide.createIcons();
-      return;
-    }
+		if (isIOS && iosInstructions) {
+			container.classList.remove("hidden");
+			iosInstructions.classList.remove("hidden");
+			if (window.lucide) lucide.createIcons();
+			return;
+		}
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      container.classList.remove('hidden');
-      if (installBtn) installBtn.classList.remove('hidden');
-      if (window.lucide) lucide.createIcons();
-    });
+		window.addEventListener("beforeinstallprompt", (e) => {
+			e.preventDefault();
+			deferredPrompt = e;
+			container.classList.remove("hidden");
+			if (installBtn) installBtn.classList.remove("hidden");
+			if (window.lucide) lucide.createIcons();
+		});
 
-    if (installBtn) {
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User choice: ${outcome}`);
-        deferredPrompt = null;
-        container.classList.add('hidden');
-      });
-    }
-  },
+		if (installBtn) {
+			installBtn.addEventListener("click", async () => {
+				if (!deferredPrompt) return;
+				deferredPrompt.prompt();
+				const { outcome } = await deferredPrompt.userChoice;
+				console.log(`User choice: ${outcome}`);
+				deferredPrompt = null;
+				container.classList.add("hidden");
+			});
+		}
+	},
 
-  showUpdateModal(title, message, iconClass) {
-    const modal = document.createElement('div');
-    modal.id = 'updateNotificationModal';
-    modal.className =
-      'fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto';
-    modal.innerHTML = `
+	showUpdateModal(title, message, iconClass) {
+		const modal = document.createElement("div");
+		modal.id = "updateNotificationModal";
+		modal.className =
+			"fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm p-3 sm:p-4 overflow-y-auto";
+		modal.innerHTML = `
       <div class="bg-dark-card border border-dark-success/50 rounded-2xl p-5 sm:p-6 md:p-8 max-w-lg w-full shadow-2xl relative animate-in fade-in zoom-in duration-300 my-auto">
         <div class="absolute top-0 right-0 w-32 h-32 bg-dark-success/20 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
 
@@ -1262,357 +1492,415 @@ const app = {
       </div>
     `;
 
-    document.body.appendChild(modal);
-    this.refreshIcons();
+		document.body.appendChild(modal);
+		this.refreshIcons();
 
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.remove();
-      }
-    });
-  },
+		modal.addEventListener("click", (e) => {
+			if (e.target === modal) {
+				modal.remove();
+			}
+		});
+	},
 
-  // --- RENDER ---
-  updateStats() {
-    try {
-      const all = AP1_DATA.flatMap((c) => c.topics);
-      const total = all.length;
-      const done = all.filter((t) => this.getState(t.id).done).length;
-      const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+	// --- RENDER ---
+	updateStats() {
+		try {
+			const all = AP1_DATA.flatMap((c) => c.topics);
+			const total = all.length;
+			const done = all.filter((t) => this.getState(t.id).done).length;
+			const pct = total === 0 ? 0 : Math.round((done / total) * 100);
 
-      const totalTopEl = document.getElementById('totalPercentTop');
-      if (totalTopEl) totalTopEl.textContent = pct + '%';
+			const totalTopEl = document.getElementById("totalPercentTop");
+			if (totalTopEl) totalTopEl.textContent = pct + "%";
 
-      const mainProgress = document.getElementById('mainProgressBar');
-      if (mainProgress) mainProgress.style.width = pct + '%';
+			const mainProgress = document.getElementById("mainProgressBar");
+			if (mainProgress) mainProgress.style.width = pct + "%";
 
-      const doneCountEl = document.getElementById('doneCount');
-      if (doneCountEl) doneCountEl.textContent = done;
+			const doneCountEl = document.getElementById("doneCount");
+			if (doneCountEl) doneCountEl.textContent = done;
 
-      let currentRank = this.ranks[0];
-      let nextRank = null;
-      let rankPct = 0;
+			let currentRank = this.ranks[0];
+			let nextRank = null;
+			let rankPct = 0;
 
-      for (let i = 0; i < this.ranks.length; i++) {
-        if (done >= this.ranks[i].min) {
-          currentRank = this.ranks[i];
-          nextRank = this.ranks[i + 1] || null;
-        }
-      }
+			for (let i = 0; i < this.ranks.length; i++) {
+				if (done >= this.ranks[i].min) {
+					currentRank = this.ranks[i];
+					nextRank = this.ranks[i + 1] || null;
+				}
+			}
 
-      const rankNameEl = document.getElementById('levelName');
-      if (rankNameEl) {
-        rankNameEl.textContent = currentRank.name;
-        rankNameEl.style.color = currentRank.color;
-      }
+			const rankNameEl = document.getElementById("levelName");
+			if (rankNameEl) {
+				rankNameEl.textContent = currentRank.name;
+				rankNameEl.style.color = currentRank.color;
+			}
 
-      if (nextRank) {
-        const range = nextRank.min - currentRank.min;
-        const currentInRank = done - currentRank.min;
-        rankPct = Math.min(100, Math.max(0, (currentInRank / range) * 100));
-      } else {
-        rankPct = 100;
-      }
+			if (nextRank) {
+				const range = nextRank.min - currentRank.min;
+				const currentInRank = done - currentRank.min;
+				rankPct = Math.min(100, Math.max(0, (currentInRank / range) * 100));
+			} else {
+				rankPct = 100;
+			}
 
-      const rankBar = document.getElementById('levelProgress');
-      if (rankBar) {
-        rankBar.style.width = rankPct + '%';
-        rankBar.style.backgroundColor = currentRank.color;
-      }
+			const rankBar = document.getElementById("levelProgress");
+			if (rankBar) {
+				rankBar.style.width = rankPct + "%";
+				rankBar.style.backgroundColor = currentRank.color;
+			}
 
-      // Smart Focus 2.0: Berechnet das nächste beste Thema basierend auf:
-      // 1. Gewichtung (weight) - höhere Priorität = wichtiger
-      // 2. Fortschritt (subDone) - weniger erledigt = dringender
-      // 3. Wiederholungen (reps) - weniger wiederholt = dringender
-      // 4. Leichter Zufall (für Varianz bei gleichen Scores)
+			// Smart Focus 2.0: Berechnet das nächste beste Thema basierend auf:
+			// 1. Gewichtung (weight) - höhere Priorität = wichtiger
+			// 2. Fortschritt (subDone) - weniger erledigt = dringender
+			// 3. Wiederholungen (reps) - weniger wiederholt = dringender
+			// 4. Leichter Zufall (für Varianz bei gleichen Scores)
 
-      let best = null,
-        maxScore = -1;
+			let best = null,
+				maxScore = -1;
 
-      all.forEach((t) => {
-        const s = this.getState(t.id);
-        if (!s.done) {
-          // Basis-Score aus Gewichtung (max 50 Punkte bei weight=5)
-          const weightScore = t.weight * 10;
+			all.forEach((t) => {
+				const s = this.getState(t.id);
+				if (!s.done) {
+					// Basis-Score aus Gewichtung (max 50 Punkte bei weight=5)
+					const weightScore = t.weight * 10;
 
-          // Fortschritts-Score: Wie viele SubTasks sind NOCH offen? (max 20 Punkte)
-          const totalSub = t.sub ? t.sub.length : 1;
-          const doneSub = s.subDone ? s.subDone.filter(Boolean).length : s.done ? totalSub : 0;
-          const progressScore = ((totalSub - doneSub) / totalSub) * 20;
+					// Fortschritts-Score: Wie viele SubTasks sind NOCH offen? (max 20 Punkte)
+					const totalSub = t.sub ? t.sub.length : 1;
+					const doneSub = s.subDone
+						? s.subDone.filter(Boolean).length
+						: s.done
+							? totalSub
+							: 0;
+					const progressScore = ((totalSub - doneSub) / totalSub) * 20;
 
-          // Wiederholungs-Score: Wie viele Reps sind NOCH offen? (max 15 Punkte)
-          const totalReps = 3;
-          const doneReps = s.reps ? s.reps.filter(Boolean).length : 0;
-          const repScore = ((totalReps - doneReps) / totalReps) * 15;
+					// Wiederholungs-Score: Wie viele Reps sind NOCH offen? (max 15 Punkte)
+					const totalReps = 3;
+					const doneReps = s.reps ? s.reps.filter(Boolean).length : 0;
+					const repScore = ((totalReps - doneReps) / totalReps) * 15;
 
-          // Leichter Zufall für Varianz (max 5 Punkte)
-          const randomScore = Math.random() * 5;
+					// Leichter Zufall für Varianz (max 5 Punkte)
+					const randomScore = Math.random() * 5;
 
-          // Gesamt-Score (max ~90 Punkte)
-          const score = weightScore + progressScore + repScore + randomScore;
+					// Gesamt-Score (max ~90 Punkte)
+					const score = weightScore + progressScore + repScore + randomScore;
 
-          if (score > maxScore) {
-            maxScore = score;
-            best = t;
-          }
-        }
-      });
+					if (score > maxScore) {
+						maxScore = score;
+						best = t;
+					}
+				}
+			});
 
-      // FIX: Smart Focus IMMER setzen (mit Fallback für leere Daten)
-      const recShort = document.getElementById('recShort');
-      if (recShort) {
-        if (best) {
-          this.recId = best.id;
-          recShort.textContent = best.title;
-          recShort.title = best.title;
-          recShort.classList.remove('text-dark-muted');
-          recShort.classList.add('text-white');
-          console.log('[AP1] 🎯 Smart Focus:', best.title, `(Score: ${maxScore.toFixed(1)})`);
-        } else if (all.length === 0) {
-          this.recId = null;
-          recShort.textContent = 'Lade Daten...';
-        } else {
-          this.recId = null;
-          recShort.textContent = 'Bereit für die AP1!';
-          console.log('[AP1] ✅ Alle Themen erledigt!');
-        }
-      }
-    } catch (err) {
-      console.error('[AP1] updateStats Fehler:', err);
-      const recShort = document.getElementById('recShort');
-      if (recShort) recShort.textContent = '—';
-    }
-  },
+			// FIX: Smart Focus IMMER setzen (mit Fallback für leere Daten)
+			const recShort = document.getElementById("recShort");
+			if (recShort) {
+				if (best) {
+					this.recId = best.id;
+					recShort.textContent = best.title;
+					recShort.title = best.title;
+					recShort.classList.remove("text-dark-muted");
+					recShort.classList.add("text-white");
+					console.log(
+						"[AP1] 🎯 Smart Focus:",
+						best.title,
+						`(Score: ${maxScore.toFixed(1)})`,
+					);
+				} else if (all.length === 0) {
+					this.recId = null;
+					recShort.textContent = "Lade Daten...";
+				} else {
+					this.recId = null;
+					recShort.textContent = "Bereit für die AP1!";
+					console.log("[AP1] ✅ Alle Themen erledigt!");
+				}
+			}
+		} catch (err) {
+			console.error("[AP1] updateStats Fehler:", err);
+			const recShort = document.getElementById("recShort");
+			if (recShort) recShort.textContent = "—";
+		}
+	},
 
-  render() {
-    const list = document.getElementById('contentList');
-    if (!list) return;
-    list.innerHTML = '';
-    let hasVisible = false;
+	render() {
+		const list = document.getElementById("contentList");
+		if (!list) return;
+		list.innerHTML = "";
+		let hasVisible = false;
 
-    const activityDates = Object.keys(this.state.activity || {});
-    if (activityDates.length > 0) {
-      const badge = document.getElementById('streakBadge');
-      if (badge) badge.classList.remove('hidden');
-      const streakCount = document.getElementById('streakCount');
-      if (streakCount) streakCount.textContent = activityDates.length;
-    }
+		const activityDates = Object.keys(this.state.activity || {});
+		if (activityDates.length > 0) {
+			const badge = document.getElementById("streakBadge");
+			if (badge) badge.classList.remove("hidden");
+			const streakCount = document.getElementById("streakCount");
+			if (streakCount) streakCount.textContent = activityDates.length;
+		}
 
-    AP1_DATA.forEach((cat) => {
-      const visibleTopics = cat.topics.filter((t) => {
-        const s = this.getState(t.id);
-        let matchesSearch = true;
-        if (this.searchQuery) {
-          matchesSearch =
-            t.title.toLowerCase().includes(this.searchQuery) ||
-            t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery));
-        }
-        if (!matchesSearch) return false;
-        if (this.filter === 'open' && s.done) return false;
-        if (this.filter === 'high' && t.weight < 3) return false;
-        return true;
-      });
+		AP1_DATA.forEach((cat) => {
+			const visibleTopics = cat.topics.filter((t) => {
+				const s = this.getState(t.id);
+				let matchesSearch = true;
+				if (this.searchQuery) {
+					matchesSearch =
+						t.title.toLowerCase().includes(this.searchQuery) ||
+						t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery));
+				}
+				if (!matchesSearch) return false;
+				if (this.filter === "open" && s.done) return false;
+				if (this.filter === "high" && t.weight < 3) return false;
+				return true;
+			});
 
-      if (visibleTopics.length === 0) return;
-      hasVisible = true;
+			if (visibleTopics.length === 0) return;
+			hasVisible = true;
 
-      const catNode = document.getElementById('tpl-category').content.cloneNode(true);
-      catNode.querySelector('.cat-title').textContent = cat.name;
-      const descEl = catNode.querySelector('.cat-desc');
-      if (descEl) descEl.textContent = cat.desc;
-      catNode.querySelector('.cat-reset').onclick = () => this.resetCategory(cat.id);
+			const catNode = document
+				.getElementById("tpl-category")
+				.content.cloneNode(true);
+			catNode.querySelector(".cat-title").textContent = cat.name;
+			const descEl = catNode.querySelector(".cat-desc");
+			if (descEl) descEl.textContent = cat.desc;
+			catNode.querySelector(".cat-reset").onclick = () =>
+				this.resetCategory(cat.id);
 
-      // Icon/Nummer setzen (z.B. LF1, LF6/7)
-      const iconEl = catNode.querySelector('.cat-icon');
-      if (iconEl) {
-        iconEl.textContent = cat.id.replace('_', '/');
-      }
+			// Icon/Nummer setzen (z.B. LF1, LF6/7)
+			const iconEl = catNode.querySelector(".cat-icon");
+			if (iconEl) {
+				iconEl.textContent = cat.id.replace("_", "/");
+			}
 
-      // Fortschritt berechnen (nur fertige Themen im Verhältnis zu allen Themen dieser Kategorie)
-      const doneTopics = cat.topics.filter((t) => this.getState(t.id).done).length;
-      const totalTopics = cat.topics.length;
-      const pct = totalTopics === 0 ? 0 : Math.round((doneTopics / totalTopics) * 100);
+			// Fortschritt berechnen (nur fertige Themen im Verhältnis zu allen Themen dieser Kategorie)
+			const doneTopics = cat.topics.filter(
+				(t) => this.getState(t.id).done,
+			).length;
+			const totalTopics = cat.topics.length;
+			const pct =
+				totalTopics === 0 ? 0 : Math.round((doneTopics / totalTopics) * 100);
 
-      // SVG Ring steuern
-      const progressRing = catNode.querySelector('.cat-progress-ring');
-      if (progressRing) {
-        progressRing.setAttribute('stroke-dasharray', `${pct} 100`);
-        if (pct === 100) {
-          progressRing.classList.remove('text-dark-accent');
-          progressRing.classList.add('text-dark-success');
-        } else {
-          progressRing.classList.add('text-dark-accent');
-          progressRing.classList.remove('text-dark-success');
-        }
-      }
+			// SVG Ring steuern
+			const progressRing = catNode.querySelector(".cat-progress-ring");
+			if (progressRing) {
+				progressRing.setAttribute("stroke-dasharray", `${pct} 100`);
+				if (pct === 100) {
+					progressRing.classList.remove("text-dark-accent");
+					progressRing.classList.add("text-dark-success");
+				} else {
+					progressRing.classList.add("text-dark-accent");
+					progressRing.classList.remove("text-dark-success");
+				}
+			}
 
-      // Prozent-Badge steuern
-      const pctEl = catNode.querySelector('.cat-pct');
-      if (pctEl) {
-        pctEl.textContent = `${pct}%`;
-        if (pct === 100) {
-          pctEl.classList.remove('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
-          pctEl.classList.add('text-dark-success', 'bg-dark-success/10', 'border-dark-success/20');
-        } else {
-          pctEl.classList.add('text-dark-accent', 'bg-dark-accent/10', 'border-dark-accent/20');
-          pctEl.classList.remove(
-            'text-dark-success',
-            'bg-dark-success/10',
-            'border-dark-success/20'
-          );
-        }
-      }
+			// Prozent-Badge steuern
+			const pctEl = catNode.querySelector(".cat-pct");
+			if (pctEl) {
+				pctEl.textContent = `${pct}%`;
+				if (pct === 100) {
+					pctEl.classList.remove(
+						"text-dark-accent",
+						"bg-dark-accent/10",
+						"border-dark-accent/20",
+					);
+					pctEl.classList.add(
+						"text-dark-success",
+						"bg-dark-success/10",
+						"border-dark-success/20",
+					);
+				} else {
+					pctEl.classList.add(
+						"text-dark-accent",
+						"bg-dark-accent/10",
+						"border-dark-accent/20",
+					);
+					pctEl.classList.remove(
+						"text-dark-success",
+						"bg-dark-success/10",
+						"border-dark-success/20",
+					);
+				}
+			}
 
-      const container = catNode.querySelector('.cat-topics');
+			const container = catNode.querySelector(".cat-topics");
 
-      visibleTopics.forEach((t) => {
-        const s = this.getState(t.id);
-        const node = document.getElementById('tpl-topic').content.cloneNode(true);
-        const card = node.querySelector('.topic-card');
-        card.dataset.id = t.id;
+			visibleTopics.forEach((t) => {
+				const s = this.getState(t.id);
+				const node = document
+					.getElementById("tpl-topic")
+					.content.cloneNode(true);
+				const card = node.querySelector(".topic-card");
+				card.dataset.id = t.id;
 
-        if (
-          this.openTopics.has(t.id) ||
-          (this.searchQuery && t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery)))
-        ) {
-          node.querySelector('.topic-body').classList.add('open');
-          const icon = node.querySelector('.accordion-icon');
-          icon.style.transform = 'rotate(180deg)';
-          icon.classList.add('bg-dark-accent', 'text-white');
-          icon.classList.remove('bg-dark-bg/50', 'text-dark-muted');
-        }
+				if (
+					this.openTopics.has(t.id) ||
+					(this.searchQuery &&
+						t.sub.some((sub) => sub.toLowerCase().includes(this.searchQuery)))
+				) {
+					node.querySelector(".topic-body").classList.add("open");
+					const icon = node.querySelector(".accordion-icon");
+					icon.style.transform = "rotate(180deg)";
+					icon.classList.add("bg-dark-accent", "text-white");
+					icon.classList.remove("bg-dark-bg/50", "text-dark-muted");
+				}
 
-        node.querySelector('.topic-title').textContent = t.title;
+				node.querySelector(".topic-title").textContent = t.title;
 
-        const repIndicator = node.querySelector('.rep-indicator');
-        const repCount = s.reps.filter(Boolean).length;
-        if (repCount > 0) {
-          repIndicator.textContent = repCount + 'x Wiederholt';
-          repIndicator.classList.remove('hidden');
-          if (repCount === 3)
-            repIndicator.classList.add(
-              'bg-dark-success/20',
-              'text-dark-success',
-              'border-dark-success/30'
-            );
-        }
+				const repIndicator = node.querySelector(".rep-indicator");
+				const repCount = s.reps.filter(Boolean).length;
+				if (repCount > 0) {
+					repIndicator.textContent = repCount + "x Wiederholt";
+					repIndicator.classList.remove("hidden");
+					if (repCount === 3)
+						repIndicator.classList.add(
+							"bg-dark-success/20",
+							"text-dark-success",
+							"border-dark-success/30",
+						);
+				}
 
-        const googleLinks = node.querySelectorAll('.google-link, .google-link-mobile');
-        googleLinks.forEach((gl) => {
-          gl.href = `https://www.google.com/search?q=Fachinformatiker+AP1+${encodeURIComponent(
-            t.title
-          )}`;
-        });
-        const duckduckgoLink = node.querySelectorAll('.duckduckgo-link, .duckduckgo-link-mobile');
-        duckduckgoLink.forEach((dl) => {
-          dl.href = `https://www.duckduckgo.com/?q=Fachinformatiker+AP1+${encodeURIComponent(
-            t.title
-          )}`;
-        });
+				const googleLinks = node.querySelectorAll(
+					".google-link, .google-link-mobile",
+				);
+				googleLinks.forEach((gl) => {
+					gl.href = `https://www.google.com/search?q=Fachinformatiker+AP1+${encodeURIComponent(
+						t.title,
+					)}`;
+				});
+				const duckduckgoLink = node.querySelectorAll(
+					".duckduckgo-link, .duckduckgo-link-mobile",
+				);
+				duckduckgoLink.forEach((dl) => {
+					dl.href = `https://www.duckduckgo.com/?q=Fachinformatiker+AP1+${encodeURIComponent(
+						t.title,
+					)}`;
+				});
 
-        // ANKI Button Logik
-        const ankiBtn = node.querySelector('.anki-btn');
-        const ankiBadge = node.querySelector('.anki-badge');
-        const hasQuestions = window.ANKI_QUESTIONS && window.ANKI_QUESTIONS[t.id];
+				// ANKI Button Logik
+				const ankiBtn = node.querySelector(".anki-btn");
+				const ankiBadge = node.querySelector(".anki-badge");
+				const hasQuestions =
+					window.ANKI_QUESTIONS && window.ANKI_QUESTIONS[t.id];
 
-        if (ankiBtn && hasQuestions) {
-          ankiBtn.classList.remove('hidden');
-          ankiBtn.classList.add('flex');
+				if (ankiBtn && hasQuestions) {
+					ankiBtn.classList.remove("hidden");
+					ankiBtn.classList.add("flex");
 
-          // Badge-Status bestimmen - IMMER "NEU" anzeigen
-          if (ankiBadge) {
-            ankiBadge.classList.remove('hidden');
-            ankiBadge.textContent = 'NEU';
-            ankiBadge.classList.add('border-dark-accent/30', 'text-dark-accent');
-            ankiBadge.title = 'Lernkarten verfügbar';
-          }
+					// Badge-Status bestimmen - IMMER "NEU" anzeigen
+					if (ankiBadge) {
+						ankiBadge.classList.remove("hidden");
+						ankiBadge.textContent = "NEU";
+						ankiBadge.classList.add(
+							"border-dark-accent/30",
+							"text-dark-accent",
+						);
+						ankiBadge.title = "Lernkarten verfügbar";
+					}
 
-          // FIX: addEventListener mit capture:true für Firefox-Kompatibilität
-          // Verhindert dass Parent-Element (Accordion) den Klick abfängt
-          ankiBtn.addEventListener(
-            'click',
-            (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log('[AP1] 🎴 Anki Button clicked for topic:', t.id);
-              this.anki.open(t.id);
-            },
-            { once: false, capture: true }
-          );
-        }
+					// FIX: addEventListener mit capture:true für Firefox-Kompatibilität
+					// Verhindert dass Parent-Element (Accordion) den Klick abfängt
+					ankiBtn.addEventListener(
+						"click",
+						(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							console.log("[AP1] 🎴 Anki Button clicked for topic:", t.id);
+							this.anki.open(t.id);
+						},
+						{ once: false, capture: true },
+					);
+				}
 
-        // -------------------------------------------------------------
-        // NEUE GEWICHTUNGSLOGIK (1-5)
-        // -------------------------------------------------------------
-        const wb = node.querySelector('.weight-badge');
-        if (t.weight >= 4) {
-          // 4 & 5 -> SEHR HOCH (Rot)
-          wb.textContent = 'SEHR HOCH';
-          wb.classList.add('text-dark-danger', 'border-dark-danger/30', 'bg-dark-danger/10');
-        } else if (t.weight === 3) {
-          // 3 -> HOCH (Orange)
-          wb.textContent = 'HOCH';
-          wb.classList.add('text-dark-warning', 'border-dark-warning/30', 'bg-dark-warning/10');
-        } else if (t.weight === 2) {
-          // 2 -> MITTEL (Grün)
-          wb.textContent = 'MITTEL';
-          wb.classList.add('text-dark-success', 'border-dark-success/30', 'bg-dark-success/10');
-        } else {
-          // 1 -> NIEDRIG (Grau)
-          wb.textContent = 'NIEDRIG';
-          wb.classList.add('text-dark-muted', 'border-dark-border', 'bg-dark-bg');
-        }
-        // -------------------------------------------------------------
+				// -------------------------------------------------------------
+				// NEUE GEWICHTUNGSLOGIK (1-5)
+				// -------------------------------------------------------------
+				const wb = node.querySelector(".weight-badge");
+				if (t.weight >= 4) {
+					// 4 & 5 -> SEHR HOCH (Rot)
+					wb.textContent = "SEHR HOCH";
+					wb.classList.add(
+						"text-dark-danger",
+						"border-dark-danger/30",
+						"bg-dark-danger/10",
+					);
+				} else if (t.weight === 3) {
+					// 3 -> HOCH (Orange)
+					wb.textContent = "HOCH";
+					wb.classList.add(
+						"text-dark-warning",
+						"border-dark-warning/30",
+						"bg-dark-warning/10",
+					);
+				} else if (t.weight === 2) {
+					// 2 -> MITTEL (Grün)
+					wb.textContent = "MITTEL";
+					wb.classList.add(
+						"text-dark-success",
+						"border-dark-success/30",
+						"bg-dark-success/10",
+					);
+				} else {
+					// 1 -> NIEDRIG (Grau)
+					wb.textContent = "NIEDRIG";
+					wb.classList.add(
+						"text-dark-muted",
+						"border-dark-border",
+						"bg-dark-bg",
+					);
+				}
+				// -------------------------------------------------------------
 
-        const cb = node.querySelector('.topic-check');
-        cb.checked = s.done;
-        cb.onchange = (e) => this.toggleTopic(t.id, e.target.checked, e.target);
+				const cb = node.querySelector(".topic-check");
+				cb.checked = s.done;
+				cb.onchange = (e) => this.toggleTopic(t.id, e.target.checked, e.target);
 
-        if (s.done) card.classList.add('border-dark-accent/30');
-        node.querySelector('.header-area').onclick = (e) => this.toggleAccordion(e.currentTarget);
+				if (s.done) card.classList.add("border-dark-accent/30");
+				node.querySelector(".header-area").onclick = (e) =>
+					this.toggleAccordion(e.currentTarget);
 
-        const ul = node.querySelector('.subtask-list');
-        t.sub.forEach((sub, idx) => {
-          const isDone = s.subDone && s.subDone[idx];
-          const li = document.createElement('li');
-          li.className = 'flex items-start gap-3 text-xs text-dark-muted group/item transition-all';
-          li.innerHTML = `
+				const ul = node.querySelector(".subtask-list");
+				t.sub.forEach((sub, idx) => {
+					const isDone = s.subDone && s.subDone[idx];
+					const li = document.createElement("li");
+					li.className =
+						"flex items-start gap-3 text-xs text-dark-muted group/item transition-all";
+					li.innerHTML = `
                   <div class="shrink-0 flex items-center justify-center w-5 h-5 relative">
                       <input type="checkbox" class="peer appearance-none w-4 h-4 rounded border border-dark-border bg-dark-bg checked:bg-dark-accent checked:border-dark-accent cursor-pointer transition-colors" ${
-                        isDone ? 'checked' : ''
-                      }>
+												isDone ? "checked" : ""
+											}>
                       <i data-lucide="check" class="text-[10px] text-white absolute pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"></i>
                   </div>
                   <span class="transition-colors cursor-pointer pt-0.5 ${
-                    isDone ? 'line-through opacity-50' : 'group-hover/item:text-white'
-                  }">${sub}</span>
+										isDone
+											? "line-through opacity-50"
+											: "group-hover/item:text-white"
+									}">${sub}</span>
                 `;
-          const subCb = li.querySelector('input');
-          subCb.onclick = (e) => e.stopPropagation();
-          subCb.onchange = (e) => this.toggleSub(t.id, idx, e.target.checked, e.target);
-          li.querySelector('span').onclick = (e) => {
-            e.stopPropagation();
-            subCb.click();
-          };
-          ul.appendChild(li);
-        });
+					const subCb = li.querySelector("input");
+					subCb.onclick = (e) => e.stopPropagation();
+					subCb.onchange = (e) =>
+						this.toggleSub(t.id, idx, e.target.checked, e.target);
+					li.querySelector("span").onclick = (e) => {
+						e.stopPropagation();
+						subCb.click();
+					};
+					ul.appendChild(li);
+				});
 
-        const reps = node.querySelectorAll('.rep-check');
-        reps.forEach((r, i) => {
-          r.checked = s.reps[i];
-          r.onchange = (e) => this.setRep(t.id, i, e.target);
-        });
+				const reps = node.querySelectorAll(".rep-check");
+				reps.forEach((r, i) => {
+					r.checked = s.reps[i];
+					r.onchange = (e) => this.setRep(t.id, i, e.target);
+				});
 
-        container.appendChild(node);
-      });
-      list.appendChild(catNode);
-    });
+				container.appendChild(node);
+			});
+			list.appendChild(catNode);
+		});
 
-    const emptyState = document.getElementById('emptyState');
-    if (emptyState) emptyState.classList.toggle('hidden', hasVisible);
-    this.updateStats();
-    this.refreshIcons();
-  },
+		const emptyState = document.getElementById("emptyState");
+		if (emptyState) emptyState.classList.toggle("hidden", hasVisible);
+		this.updateStats();
+		this.refreshIcons();
+	},
 };
 
-document.addEventListener('DOMContentLoaded', () => app.init());
+document.addEventListener("DOMContentLoaded", () => app.init());

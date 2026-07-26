@@ -1,50 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hilfe & FAQ | AP1 Tracker</title>
-    
+
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <meta name="theme-color" content="#3b82f6" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.4.1" />
+    <link rel="stylesheet" href="assets/css/style.css?v=2.4.2" />
 
     <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js?v=2.4.1"></script>
+    <script src="assets/js/tailwind.js?v=2.4.2"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class',
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
-              'dark-bg': '#020617',
-              'dark-card': '#0f172a',
-              'dark-border': '#1e293b',
-              'dark-muted': '#94a3b8',
-              'dark-text': '#f8fafc',
-              'dark-accent': '#0ea5e9', // AP1 Sky Accent
-              'dark-accent-hover': '#0284c7',
-              'dark-success': '#10b981',
-              'dark-warning': '#f59e0b',
-              'dark-danger': '#ef4444',
+              "dark-bg": "#020617",
+              "dark-card": "#0f172a",
+              "dark-border": "#1e293b",
+              "dark-muted": "#94a3b8",
+              "dark-text": "#f8fafc",
+              "dark-accent": "#0ea5e9", // AP1 Sky Accent
+              "dark-accent-hover": "#0284c7",
+              "dark-success": "#10b981",
+              "dark-warning": "#f59e0b",
+              "dark-danger": "#ef4444",
             },
             fontFamily: {
               sans: [
-                'system-ui',
-                '-apple-system',
-                'BlinkMacSystemFont',
-                'Segoe UI',
-                'Roboto',
-                'sans-serif',
+                "system-ui",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "Roboto",
+                "sans-serif",
               ],
             },
           },
@@ -76,7 +79,9 @@
     <header
       class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50"
     >
-      <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div
+        class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between"
+      >
         <a
           href="index.html"
           class="flex items-center gap-3 group hover:opacity-80 transition-opacity"
@@ -90,8 +95,12 @@
             ></i>
           </div>
           <div class="flex flex-col">
-            <span class="font-bold text-lg tracking-tight leading-none">AP1 <span class="text-dark-accent">Tracker</span></span>
-            <span class="text-[10px] text-dark-muted font-mono">Zurück zum Dashboard</span>
+            <span class="font-bold text-lg tracking-tight leading-none"
+              >AP1 <span class="text-dark-accent">Tracker</span></span
+            >
+            <span class="text-[10px] text-dark-muted font-mono"
+              >Zurück zum Dashboard</span
+            >
           </div>
         </a>
 
@@ -106,7 +115,7 @@
           </a>
           <span
             class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted hidden sm:inline-block"
-            >v2.2.0</span
+            >v2.4.2</span
           >
         </div>
       </div>
@@ -116,7 +125,9 @@
     <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-12">
       <!-- Intro Section -->
       <div class="text-center mb-12 fade-in">
-        <div class="w-14 h-14 rounded-2xl bg-dark-accent/20 flex items-center justify-center text-dark-accent mx-auto mb-4 border border-dark-accent/25 shadow-[0_0_15px_rgba(14,165,233,0.15)]">
+        <div
+          class="w-14 h-14 rounded-2xl bg-dark-accent/20 flex items-center justify-center text-dark-accent mx-auto mb-4 border border-dark-accent/25 shadow-[0_0_15px_rgba(14,165,233,0.15)]"
+        >
           <i data-lucide="help-circle" class="text-2xl"></i>
         </div>
         <h1
@@ -125,190 +136,574 @@
           Hilfe & FAQ
         </h1>
         <p class="text-dark-muted max-w-xl mx-auto text-lg">
-          Hier findest du Erklärungen zur Funktionsweise des Trackers, dem Lernkartensystem sowie Tipps bei Problemen.
+          Hier findest du Erklärungen zur Funktionsweise des Trackers, dem
+          Lernkartensystem sowie Tipps bei Problemen.
         </p>
       </div>
 
       <!-- FAQ Section -->
       <div class="space-y-6 fade-in delay-100">
         <!-- 1. Funktionsweise -->
-        <div class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
-          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <div
+          class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group"
+        >
+          <h3
+            class="text-xl font-bold text-white mb-4 flex items-center gap-2.5"
+          >
             <i data-lucide="book-open" class="text-dark-accent"></i>
             1. Wie funktioniert der Tracker?
           </h3>
           <div class="text-sm text-dark-muted leading-relaxed space-y-4">
             <div>
-              <p class="font-bold text-white mb-1">Strukturierte Lernbereiche:</p>
-              <p>Der Tracker ist exakt nach den Vorgaben des amtlichen Rahmenlehrplans für die Abschlussprüfung Teil 1 (AP1) aufgebaut. Die einzelnen Module enthalten alle relevanten Themen, die für die Prüfung wichtig sind.</p>
+              <p class="font-bold text-white mb-1">
+                Strukturierte Lernbereiche:
+              </p>
+              <p>
+                Der Tracker ist exakt nach den Vorgaben des amtlichen
+                Rahmenlehrplans für die Abschlussprüfung Teil 1 (AP1) aufgebaut.
+                Die einzelnen Module enthalten alle relevanten Themen, die für
+                die Prüfung wichtig sind.
+              </p>
             </div>
             <div>
               <p class="font-bold text-white mb-1">Fortschritt & Gewichtung:</p>
-              <p>Jedes Thema ist nach offizieller Gewichtung (Kritisch, Sehr Hoch, Hoch, Mittel) markiert. Wenn du Unteraufgaben oder das gesamte Thema als erledigt markierst, wird dein Modulfortschritt automatisch berechnet.</p>
+              <p>
+                Jedes Thema ist nach offizieller Gewichtung (Kritisch, Sehr
+                Hoch, Hoch, Mittel) markiert. Wenn du Unteraufgaben oder das
+                gesamte Thema als erledigt markierst, wird dein Modulfortschritt
+                automatisch berechnet.
+              </p>
             </div>
             <div>
               <p class="font-bold text-white mb-1">Pomodoro Fokus-Timer:</p>
-              <p>Nutze den integrierten Timer oben rechts im Dashboard für fokussierte Lerneinheiten (25 Minuten Lernen, 5 Minuten Pause). Deine Netto-Lernzeit und täglichen Sitzungen werden automatisch im Aktivitätsgraphen erfasst.</p>
+              <p>
+                Nutze den integrierten Timer oben rechts im Dashboard für
+                fokussierte Lerneinheiten (25 Minuten Lernen, 5 Minuten Pause).
+                Deine Netto-Lernzeit und täglichen Sitzungen werden automatisch
+                im Aktivitätsgraphen erfasst.
+              </p>
             </div>
             <div>
               <p class="font-bold text-white mb-1">Modul zurücksetzen:</p>
-              <p>Möchtest du ein Modul noch einmal von vorne lernen? Klicke einfach auf das rote <strong class="text-dark-danger inline-flex items-center gap-0.5"><i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reset-Symbol</strong> im Modulkopf, um den Fortschritt dieses Moduls zurückzusetzen.</p>
+              <p>
+                Möchtest du ein Modul noch einmal von vorne lernen? Klicke
+                einfach auf das rote
+                <strong
+                  class="text-dark-danger inline-flex items-center gap-0.5"
+                  ><i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+                  Reset-Symbol</strong
+                >
+                im Modulkopf, um den Fortschritt dieses Moduls zurückzusetzen.
+              </p>
             </div>
           </div>
         </div>
 
         <!-- 2. Lernkarten-System -->
-        <div class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
-          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <div
+          class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group"
+        >
+          <h3
+            class="text-xl font-bold text-white mb-4 flex items-center gap-2.5"
+          >
             <i data-lucide="layers" class="text-dark-accent"></i>
             2. Das Lernkarten-System (Anki-Style)
           </h3>
           <div class="text-sm text-dark-muted leading-relaxed space-y-4">
             <div>
               <p class="font-bold text-white mb-1">Lernkarten starten:</p>
-              <p>Klicke bei einem beliebigen Thema auf <strong class="text-dark-accent inline-flex items-center gap-1"><i data-lucide="layers" class="w-3 h-3"></i> Lernkarten</strong>, um die zugehörigen Fragen zu öffnen.</p>
+              <p>
+                Klicke bei einem beliebigen Thema auf
+                <strong class="text-dark-accent inline-flex items-center gap-1"
+                  ><i data-lucide="layers" class="w-3 h-3"></i>
+                  Lernkarten</strong
+                >, um die zugehörigen Fragen zu öffnen.
+              </p>
             </div>
             <div>
-              <p class="font-bold text-white mb-1">Zwei verschiedene Lernmodi:</p>
+              <p class="font-bold text-white mb-1">
+                Zwei verschiedene Lernmodi:
+              </p>
               <ul class="list-disc pl-5 space-y-1 mt-1">
-                <li><strong class="text-white">Strategie-Modus (Spaced Repetition):</strong> Lerne intelligent. Falsch beantwortete Karten werden dir bald wieder vorgelegt, während gewusste Karten in größere Intervalle rutschen.</li>
-                <li><strong class="text-white">Freies Training:</strong> Hier kannst du alle Lernkarten des Moduls ungezwungen und in deiner eigenen Geschwindigkeit durchgehen.</li>
+                <li>
+                  <strong class="text-white"
+                    >Strategie-Modus (Spaced Repetition):</strong
+                  >
+                  Lerne intelligent. Falsch beantwortete Karten werden dir bald
+                  wieder vorgelegt, während gewusste Karten in größere
+                  Intervalle rutschen.
+                </li>
+                <li>
+                  <strong class="text-white">Freies Training:</strong> Hier
+                  kannst du alle Lernkarten des Moduls ungezwungen und in deiner
+                  eigenen Geschwindigkeit durchgehen.
+                </li>
+                <li>
+                  <strong class="text-white">Prüfungs-Modus:</strong> Wie
+                  Strategie-Modus, aber mit halbierten Intervallen — perfekt für
+                  die letzten Wochen vor der Prüfung, wenn du öfter wiederholen
+                  willst. Alle 2 Wochen kommt eine Karte, statt alle 4.
+                </li>
               </ul>
             </div>
             <div>
               <p class="font-bold text-white mb-1">Antworten bewerten:</p>
-              <p>Drehe die Karte um und bewerte deine Antwort ehrlich mit <span class="text-dark-danger font-bold">"Nicht gewusst"</span> oder <span class="text-dark-success font-bold">"Gewusst"</span>. Der Tracker merkt sich deinen Stand lokal im Browser.</p>
+              <p>
+                Drehe die Karte um und bewerte deine Antwort ehrlich mit
+                <span class="text-dark-danger font-bold">"Nicht gewusst"</span>
+                oder <span class="text-dark-success font-bold">"Gewusst"</span>.
+                Der Tracker merkt sich deinen Stand lokal im Browser.
+              </p>
             </div>
             <div>
               <p class="font-bold text-white mb-1">Wiederholungs-Zyklen:</p>
-              <p>In der Detailansicht eines Themas findest du Checkboxen für 3 Wiederholungen. Nutze sie, um sicherzustellen, dass du wichtige Fakten mehrfach gefestigt hast.</p>
+              <p>
+                In der Detailansicht eines Themas findest du Checkboxen für 3
+                Wiederholungen. Nutze sie, um sicherzustellen, dass du wichtige
+                Fakten mehrfach gefestigt hast.
+              </p>
             </div>
             <div>
-              <p class="font-bold text-white mb-1">Tastatur-Shortcuts (Desktop):</p>
-              <p>Wenn du am PC lernst, kannst du die Lernkarten effizient über Tastaturkürzel steuern:</p>
+              <p class="font-bold text-white mb-1">
+                Tastatur-Shortcuts (Desktop):
+              </p>
+              <p>
+                Wenn du am PC lernst, kannst du die Lernkarten effizient über
+                Tastaturkürzel steuern:
+              </p>
               <ul class="list-disc pl-5 space-y-1 mt-1">
-                <li><strong class="text-white">Modus-Auswahl:</strong> Taste <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">1</kbd> für Freies Training, <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">2</kbd> für Strategie-Modus.</li>
-                <li><strong class="text-white">Frage aufdecken:</strong> <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Leertaste</kbd> oder <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Eingabetaste</kbd>.</li>
-                <li><strong class="text-white">Bewertung abgeben:</strong> Taste <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">1</kbd> / <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">←</kbd> für "Nicht gewusst", Taste <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">2</kbd> / <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">→</kbd> für "Gewusst".</li>
-                <li><strong class="text-white">Modal beenden/schließen:</strong> <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Esc</kbd> auf jeder Stufe, <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Leertaste</kbd> / <kbd class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono">Eingabetaste</kbd> in der Abschlussansicht.</li>
+                <li>
+                  <strong class="text-white">Modus-Auswahl:</strong> Taste
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >1</kbd
+                  >
+                  für Freies Training,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >2</kbd
+                  >
+                  für Strategie-Modus,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >3</kbd
+                  >
+                  für Prüfungs-Modus.
+                </li>
+                <li>
+                  <strong class="text-white">Frage aufdecken:</strong>
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >Leertaste</kbd
+                  >
+                  oder
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >Eingabetaste</kbd
+                  >.
+                </li>
+                <li>
+                  <strong class="text-white"
+                    >Confidence-Bewertung (4-stufig):</strong
+                  >
+                  Drücke eine der vier Tasten, um deine Selbsteinschätzung nach
+                  dem Aufdecken der Antwort abzugeben:
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-success/20 border border-dark-success/40 text-dark-success rounded text-xs font-mono"
+                    >1</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 text-dark-accent rounded text-xs font-mono"
+                    >←</kbd
+                  >
+                  = <strong>Sofort gewusst</strong> (Karte kommt später wieder ·
+                  +2 Stufen),
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 text-dark-accent rounded text-xs font-mono"
+                    >2</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 text-dark-accent rounded text-xs font-mono"
+                    >↓</kbd
+                  >
+                  = <strong>Nachgedacht</strong> (Karte kommt zur gewohnten Zeit
+                  wieder · +1 Stufe),
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-warning/20 border border-dark-warning/40 text-dark-warning rounded text-xs font-mono"
+                    >3</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-warning/20 border border-dark-warning/40 text-dark-warning rounded text-xs font-mono"
+                    >→</kbd
+                  >
+                  = <strong>Nur geraten</strong> (Karte kommt deutlich früher
+                  wieder · -1 Stufe),
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-danger/20 border border-dark-danger/40 text-dark-danger rounded text-xs font-mono"
+                    >4</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-danger/20 border border-dark-danger/40 text-dark-danger rounded text-xs font-mono"
+                    >↑</kbd
+                  >
+                  = <strong>Nicht gewusst</strong> (Karte wird komplett
+                  zurückgesetzt).
+                </li>
+                <li>
+                  <strong class="text-white"
+                    >Pseudo-Sicherheit vermeiden:</strong
+                  >
+                  Echt lernen statt wiedererkennen — wenn du die Antwort
+                  <em>nur</em> an ihrem Aufbau wiedererkennst, klicke ehrlich
+                  "Nachgedacht" oder "Geraten". Die Karte kommt dadurch
+                  schneller wieder und du prägst sie dir tiefer ein.
+                </li>
+                <li>
+                  <strong class="text-white">Modal beenden/schließen:</strong>
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >Esc</kbd
+                  >
+                  auf jeder Stufe,
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >Leertaste</kbd
+                  >
+                  /
+                  <kbd
+                    class="px-1.5 py-0.5 bg-dark-bg border border-dark-border rounded text-xs text-white font-mono"
+                    >Eingabetaste</kbd
+                  >
+                  in der Abschlussansicht.
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
         <!-- 3. App-Installation & Offline -->
-        <div class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
-          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <div
+          class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group"
+        >
+          <h3
+            class="text-xl font-bold text-white mb-4 flex items-center gap-2.5"
+          >
             <i data-lucide="smartphone" class="text-dark-accent"></i>
             3. Installation als Smartphone-App & Offline-Modus
           </h3>
           <div class="text-sm text-dark-muted leading-relaxed space-y-4">
             <div>
-              <p class="font-bold text-white mb-1">Was ist eine PWA (Progressive Web App)?</p>
-              <p>Der Tracker nutzt moderne PWA-Technologie. Du kannst ihn direkt auf deinem Smartphone (oder Desktop-PC) als vollwertige App installieren – ganz ohne Google Play Store oder Apple App Store.</p>
+              <p class="font-bold text-white mb-1">
+                Was ist eine PWA (Progressive Web App)?
+              </p>
+              <p>
+                Der Tracker nutzt moderne PWA-Technologie. Du kannst ihn direkt
+                auf deinem Smartphone (oder Desktop-PC) als vollwertige App
+                installieren – ganz ohne Google Play Store oder Apple App Store.
+              </p>
             </div>
             <div>
-              <p class="font-bold text-white mb-1">So installierst du den Tracker als App:</p>
+              <p class="font-bold text-white mb-1">
+                So installierst du den Tracker als App:
+              </p>
               <ul class="list-disc pl-5 space-y-2 mt-1">
-                <li><span class="text-white font-bold">Android (Google Chrome):</span> Öffne den Tracker im Browser. Nach wenigen Sekunden erscheint oft ein Banner "AP1 Tracker zum Startbildschirm hinzufügen". Falls nicht, tippe oben rechts auf die drei Punkte und wähle <strong class="text-white">"App installieren"</strong> oder <strong class="text-white">"Zum Startbildschirm hinzufügen"</strong>.</li>
-                <li><span class="text-white font-bold">iOS / iPhone (Apple Safari):</span> Öffne den Tracker in Safari. Tippe unten in der Navigationsleiste auf das Teilen-Symbol (Viereck mit nach oben zeigendem Pfeil). Scrolle nach unten und wähle <strong class="text-white">"Zum Home-Bildschirm"</strong>.</li>
-                <li><span class="text-white font-bold">PC / Desktop (Chrome / Edge / Firefox):</span> Klicke rechts in der Adressleiste des Browsers auf das Installations-Symbol (Bildschirm mit Pfeil) oder gehe ins Menü und wähle <strong class="text-white">"AP1 Tracker installieren"</strong>.</li>
+                <li>
+                  <span class="text-white font-bold"
+                    >Android (Google Chrome):</span
+                  >
+                  Öffne den Tracker im Browser. Nach wenigen Sekunden erscheint
+                  oft ein Banner "AP1 Tracker zum Startbildschirm hinzufügen".
+                  Falls nicht, tippe oben rechts auf die drei Punkte und wähle
+                  <strong class="text-white">"App installieren"</strong> oder
+                  <strong class="text-white"
+                    >"Zum Startbildschirm hinzufügen"</strong
+                  >.
+                </li>
+                <li>
+                  <span class="text-white font-bold"
+                    >iOS / iPhone (Apple Safari):</span
+                  >
+                  Öffne den Tracker in Safari. Tippe unten in der
+                  Navigationsleiste auf das Teilen-Symbol (Viereck mit nach oben
+                  zeigendem Pfeil). Scrolle nach unten und wähle
+                  <strong class="text-white">"Zum Home-Bildschirm"</strong>.
+                </li>
+                <li>
+                  <span class="text-white font-bold"
+                    >PC / Desktop (Chrome / Edge / Firefox):</span
+                  >
+                  Klicke rechts in der Adressleiste des Browsers auf das
+                  Installations-Symbol (Bildschirm mit Pfeil) oder gehe ins Menü
+                  und wähle
+                  <strong class="text-white">"AP1 Tracker installieren"</strong
+                  >.
+                </li>
               </ul>
             </div>
             <div>
-              <p class="font-bold text-white mb-1">Vollständiger Offline-Modus:</p>
-              <p>Sobald der Tracker einmal als App installiert bzw. geöffnet wurde, wird er im Hintergrund vollständig auf deinem Gerät zwischengespeichert. Du kannst ihn danach ohne Internetverbindung (z. B. im Flugmodus oder in der U-Bahn) starten und alle Lernkarten uneingeschränkt nutzen.</p>
+              <p class="font-bold text-white mb-1">
+                Vollständiger Offline-Modus:
+              </p>
+              <p>
+                Sobald der Tracker einmal als App installiert bzw. geöffnet
+                wurde, wird er im Hintergrund vollständig auf deinem Gerät
+                zwischengespeichert. Du kannst ihn danach ohne
+                Internetverbindung (z. B. im Flugmodus oder in der U-Bahn)
+                starten und alle Lernkarten uneingeschränkt nutzen.
+              </p>
             </div>
           </div>
         </div>
 
         <!-- 4. Backups -->
-        <div class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
-          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <div
+          class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group"
+        >
+          <h3
+            class="text-xl font-bold text-white mb-4 flex items-center gap-2.5"
+          >
             <i data-lucide="download" class="text-dark-accent"></i>
             4. Backup & Datensicherung (Sehr Wichtig!)
           </h3>
           <div class="text-sm text-dark-muted leading-relaxed space-y-4">
-            <div class="bg-dark-warning/10 border border-dark-warning/30 rounded-xl p-3 text-dark-warning flex items-start gap-2">
+            <div
+              class="bg-dark-warning/10 border border-dark-warning/30 rounded-xl p-3 text-dark-warning flex items-start gap-2"
+            >
               <i data-lucide="alert-triangle" class="mt-0.5 shrink-0"></i>
-              <span><strong>Wichtig:</strong> Da alle Daten lokal im Browser gespeichert werden, kann das Leeren deines Browserverlaufs, das Deinstallieren von Browsern oder CCleaner-Software deinen Lernfortschritt unwiderruflich löschen!</span>
+              <span
+                ><strong>Wichtig:</strong> Da alle Daten lokal im Browser
+                gespeichert werden, kann das Leeren deines Browserverlaufs, das
+                Deinstallieren von Browsern oder CCleaner-Software deinen
+                Lernfortschritt unwiderruflich löschen!</span
+              >
             </div>
             <div>
-              <p class="font-bold text-white mb-1">Fortschritt exportieren (Backup speichern):</p>
-              <p>Klicke im Header auf das Download-Symbol <strong class="text-white inline-flex items-center gap-0.5"><i data-lucide="download" class="w-3.5 h-3.5"></i> Backup speichern</strong>. Dein Browser lädt daraufhin eine Datei namens `ap1_tracker_backup_DATUM.json` herunter. Sichere diese Datei regelmäßig.</p>
+              <p class="font-bold text-white mb-1">
+                Fortschritt exportieren (Backup speichern):
+              </p>
+              <p>
+                Klicke im Header auf das Download-Symbol
+                <strong class="text-white inline-flex items-center gap-0.5"
+                  ><i data-lucide="download" class="w-3.5 h-3.5"></i> Backup
+                  speichern</strong
+                >. Dein Browser lädt daraufhin eine Datei namens
+                `ap1_tracker_backup_DATUM.json` herunter. Sichere diese Datei
+                regelmäßig.
+              </p>
             </div>
             <div>
-              <p class="font-bold text-white mb-1">Fortschritt importieren (Backup laden):</p>
-              <p>Klicke im Header auf das Upload-Symbol <strong class="text-white inline-flex items-center gap-0.5"><i data-lucide="upload" class="w-3.5 h-3.5"></i> Backup laden</strong>. Wähle deine exportierte `.json`-Datei aus. Dein gesamter Lernstand wird sofort im Browser wiederhergestellt (ideal beim Gerätewechsel).</p>
+              <p class="font-bold text-white mb-1">
+                Fortschritt importieren (Backup laden):
+              </p>
+              <p>
+                Klicke im Header auf das Upload-Symbol
+                <strong class="text-white inline-flex items-center gap-0.5"
+                  ><i data-lucide="upload" class="w-3.5 h-3.5"></i> Backup
+                  laden</strong
+                >. Wähle deine exportierte `.json`-Datei aus. Dein gesamter
+                Lernstand wird sofort im Browser wiederhergestellt (ideal beim
+                Gerätewechsel).
+              </p>
             </div>
           </div>
         </div>
 
         <!-- 5. Cache & Updates -->
-        <div class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
-          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <div
+          class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group"
+        >
+          <h3
+            class="text-xl font-bold text-white mb-4 flex items-center gap-2.5"
+          >
             <i data-lucide="refresh-cw" class="text-dark-accent"></i>
             5. Cache-Probleme & Anzeigefehler beheben
           </h3>
           <div class="text-sm text-dark-muted leading-relaxed space-y-4">
             <div>
-              <p class="font-bold text-white mb-1">Warum fehlen Symbole oder sieht das Layout verzerrt aus?</p>
-              <p>Wenn wir Updates veröffentlichen, speichert dein Browser oft noch veraltete Versionen der Design- und Skriptdateien im Cache. Dies kann zu Fehlfunktionen führen.</p>
+              <p class="font-bold text-white mb-1">
+                Warum fehlen Symbole oder sieht das Layout verzerrt aus?
+              </p>
+              <p>
+                Wenn wir Updates veröffentlichen, speichert dein Browser oft
+                noch veraltete Versionen der Design- und Skriptdateien im Cache.
+                Dies kann zu Fehlfunktionen führen.
+              </p>
             </div>
             <div>
-              <p class="font-bold text-white mb-1">So erzwingst du einen Hard Refresh (Cache-Umgehung):</p>
+              <p class="font-bold text-white mb-1">
+                So erzwingst du einen Hard Refresh (Cache-Umgehung):
+              </p>
               <ul class="list-disc pl-5 space-y-1.5 mt-1">
-                <li><span class="text-white font-bold">Windows / Linux (Chrome, Firefox, Edge):</span> Drücke <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">Strg</kbd> + <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">F5</kbd> oder halte <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">Strg</kbd> und klicke auf das Reload-Symbol des Browsers.</li>
-                <li><span class="text-white font-bold">macOS (Chrome / Firefox):</span> Drücke <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">Cmd ⌘</kbd> + <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">Shift ⇧</kbd> + <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">R</kbd>.</li>
-                <li><span class="text-white font-bold">macOS (Safari):</span> Drücke <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">Cmd ⌘</kbd> + <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">Option ⌥</kbd> + <kbd class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono">E</kbd> (Cache leeren) und lade die Seite dann normal neu.</li>
-                <li><span class="text-white font-bold">Mobiles Gerät (iOS / Android):</span> Schließe alle Tabs der App im Browser, leere den spezifischen Website-Cache in den Einstellungen oder öffne die Seite einmal im Inkognito-Modus.</li>
+                <li>
+                  <span class="text-white font-bold"
+                    >Windows / Linux (Chrome, Firefox, Edge):</span
+                  >
+                  Drücke
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >Strg</kbd
+                  >
+                  +
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >F5</kbd
+                  >
+                  oder halte
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >Strg</kbd
+                  >
+                  und klicke auf das Reload-Symbol des Browsers.
+                </li>
+                <li>
+                  <span class="text-white font-bold"
+                    >macOS (Chrome / Firefox):</span
+                  >
+                  Drücke
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >Cmd ⌘</kbd
+                  >
+                  +
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >Shift ⇧</kbd
+                  >
+                  +
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >R</kbd
+                  >.
+                </li>
+                <li>
+                  <span class="text-white font-bold">macOS (Safari):</span>
+                  Drücke
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >Cmd ⌘</kbd
+                  >
+                  +
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >Option ⌥</kbd
+                  >
+                  +
+                  <kbd
+                    class="bg-dark-bg border border-dark-border px-1 py-0.5 rounded text-xs font-mono"
+                    >E</kbd
+                  >
+                  (Cache leeren) und lade die Seite dann normal neu.
+                </li>
+                <li>
+                  <span class="text-white font-bold"
+                    >Mobiles Gerät (iOS / Android):</span
+                  >
+                  Schließe alle Tabs der App im Browser, leere den spezifischen
+                  Website-Cache in den Einstellungen oder öffne die Seite einmal
+                  im Inkognito-Modus.
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
         <!-- 6. Bugs & Issues -->
-        <div class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group">
-          <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <div
+          class="bg-dark-card rounded-2xl p-6 transition-all duration-300 relative overflow-hidden group"
+        >
+          <h3
+            class="text-xl font-bold text-white mb-4 flex items-center gap-2.5"
+          >
             <i data-lucide="github" class="text-dark-accent"></i>
             6. Fehler gefunden? Hilf mit! (Open Source)
           </h3>
           <div class="text-sm text-dark-muted leading-relaxed space-y-4">
             <p>
-              Dieser Tracker ist ein reines Community-Projekt und komplett quelloffen. Wenn du inhaltliche Fehler, fehlende Prüfungsbereiche oder technische Bugs findest, erstelle bitte ein Issue im passenden GitHub-Repository:
+              Dieser Tracker ist ein reines Community-Projekt und komplett
+              quelloffen. Wenn du inhaltliche Fehler, fehlende Prüfungsbereiche
+              oder technische Bugs findest, erstelle bitte ein Issue im
+              passenden GitHub-Repository:
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-              <a href="https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml&title=%5BBug%5D%20&body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20" target="_blank" class="group flex items-center gap-3 bg-dark-bg rounded-xl p-3 no-underline transition-all">
-                <div class="w-8 h-8 rounded-lg bg-dark-accent/10 border border-dark-accent/20 flex items-center justify-center shrink-0">
-                  <i data-lucide="graduation-cap" class="text-dark-accent text-xs"></i>
+              <a
+                href="https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml&title=%5BBug%5D%20&body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
+                target="_blank"
+                class="group flex items-center gap-3 bg-dark-bg rounded-xl p-3 no-underline transition-all"
+              >
+                <div
+                  class="w-8 h-8 rounded-lg bg-dark-accent/10 border border-dark-accent/20 flex items-center justify-center shrink-0"
+                >
+                  <i
+                    data-lucide="graduation-cap"
+                    class="text-dark-accent text-xs"
+                  ></i>
                 </div>
                 <div class="min-w-0 flex-1">
-                  <p class="text-xs font-bold text-white group-hover:text-dark-accent transition-colors truncate">AP1 Tracker</p>
+                  <p
+                    class="text-xs font-bold text-white group-hover:text-dark-accent transition-colors truncate"
+                  >
+                    AP1 Tracker
+                  </p>
                   <p class="text-[9px] text-dark-muted">Alle Fachrichtungen</p>
                 </div>
-                <i data-lucide="external-link" class="text-dark-muted group-hover:text-dark-accent text-xs shrink-0"></i>
+                <i
+                  data-lucide="external-link"
+                  class="text-dark-muted group-hover:text-dark-accent text-xs shrink-0"
+                ></i>
               </a>
-              
-              <a href="https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml&title=%5BBug%5D%20&body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20" target="_blank" class="group flex items-center gap-3 bg-dark-bg rounded-xl p-3 no-underline transition-all">
-                <div class="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0">
+
+              <a
+                href="https://github.com/cwillam/ap2-tracker/issues/new?template=bug.yml&title=%5BBug%5D%20&body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
+                target="_blank"
+                class="group flex items-center gap-3 bg-dark-bg rounded-xl p-3 no-underline transition-all"
+              >
+                <div
+                  class="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0"
+                >
                   <i data-lucide="code-2" class="text-violet-400 text-xs"></i>
                 </div>
                 <div class="min-w-0 flex-1">
-                  <p class="text-xs font-bold text-white group-hover:text-violet-400 transition-colors truncate">AP2 FIAE</p>
-                  <p class="text-[9px] text-dark-muted">Anwendungsentwicklung</p>
+                  <p
+                    class="text-xs font-bold text-white group-hover:text-violet-400 transition-colors truncate"
+                  >
+                    AP2 FIAE
+                  </p>
+                  <p class="text-[9px] text-dark-muted">
+                    Anwendungsentwicklung
+                  </p>
                 </div>
-                <i data-lucide="external-link" class="text-dark-muted group-hover:text-violet-400 text-xs shrink-0"></i>
+                <i
+                  data-lucide="external-link"
+                  class="text-dark-muted group-hover:text-violet-400 text-xs shrink-0"
+                ></i>
               </a>
 
-              <a href="https://github.com/cwillam/ap2-fisi-tracker/issues/new?template=bug.yml&title=%5BBug%5D%20&body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20" target="_blank" class="group flex items-center gap-3 bg-dark-bg rounded-xl p-3 no-underline transition-all">
-                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+              <a
+                href="https://github.com/cwillam/ap2-fisi-tracker/issues/new?template=bug.yml&title=%5BBug%5D%20&body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
+                target="_blank"
+                class="group flex items-center gap-3 bg-dark-bg rounded-xl p-3 no-underline transition-all"
+              >
+                <div
+                  class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0"
+                >
                   <i data-lucide="server" class="text-emerald-400 text-xs"></i>
                 </div>
                 <div class="min-w-0 flex-1">
-                  <p class="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors truncate">AP2 FISI</p>
+                  <p
+                    class="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors truncate"
+                  >
+                    AP2 FISI
+                  </p>
                   <p class="text-[9px] text-dark-muted">Systemintegration</p>
                 </div>
-                <i data-lucide="external-link" class="text-dark-muted group-hover:text-emerald-400 text-xs shrink-0"></i>
+                <i
+                  data-lucide="external-link"
+                  class="text-dark-muted group-hover:text-emerald-400 text-xs shrink-0"
+                ></i>
               </a>
             </div>
           </div>
@@ -318,41 +713,63 @@
 
     <!-- Footer -->
     <footer class="border-t border-dark-border bg-dark-card mt-auto py-8">
-      <div class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted">
-        <div class="flex items-center justify-center md:justify-start gap-2 w-full md:w-auto">
+      <div
+        class="max-w-4xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted"
+      >
+        <div
+          class="flex items-center justify-center md:justify-start gap-2 w-full md:w-auto"
+        >
           <span class="font-bold text-white">cwillam</span> &copy; 2026
         </div>
-        <div class="flex gap-6 items-center flex-wrap justify-center md:justify-end w-full md:w-auto">
+        <div
+          class="flex gap-6 items-center flex-wrap justify-center md:justify-end w-full md:w-auto"
+        >
           <button
-            onclick="document.getElementById('supportModal').classList.remove('hidden'); if(window.lucide) { lucide.createIcons(); }"
+            onclick="
+              document
+                .getElementById('supportModal')
+                .classList.remove('hidden');
+              if (window.lucide) {
+                lucide.createIcons();
+              }
+            "
             class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold"
           >
             <i data-lucide="coffee" class="w-3.5 h-3.5"></i> Support
           </button>
-          <a href="index.html" class="group flex items-center gap-2 text-dark-muted hover:text-white transition-colors font-bold">
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Zurück zum Dashboard
+          <a
+            href="index.html"
+            class="group flex items-center gap-2 text-dark-muted hover:text-white transition-colors font-bold"
+          >
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Zurück zum
+            Dashboard
           </a>
         </div>
       </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="assets/js/lucide.min.js?v=2.4.1"></script>
+    <script src="assets/js/lucide.min.js?v=2.4.2"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         if (window.lucide) {
           window.lucide.createIcons();
         }
       });
     </script>
-    
+
     <!-- PWA Service Worker Registration -->
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js?v=2.4.1')
-            .then(reg => console.log('PWA Service Worker registered successfully', reg))
-            .catch(err => console.error('PWA Service Worker registration failed', err));
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("sw.js?v=2.4.2")
+            .then((reg) =>
+              console.log("PWA Service Worker registered successfully", reg),
+            )
+            .catch((err) =>
+              console.error("PWA Service Worker registration failed", err),
+            );
         });
       }
     </script>
@@ -365,91 +782,119 @@
       <div
         class="w-full max-w-md p-6 bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative transition-all transform"
       >
-          <button
-            onclick="document.getElementById('supportModal').classList.add('hidden')"
-            class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
-            title="Schließen"
+        <button
+          onclick="
+            document.getElementById('supportModal').classList.add('hidden')
+          "
+          class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
+          title="Schließen"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
+          <i data-lucide="coffee" class="text-[#FFDD00]"></i> Kaffeekasse
+        </h2>
+        <p class="text-dark-muted text-sm mb-6 leading-relaxed">
+          Die Tracker sind komplett kostenlos und open-source. Wenn sie dir
+          geholfen haben, freue ich mich riesig über eine freiwillige Spende zur
+          Unterstützung des Projekts!
+        </p>
+
+        <div class="flex flex-col gap-4">
+          <!-- PayPal Button -->
+          <a
+            href="https://www.paypal.com/paypalme/parablepanorama"
+            target="_blank"
+            class="flex items-center justify-between p-4 rounded-xl bg-[#003087]/5 border border-[#003087]/20 hover:border-[#003087]/50 hover:bg-[#003087]/10 transition-all group"
           >
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-
-          <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-            <i data-lucide="coffee" class="text-[#FFDD00]"></i> Kaffeekasse
-          </h2>
-          <p class="text-dark-muted text-sm mb-6 leading-relaxed">
-            Die Tracker sind komplett kostenlos und open-source. Wenn sie dir geholfen haben, freue ich mich riesig über eine freiwillige Spende zur Unterstützung des Projekts!
-          </p>
-
-          <div class="flex flex-col gap-4">
-            <!-- PayPal Button -->
-            <a
-              href="https://www.paypal.com/paypalme/parablepanorama"
-              target="_blank"
-              class="flex items-center justify-between p-4 rounded-xl bg-[#003087]/5 border border-[#003087]/20 hover:border-[#003087]/50 hover:bg-[#003087]/10 transition-all group"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-[#003087]/15 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
-                  <i data-lucide="wallet" class="w-5 h-5"></i>
-                </div>
-                <div class="flex flex-col">
-                  <span class="font-bold text-white text-sm">PayPal</span>
-                  <span class="text-[11px] text-dark-muted">In Deutschland am beliebtesten</span>
-                </div>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-lg bg-[#003087]/15 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform"
+              >
+                <i data-lucide="wallet" class="w-5 h-5"></i>
               </div>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
-            </a>
-
-            <!-- Buy Me A Coffee Button -->
-            <a
-              href="https://buymeacoffee.com/cwillam"
-              target="_blank"
-              class="flex items-center justify-between p-4 rounded-xl bg-[#FFDD00]/5 border border-[#FFDD00]/20 hover:border-[#FFDD00]/50 hover:bg-[#FFDD00]/10 transition-all group"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-[#FFDD00]/15 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
-                  <i data-lucide="coffee" class="w-5 h-5"></i>
-                </div>
-                <div class="flex flex-col">
-                  <span class="font-bold text-white text-sm">Buy Me a Coffee</span>
-                  <span class="text-[11px] text-dark-muted">Kreditkarte, Apple Pay, Google Pay</span>
-                </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-white text-sm">PayPal</span>
+                <span class="text-[11px] text-dark-muted"
+                  >In Deutschland am beliebtesten</span
+                >
               </div>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
-            </a>
-          </div>
+            </div>
+            <i
+              data-lucide="chevron-right"
+              class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"
+            ></i>
+          </a>
+
+          <!-- Buy Me A Coffee Button -->
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            class="flex items-center justify-between p-4 rounded-xl bg-[#FFDD00]/5 border border-[#FFDD00]/20 hover:border-[#FFDD00]/50 hover:bg-[#FFDD00]/10 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-lg bg-[#FFDD00]/15 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform"
+              >
+                <i data-lucide="coffee" class="w-5 h-5"></i>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-white text-sm"
+                  >Buy Me a Coffee</span
+                >
+                <span class="text-[11px] text-dark-muted"
+                  >Kreditkarte, Apple Pay, Google Pay</span
+                >
+              </div>
+            </div>
+            <i
+              data-lucide="chevron-right"
+              class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"
+            ></i>
+          </a>
         </div>
       </div>
-      <!-- TWA Kaffeekasse Redirect Weiche -->
+    </div>
+    <!-- TWA Kaffeekasse Redirect Weiche -->
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const isTWA = window.matchMedia('(display-mode: standalone)').matches || 
-                      window.navigator.standalone || 
-                      document.referrer.includes('android-app://') || 
-                      window.location.search.includes('mode=twa');
+      document.addEventListener("DOMContentLoaded", () => {
+        const isTWA =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          window.navigator.standalone ||
+          document.referrer.includes("android-app://") ||
+          window.location.search.includes("mode=twa");
         if (isTWA) {
-          const coffeeButtons = document.querySelectorAll('button[title="Kaffeekasse"], a[title="Kaffeekasse"]');
-          coffeeButtons.forEach(btn => {
-            btn.removeAttribute('onclick');
-            btn.addEventListener('click', (e) => {
+          const coffeeButtons = document.querySelectorAll(
+            'button[title="Kaffeekasse"], a[title="Kaffeekasse"]',
+          );
+          coffeeButtons.forEach((btn) => {
+            btn.removeAttribute("onclick");
+            btn.addEventListener("click", (e) => {
               e.preventDefault();
               e.stopPropagation();
               const targetUrl = "https://cwillam.de/spende.html";
-              window.open(targetUrl, '_blank');
+              window.open(targetUrl, "_blank");
             });
           });
         } else {
-          if (window.location.search.includes('openKaffeekasse=true')) {
-            const modal = document.getElementById('supportModal');
+          if (window.location.search.includes("openKaffeekasse=true")) {
+            const modal = document.getElementById("supportModal");
             if (modal) {
-              modal.classList.remove('hidden');
-              if (window.lucide) { lucide.createIcons(); }
-              const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-              window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+              modal.classList.remove("hidden");
+              if (window.lucide) {
+                lucide.createIcons();
+              }
+              const cleanUrl =
+                window.location.protocol +
+                "//" +
+                window.location.host +
+                window.location.pathname;
+              window.history.replaceState({ path: cleanUrl }, "", cleanUrl);
             }
           }
         }
       });
     </script>
-
-</body>
+  </body>
 </html>
