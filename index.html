@@ -97,7 +97,7 @@
       }
     </script>
 
-    <script src="assets/js/tailwind.js?v=2.4.2"></script>
+    <script src="assets/js/tailwind.js?v=2.5.0"></script>
 
     <script>
       tailwind.config = {
@@ -154,7 +154,7 @@
       };
     </script>
 
-    <link href="assets/css/style.css?v=2.4.2" rel="stylesheet" />
+    <link href="assets/css/style.css?v=2.5.0" rel="stylesheet" />
   </head>
 
   <body class="flex flex-col min-h-screen">
@@ -323,7 +323,7 @@
                 >
                 <span
                   class="text-[9px] font-bold text-dark-muted/50 bg-dark-border/50 px-1 rounded"
-                  >v2.4.2</span
+                  >v2.5.0</span
                 >
               </div>
             </div>
@@ -342,92 +342,138 @@
               </span>
             </div>
 
-            <!-- Help Button (Hilfe) -->
-            <a
-              href="help.html"
-              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-              title="Hilfe & FAQ"
-            >
-              <i
-                data-lucide="help-circle"
-                class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-              ></i>
-            </a>
+            <!-- Desktop Navigation Links (hidden on mobile) -->
+            <div class="hidden md:flex items-center gap-1 sm:gap-2">
+              <!-- Subnetz-Trainer Button -->
+              <a
+                href="subnet.html"
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
+                title="Subnetz-Trainer"
+              >
+                <i
+                  data-lucide="binary"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
+                ></i>
+              </a>
 
-            <!-- Support -->
+              <!-- SQL-Labor Button -->
+              <a
+                href="sql.html"
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
+                title="SQL-Labor"
+              >
+                <i
+                  data-lucide="database"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
+                ></i>
+              </a>
+
+              <!-- Help Button (Hilfe) -->
+              <a
+                href="help.html"
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
+                title="Hilfe & FAQ"
+              >
+                <i
+                  data-lucide="help-circle"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
+                ></i>
+              </a>
+
+              <!-- Support -->
+              <button
+                onclick="
+                  document
+                    .getElementById('supportModal')
+                    .classList.remove('hidden');
+                  if (window.lucide) {
+                    lucide.createIcons();
+                  }
+                "
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-[#FFDD00] flex items-center justify-center transition-all hover:border-[#FFDD00]/30 hover:bg-[#FFDD00]/5 group shrink-0"
+                title="Kaffeekasse"
+              >
+                <i
+                  data-lucide="coffee"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
+                ></i>
+              </button>
+
+              <!-- Export -->
+              <button
+                onclick="app.exportData()"
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
+                title="Backup speichern"
+              >
+                <i
+                  data-lucide="download"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-y-[-1px]"
+                ></i>
+              </button>
+
+              <!-- Import -->
+              <button
+                onclick="document.getElementById('importFile').click()"
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
+                title="Backup laden"
+              >
+                <i
+                  data-lucide="upload"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-y-[1px]"
+                ></i>
+              </button>
+
+              <!-- Reset -->
+              <button
+                onclick="app.resetData()"
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-dark-danger flex items-center justify-center transition-all hover:border-dark-danger/30 hover:bg-dark-danger/5 group shrink-0"
+                title="Alles zurücksetzen"
+              >
+                <i
+                  data-lucide="trash-2"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform animate-trash-hover"
+                ></i>
+              </button>
+
+              <!-- PWA Install Button (visible only when installable, shown via JS) -->
+              <div id="pwa-install-container" class="hidden shrink-0">
+                <button
+                  id="pwa-install-btn"
+                  class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group"
+                  title="Als App installieren (Offline-Modus)"
+                >
+                  <i
+                    data-lucide="smartphone"
+                    class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
+                  ></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Hamburger Button (visible on mobile only) -->
             <button
-              onclick="
-                document
-                  .getElementById('supportModal')
-                  .classList.remove('hidden');
-                if (window.lucide) {
-                  lucide.createIcons();
-                }
-              "
-              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-[#FFDD00] flex items-center justify-center transition-all hover:border-[#FFDD00]/30 hover:bg-[#FFDD00]/5 group shrink-0"
-              title="Kaffeekasse"
+              id="hamburgerBtn"
+              onclick="app.toggleMobileMenu()"
+              class="flex md:hidden w-8 h-8 rounded-lg bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex-col items-center justify-center gap-1.5 transition-all relative z-50 shrink-0"
+              title="Menü öffnen"
             >
-              <i
-                data-lucide="coffee"
-                class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-              ></i>
+              <span
+                class="hamburger-line line-1 w-4 h-0.5 bg-current rounded-full"
+              ></span>
+              <span
+                class="hamburger-line line-2 w-4 h-0.5 bg-current rounded-full"
+              ></span>
+              <span
+                class="hamburger-line line-3 w-4 h-0.5 bg-current rounded-full"
+              ></span>
             </button>
 
-            <!-- Export -->
-            <button
-              onclick="app.exportData()"
-              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-              title="Backup speichern"
-            >
-              <i
-                data-lucide="download"
-                class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-y-[-1px]"
-              ></i>
-            </button>
-
-            <!-- Import -->
-            <button
-              onclick="document.getElementById('importFile').click()"
-              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-              title="Backup laden"
-            >
-              <i
-                data-lucide="upload"
-                class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-y-[1px]"
-              ></i>
-            </button>
             <input
               type="file"
               id="importFile"
               class="hidden"
               onchange="app.importData(this)"
             />
-
-            <!-- Reset -->
-            <button
-              onclick="app.resetData()"
-              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-dark-danger flex items-center justify-center transition-all hover:border-dark-danger/30 hover:bg-dark-danger/5 group shrink-0"
-              title="Alles zurücksetzen"
-            >
-              <i
-                data-lucide="trash-2"
-                class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform animate-trash-hover"
-              ></i>
-            </button>
-
-            <!-- PWA Install Button (visible only when installable, shown via JS) -->
-            <div id="pwa-install-container" class="hidden shrink-0">
-              <button
-                id="pwa-install-btn"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group"
-                title="Als App installieren (Offline-Modus)"
-              >
-                <i
-                  data-lucide="smartphone"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-                ></i>
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -587,6 +633,44 @@
             </p>
           </div>
         </div>
+      </div>
+
+      <!-- Quick Access SQL & Subnetz (Neu) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 no-print mb-6">
+        <a
+          href="subnet.html"
+          class="flex items-center gap-4 bg-gradient-to-br from-slate-900 to-dark-card border border-dark-border hover:border-dark-accent/40 rounded-xl p-4 transition-all no-underline group shadow-card hover:shadow-[0_0_20px_rgba(14,165,233,0.12)]"
+        >
+          <div class="w-10 h-10 rounded-lg bg-dark-accent/10 border border-dark-accent/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-dark-accent/15 transition-all">
+            <i data-lucide="binary" class="text-dark-accent w-5 h-5"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="font-bold text-white text-sm group-hover:text-dark-accent transition-colors">Subnetz-Trainer</span>
+              <span class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 rounded text-[8px] font-black uppercase tracking-wider text-dark-accent">Neu</span>
+            </div>
+            <p class="text-xs text-slate-400 truncate">
+              IP-Rechnung, Subnetzmasken und IPv6-Kompression offline üben.
+            </p>
+          </div>
+        </a>
+        <a
+          href="sql.html"
+          class="flex items-center gap-4 bg-gradient-to-br from-slate-900 to-dark-card border border-dark-border hover:border-dark-accent/40 rounded-xl p-4 transition-all no-underline group shadow-card hover:shadow-[0_0_20px_rgba(14,165,233,0.12)]"
+        >
+          <div class="w-10 h-10 rounded-lg bg-dark-accent/10 border border-dark-accent/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-dark-accent/15 transition-all">
+            <i data-lucide="database" class="text-dark-accent w-5 h-5"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="font-bold text-white text-sm group-hover:text-dark-accent transition-colors">SQL-Labor</span>
+              <span class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 rounded text-[8px] font-black uppercase tracking-wider text-dark-accent">Neu</span>
+            </div>
+            <p class="text-xs text-slate-400 truncate">
+              SELECT, WHERE und Aggregationen spielerisch im Browser lernen.
+            </p>
+          </div>
+        </a>
       </div>
 
       <!-- Dashboard Grid -->
@@ -1001,7 +1085,8 @@
                       <span class="text-dark-warning font-bold"
                         >Fehler fokussieren.</span
                       >
-                      Wiederhole gezielt nur Karten, die du falsch beantwortet oder geraten hast.
+                      Wiederhole gezielt nur Karten, die du falsch beantwortet
+                      oder geraten hast.
                     </p>
                   </div>
                 </div>
@@ -1038,7 +1123,8 @@
               class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono"
             >
               Shortcuts: [1] Freies Training &nbsp;|&nbsp; [2] Strategie-Modus
-              &nbsp;|&nbsp; [3] Prüfungs-Modus &nbsp;|&nbsp; [4] Schwachstellen-Modus &nbsp;|&nbsp; [Esc] Schließen
+              &nbsp;|&nbsp; [3] Prüfungs-Modus &nbsp;|&nbsp; [4]
+              Schwachstellen-Modus &nbsp;|&nbsp; [Esc] Schließen
             </div>
           </div>
 
@@ -1607,24 +1693,24 @@
       </div>
     </template>
 
-    <script src="assets/js/confetti.js?v=2.4.2"></script>
+    <script src="assets/js/confetti.js?v=2.5.0"></script>
 
-    <script src="assets/js/data.js?v=2.4.2"></script>
-    <script src="assets/js/questions.js?v=2.4.2"></script>
+    <script src="assets/js/data.js?v=2.5.0"></script>
+    <script src="assets/js/questions.js?v=2.5.0"></script>
 
-    <script src="assets/js/lucide.min.js?v=2.4.2"></script>
+    <script src="assets/js/lucide.min.js?v=2.5.0"></script>
     <script>
       // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
       if (window.lucide) lucide.createIcons();
     </script>
-    <script src="assets/js/app.js?v=2.4.2"></script>
+    <script src="assets/js/app.js?v=2.5.0"></script>
 
     <!-- PWA Service Worker Registration -->
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js?v=2.4.2")
+            .register("sw.js?v=2.5.0")
             .then((reg) =>
               console.log("PWA Service Worker registered successfully", reg),
             )
@@ -1674,5 +1760,106 @@
         }
       });
     </script>
+    <!-- Mobile Navigation Drawer Overlay -->
+    <div
+      id="mobileMenu"
+      class="fixed inset-0 bg-dark-bg/40 backdrop-blur-md z-45 hidden transition-all duration-300 pointer-events-none opacity-0"
+      onclick="app.toggleMobileMenu()"
+    >
+      <div
+        class="absolute top-0 right-0 w-64 h-full bg-dark-card/95 border-l border-dark-border p-6 shadow-2xl flex flex-col gap-6 pointer-events-auto transform translate-x-full transition-transform duration-300"
+        onclick="event.stopPropagation()"
+      >
+        <div
+          class="flex items-center justify-between border-b border-dark-border pb-4"
+        >
+          <span class="font-bold text-white tracking-tight">Navigation</span>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <a
+            href="subnet.html"
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
+          >
+            <i data-lucide="binary" class="w-4 h-4 text-dark-accent"></i>
+            Subnetz-Trainer
+          </a>
+          <a
+            href="sql.html"
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
+          >
+            <i data-lucide="database" class="w-4 h-4 text-dark-accent"></i>
+            SQL-Labor
+          </a>
+          <a
+            href="help.html"
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
+          >
+            <i data-lucide="help-circle" class="w-4 h-4 text-dark-accent"></i>
+            Hilfe & FAQ
+          </a>
+          <a
+            href="updates.html"
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
+          >
+            <i data-lucide="bell" class="w-4 h-4 text-dark-accent"></i>
+            Updates &amp; Roadmap
+          </a>
+          <a
+            href="https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml&amp;title=%5BBug%5D%20&amp;body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
+          >
+            <i data-lucide="bug" class="w-4 h-4 text-dark-accent"></i>
+            Bug melden
+          </a>
+          <a
+            href="https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml&amp;title=%5BFeature%5D%20&amp;body=%0A%0A**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**App%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
+          >
+            <i data-lucide="lightbulb" class="w-4 h-4 text-dark-accent"></i>
+            Feature wünschen
+          </a>
+          <button
+            onclick="
+              app.toggleMobileMenu();
+              document
+                .getElementById('supportModal')
+                .classList.remove('hidden');
+              if (window.lucide) {
+                lucide.createIcons();
+              }
+            "
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-[#FFDD00] hover:border-[#FFDD00]/30 hover:bg-[#FFDD00]/5 transition-all text-left text-sm font-bold"
+          >
+            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
+            Kaffeekasse
+          </button>
+          <button
+            onclick="
+              app.toggleMobileMenu();
+              app.exportData();
+            "
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all text-left text-sm font-bold"
+          >
+            <i data-lucide="download" class="w-4 h-4 text-dark-accent"></i>
+            Backup speichern
+          </button>
+          <button
+            onclick="
+              app.toggleMobileMenu();
+              document.getElementById('importFile').click();
+            "
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all text-left text-sm font-bold"
+          >
+            <i data-lucide="upload" class="w-4 h-4 text-dark-accent"></i>
+            Backup laden
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

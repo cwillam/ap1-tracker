@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.4.2-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.5.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
@@ -58,15 +58,29 @@ Dieses Projekt ist ein Showcase für moderne Web-Entwicklung mit KI-Unterstützu
 
 Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und datensparsam bereitzustellen:
 
-1.  **Keine Cookies:** Es werden keine Tracking-Cookies gesetzt.
-2.  **Keine externen Requests:** Alle Bibliotheken (Tailwind, Lucide, JS) liegen lokal auf dem Server. Es fließen keine Daten an Google-Server oder CDNs (USA).
-3.  **Local Data:** Alle User-Eingaben bleiben auf dem Endgerät des Nutzers.
+1. **Keine Cookies:** Es werden keine Tracking-Cookies gesetzt.
+2. **Keine externen Requests:** Alle Bibliotheken (Tailwind, Lucide, JS) liegen lokal auf dem Server. Es fließen keine Daten an Google-Server oder CDNs (USA).
+3. **Local Data:** Alle User-Eingaben bleiben auf dem Endgerät des Nutzers.
 
 ---
 
 ## Changelog
 
+### v2.5.0 (27. Juli 2026)
+
+- **SQL-Labor:** Neue Übungs-Seite (`sql.html`) mit 10 Grundlagen-Aufgaben rund um SELECT, WHERE, ORDER BY, LIMIT, DISTINCT und Aggregationen.
+- **Mock-SQL-Engine:** Leichtgewichtiger JS-Parser statt WASM – komplett offline-fähig, blitzschnell und mit Schema-Explorer.
+- **Gamification:** XP- und Streak-System mit Feedback-Hints und Lösungsweg bei Fehlern.
+- **Service Worker & Caching (v2.5.0):** Caching von `sql.html` und `sql.js` im Service Worker zur vollen Offline-Unterstützung des SQL-Labors sowie Aktualisierung aller Asset-Tags.
+
+### v2.4.3 (27. Juli 2026)
+
+- **Subnetz- & IP-Trainer:** Dediziertes IP-Übungs-Labor (`subnet.html`) zur Berechnung von Netz-IDs, Masken, Broadcast-IPs, Host-Kapazitäten (inklusive Binär-Erklärungen) und IPv6-Kompression nach IHK-Standards.
+- **Mobiles Hamburger-Menü:** Ausziehbarer Navigation Drawer für ein sauberes Layout und verbesserte Bedienbarkeit auf mobilen Geräten.
+- **Service Worker & Caching (v2.4.3):** Caching von `subnet.html` und `subnet.js` im Service Worker zur vollen Offline-Unterstützung des IP-Trainers sowie Aktualisierung aller Asset-Tags.
+
 ### v2.4.2 (26. Juli 2026)
+
 - **4-stufiges Confidence-Rating:** Anki-inspiriertes Bewertungssystem (Sofort, Nachgedacht, Geraten, Nicht gewusst) statt reinem Ja/Nein, um Pseudo-Sicherheit beim Lernen zu verhindern.
 - **Prüfungs-Modus:** Neuer Lernmodus mit halbierten Abfrageintervallen zur intensiveren Vorbereitung in den letzten Wochen vor der Prüfung.
 - **Automatischer Schwachstellen-Modus:** Filtert Karten automatisch, um gezielt nur Fragen zu wiederholen, die man falsch beantwortet, geraten oder noch nicht sicher gelernt hat.
@@ -75,26 +89,31 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 - **Cache-Aktualisierung (v2.4.2):** Service Worker Cache-Version und Asset-Tags aktualisiert, um sofortige Updates im Browser zu garantieren.
 
 ### v2.4.1 (23. Juli 2026)
+
 - **Bugfix GitHub-Templates:** Syntaxfehler in `bug.yml` behoben, so dass das Bug-Formular nun reibungslos von GitHub erkannt wird.
 - **Cache-Aktualisierung:** Anhebung von CACHE_NAME auf `v2.4.1` und Asset-Versioning (`?v=2.4.1`) durchgeführt, um automatische Updates beim Nutzer anzustoßen.
 
 ### v2.4.0 (23. Juli 2026)
+
 - **Berufsschul-Portal:** Neue Infoseite (`bildungseinrichtungen.html`) für Schulen und Dozenten bezüglich datenschutzkonformem und freiem Einsatz im Unterricht.
 - **Outreach & Feedback:** Integration direkter Verlinkungen für Fehlerberichte und Feature-Wünsche im Footer sowie Google Forms für Closed-Beta-Anmeldungen.
 
 ### v2.3.0 (12. Juli 2026)
+
 - **PWA-Support:** Vollwertige Progressive Web App mit Service Worker (Offline-Caching) für 100% Offline-Fähigkeit der Lernkarten.
 - **Homescreen-Installation:** Mobil-optimierte PWA-Meta-Tags und `apple-touch-icon` für die Homescreen-Installation auf iOS & Android.
 - **Kaffeekasse-Modal:** Neues Spenden-Modal mit direkten Optionen für PayPal (spendenfrei) und Buy Me a Coffee.
 - **Theme-Konsistenz:** Vereinheitlichung der theme-color Meta-Tags und des PWA-Brandings auf allen Unterseiten.
 
 ### v2.2.1 (23. Juni 2026)
+
 - **Modul-Fortschrittskreise:** Zirkuläre SVG-Verlaufsringe visualisieren den Lernfortschritt pro Modul und leuchten grün bei 100%
 - **Tastatur-Shortcuts:** Lernkarten-Steuerung über Leertaste, Eingabe, Pfeiltasten und Esc (ausführliche Erklärungen in der neuen Hilfe-Sektion)
 - **Aktivitäts-Graph:** Erhöhung des Aktivitätszeitfensters von 40 auf 80 Tage für einen besseren Lernüberblick
 - **Hilfe-System:** Integration einer ausführlichen Hilfeseite (`help.html`) mit praktischen Tipps zu Caching, Backups und Fehlerberichten
 
 ### v2.1.1 (22. Juni 2026)
+
 - **Lucide Icons:** Komplette Migration auf ressourcenschonende Vektorgrafiken (vollständig offline-fähig)
 - **Sleek Header Tiles:** Modernisierung des Navigations-Headers im Kacheldesign mit flüssigen Hover-Animations
 - **Lernkarten-Fixes:** Fehlerbehebung bei den Trainings-Modi, optimierte Textgrößen und verbesserte Layout-Zentrierung
@@ -102,6 +121,7 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 - **Mobile Optimierung:** Responsive Kachelgrößen und optimierte Spacings für kleinere Bildschirme
 
 ### v2.1.0 (24. März 2026)
+
 - **Update-Notification Modal:** Informiert Nutzer über neue Features & Lernkarten
 - **SEO-Optimierung:** Google Indexierung für alle Fachrichtungen (FI-AE, FI-SI, FI-DP, Digitale Vernetzung)
 - **Sitemap & robots.txt:** Für bessere Suchmaschinen-Integration
@@ -109,6 +129,7 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 - **Meta-Tags:** Optimierte Beschreibungen & Keywords für alle Fachrichtungen der Abschlussprüfung
 
 ### v2.0.1 (24. März 2026)
+
 - **Lernkarten-System:** 1.228 Karten für alle 27 Themen (optimiert für AP1)
 - **Safety-Fixes:** Import-Validierung, Storage-Monitoring, Corrupt-Data-Protection
 - **Smart Focus 2.0:** Intelligente Empfehlung (Gewicht + Fortschritt + Reps)
@@ -117,6 +138,7 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 - **Optimiert:** Pseudocode-Fragen, Diagramm-Fragen, Verständnis-Fragen
 
 ### v1.3 (05. März 2026)
+
 - AP1 Themen bereinigt (SQL, RAID, SAN, Rechtsformen entfernt)
 - Prüfungs-Timer auf Herbst 2026 (30.09.) aktualisiert
 - Kaufmännische Basics & Marktformen präzisiert

@@ -24,6 +24,41 @@ const app = {
 	searchQuery: "",
 	_quotaWarningShown: false,
 	_saveError: null,
+	_mobileMenuTimeout: null,
+
+	toggleMobileMenu() {
+		const mobileMenu = document.getElementById("mobileMenu");
+		const hamburgerBtn = document.getElementById("hamburgerBtn");
+		if (!mobileMenu || !hamburgerBtn) return;
+
+		const drawer = mobileMenu.querySelector("div");
+		if (!drawer) return;
+
+		// Bestehende Timeouts abbrechen, um Race Conditions zu vermeiden
+		if (this._mobileMenuTimeout) {
+			clearTimeout(this._mobileMenuTimeout);
+			this._mobileMenuTimeout = null;
+		}
+
+		if (mobileMenu.classList.contains("hidden")) {
+			mobileMenu.classList.remove("hidden");
+			hamburgerBtn.classList.add("menu-open");
+			// Trigger reflow for slide transition
+			void mobileMenu.offsetWidth;
+			mobileMenu.classList.add("opacity-100");
+			mobileMenu.classList.remove("pointer-events-none");
+			drawer.classList.remove("translate-x-full");
+		} else {
+			mobileMenu.classList.remove("opacity-100");
+			mobileMenu.classList.add("pointer-events-none");
+			hamburgerBtn.classList.remove("menu-open");
+			drawer.classList.add("translate-x-full");
+			this._mobileMenuTimeout = setTimeout(() => {
+				mobileMenu.classList.add("hidden");
+				this._mobileMenuTimeout = null;
+			}, 300);
+		}
+	},
 
 	// Anki/Lernkarten System (wie AP2-Tracker)
 	anki: {

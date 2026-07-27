@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subnetz-Trainer | AP1 Tracker</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5.0" />
+    
+    <!-- Tailwind Configuration -->
+    <script src="assets/js/tailwind.js?v=2.5.0"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                "system-ui",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "Roboto",
+                "Helvetica Neue",
+                "Arial",
+                "sans-serif",
+              ],
+              mono: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "Liberation Mono",
+                "Courier New",
+                "monospace",
+              ],
+            },
+            colors: {
+              dark: {
+                bg: '#020617',
+                card: '#0f172a',
+                border: '#1e293b',
+                muted: '#94a3b8',
+                text: '#f8fafc',
+                accent: '#0ea5e9',
+                'accent-hover': '#0284c7',
+                success: '#10b981',
+                warning: '#f59e0b',
+                danger: '#ef4444',
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white">
+    <!-- Header -->
+    <header class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50">
+      <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 group hover:opacity-80 transition-opacity">
+          <div class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors">
+            <i data-lucide="arrow-left" class="text-dark-muted group-hover:text-dark-accent transition-colors"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-lg tracking-tight leading-none">AP1 <span class="text-dark-accent">Tracker</span></span>
+            <span class="text-[10px] text-dark-muted font-mono">Zurück zum Dashboard</span>
+          </div>
+        </a>
+        <span class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted">v2.5.0</span>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-2xl mx-auto px-4 py-8 flex flex-col justify-center">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-extrabold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-2 pb-1">
+          Subnetz- &amp; IP-Trainer
+        </h1>
+        <p class="text-dark-muted text-sm max-w-md mx-auto">
+          Trainiere IHK-Prüfungsfragen zur IP-Adressierung und Subnetzberechnung spielerisch und komplett offline.
+        </p>
+
+        <!-- Tabs -->
+        <div class="inline-flex justify-center mt-6 gap-2 bg-dark-card/50 p-1 rounded-full border border-dark-border mx-auto">
+          <button id="btn-ipv4" onclick="switchTab('ipv4')" class="px-5 py-1.5 rounded-full text-xs font-bold transition-all bg-dark-accent text-white shadow-lg shadow-blue-900/20">
+            IPv4 Grundlagen
+          </button>
+          <button id="btn-ipv6" onclick="switchTab('ipv6')" class="px-5 py-1.5 rounded-full text-xs font-bold text-dark-muted hover:text-white transition-all">
+            IPv6 Kompression
+          </button>
+        </div>
+      </div>
+
+      <!-- IPv4 Area -->
+      <div id="tab-ipv4" class="space-y-6 fade-in">
+        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 relative overflow-hidden shadow-2xl">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/5 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
+          
+          <div class="flex justify-between items-center mb-6 border-b border-dark-border/40 pb-4">
+            <span class="text-xs font-mono text-dark-muted uppercase font-bold tracking-wider">Aufgabe</span>
+            <span id="ipv4Streak" class="text-xs font-bold text-dark-warning flex items-center gap-1">🔥 0er Streak</span>
+          </div>
+
+          <!-- Task Display -->
+          <div class="text-center mb-8">
+            <span class="text-xs text-dark-muted uppercase font-mono tracking-widest block mb-2">Berechne für IP:</span>
+            <h2 id="ipv4Target" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight select-all"></h2>
+          </div>
+
+          <!-- Input Fields Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Subnet Mask -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Subnetzmaske (Dezimal)</label>
+              <div class="relative">
+                <input type="text" id="ansMask" placeholder="z.B. 255.255.255.0" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
+                <span id="feedbackMask" class="absolute right-3 top-3.5 text-lg"></span>
+              </div>
+            </div>
+
+            <!-- Network ID -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Netz-ID / Netzadresse</label>
+              <div class="relative">
+                <input type="text" id="ansNet" placeholder="z.B. 192.168.1.0" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
+                <span id="feedbackNet" class="absolute right-3 top-3.5 text-lg"></span>
+              </div>
+            </div>
+
+            <!-- Broadcast -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Broadcast-Adresse</label>
+              <div class="relative">
+                <input type="text" id="ansBcast" placeholder="z.B. 192.168.1.255" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
+                <span id="feedbackBcast" class="absolute right-3 top-3.5 text-lg"></span>
+              </div>
+            </div>
+
+            <!-- Total Hosts -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Nutzbare Hosts (Anzahl)</label>
+              <div class="relative">
+                <input type="text" id="ansHosts" placeholder="z.B. 254" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
+                <span id="feedbackHosts" class="absolute right-3 top-3.5 text-lg"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="mt-8 flex flex-wrap gap-3 items-center justify-between border-t border-dark-border/40 pt-6">
+            <button id="btnSolution" onclick="showSolution()" class="px-5 py-3 border border-dark-border text-dark-muted hover:text-white rounded-xl text-sm font-bold transition-all bg-dark-bg hidden">
+              Lösungsweg anzeigen
+            </button>
+            <div class="flex gap-3 ml-auto">
+              <button onclick="checkIPv4()" class="px-6 py-3 bg-dark-accent hover:bg-dark-accent-hover text-white rounded-xl text-sm font-bold transition-all shadow-md">
+                Prüfen
+              </button>
+              <button onclick="generateIPv4()" class="px-6 py-3 bg-dark-bg border border-dark-border text-slate-300 hover:text-white rounded-xl text-sm font-bold transition-all">
+                Nächste Aufgabe
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explanation Panel -->
+        <div id="solutionPanel" class="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl hidden fade-in">
+          <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <i data-lucide="help-circle" class="text-dark-accent"></i>
+            Schritt-für-Schritt Erklärung
+          </h3>
+          <div class="text-sm text-dark-muted space-y-4 font-mono leading-relaxed" id="solutionContent"></div>
+        </div>
+      </div>
+
+      <!-- IPv6 Area -->
+      <div id="tab-ipv6" class="space-y-6 fade-in hidden">
+        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 relative overflow-hidden shadow-2xl">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/5 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
+          
+          <div class="flex justify-between items-center mb-6 border-b border-dark-border/40 pb-4">
+            <span class="text-xs font-mono text-dark-muted uppercase font-bold tracking-wider">Kompression</span>
+            <span id="ipv6Streak" class="text-xs font-bold text-dark-warning flex items-center gap-1">🔥 0er Streak</span>
+          </div>
+
+          <!-- Task Display -->
+          <div class="text-center mb-8">
+            <span class="text-xs text-dark-muted uppercase font-mono tracking-widest block mb-2">Kürze diese IPv6-Adresse maximal:</span>
+            <h2 id="ipv6Target" class="text-xl sm:text-2xl font-bold text-white tracking-tight break-all select-all font-mono"></h2>
+          </div>
+
+          <!-- Input Fields -->
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Deine gekürzte IPv6</label>
+            <div class="relative">
+              <input type="text" id="ansIpv6" placeholder="z.B. 2001:db8::1" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
+              <span id="feedbackIpv6" class="absolute right-3 top-3.5 text-lg"></span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="mt-8 flex flex-wrap gap-3 items-center border-t border-dark-border/40 pt-6">
+            <div class="flex gap-3 ml-auto">
+              <button onclick="checkIPv6()" class="px-6 py-3 bg-dark-accent hover:bg-dark-accent-hover text-white rounded-xl text-sm font-bold transition-all shadow-md">
+                Prüfen
+              </button>
+              <button onclick="generateIPv6()" class="px-6 py-3 bg-dark-bg border border-dark-border text-slate-300 hover:text-white rounded-xl text-sm font-bold transition-all">
+                Nächste Aufgabe
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Explanation Panel -->
+        <div id="solutionPanelIpv6" class="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl hidden fade-in">
+          <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <i data-lucide="help-circle" class="text-dark-accent"></i>
+            Kürzungsregeln
+          </h3>
+          <div class="text-xs sm:text-sm text-dark-muted space-y-3 leading-relaxed">
+            <p><strong>1. Führende Nullen entfernen:</strong> Innerhalb jedes Hexadezimalblocks dürfen führende Nullen weggelassen werden (z.B. wird <code class="text-white font-mono">0db8</code> zu <code class="text-white font-mono">db8</code> und <code class="text-white font-mono">0000</code> zu <code class="text-white font-mono">0</code>).</p>
+            <p><strong>2. Blöcke aus Nullen einsparen:</strong> Eine oder mehrere aufeinanderfolgende Gruppen, die nur aus Nullen bestehen (z.B. <code class="text-white font-mono">:0000:0000:</code>), dürfen durch ein einziges Doppel-Doppelpunkt-Zeichen <code class="text-white font-mono">::</code> ersetzt werden.</p>
+            <p class="text-dark-warning">⚠️ <strong>Achtung:</strong> Die <code class="text-white font-mono">::</code>-Kürzung darf <strong>nur ein einziges Mal</strong> in der gesamten Adresse angewendet werden, um Eindeutigkeit zu wahren!</p>
+            <div class="bg-dark-bg border border-dark-border rounded-xl p-3 mt-4 text-xs font-mono">
+              <span class="block text-[10px] text-dark-muted uppercase font-bold mb-1">Berechnete korrekte Antwort:</span>
+              <span id="ipv6SolutionText" class="text-white font-bold font-mono"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="assets/js/lucide.min.js?v=2.5.0"></script>
+    <script src="assets/js/subnet.js?v=2.5.0"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) { lucide.createIcons(); }
+      });
+    </script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("sw.js?v=2.5.0")
+            .then((reg) =>
+              console.log("PWA Service Worker registered successfully", reg),
+            )
+            .catch((err) =>
+              console.error("PWA Service Worker registration failed", err),
+            );
+        });
+      }
+    </script>
+  </body>
+</html>
