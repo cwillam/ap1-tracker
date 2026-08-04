@@ -248,7 +248,7 @@
 
     <!-- Glossary App Logic -->
     <script>
-      // Database of 25 terms for AP1 Tracker
+      // Database of 48 terms for AP1 Tracker
       const glossaryData = [
         {
           id: "osi-modell",
@@ -323,6 +323,46 @@
           mnemonic: "Der <strong>intelligente Verteiler im Haus</strong>. Er schickt das Paket nur an die Tür des Empfängers, nicht an alle (wie ein Hub)."
         },
         {
+          id: "nat",
+          term: "NAT",
+          long: "Network Address Translation",
+          category: "Netzwerk",
+          definition: "Ein Verfahren, das IP-Adressen in einem Datenpaket durch andere IP-Adressen ersetzt (meist private IP-Adressen in eine öffentliche, um IPv4-Adressen einzusparen).",
+          mnemonic: "<strong>NAT macht Privat zu Öffentlich</strong>: Ein Dolmetscher an der Grenze zwischen Heimnetz (LAN) und dem weiten Internet."
+        },
+        {
+          id: "pat",
+          term: "PAT",
+          long: "Port Address Translation",
+          category: "Netzwerk",
+          definition: "Eine Sonderform von NAT, bei der mehrere Geräte im privaten Netz über eine einzige öffentliche IP geleitet werden, indem unterschiedliche Portnummern verwendet werden.",
+          mnemonic: "<strong>PAT nutzt Ports</strong>: Eine einzige IP-Adresse für alle, unterschieden durch die 'Zimmernummer' (den Port)."
+        },
+        {
+          id: "vpn",
+          term: "VPN",
+          long: "Virtual Private Network",
+          category: "Netzwerk",
+          definition: "Eine verschlüsselte Verbindung (Tunnel) über ein öffentliches Netzwerk, um Daten sicher, abhörsicher und geschützt vor unbefugten Dritten zu übertragen.",
+          mnemonic: "Ein <strong>abhörsicherer Tunnel</strong> durch das öffentliche, unsichere Internet."
+        },
+        {
+          id: "tcp-udp",
+          term: "TCP & UDP",
+          long: "Transmission Control / User Datagram Protocol",
+          category: "Netzwerk",
+          definition: "TCP ist verbindungsorientiert und zuverlässig (prüft Empfang und Reihenfolge per Handshake). UDP ist verbindungslos und extrem schnell (keine Bestätigungen, z.B. für Videostreaming).",
+          mnemonic: "<strong>TCP</strong> = Einschreiben mit Rückschein (dauert etwas länger, kommt aber sicher an).<br><strong>UDP</strong> = Postkarte (schnell eingeworfen, aber ohne Garantie)."
+        },
+        {
+          id: "wlan-verschluesselung",
+          term: "WLAN-Verschlüsselung",
+          long: "WEP, WPA2, WPA3",
+          category: "Netzwerk",
+          definition: "Sicherheitsstandards zur Verschlüsselung von Funknetzwerken. WEP ist veraltet und unsicher. WPA2 ist Standard, WPA3 bietet den modernsten Schutz vor Brute-Force-Angriffen.",
+          mnemonic: "<strong>WEP</strong> = Kaputtes Vorhängeschloss.<br><strong>WPA3</strong> = Moderne Tresortür."
+        },
+        {
           id: "ram",
           term: "RAM",
           long: "Random Access Memory",
@@ -353,6 +393,30 @@
           category: "Hardware",
           definition: "Der Hauptprozessor eines Computers, der alle grundlegenden Berechnungen, Befehle und Steuerungsoperationen ausführt.",
           mnemonic: "Das <strong>Gehirn</strong> des Computers. Hier wird gedacht, gesteuert und gerechnet."
+        },
+        {
+          id: "usv",
+          term: "USV",
+          long: "Unterbrechungsfreie Stromversorgung",
+          category: "Hardware",
+          definition: "Ein System mit Akkumulatoren, das bei einem Stromausfall die Versorgung empfindlicher Geräte unterbrechungsfrei sichert, um Datenverlust oder Hardware-Schäden zu vermeiden.",
+          mnemonic: "Der <strong>Notstrom-Airbag</strong> für deine Server. Gewinnt Zeit für ein geordnetes Herunterfahren."
+        },
+        {
+          id: "virtualisierung",
+          term: "Virtualisierung",
+          long: "Hypervisor Typ 1 vs. Typ 2",
+          category: "Hardware",
+          definition: "Ausführung virtueller Maschinen auf einem System. Typ 1 (Bare-Metal) läuft direkt auf der Hardware (z.B. ESXi). Typ 2 (Hosted) läuft innerhalb eines Betriebssystems (z.B. VirtualBox).",
+          mnemonic: "<strong>Typ 1</strong> = Direkt auf dem Blech (schnell, für Server).<br><strong>Typ 2</strong> = Als App auf dem Windows/Linux-Desktop (für Entwickler)."
+        },
+        {
+          id: "backup-strategien",
+          term: "Backup-Strategien",
+          long: "Voll- vs. Inkrementell vs. Differentiell",
+          category: "Hardware",
+          definition: "Methoden der Datensicherung. Voll: Sichert alles. Inkrementell: Sichert Änderungen seit dem letzten Backup (spart Platz). Differentiell: Sichert Änderungen seit dem letzten Vollbackup.",
+          mnemonic: "<strong>Inkrementell</strong> = Baut aufeinander auf (Kette von Gliedern).<br><strong>Differentiell</strong> = Differenz zum großen Startpunkt (Vollbackup + das Letzte)."
         },
         {
           id: "dsgvo",
@@ -403,6 +467,54 @@
           mnemonic: "Das **Kleingedruckte**. Es darf keine überraschenden Klauseln enthalten und unterliegt der strengen AGB-Kontrolle."
         },
         {
+          id: "urheberrecht",
+          term: "Urheberrecht",
+          long: "Gesetz über Urheberrecht (UrhG)",
+          category: "Wirtschaft & Recht",
+          definition: "Schützt persönliche geistige Schöpfungen (Software, Texte, Musik) automatisch ab Erstellung. Es ist unübertragbar; übertragen werden können nur Nutzungsrechte (Lizenzen).",
+          mnemonic: "Der Schöpfer bleibt **immer** der Urheber. Du kaufst nie das Urheberrecht, sondern immer nur eine Lizenz."
+        },
+        {
+          id: "betriebsrat",
+          term: "Betriebsrat",
+          long: "Arbeitnehmervertretung",
+          category: "Wirtschaft & Recht",
+          definition: "Die gewählte Interessenvertretung der Arbeitnehmer in einem Betrieb. Besitzt gesetzliche Mitbestimmungsrechte bei sozialen, personellen und wirtschaftlichen Themen.",
+          mnemonic: "Die <strong>Schutz- und Mitsprache-Stimme</strong> der Mitarbeiter gegenüber dem Arbeitgeber."
+        },
+        {
+          id: "tarifvertrag",
+          term: "Tarifvertrag",
+          long: "Kollektivvertrag der Arbeitsbedingungen",
+          category: "Wirtschaft & Recht",
+          definition: "Ein Vertrag zwischen Gewerkschaften und Arbeitgeberverbänden, der Mindeststandards für Löhne, Arbeitszeiten und Urlaubsteile für eine gesamte Branche regelt.",
+          mnemonic: "<strong>Kollektive Verhandlungsmacht</strong>. Er gilt zwingend, sofern Arbeitnehmer und Arbeitgeber tarifgebunden sind."
+        },
+        {
+          id: "jugendarbeitsschutzgesetz",
+          term: "Jugendarbeitsschutzgesetz",
+          long: "JArbSchG (Regelungen für U18)",
+          category: "Wirtschaft & Recht",
+          definition: "Schutzgesetz für arbeitende Jugendliche unter 18 Jahren. Regelt Höchstarbeitszeiten (8 Std./Tag, 40 Std./Woche), Ruhepausen und Beschäftigungsverbote an Wochenenden.",
+          mnemonic: "<strong>U18-Sonderschutz</strong>: Berufsschulzeit ist Arbeitszeit, feste Pausenzeiten und grundsätzlich freie Wochenenden."
+        },
+        {
+          id: "datenschutzbeauftragter",
+          term: "Datenschutzbeauftragter",
+          long: "DSB (Bestellpflicht)",
+          category: "Wirtschaft & Recht",
+          definition: "Ein interner oder externer Experte, der die Einhaltung des Datenschutzes im Unternehmen überwacht. Pflicht ab 20 Mitarbeitern, die ständig automatisiert Daten verarbeiten.",
+          mnemonic: "Die magische Grenze lautet: **20 Mitarbeiter**."
+        },
+        {
+          id: "stundenverrechnungssatz",
+          term: "Stundenverrechnungssatz",
+          long: "Kostendeckender Verrechnungssatz",
+          category: "Wirtschaft & Recht",
+          definition: "Der Betrag, den ein Unternehmen einem Kunden pro geleistete Arbeitsstunde in Rechnung stellt. Setzt sich aus Fertigungslohn, Gemeinkosten und Gewinnaufschlag zusammen.",
+          mnemonic: "<strong>Formel</strong>: (Lohnkosten + Gemeinkosten) + Gewinn & Wagnisse."
+        },
+        {
           id: "bpmn",
           term: "BPMN",
           long: "Business Process Model and Notation",
@@ -435,6 +547,30 @@
           mnemonic: "Wasser fließt **nur nach unten**. Ein Zurückgehen zu einer früheren Phase ist extrem teuer und nicht vorgesehen."
         },
         {
+          id: "lastenheft-pflichtenheft",
+          term: "Lastenheft vs. Pflichtenheft",
+          long: "Anforderungsdokumentation",
+          category: "Projektmanagement",
+          definition: "Lastenheft: Was will der Auftraggeber? (Erstellt vom Kunden). Pflichtenheft: Wie setzt der Auftragnehmer dies um? (Erstellt vom Entwickler/Dienstleister).",
+          mnemonic: "Der Kunde trägt die **Last** (Wünsche) -> Lastenheft.<br>Der Entwickler hat die **Pflicht** (Umsetzung) -> Pflichtenheft."
+        },
+        {
+          id: "kanban",
+          term: "Kanban",
+          long: "Agile Methode zur Flusssteuerung",
+          category: "Projektmanagement",
+          definition: "Ein System zur Visualisierung des Workflows. Aufgaben werden auf Karten durch Spalten geschoben. Parallele Arbeit wird durch Work-in-Progress (WIP)-Limits begrenzt.",
+          mnemonic: "<strong>Kanban = Signalkarte</strong>. Fokus auf Flussoptimierung und Vermeidung von Multitasking."
+        },
+        {
+          id: "pdca-zyklus",
+          term: "PDCA-Zyklus",
+          long: "Deming-Kreis (Qualitätsmanagement)",
+          category: "Projektmanagement",
+          definition: "Ein vierstufiger, kontinuierlicher Prozess zur Qualitätsverbesserung in Unternehmen: Plan (Planen), Do (Ausführen), Check (Überprüfen), Act (Handeln/Verbessern).",
+          mnemonic: "<strong>P-D-C-A</strong>: Planen -> Machen -> Prüfen -> Verbessern."
+        },
+        {
           id: "sql",
           term: "SQL",
           long: "Structured Query Language",
@@ -449,6 +585,54 @@
           category: "Software & Entwicklung",
           definition: "Ein Akronym für fünf Design-Prinzipien der objektorientierten Programmierung zur Erstellung von wartbarem, lesbarem und erweiterbarem Code.",
           mnemonic: "<strong>S</strong>ingle Responsibility, <strong>O</strong>pen/Closed, <strong>L</strong>iskov Substitution, <strong>I</strong>nterface Segregation, <strong>D</strong>ependency Inversion. Macht deinen Code <strong>solide</strong>."
+        },
+        {
+          id: "api",
+          term: "API",
+          long: "Application Programming Interface",
+          category: "Software & Entwicklung",
+          definition: "Eine Schnittstelle, die es zwei Software-Systemen erlaubt, nach vordefinierten Regeln miteinander zu kommunizieren und Daten auszutauschen.",
+          mnemonic: "Der **Kellner im Restaurant**. Er bringt deine Bestellung zur Küche (Server) und liefert dir das Essen (Daten) zurück."
+        },
+        {
+          id: "rest-api",
+          term: "REST-API",
+          long: "Representational State Transfer API",
+          category: "Software & Entwicklung",
+          definition: "Ein zustandsloser (stateless) Architekturstil für Web-Schnittstellen. Nutzt HTTP-Standards wie GET (Lesen), POST (Erstellen), PUT (Aktualisieren) und DELETE (Löschen).",
+          mnemonic: "<strong>REST ist zustandslos</strong>: Jede Anfrage steht für sich alleine. Der Server vergisst den Client sofort nach dem Senden der Antwort."
+        },
+        {
+          id: "json-xml",
+          term: "JSON & XML",
+          long: "Datenaustausch-Formate",
+          category: "Software & Entwicklung",
+          definition: "JSON: Leichtgewichtiges Format basierend auf JavaScript-Schlüssel-Wert-Paaren. XML: Tag-basiertes Format ähnlich wie HTML, hierarchisch strukturiert.",
+          mnemonic: "<strong>JSON</strong> = Schlank und lesbar {name: 'Tom'}.<br><strong>XML</strong> = Schachtelung mit Tags &lt;name&gt;Tom&lt;/name&gt;."
+        },
+        {
+          id: "compiler-interpreter",
+          term: "Compiler vs. Interpreter",
+          long: "Quellcode-Übersetzer",
+          category: "Software & Entwicklung",
+          definition: "Compiler: Übersetzt den ganzen Quellcode vor der Ausführung in Maschinencode (z.B. C++). Interpreter: Übersetzt und führt den Code Zeile für Zeile live aus (z.B. Python).",
+          mnemonic: "<strong>Compiler</strong> = Buchübersetzer (fertigt die komplette Übersetzung an).<br><strong>Interpreter</strong> = Simultanübersetzer (spricht direkt nach)."
+        },
+        {
+          id: "git",
+          term: "Git",
+          long: "Verteiltes Versionsverwaltungssystem",
+          category: "Software & Entwicklung",
+          definition: "Ein System, das alle Änderungen in Dateien (insb. Quellcode) protokolliert. Erlaubt paralleles Arbeiten in Verzweigungen (Branches) und das Zurückrollen zu alten Ständen.",
+          mnemonic: "Die **Zeitmaschine** für deinen Code. Mit Commits erstellst du feste Speicherpunkte."
+        },
+        {
+          id: "pki",
+          term: "Asymmetrische PKI",
+          long: "Public Key Infrastructure & Kryptografie",
+          category: "Software & Entwicklung",
+          definition: "Verfahren mit Schlüsselpaaren. Der öffentliche Schlüssel (Public Key) wird zum Verschlüsseln verteilt. Nur der private Schlüssel (Private Key) kann entschlüsseln.",
+          mnemonic: "Jeder kann die Kiste mit einem **offenen Vorhängeschloss** (Public Key) zusperren. Aber nur der Empfänger hat den **Schlüssel** (Private Key), um sie zu öffnen."
         }
       ];
 
