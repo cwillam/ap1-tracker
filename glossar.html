@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glossar & Eselsbrücken | AP1 Tracker</title>
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="theme-color" content="#3b82f6" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5.0" />
+
+    <!-- Tailwind Configuration -->
+    <script src="assets/js/tailwind.js?v=2.5.0"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "dark-bg": "#020617",
+              "dark-card": "#0f172a",
+              "dark-border": "#1e293b",
+              "dark-muted": "#64748b",
+              "dark-text": "#f8fafc",
+              "dark-accent": "#3b82f6",
+              "dark-accent-hover": "#2563eb",
+              "dark-success": "#10b981",
+              "dark-warning": "#f59e0b",
+              "dark-danger": "#ef4444",
+            },
+            fontFamily: {
+              sans: [
+                "system-ui",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "Roboto",
+                "sans-serif",
+              ],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .fade-in {
+        animation: fadeIn 0.4s ease-out forwards;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Custom scrollbar for horizontal categories on mobile */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white"
+  >
+    <!-- Header -->
+    <header
+      class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50"
+    >
+      <div
+        class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between"
+      >
+        <a
+          href="index.html"
+          class="flex items-center gap-3 group hover:opacity-80 transition-opacity"
+        >
+          <div
+            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors"
+          >
+            <i
+              data-lucide="arrow-left"
+              class="text-dark-muted group-hover:text-dark-accent transition-colors w-4 h-4"
+            ></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-lg tracking-tight leading-none"
+              >AP1 Tracker</span
+            >
+            <span class="text-[10px] text-dark-muted font-mono"
+              >Zurück zum Dashboard</span
+            >
+          </div>
+        </a>
+
+        <div class="flex items-center gap-2">
+          <a
+            href="help.html"
+            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center hover:border-dark-accent transition-colors text-dark-muted hover:text-white"
+            title="Hilfe & FAQ"
+          >
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+          </a>
+          <span
+            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
+            >v2.5.0</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-8">
+      <!-- Intro Section -->
+      <div class="text-center mb-8 fade-in">
+        <h1
+          class="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-dark-accent to-indigo-400 bg-clip-text text-transparent mb-3 pb-1 leading-tight flex items-center justify-center gap-3"
+        >
+          <i data-lucide="brain" class="text-dark-accent w-8 h-8"></i>
+          Glossar &amp; Eselsbrücken
+        </h1>
+        <p class="text-dark-muted max-w-lg mx-auto text-sm md:text-base">
+          Das schnelle Nachschlagewerk für wichtige IHK-Abkürzungen, Rechtsbegriffe und clevere Gedächtnishilfen zur Prüfungsvorbereitung.
+        </p>
+      </div>
+
+      <!-- Control Panel -->
+      <div class="bg-dark-card border border-dark-border rounded-2xl p-4 md:p-6 mb-6 fade-in shadow-xl">
+        <!-- Search bar -->
+        <div class="relative w-full mb-4">
+          <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-dark-muted w-4 h-4"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Begriff oder Abkürzung suchen (z.B. OSI, DHCP)..."
+            class="w-full pl-10 pr-4 py-2.5 bg-dark-bg border border-dark-border rounded-xl text-dark-text placeholder:text-dark-muted focus:outline-none focus:border-dark-accent/60 transition-all text-sm"
+          />
+        </div>
+
+        <!-- Categories horizontal scroll -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1.5 mb-4 text-xs font-bold border-b border-dark-border/40">
+          <button onclick="glossaryApp.setCategory('all')" id="cat-all" class="px-3 py-1.5 rounded-lg bg-dark-accent text-white transition-all shrink-0">
+            Alle
+          </button>
+          <button onclick="glossaryApp.setCategory('favorites')" id="cat-favorites" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0 flex items-center gap-1">
+            <i data-lucide="star" class="w-3 h-3 text-dark-warning fill-dark-warning"></i> Favoriten
+          </button>
+          <button onclick="glossaryApp.setCategory('Netzwerk')" id="cat-Netzwerk" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Netzwerk
+          </button>
+          <button onclick="glossaryApp.setCategory('Hardware')" id="cat-Hardware" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Hardware
+          </button>
+          <button onclick="glossaryApp.setCategory('Wirtschaft & Recht')" id="cat-Wirtschaft" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Wirtschaft &amp; Recht
+          </button>
+          <button onclick="glossaryApp.setCategory('Software & Entwicklung')" id="cat-Software" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Software &amp; Dev
+          </button>
+          <button onclick="glossaryApp.setCategory('Projektmanagement')" id="cat-Projektmanagement" class="px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0">
+            Projektmanagement
+          </button>
+        </div>
+
+        <!-- A-Z Alphabet Filter -->
+        <div class="flex flex-wrap items-center justify-center gap-1.5 text-xs font-mono">
+          <button onclick="glossaryApp.setLetter('all')" id="let-all" class="px-2 py-1 rounded bg-dark-bg border border-dark-border text-dark-muted hover:border-dark-accent hover:text-white transition-all font-sans font-bold">
+            A-Z
+          </button>
+          <!-- Alphabet Letters A-Z dynamically created or written -->
+          <script>
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+            letters.forEach(l => {
+              document.write(`
+                <button onclick="glossaryApp.setLetter('${l}')" id="let-${l}" class="w-6 h-6 flex items-center justify-center rounded bg-dark-bg border border-dark-border text-dark-muted hover:border-dark-accent hover:text-white transition-all">
+                  ${l}
+                </button>
+              `);
+            });
+          </script>
+        </div>
+      </div>
+
+      <!-- Stats counter -->
+      <div class="flex items-center justify-between mb-4 px-2 text-xs font-bold text-dark-muted fade-in">
+        <span id="statsText">Lade Begriffe...</span>
+        <button onclick="glossaryApp.resetFilters()" class="text-dark-accent hover:underline hover:text-dark-accent-hover transition-colors">
+          Filter zurücksetzen
+        </button>
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="termsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4 fade-in">
+        <!-- Cards injected dynamically by JS -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="hidden flex flex-col items-center justify-center text-center py-16 bg-dark-card border border-dark-border border-dashed rounded-2xl p-6 fade-in">
+        <i data-lucide="search" class="w-12 h-12 text-dark-muted mb-4"></i>
+        <h3 class="text-lg font-bold mb-1">Keine Einträge gefunden</h3>
+        <p class="text-sm text-dark-muted max-w-sm mb-4">
+          Probier einen anderen Suchbegriff oder setze die Filter zurück.
+        </p>
+        <button onclick="glossaryApp.resetFilters()" class="px-4 py-2 bg-dark-accent hover:bg-dark-accent-hover text-white text-xs font-bold rounded-lg transition-colors">
+          Alle Filter zurücksetzen
+        </button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-dark-border bg-dark-bg py-8 mt-12 text-xs text-dark-muted">
+      <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex flex-col items-center sm:items-start gap-1">
+          <div class="flex items-center gap-1.5 font-bold text-dark-text">
+            <span>© 2026 Christoph Willam</span>
+          </div>
+          <span>IHK-Prüfungsvorbereitung (AP1 &amp; AP2)</span>
+        </div>
+        <div class="flex items-center gap-4 flex-wrap justify-center font-bold">
+          <a href="https://github.com/cwillam" target="_blank" class="hover:text-white transition flex items-center gap-1.5">
+            <i data-lucide="code-2" class="w-3.5 h-3.5"></i> GitHub
+          </a>
+          <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="hover:text-[#5865F2] transition flex items-center gap-1.5">
+            <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Discord
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Lucide icons -->
+    <script src="assets/js/lucide.min.js?v=2.5.0"></script>
+
+    <!-- Glossary App Logic -->
+    <script>
+      // Database of 25 terms for AP1 Tracker
+      const glossaryData = [
+        {
+          id: "osi-modell",
+          term: "OSI-Modell",
+          long: "Open Systems Interconnection Model",
+          category: "Netzwerk",
+          definition: "Ein theoretisches Schichtenmodell, das die Kommunikation zwischen verschiedenen technischen Systemen in sieben aufeinanderfolgenden Schichten (von der Bitübertragung bis zur Anwendung) beschreibt.",
+          mnemonic: "<strong>Alle Deutschen Schüler Trinken Cola Nach Prüfungen</strong><br>(Anwendung, Darstellung, Sitzung, Transport, Vermittlung, Sicherung, Bitübertragung)"
+        },
+        {
+          id: "dhcp",
+          term: "DHCP",
+          long: "Dynamic Host Configuration Protocol",
+          category: "Netzwerk",
+          definition: "Ein Netzwerkprotokoll, das die automatische Zuweisung von IP-Adressen, Subnetzmasken und Standard-Gateways an Clients in einem Netzwerk ermöglicht.",
+          mnemonic: "<strong>D</strong>ynamic <strong>H</strong>ost <strong>C</strong>onfiguration: Der Host (dein PC) wird völlig <strong>dynamisch</strong> beim Starten konfiguriert."
+        },
+        {
+          id: "dns",
+          term: "DNS",
+          long: "Domain Name System",
+          category: "Netzwerk",
+          definition: "Der Verzeichnisdienst des Internets, der menschenlesbare Domainnamen (z.B. google.de) in maschinenlesbare IP-Adressen (z.B. 142.250.185.67) übersetzt.",
+          mnemonic: "Das <strong>Telefonbuch des Internets</strong>. Du tippst den Namen ein, das DNS sucht die Telefonnummer (IP) heraus."
+        },
+        {
+          id: "vlan",
+          term: "VLAN",
+          long: "Virtual Local Area Network",
+          category: "Netzwerk",
+          definition: "Ein logisches Teilnetzwerk innerhalb eines physischen Netzwerks. Es trennt den Datenverkehr auf Schicht 2 (Sicherungsschicht) zur Erhöhung von Sicherheit und Performance.",
+          mnemonic: "<strong>V wie Virtuell</strong>: Du zerschneidest ein physisches Kabel logisch per Software, um Abteilungen voneinander zu trennen."
+        },
+        {
+          id: "ip-adresse",
+          term: "IP-Adresse",
+          long: "Internet Protocol Address",
+          category: "Netzwerk",
+          definition: "Eine eindeutige Adresse, die Geräten in einem IP-Netzwerk zugewiesen wird, um sie adressierbar und damit erreichbar zu machen.",
+          mnemonic: "Die <strong>Postanschrift</strong> deines Computers. Ohne Hausnummer (IP) weiß der Postbote nicht, wo er das Datenpaket abgeben soll."
+        },
+        {
+          id: "subnetzmaske",
+          term: "Subnetzmaske",
+          long: "Subnet Mask",
+          category: "Netzwerk",
+          definition: "Eine Bitmaske, die im IPv4-Protokoll bestimmt, welcher Teil einer IP-Adresse das Netzwerk-Segment und welcher Teil das Host-Segment darstellt.",
+          mnemonic: "Die <strong>255er</strong> markieren die <strong>Straße</strong> (Netzbereich), die <strong>0er</strong> markieren die <strong>Hausnummer</strong> (Hostbereich)."
+        },
+        {
+          id: "mac-adresse",
+          term: "MAC-Adresse",
+          long: "Media Access Control Address",
+          category: "Netzwerk",
+          definition: "Die eindeutige physische Hardwareadresse eines Netzwerkadapters, die zur Adressierung auf Schicht 2 des OSI-Modells dient.",
+          mnemonic: "Der unveränderliche <strong>Fingerabdruck</strong> deines Netzwerkgeräts – weltweit nur einmal vergeben."
+        },
+        {
+          id: "router",
+          term: "Router",
+          long: "Netzwerk-Kopplungselement (Schicht 3)",
+          category: "Netzwerk",
+          definition: "Ein Netzwerkgerät, das Datenpakete zwischen verschiedenen logischen IP-Netzwerken weiterleitet (Routing) und den optimalen Weg ermittelt.",
+          mnemonic: "Der <strong>Postbote</strong>, der Briefe in andere Städte (Netze) transportiert. Er vermittelt zwischen fremden Welten."
+        },
+        {
+          id: "switch",
+          term: "Switch",
+          long: "Netzwerk-Verteiler (Schicht 2)",
+          category: "Netzwerk",
+          definition: "Ein Kopplungselement, das Datenpakete innerhalb eines lokalen Netzwerks (LAN) anhand der MAC-Adresse gezielt an den richtigen Empfänger weiterleitet.",
+          mnemonic: "Der <strong>intelligente Verteiler im Haus</strong>. Er schickt das Paket nur an die Tür des Empfängers, nicht an alle (wie ein Hub)."
+        },
+        {
+          id: "ram",
+          term: "RAM",
+          long: "Random Access Memory",
+          category: "Hardware",
+          definition: "Der flüchtige Arbeitsspeicher eines Computers, der aktuell ausgeführte Programme und deren Daten temporär vorhält. Beim Ausschalten geht der Inhalt verloren.",
+          mnemonic: "Dein <strong>Schreibtisch</strong>. Je größer er ist, desto mehr Akten (Programme) kannst du gleichzeitig nebeneinander geöffnet haben."
+        },
+        {
+          id: "ssd",
+          term: "SSD",
+          long: "Solid State Drive",
+          category: "Hardware",
+          definition: "Ein elektronisches Speichermedium ohne bewegliche Teile, das Daten auf Flash-Speicherchips sichert und sehr schnelle Lese- und Schreibzugriffe bietet.",
+          mnemonic: "<strong>Solid</strong> bedeutet fest. Da rotiert keine mechanische Nadel mehr wie bei einer klassischen Festplatte (HDD)."
+        },
+        {
+          id: "raid",
+          term: "RAID",
+          long: "Redundant Array of Independent Disks",
+          category: "Hardware",
+          definition: "Ein System zur Kombination mehrerer physischer Festplatten zu einem logischen Laufwerk, um Ausfallsicherheit (Redundanz) oder Performance zu steigern.",
+          mnemonic: "<strong>RAID 0</strong> = Zero Redundanz (nur Speed). <strong>RAID 1</strong> = Eins-zu-Eins gespiegelt (Sicherheit). <strong>RAID 5</strong> = Drei oder mehr Platten mit Parität."
+        },
+        {
+          id: "cpu",
+          term: "CPU",
+          long: "Central Processing Unit",
+          category: "Hardware",
+          definition: "Der Hauptprozessor eines Computers, der alle grundlegenden Berechnungen, Befehle und Steuerungsoperationen ausführt.",
+          mnemonic: "Das <strong>Gehirn</strong> des Computers. Hier wird gedacht, gesteuert und gerechnet."
+        },
+        {
+          id: "dsgvo",
+          term: "DSGVO",
+          long: "Datenschutz-Grundverordnung",
+          category: "Wirtschaft & Recht",
+          definition: "Eine EU-Verordnung zur Vereinheitlichung des Datenschutzrechts. Sie regelt die Verarbeitung personenbezogener Daten und schützt die Privatsphäre der Bürger.",
+          mnemonic: "<strong>Personenbezogene Daten</strong> (Name, IP, E-Mail) gehören immer dem Bürger, nicht dem Unternehmen!"
+        },
+        {
+          id: "uwg",
+          term: "UWG",
+          long: "Gesetz gegen den unlauteren Wettbewerb",
+          category: "Wirtschaft & Recht",
+          definition: "Ein Gesetz zum Schutz von Mitbewerbern, Verbrauchern und sonstigen Marktteilnehmern vor unfairen Praktiken (z.B. irreführender Werbung oder aggressivem Marketing).",
+          mnemonic: "<strong>Unlauter = Unfair</strong>. Es sichert ein faires Spiel im Markt."
+        },
+        {
+          id: "bgb",
+          term: "BGB",
+          long: "Bürgerliches Gesetzbuch",
+          category: "Wirtschaft & Recht",
+          definition: "Die wichtigste Kodifikation des deutschen Zivilrechts. Es regelt Rechtsgeschäfte und Pflichten zwischen gleichgestellten Privatpersonen (Bürgern).",
+          mnemonic: "<strong>B</strong>ürger <strong>g</strong>egen <strong>B</strong>ürger. Regelt Kaufverträge, Miete, Eigentum im Alltag."
+        },
+        {
+          id: "hgb",
+          term: "HGB",
+          long: "Handelsgesetzbuch",
+          category: "Wirtschaft & Recht",
+          definition: "Das Sonderprivatrecht für Kaufleute in Deutschland. Es gilt ergänzend zum BGB und enthält vereinfachte, schnellere Regeln für den Handelsverkehr.",
+          mnemonic: "Das Gesetzbuch für **Kaufleute** (Unternehmer). Wer Kaufmann ist, muss sich an die strengeren HGB-Regeln halten."
+        },
+        {
+          id: "kaufvertrag",
+          term: "Kaufvertrag",
+          long: "Rechtsgeschäft nach § 433 BGB",
+          category: "Wirtschaft & Recht",
+          definition: "Ein zweiseitig verpflichtendes Rechtsgeschäft, das durch zwei übereinstimmende Willenserklärungen (Antrag und Annahme) zustande kommt.",
+          mnemonic: "Die **2 Ws**: Zwei übereinstimmende Willenserklärungen. Es begründet Pflichten für Käufer (Zahlen, Abnehmen) und Verkäufer (Liefern)."
+        },
+        {
+          id: "agb",
+          term: "AGB",
+          long: "Allgemeine Geschäftsbedingungen",
+          category: "Wirtschaft & Recht",
+          definition: "Vorformulierte Vertragsbedingungen für eine Vielzahl von Verträgen, die eine Partei der anderen bei Vertragsabschluss stellt, um Abläufe zu vereinheitlichen.",
+          mnemonic: "Das **Kleingedruckte**. Es darf keine überraschenden Klauseln enthalten und unterliegt der strengen AGB-Kontrolle."
+        },
+        {
+          id: "bpmn",
+          term: "BPMN",
+          long: "Business Process Model and Notation",
+          category: "Projektmanagement",
+          definition: "Ein standardisiertes grafisches Modellierungswerkzeug zur Dokumentation und Analyse von Geschäftsprozessen.",
+          mnemonic: "<strong>Pools</strong> = Gesamte Firmen. <strong>Lanes</strong> = Abteilungen oder Rollen innerhalb einer Firma. <strong>Tasks</strong> = Die Aktionen."
+        },
+        {
+          id: "epk",
+          term: "EPK",
+          long: "Ereignisgesteuerte Prozesskette",
+          category: "Projektmanagement",
+          definition: "Eine Methode zur Darstellung von Geschäftsprozessen. Ein Prozess besteht aus einer abwechselnden Kette von Ereignissen (Sechseck) und Funktionen (Rechteck).",
+          mnemonic: "<strong>Ereignis</strong> (Zustand) -> <strong>Funktion</strong> (Aktion) -> <strong>Ereignis</strong>. Niemals dürfen zwei Ereignisse oder zwei Funktionen direkt folgen."
+        },
+        {
+          id: "scrum",
+          term: "Scrum",
+          long: "Agiles Projektmanagement-Framework",
+          category: "Projektmanagement",
+          definition: "Ein agiles Framework zur Softwareentwicklung, das auf Sprints (1-4 Wochen), täglichen kurzen Stand-ups und festen Rollen (Scrum Master, Product Owner, Team) beruht.",
+          mnemonic: "<strong>Gedränge beim Rugby</strong> (Scrum): Das Team arbeitet eng verzahnt und schiebt das Projekt inkrementell vorwärts."
+        },
+        {
+          id: "wasserfallmodell",
+          term: "Wasserfallmodell",
+          long: "Klassisches Vorgehensmodell",
+          category: "Projektmanagement",
+          definition: "Ein lineares, nicht-iteratives Vorgehensmodell für IT-Projekte, bei dem jede Phase (Analyse, Design, Code, Test) vor der nächsten komplett abgeschlossen sein muss.",
+          mnemonic: "Wasser fließt **nur nach unten**. Ein Zurückgehen zu einer früheren Phase ist extrem teuer und nicht vorgesehen."
+        },
+        {
+          id: "sql",
+          term: "SQL",
+          long: "Structured Query Language",
+          category: "Software & Entwicklung",
+          definition: "Eine standardisierte Datenbanksprache zur Abfrage, Strukturierung, Definition und Manipulation von relationalen Datenbanksystemen.",
+          mnemonic: "<strong>SELECT</strong> (Was will ich?) <br><strong>FROM</strong> (Welche Tabelle?) <br><strong>WHERE</strong> (Welche Bedingung gilt?)"
+        },
+        {
+          id: "solid",
+          term: "SOLID",
+          long: "Die 5 OOP-Design-Prinzipien",
+          category: "Software & Entwicklung",
+          definition: "Ein Akronym für fünf Design-Prinzipien der objektorientierten Programmierung zur Erstellung von wartbarem, lesbarem und erweiterbarem Code.",
+          mnemonic: "<strong>S</strong>ingle Responsibility, <strong>O</strong>pen/Closed, <strong>L</strong>iskov Substitution, <strong>I</strong>nterface Segregation, <strong>D</strong>ependency Inversion. Macht deinen Code <strong>solide</strong>."
+        }
+      ];
+
+      // Glossary Application state and logic
+      class GlossaryApp {
+        constructor(data) {
+          this.data = data;
+          this.currentCategory = "all";
+          this.currentLetter = "all";
+          this.favorites = this.loadFavorites();
+          
+          this.initElements();
+          this.initEvents();
+          this.render();
+        }
+
+        initElements() {
+          this.container = document.getElementById("termsContainer");
+          this.searchInput = document.getElementById("searchInput");
+          this.emptyState = document.getElementById("emptyState");
+          this.statsText = document.getElementById("statsText");
+        }
+
+        initEvents() {
+          this.searchInput.addEventListener("input", () => this.render());
+        }
+
+        loadFavorites() {
+          try {
+            const favs = localStorage.getItem("ap1_glossary_favorites");
+            return favs ? JSON.parse(favs) : [];
+          } catch (e) {
+            return [];
+          }
+        }
+
+        saveFavorites() {
+          localStorage.setItem("ap1_glossary_favorites", JSON.stringify(this.favorites));
+        }
+
+        toggleFavorite(id) {
+          const index = this.favorites.indexOf(id);
+          if (index === -1) {
+            this.favorites.push(id);
+          } else {
+            this.favorites.splice(index, 1);
+          }
+          this.saveFavorites();
+          this.render();
+        }
+
+        setCategory(cat) {
+          this.currentCategory = cat;
+          
+          // Update active button state
+          const buttons = document.querySelectorAll("[id^='cat-']");
+          buttons.forEach(btn => {
+            if (btn.id === `cat-${cat === 'favorites' ? 'favorites' : cat.replace(" & ", "").replace(" ", "")}`) {
+              btn.className = "px-3 py-1.5 rounded-lg bg-dark-accent text-white transition-all shrink-0";
+            } else {
+              if (btn.id === 'cat-favorites') {
+                btn.className = "px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0 flex items-center gap-1";
+              } else {
+                btn.className = "px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-dark-muted hover:text-white transition-all shrink-0";
+              }
+            }
+          });
+
+          this.render();
+        }
+
+        setLetter(letter) {
+          this.currentLetter = letter;
+
+          // Update active button state
+          const buttons = document.querySelectorAll("[id^='let-']");
+          buttons.forEach(btn => {
+            if (btn.id === `let-${letter}`) {
+              btn.className = btn.id === 'let-all' 
+                ? "px-2 py-1 rounded bg-dark-accent border border-dark-accent text-white transition-all font-sans font-bold"
+                : "w-6 h-6 flex items-center justify-center rounded bg-dark-accent border border-dark-accent text-white transition-all";
+            } else {
+              btn.className = btn.id === 'let-all'
+                ? "px-2 py-1 rounded bg-dark-bg border border-dark-border text-dark-muted hover:border-dark-accent hover:text-white transition-all font-sans font-bold"
+                : "w-6 h-6 flex items-center justify-center rounded bg-dark-bg border border-dark-border text-dark-muted hover:border-dark-accent hover:text-white transition-all";
+            }
+          });
+
+          this.render();
+        }
+
+        resetFilters() {
+          this.searchInput.value = "";
+          this.setCategory("all");
+          this.setLetter("all");
+        }
+
+        getCategoryStyles(category) {
+          switch (category) {
+            case "Netzwerk":
+              return "bg-blue-500/10 text-blue-400 border border-blue-500/20";
+            case "Hardware":
+              return "bg-purple-500/10 text-purple-400 border border-purple-500/20";
+            case "Wirtschaft & Recht":
+              return "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            case "Software & Entwicklung":
+              return "bg-pink-500/10 text-pink-400 border border-pink-500/20";
+            case "Projektmanagement":
+              return "bg-amber-500/10 text-amber-400 border border-amber-500/20";
+            default:
+              return "bg-dark-muted/10 text-dark-muted border border-dark-border";
+          }
+        }
+
+        render() {
+          const searchQuery = this.searchInput.value.toLowerCase().trim();
+          
+          // Filter data
+          const filtered = this.data.filter(item => {
+            // Category filter
+            if (this.currentCategory === "favorites") {
+              if (!this.favorites.includes(item.id)) return false;
+            } else if (this.currentCategory !== "all" && item.category !== this.currentCategory) {
+              return false;
+            }
+
+            // Letter filter (first letter of term)
+            if (this.currentLetter !== "all" && item.term.charAt(0).toUpperCase() !== this.currentLetter) {
+              return false;
+            }
+
+            // Search query filter
+            if (searchQuery) {
+              const inTerm = item.term.toLowerCase().includes(searchQuery);
+              const inLong = item.long.toLowerCase().includes(searchQuery);
+              const inDef = item.definition.toLowerCase().includes(searchQuery);
+              return inTerm || inLong || inDef;
+            }
+
+            return true;
+          });
+
+          // Sort alphabetically
+          filtered.sort((a, b) => a.term.localeCompare(b.term));
+
+          // Render stats
+          this.statsText.textContent = `${filtered.length} von ${this.data.length} Begriffen angezeigt`;
+
+          // Handle empty state
+          if (filtered.length === 0) {
+            this.container.innerHTML = "";
+            this.emptyState.classList.remove("hidden");
+            return;
+          } else {
+            this.emptyState.classList.add("hidden");
+          }
+
+          // Build HTML cards
+          this.container.innerHTML = filtered.map(item => {
+            const isFav = this.favorites.includes(item.id);
+            const catClass = this.getCategoryStyles(item.category);
+            
+            return `
+              <div class="bg-dark-card border border-dark-border rounded-xl p-5 hover:border-dark-accent/40 transition-all flex flex-col justify-between shadow-md">
+                <div>
+                  <div class="flex items-start justify-between gap-4 mb-2">
+                    <div class="flex flex-col">
+                      <h2 class="text-xl font-bold text-white tracking-tight">${item.term}</h2>
+                      <span class="text-xs text-dark-muted font-mono leading-tight mt-0.5">${item.long}</span>
+                    </div>
+                    <button 
+                      onclick="glossaryApp.toggleFavorite('${item.id}')" 
+                      class="text-dark-muted hover:text-dark-warning transition-colors"
+                      title="${isFav ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}"
+                    >
+                      <i data-lucide="star" class="w-4 h-4 ${isFav ? 'text-dark-warning fill-dark-warning' : ''}"></i>
+                    </button>
+                  </div>
+                  
+                  <span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full ${catClass} mb-3.5">
+                    ${item.category}
+                  </span>
+
+                  <p class="text-slate-300 text-sm leading-relaxed">${item.definition}</p>
+                </div>
+
+                <!-- Mnemonic Box -->
+                ${item.mnemonic ? `
+                  <div class="mt-4 p-3 bg-dark-bg/60 border border-dark-warning/10 rounded-lg flex items-start gap-2.5">
+                    <i data-lucide="lightbulb" class="w-4 h-4 text-dark-warning shrink-0 mt-0.5"></i>
+                    <div class="text-xs text-slate-400 leading-normal font-sans">
+                      <span class="font-bold text-dark-warning">Eselsbrücke:</span><br>
+                      ${item.mnemonic}
+                    </div>
+                  </div>
+                ` : ""}
+              </div>
+            `;
+          }).join("");
+
+          // Re-create icons via Lucide
+          if (window.lucide) {
+            lucide.createIcons();
+          }
+        }
+      }
+
+      // Initialize the App
+      const glossaryApp = new GlossaryApp(glossaryData);
+    </script>
+  </body>
+</html>
