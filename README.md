@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.5.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.6.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
@@ -36,6 +36,7 @@ Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwend
 - **Import/Export:** JSON-basierte Backup-Funktion der eigenen Daten.
 - **Lernkarten:** 1.228 Karten für alle 27 Themen (Anki-Style mit Strategie-Modus und Tastatur-Shortcuts).
 - **Safety-Fixes:** Import-Validierung, Storage-Monitoring, Corrupt-Data-Protection.
+- **Glossar & Eselsbrücken:** Interaktiver, offline-fähiger Spickzettel für 100 IHK-Fachbegriffe mit Merkhilfen, Kategorie- und Buchstabensuche sowie Merkliste.
 
 ---
 
@@ -65,6 +66,13 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 ---
 
 ## Changelog
+
+### v2.6.0 (4. August 2026)
+
+- **Glossar & Eselsbrücken:** Neue Übersichtsseite (`glossar.html`) mit 100 wichtigen Begriffen und einprägsamen Gedächtnishilfen für die Prüfung.
+- **Kategorie- & Buchstabensuche:** Responsiver Filter mit Dropdown auf Mobilgeräten und Wrapped-Pills auf Desktop zur Vermeidung von Überläufen.
+- **Favoriten-Merkliste:** Nutzer können Begriffe als Favoriten markieren – dank LocalStorage bleibt die Auswahl dauerhaft gespeichert.
+- **Discord-Server:** Promotion-Button zur Integration der neuen Lern-Community.
 
 ### v2.5.0 (27. Juli 2026)
 

@@ -101,7 +101,7 @@
           </div>
           <div class="flex flex-col">
             <span class="font-bold text-lg tracking-tight leading-none"
-              >AP1 Tracker</span
+              >AP1 <span class="text-dark-accent">Tracker</span></span
             >
             <span class="text-[10px] text-dark-muted font-mono"
               >Zurück zum Dashboard</span
@@ -129,10 +129,12 @@
     <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-8">
       <!-- Intro Section -->
       <div class="text-center mb-8 fade-in">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-dark-accent/10 border border-dark-accent/25 mb-4 shadow-lg shadow-dark-accent/5">
+          <i data-lucide="brain" class="text-dark-accent w-6 h-6"></i>
+        </div>
         <h1
-          class="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-dark-accent to-indigo-400 bg-clip-text text-transparent mb-3 pb-1 leading-tight flex items-center justify-center gap-3"
+          class="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-3 pb-1 leading-tight"
         >
-          <i data-lucide="brain" class="text-dark-accent w-8 h-8"></i>
           Glossar &amp; Eselsbrücken
         </h1>
         <p class="text-dark-muted max-w-lg mx-auto text-sm md:text-base">
@@ -153,8 +155,31 @@
           />
         </div>
 
-        <!-- Categories horizontal scroll -->
-        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1.5 mb-4 text-xs font-bold border-b border-dark-border/40">
+        <!-- Mobile/Tablet Dropdown Category Filter -->
+        <div class="block md:hidden mb-4 relative">
+          <label for="categorySelect" class="block text-xs font-bold text-dark-muted mb-1.5 uppercase tracking-wider">Kategorie filtern</label>
+          <div class="relative">
+            <select
+              id="categorySelect"
+              onchange="glossaryApp.setCategory(this.value)"
+              class="w-full pl-3 pr-10 py-2.5 bg-dark-bg border border-dark-border rounded-xl text-dark-text appearance-none focus:outline-none focus:border-dark-accent/60 transition-all text-sm font-bold focus:ring-1 focus:ring-dark-accent/30"
+            >
+              <option value="all">Alle Kategorien</option>
+              <option value="favorites">⭐ Favoriten</option>
+              <option value="Netzwerk">Netzwerk</option>
+              <option value="Hardware">Hardware</option>
+              <option value="Wirtschaft & Recht">Wirtschaft &amp; Recht</option>
+              <option value="Software & Entwicklung">Software &amp; Dev</option>
+              <option value="Projektmanagement">Projektmanagement</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-dark-muted">
+              <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop Categories wrapped list -->
+        <div class="hidden md:flex flex-wrap items-center gap-2 pb-3 mb-4 text-xs font-bold border-b border-dark-border/40">
           <button onclick="glossaryApp.setCategory('all')" id="cat-all" class="px-3 py-1.5 rounded-lg bg-dark-accent text-white transition-all shrink-0">
             Alle
           </button>
@@ -633,6 +658,422 @@
           category: "Software & Entwicklung",
           definition: "Verfahren mit Schlüsselpaaren. Der öffentliche Schlüssel (Public Key) wird zum Verschlüsseln verteilt. Nur der private Schlüssel (Private Key) kann entschlüsseln.",
           mnemonic: "Jeder kann die Kiste mit einem **offenen Vorhängeschloss** (Public Key) zusperren. Aber nur der Empfänger hat den **Schlüssel** (Private Key), um sie zu öffnen."
+        },
+        {
+          id: "http-https",
+          term: "HTTP vs. HTTPS",
+          long: "Hypertext Transfer Protocol (Secure)",
+          category: "Netzwerk",
+          definition: "Protokolle zur Übertragung von Webseitendaten. HTTP überträgt unverschlüsselt (Klartext, Port 80). HTTPS verschlüsselt den Verkehr über TLS/SSL (Port 443) zum Schutz vor Abhören.",
+          mnemonic: "Das **S** in HTTPS steht für **Sicher** (Port 443). Ohne S kann jeder im Café deine Passwörter mitlesen."
+        },
+        {
+          id: "ipv6-dual-stack",
+          term: "IPv6 Dual-Stack",
+          long: "Simultane IPv4- & IPv6-Nutzung",
+          category: "Netzwerk",
+          definition: "Ein Übergangsverfahren von IPv4 auf IPv6, bei dem Netzwerkgeräte und Betriebssysteme beide Protokollstapel gleichzeitig implementieren und parallel nutzen können.",
+          mnemonic: "Zwei-Gleis-Schienennetz: Züge (Pakete) können sowohl auf der alten Trasse (IPv4) als auch auf der neuen Schnellfahrstrecke (IPv6) parallel fahren."
+        },
+        {
+          id: "sql-injection-ap1",
+          term: "SQL-Injection (SQLi)",
+          long: "Einschleusung von Datenbankbefehlen",
+          category: "Software & Entwicklung",
+          definition: "Eine Sicherheitslücke, bei der Angreifer schädlichen SQL-Code über Benutzereingaben einschleusen, um unbefugt Daten auszulesen, zu manipulieren oder DB-Befehle auszuführen.",
+          mnemonic: "Eingabe im Login-Feld: `' OR 1=1 --`. Das hebelt die Abfrage aus, da `1=1` immer wahr ist und der Rest auskommentiert wird."
+        },
+        {
+          id: "struktogramm",
+          term: "Struktogramm",
+          long: "Nassi-Shneiderman-Diagramm",
+          category: "Projekt & Modellierung",
+          definition: "Ein Entwurfselement für Software zur Visualisierung von Programmstrukturen und Algorithmen. Es nutzt geschachtelte Boxen statt Pfeilen zur Darstellung von Sequenzen, Selektionen und Schleifen.",
+          mnemonic: "Strukturierte Kästen statt Spaghetti-Pfeilen. Jedes Kontrollstrukturen-Konstrukt hat seine eigene feste Form (z.B. der Trichter für IF-ELSE)."
+        },
+        {
+          id: "use-case-diagramm",
+          term: "UML-Anwendungsfalldiagramm",
+          long: "Use Case Diagram",
+          category: "Projekt & Modellierung",
+          definition: "Ein UML-Strukturdiagramm zur Darstellung des erwarteten Verhaltens eines Systems aus Sicht der Akteure (Benutzer oder Fremdsysteme) und deren Interaktionen.",
+          mnemonic: "Strichmännchen und Ovale: Wer (Akteur) tut was (Use Case) mit dem System (Systemgrenze)?"
+        },
+        {
+          id: "prozess-cpu",
+          term: "Prozess vs. Thread",
+          long: "Ausführungseinheiten im Betriebssystem",
+          category: "Hardware & Infrastruktur",
+          definition: "Prozess: Ein laufendes Programm mit eigenem Speicherbereich. Thread: Eine Ausführungseinheit innerhalb eines Prozesses, die sich den Speicher mit anderen Threads desselben Prozesses teilt.",
+          mnemonic: "Prozess = Eigene Fabrikhalle (eigener Adressraum). Thread = Arbeiter in der Halle (teilen sich Werkzeug und Material)."
+        },
+        {
+          id: "alu",
+          term: "ALU",
+          long: "Arithmetic Logic Unit (Rechenwerk)",
+          category: "Hardware & Infrastruktur",
+          definition: "Ein funktionaler Bestandteil des Hauptprozessors (CPU), der arithmetische (Addition, Subtraktion) und logische (AND, OR, NOT) Berechnungen ausführt.",
+          mnemonic: "Die **Rechenmaschine** der CPU. Sie tut nichts anderes als pure Mathe und Logik-Gatter schalten."
+        },
+        {
+          id: "garantie-gewaehrleistung",
+          term: "Garantie vs. Gewährleistung",
+          long: "Käuferrechte bei Sachmängeln",
+          category: "Wirtschaft & Recht",
+          definition: "Gewährleistung: Gesetzliche Pflicht des Händlers, 24 Monate für Mängel zu haften, die bei Übergabe bestanden. Garantie: Freiwillige Zusage (meist des Herstellers) über die Funktionsdauer.",
+          mnemonic: "**Ge**währleistung = Gesetzlich (24 Monate Haftung). **Ga**rantie = Herstellers **Ga**udi (freiwilliges Versprechen)."
+        },
+        {
+          id: "soziale-marktwirtschaft",
+          term: "Soziale Marktwirtschaft",
+          long: "Wirtschaftsordnung der BRD",
+          category: "Wirtschaft & Recht",
+          definition: "Ein Wirtschaftssystem, das die Freiheit des Marktes (Wettbewerb, Angebot und Nachfrage) mit sozialem Ausgleich (Sozialversicherungen, Kündigungsschutz, Kartellrecht) verbindet.",
+          mnemonic: "**So viel Markt wie möglich, so viel Staat wie nötig** zum Schutz der Schwächeren."
+        },
+        {
+          id: "datenschutz-sicherheit",
+          term: "Datenschutz vs. Datensicherheit",
+          long: "Abgrenzung im IT-Recht",
+          category: "Wirtschaft & Recht",
+          definition: "Datenschutz: Schutz personenbezogener Daten vor Missbrauch durch Dritte (Recht auf informationelle Selbstbestimmung). Datensicherheit: Schutz jeglicher Daten vor Verlust, Diebstahl und Zerstörung (technisch).",
+          mnemonic: "Datenschutz regelt das **Dürfen** (Gesetze wie DSGVO). Datensicherheit regelt das **Können** (Verschlüsselung, Backups)."
+        },
+        {
+          id: "client-server",
+          term: "Client-Server-Modell",
+          long: "Netzwerkarchitektur",
+          category: "Netzwerk",
+          definition: "Kooperationsform im Netzwerk. Der Client sendet eine Anfrage (Request), der Server verarbeitet diese und sendet eine Antwort (Response) mit den angeforderten Daten zurück.",
+          mnemonic: "Gast (Client) bestellt beim Kellner (Request), Koch (Server) bereitet vor und bringt das Essen (Response)."
+        },
+        {
+          id: "firewall-paketfilter",
+          term: "Firewall (Paketfilter)",
+          long: "Netzwerksicherheitskomponente",
+          category: "Netzwerk",
+          definition: "Filtert den Netzwerkverkehr auf Schicht 3 und 4 (Netzwerk- und Transportschicht) anhand vordefinierter Regeln (Quell-/Ziel-IP-Adresse, Ports und Protokolle).",
+          mnemonic: "Der Türsteher am Einlass: Er schaut nur auf den Ausweis (IP) und die Ticketnummer (Port) – nicht ins Gepäck (Inhalt)."
+        },
+        {
+          id: "bios-uefi",
+          term: "BIOS & UEFI",
+          long: "Basic Input/Output System & Unified Extensible Firmware Interface",
+          category: "Hardware & Infrastruktur",
+          definition: "Firmware-Schnittstellen, die beim Systemstart (Boot) die Hardware initialisieren (POST) und das Betriebssystem laden. UEFI ist der moderne Nachfolger des BIOS mit GUI, GPT-Support (>2TB) und Secure Boot.",
+          mnemonic: "BIOS = Alt, Text-basiert, 2 TB Limit. UEFI = Modern, Maus-Support, sicher (Secure Boot) und liest riesige Festplatten."
+        },
+        {
+          id: "sata-nvme",
+          term: "SATA vs. NVMe",
+          long: "Speicherprotokolle im Vergleich",
+          category: "Hardware & Infrastruktur",
+          definition: "SATA: Älteres Protokoll für Festplatten/SSDs (max. 600 MB/s). NVMe: Modernes Protokoll für M.2-SSDs über PCIe (mehrere GB/s) mit extrem geringer Latenz und parallelen Warteschlangen.",
+          mnemonic: "SATA = Landstraße (max. 600 km/h). NVMe = Autobahn direkt über PCIe (6000+ km/h) ohne Bremse."
+        },
+        {
+          id: "ram-rom",
+          term: "RAM vs. ROM",
+          long: "Random Access Memory & Read-Only Memory",
+          category: "Hardware & Infrastruktur",
+          definition: "RAM: Flüchtiger Arbeitsspeicher, der Daten bei Stromverlust verliert (Lese-/Schreibzugriff). ROM: Nicht-flüchtiger Festwertspeicher (z.B. für Firmware), der Daten dauerhaft behält und nur gelesen wird.",
+          mnemonic: "RAM = Schreibtisch (wird abends aufgeräumt/gelöscht). ROM = Gedrucktes Buch (kannst du nur lesen, Text bleibt immer da)."
+        },
+        {
+          id: "mainboard-bus",
+          term: "Mainboard (Systembus)",
+          long: "Hauptplatine & Datenbahnen",
+          category: "Hardware & Infrastruktur",
+          definition: "Die zentrale Leiterplatte des Computers. Sie verbindet alle Komponenten (CPU, RAM, GPU, Speicher) über Bus-Systeme (Leitungssätze zur Datenübertragung wie PCIe, SATA, USB).",
+          mnemonic: "Das Schnittstellen-Netz des PCs. Wie Straßen in einer Stadt verbinden die Busse die wichtigen Gebäude (Komponenten)."
+        },
+        {
+          id: "gpu-computing",
+          term: "GPU",
+          long: "Graphics Processing Unit",
+          category: "Hardware & Infrastruktur",
+          definition: "Ein spezialisierter Prozessor mit tausenden kleinen Rechenkernen, der für die parallele Verarbeitung von Grafikdaten und mathematisch intensiven Berechnungen (z.B. KI, Krypto) optimiert ist.",
+          mnemonic: "CPU = Spezial-Mathematiker (kann extrem komplexe Aufgaben nacheinander lösen). GPU = Fließband-Arbeiter (löst tausende einfache Rechenschritte gleichzeitig)."
+        },
+        {
+          id: "virtual-memory",
+          term: "Virtueller Arbeitsspeicher",
+          long: "Paging / Auslagerungsdatei",
+          category: "Hardware & Infrastruktur",
+          definition: "Speicherverwaltungstechnik des Betriebssystems. Reicht der physische RAM nicht aus, werden inaktive Speicherseiten (Pages) auf die langsame Festplatte/SSD ausgelagert.",
+          mnemonic: "Der Notfall-Arbeitsplatz: Wenn dein Schreibtisch (RAM) voll ist, legst du Dokumente kurz im Archiv (SSD) ab, bis du sie wieder brauchst."
+        },
+        {
+          id: "cpu-cache",
+          term: "CPU-Cache (L1, L2, L3)",
+          long: "Pufferspeicher des Hauptprozessors",
+          category: "Hardware & Infrastruktur",
+          definition: "Extrem schneller, kleiner SRAM-Pufferspeicher direkt in der CPU. Verhindert, dass der Prozessor ständig auf den deutlich langsameren Arbeitsspeicher (DRAM) warten muss.",
+          mnemonic: "L1 = Hosentasche (sofort griffbereit, winzig). L2 = Schublade (schnell erreichbar). L3 = Regal (etwas größer, geteilt). RAM = Keller (weit weg)."
+        },
+        {
+          id: "eva-prinzip",
+          term: "EVA-Prinzip",
+          long: "Eingabe - Verarbeitung - Ausgabe",
+          category: "Hardware & Infrastruktur",
+          definition: "Das Grundprinzip der Datenverarbeitung: Daten werden eingegeben (Tastatur, Maus), verarbeitet (CPU, RAM) und ausgegeben (Bildschirm, Drucker).",
+          mnemonic: "Tippen (Eingabe) -> Rechnen (Verarbeitung) -> Zeigen (Ausgabe). Gilt für jede Computer-Aktion."
+        },
+        {
+          id: "network-types",
+          term: "LAN, WAN, MAN, GAN",
+          long: "Netzwerk-Reichweiten",
+          category: "Netzwerk",
+          definition: "LAN: Lokales Netz (Zuhause/Büro). MAN: Städtisches Netz (Metropolitan). WAN: Weitverkehrsnetz (Länder/Kontinente). GAN: Globales Netz (Internet).",
+          mnemonic: "LAN = dein Zimmer. MAN = deine Stadt. WAN = dein Land. GAN = die ganze Welt."
+        },
+        {
+          id: "icmp-ping",
+          term: "Ping & Traceroute (ICMP)",
+          long: "Netzwerk-Diagnosewerkzeuge",
+          category: "Netzwerk",
+          definition: "Ping: Prüft die Erreichbarkeit eines Hosts und die Latenz. Traceroute: Zeigt den genauen Weg (Hops/Router) eines Datenpakets durch das Netzwerk bis zum Ziel an.",
+          mnemonic: "Ping = Hallo-Ruf ('Bist du da?'). Traceroute = Wegbeschreibung ('Welche Kreuzungen hast du genommen?')."
+        },
+        {
+          id: "proxy-ap1",
+          term: "Proxy-Server",
+          long: "Stellvertreter im Netzwerk",
+          category: "Netzwerk",
+          definition: "Ein Server, der als Vermittler zwischen Client und Zielserver agiert. Er nimmt Anfragen entgegen, leitet sie weiter (ggf. anonymisiert) und kann Daten zwischenspeichern (Caching).",
+          mnemonic: "Der Stellvertreter / Mittelsmann: Du fragst nicht direkt den Verkäufer, sondern schickst einen Boten (Proxy), damit deine Identität geheim bleibt."
+        },
+        {
+          id: "crypto-ap1",
+          term: "Verschlüsselung (Symmetrisch vs. Asymmetrisch)",
+          long: "Daten-Kryptografie",
+          category: "Netzwerk",
+          definition: "Symmetrisch: Ein geheimer Schlüssel ver- und entschlüsselt (schnell, z.B. AES). Asymmetrisch: Ein öffentlicher Schlüssel verschlüsselt, ein privater Schlüssel entschlüsselt (sicherer Austausch, z.B. RSA).",
+          mnemonic: "Symmetrisch = Ein Tresorschlüssel. Asymmetrisch = Briefkasten (jeder wirft ein, nur einer sperrt auf)."
+        },
+        {
+          id: "aes-vs-rsa",
+          term: "AES vs. RSA",
+          long: "Standard-Kryptoverfahren",
+          category: "Netzwerk",
+          definition: "AES: Symmetrischer Verschlüsselungsstandard, extrem schnell und sicher für große Datenmengen. RSA: Asymmetrisches Verfahren, rechenintensiv, oft genutzt für digitalen Schlüsselaustausch und Signaturen.",
+          mnemonic: "AES = Schutz der Daten (schneller Datentresor). RSA = Schutz des Schlüssels (sicherer Schlüsselbriefkasten)."
+        },
+        {
+          id: "port-forwarding",
+          term: "Portweiterleitung",
+          long: "Port Forwarding",
+          category: "Netzwerk",
+          definition: "Eine NAT-Funktion, die eingehende Verbindungsanfragen auf einem bestimmten Port des Routers automatisch an ein bestimmtes Gerät im lokalen Netzwerk weiterleitet.",
+          mnemonic: "Die Durchwahl im Hotel: Anrufe an die Zentrale (Router-IP) mit der Zimmernummer (Port 80) gehen direkt an das richtige Telefon (Server im LAN)."
+        },
+        {
+          id: "ssid-wlan",
+          term: "SSID",
+          long: "Service Set Identifier",
+          category: "Netzwerk",
+          definition: "Der frei wählbare Name eines WLAN-Funknetzwerks, der von Routern und Access Points ausgestrahlt wird, damit Endgeräte das Netz identifizieren und verbinden können.",
+          mnemonic: "Der Name des WLANs (z.B. 'FritzBox_Gäste'). Ohne diesen Namen weiß dein Handy nicht, wohin es funken soll."
+        },
+        {
+          id: "wirtschaftskreislauf",
+          term: "Einfacher Wirtschaftskreislauf",
+          long: "Geld- & Güterstrommodell",
+          category: "Wirtschaft & Recht",
+          definition: "Modelliert die wirtschaftlichen Beziehungen zwischen privaten Haushalten (stellen Arbeitskraft bereit, konsumieren) und Unternehmen (zahlen Löhne, produzieren Güter).",
+          mnemonic: "Der Kreislauf des Geldes: Haushalte geben Geld für Brötchen aus. Bäcker gibt Geld als Lohn an Angestellte (Haushalte) zurück."
+        },
+        {
+          id: "marktformen",
+          term: "Marktformen (Monopol, Oligopol, Polypol)",
+          long: "Wettbewerbsstrukturen",
+          category: "Wirtschaft & Recht",
+          definition: "Monopol: Ein Anbieter (z.B. staatliche Post früher). Oligopol: Wenige Anbieter (z.B. Mobilfunknetze). Polypol: Viele Anbieter und Nachfrager (z.B. Flohmarkt).",
+          mnemonic: "Mono = Einer herrscht. Oligo = Ein paar teilen sich die Macht. Poly = Viele konkurrieren fair."
+        },
+        {
+          id: "mitbestimmung",
+          term: "Betriebliche Mitbestimmung",
+          long: "Arbeitnehmerrechte im Betrieb",
+          category: "Wirtschaft & Recht",
+          definition: "Gesetzlich verankertes Recht der Arbeitnehmer, über den Betriebsrat bei personellen, sozialen und wirtschaftlichen Angelegenheiten im Unternehmen mitzuwirken (BetrVG).",
+          mnemonic: "Der Betriebsrat: Arbeitnehmer bestimmen bei Kündigungen, Arbeitszeiten und Urlaubsplänen im Betrieb aktiv mit."
+        },
+        {
+          id: "dsgvo-personenbezogen",
+          term: "Personenbezogene Daten",
+          long: "Kernbegriff des Datenschutzes",
+          category: "Wirtschaft & Recht",
+          definition: "Alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen (z.B. Name, IP-Adresse, E-Mail-Adresse, Telefonnummer).",
+          mnemonic: "Daten mit Gesicht: Sobald du eine Spur direkt zu einer echten Person zurückverfolgen kannst, greift die DSGVO."
+        },
+        {
+          id: "geschaeftsfaehigkeit",
+          term: "Rechts- vs. Geschäftsfähigkeit",
+          long: "Rechtliche Handlungsrahmen",
+          category: "Wirtschaft & Recht",
+          definition: "Rechtsfähigkeit: Fähigkeit, Träger von Rechten/Pflichten zu sein (ab Geburt). Geschäftsfähigkeit: Fähigkeit, rechtswirksame Geschäfte selbstständig abzuschließen (voll ab 18 Jahren).",
+          mnemonic: "Rechtsfähig = Ab dem 1. Atemzug (kann erben). Geschäftsfähig = Ab dem 18. Geburtstag (darf Verträge unterschreiben)."
+        },
+        {
+          id: "ausbildungsvertrag",
+          term: "Ausbildungsvertrag",
+          long: "Rechte & Pflichten im Lehrverhältnis",
+          category: "Wirtschaft & Recht",
+          definition: "Ein Vertrag, der zu Beginn der Ausbildung schriftlich geschlossen werden muss (BBiG). Regelt Pflichten wie Lernpflicht (Azubi) und Ausbildungspflicht/Vergütung (Betrieb).",
+          mnemonic: "Der Azubi-Pakt: Du lernst fleißig (Berufsschule), der Betrieb bringt dir deinen Beruf bei und zahlt dir eine Vergütung."
+        },
+        {
+          id: "dualer-rundfunk",
+          term: "Duales Rundfunksystem",
+          long: "Öffentlich-rechtlicher & privater Rundfunk",
+          category: "Wirtschaft & Recht",
+          definition: "Das Nebeneinander von öffentlich-rechtlichen Sendern (finanziert durch Rundfunkbeitrag, Bildungsauftrag) und privaten Sendern (finanziert durch Werbung).",
+          mnemonic: "ARD/ZDF (Gebühren & Bildung) vs. RTL/ProSieben (Werbung & Unterhaltung)."
+        },
+        {
+          id: "roi-amortisation",
+          term: "ROI & Amortisation",
+          long: "Wirtschaftlichkeitsberechnungen",
+          category: "Wirtschaft & Recht",
+          definition: "Return on Investment (ROI): Gibt an, wie viel Gewinn im Verhältnis zum eingesetzten Kapital erzielt wurde. Amortisation: Zeitraum, in dem eine Investition ihre Kosten wieder einspielt.",
+          mnemonic: "ROI = Wie rentabel war der Kauf? Amortisation = Wann habe ich mein ausgegebenes Geld wieder drinnen?"
+        },
+        {
+          id: "projektphasen",
+          term: "Projektphasen",
+          long: "Klassischer Projektlebenszyklus",
+          category: "Projekt & Modellierung",
+          definition: "Die vier Phasen eines Projekts: 1. Initiierung (Ziele setzen), 2. Planung (Ressourcen & Termine), 3. Durchführung (Umsetzung & Controlling), 4. Abschluss (Übergabe & Review).",
+          mnemonic: "Erst Idee, dann Plan, dann Action und am Ende das Feedback."
+        },
+        {
+          id: "netzplan",
+          term: "Netzplantechnik (Kritischer Pfad)",
+          long: "Terminplanungsmethode im PM",
+          category: "Projekt & Modellierung",
+          definition: "Verfahren zur Planung von Projektzeiten. Der kritische Pfad ist die Kette von Vorgängen, bei denen keine Pufferzeiten existieren. Verzögert sich hier etwas, verzögert sich das Gesamtprojekt.",
+          mnemonic: "Der Flaschenhals: Alle Aufgaben auf dem kritischen Pfad haben Null Puffer. Hier darf absolut kein Tag verloren gehen."
+        },
+        {
+          id: "meilenstein",
+          term: "Meilenstein",
+          long: "Ereignis von besonderer Bedeutung",
+          category: "Projekt & Modellierung",
+          definition: "Ein Kontrollpunkt im Projektverlauf, der das Ende einer wichtigen Phase oder das Erreichen eines Zwischenziels markiert. Hat selbst die Dauer Null.",
+          mnemonic: "Die Etappen-Ziellinie beim Marathon. Keine Arbeitszeit, nur ein Moment zum Abhaken und Feiern."
+        },
+        {
+          id: "qualitaetsmanagement",
+          term: "Qualitätsmanagement (QA vs. QC)",
+          long: "Quality Assurance & Quality Control",
+          category: "Projekt & Modellierung",
+          definition: "QA: Fehlervermeidung im Prozess (präventiv, z.B. Schulungen, Standards). QC: Fehlerfindung im Endprodukt (detektivisch, z.B. Code-Reviews, Tests).",
+          mnemonic: "QA = Sauber kochen (Rezepttreue). QC = Suppe abschmecken vor dem Servieren."
+        },
+        {
+          id: "sequenzdiagramm-ap1",
+          term: "UML-Sequenzdiagramm",
+          long: "Interaktionsdiagramm",
+          category: "Projekt & Modellierung",
+          definition: "Ein UML-Diagramm, das die zeitliche Abfolge von Interaktionen und Nachrichten zwischen verschiedenen Objekten oder Systemkomponenten darstellt.",
+          mnemonic: "Lebenslinien (senkrecht) und Nachrichten-Pfeile (waagerecht). Zeigt Schritt für Schritt, wer wann wem eine Info schickt."
+        },
+        {
+          id: "zustandsdiagramm",
+          term: "UML-Zustandsdiagramm",
+          long: "State Machine Diagram",
+          category: "Projekt & Modellierung",
+          definition: "Visualisiert die verschiedenen Zustände, die ein System oder Objekt im Laufe seines Lebenszyklus einnehmen kann, und die Ereignisse, die zu Zustandsübergängen führen.",
+          mnemonic: "Wie eine Ampel: Zustand 'Rot' -> Event 'Zeit abgelaufen' -> Zustand 'Rot-Gelb' -> Zustand 'Grün'."
+        },
+        {
+          id: "pseudocode",
+          term: "Pseudocode",
+          long: "Halbformaler Programmentwurf",
+          category: "Software & Entwicklung",
+          definition: "Eine informelle Beschreibung eines Algorithmus, die menschliche Sprache mit Programmierstrukturen verbindet, ohne eine konkrete Programmiersyntax zu nutzen.",
+          mnemonic: "Programmcode für Menschen: WENN Passwort korrekt DANN Login erlauben SONST Fehlermeldung."
+        },
+        {
+          id: "variable-datentyp",
+          term: "Variable & Datentyp",
+          long: "Wertspeicher im Code",
+          category: "Software & Entwicklung",
+          definition: "Variable: Ein benannter Speicherplatz im RAM. Datentyp: Legt fest, welche Werte dort gespeichert werden dürfen (z.B. Integer für Ganzzahlen, String für Text).",
+          mnemonic: "Die beschriftete Kiste: Die Aufschrift ist der Variablenname. Die Form der Kiste (Datentyp) bestimmt, ob nur Zahlen oder auch Texte hineinpassen."
+        },
+        {
+          id: "loops-code",
+          term: "Schleifen (FOR, WHILE)",
+          long: "Kontrollstrukturen zur Wiederholung",
+          category: "Software & Entwicklung",
+          definition: "FOR: Kopfgesteuerte Zählschleife (Wiederholungsanzahl steht vorab fest). WHILE: Kopfgesteuerte Schleife, die läuft, solange eine Bedingung wahr ist.",
+          mnemonic: "FOR = Zehn Kniebeugen machen. WHILE = Laufen, bis man müde ist."
+        },
+        {
+          id: "conditions-code",
+          term: "Bedingungen (IF, SWITCH)",
+          long: "Verzweigungen im Programmablauf",
+          category: "Software & Entwicklung",
+          definition: "Kontrollstrukturen zur Steuerung. IF-ELSE: Führt Code basierend auf Wahrheitswerten aus. SWITCH: Vergleicht eine Variable mit mehreren festen Konstanten.",
+          mnemonic: "IF = Wegkreuzung (wenn es regnet, nimm den Schirm, sonst nicht). SWITCH = Mehrfach-Weiche am Bahnhof."
+        },
+        {
+          id: "array-list",
+          term: "Array & Liste",
+          long: "Datenstrukturen für Sequenzen",
+          category: "Software & Entwicklung",
+          definition: "Array: Indexierte Datenstruktur mit fester Größe (schnell). Liste: Dynamische Datenstruktur, deren Größe sich im laufenden Betrieb flexibel anpassen lässt.",
+          mnemonic: "Array = Eierkarton (10 feste Plätze). Liste = Einkaufszettel (kannst du beliebig verlängern oder kürzen)."
+        },
+        {
+          id: "function-method",
+          term: "Funktion & Methode",
+          long: "Wiederverwendbare Code-Blöcke",
+          category: "Software & Entwicklung",
+          definition: "Funktion: Eigenständiger, benannter Codeblock, der Argumente nimmt, verarbeitet und ein Ergebnis zurückgibt. Methode: Eine Funktion, die an ein Objekt/Klasse gebunden ist.",
+          mnemonic: "Funktion = Saftpresse (Obst rein -> Saft raus). Methode = Saftpresse des Kühlschranks (gehört fest zu einem Gerät)."
+        },
+        {
+          id: "debugging",
+          term: "Debugging",
+          long: "Fehleranalyse und -behebung",
+          category: "Software & Entwicklung",
+          definition: "Der systematische Prozess des Findens, Analysierens und Behebens von Softwarefehlern (Bugs) mithilfe von Breakpoints, Einzelschrittausführung und Log-Ausgaben.",
+          mnemonic: "Die Detektivarbeit: Du hältst das Programm an (Breakpoint) und schaust dir an, was im Speicher wirklich vorgeht."
+        },
+        {
+          id: "runtime-syntax-error",
+          term: "Laufzeit- vs. Syntaxfehler",
+          long: "Fehlerkategorien in der Programmierung",
+          category: "Software & Entwicklung",
+          definition: "Syntaxfehler: Grammatikalische Fehler im Code (wird vor Ausführung erkannt). Laufzeitfehler: Fehler, die erst bei der Ausführung auftreten (z.B. Division durch Null).",
+          mnemonic: "Syntaxfehler = Grammatikfehler im Rezept (du kannst es nicht mal lesen). Laufzeitfehler = Salz statt Zucker verwendet (sieht gut aus, schmeckt aber erst beim Essen furchtbar)."
+        },
+        {
+          id: "git-hosting",
+          term: "GitHub / GitLab",
+          long: "Webbasierte Git-Hosting-Plattformen",
+          category: "Software & Entwicklung",
+          definition: "Plattformen zur Versionsverwaltung mit Git, die zusätzliche Tools für Issue-Tracking, Code-Reviews (Pull Requests) und CI/CD-Pipelines bereitstellen.",
+          mnemonic: "Das soziale Netzwerk für Code. Hier liegt das zentrale Backup, an dem Teams gemeinsam über Pull Requests arbeiten."
+        },
+        {
+          id: "api-ap1",
+          term: "API",
+          long: "Application Programming Interface",
+          category: "Software & Entwicklung",
+          definition: "Eine Programmierschnittstelle, die es verschiedenen Softwareanwendungen ermöglicht, standardisiert Daten auszutauschen und Funktionalitäten des jeweils anderen zu nutzen.",
+          mnemonic: "Die Steckdose: Deine App (Stecker) verbindet sich über feste Standards (API) mit dem Stromnetz (Serverdaten), ohne wissen zu müssen, wie das Kraftwerk funktioniert."
+        },
+        {
+          id: "db-keys",
+          term: "Primär- vs. Fremdschlüssel",
+          long: "Tabellenbeziehungen in relationalen DBs",
+          category: "Software & Entwicklung",
+          definition: "Primärschlüssel: Identifiziert einen Datensatz in einer Tabelle eindeutig. Fremdschlüssel: Verweist auf den Primärschlüssel einer anderen Tabelle, um Beziehungen darzustellen.",
+          mnemonic: "Primärschlüssel = Dein Personalausweis (einzigartig in deiner Tabelle). Fremdschlüssel = Die Ausweisnummer deines Vaters in deiner Zeile (Verknüpfung)."
         }
       ];
 
@@ -686,6 +1127,12 @@
 
         setCategory(cat) {
           this.currentCategory = cat;
+          
+          // Sync select element if exists
+          const select = document.getElementById("categorySelect");
+          if (select) {
+            select.value = cat;
+          }
           
           // Update active button state
           const buttons = document.querySelectorAll("[id^='cat-']");

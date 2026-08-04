@@ -1317,6 +1317,10 @@ const app = {
                 <p>E-Mail: <a href="mailto:info@cwillam.de" class="text-dark-accent hover:underline">info@cwillam.de</a></p>
                 <h2 class="text-xl font-semibold mt-6 mb-2">Berufsbezeichnung</h2>
                 <p>Fachinformatiker für Anwendungsentwicklung</p>
+                <h2 class="text-xl font-semibold mt-6 mb-2">Rechtlicher Hinweis</h2>
+                <p class="text-xs text-dark-muted leading-relaxed">
+                  Hinweis: Dieses Projekt ist ein unabhängiges, privates Lernangebot und steht in keiner Verbindung, Kooperation oder Partnerschaft mit der Industrie- und Handelskammer (IHK) oder der DIHK. Alle verwendeten Markenzeichen dienen ausschließlich der Beschreibung der Lerninhalte.
+                </p>
                 <p class="text-xs text-dark-muted mt-8">Quelle: <a href="https://www.e-recht24.de" target="_blank" class="hover:underline">e-recht24.de</a></p>
               </div>
             `;
