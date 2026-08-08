@@ -1654,6 +1654,96 @@ const app = {
 					console.log("[AP1] ✅ Alle Themen erledigt!");
 				}
 			}
+
+			// Globale Karteikarten-Statistiken berechnen
+			let learnedCards = 0;
+			let knownCards = 0;
+			if (this.state.anki) {
+				Object.values(this.state.anki).forEach((c) => {
+					learnedCards++;
+					if (c.confidence < 2) knownCards++;
+				});
+			}
+
+			let ankiTotalAnswers = 0;
+			let ankiCorrectAnswers = 0;
+			if (this.state.ankiStats) {
+				Object.values(this.state.ankiStats).forEach((s) => {
+					ankiTotalAnswers += s.total || 0;
+					ankiCorrectAnswers += s.correct || 0;
+				});
+			}
+
+			const ankiAccuracy = ankiTotalAnswers > 0 ? Math.round((ankiCorrectAnswers / ankiTotalAnswers) * 100) : 0;
+
+			const globalCountEl = document.getElementById("globalAnkiCardsCount");
+			if (globalCountEl) globalCountEl.textContent = learnedCards;
+
+			const globalCorrectEl = document.getElementById("globalAnkiCardsCorrect");
+			if (globalCorrectEl) globalCorrectEl.textContent = knownCards;
+
+			const globalAccuracyEl = document.getElementById("globalAnkiAccuracy");
+			if (globalAccuracyEl) {
+				globalAccuracyEl.textContent = ankiAccuracy + "%";
+				// Farbe anpassen basierend auf Quote
+				globalAccuracyEl.className = "text-xs sm:text-sm font-black " + (ankiAccuracy >= 80 ? "text-dark-success" : ankiAccuracy >= 50 ? "text-dark-warning" : "text-dark-danger");
+			}
+
+			// Gesamtkartenzahl ermitteln
+			let totalAnkiCards = 0;
+			const allQuestions = window.ANKI_QUESTIONS || {};
+			Object.values(allQuestions).forEach((list) => {
+				totalAnkiCards += list.length;
+			});
+
+			// Fortschritt in Prozent
+			const ankiPct = totalAnkiCards > 0 ? Math.round((learnedCards / totalAnkiCards) * 100) : 0;
+
+			const ankiPercentTextEl = document.getElementById("ankiPercentText");
+			if (ankiPercentTextEl) {
+				ankiPercentTextEl.textContent = `${ankiPct}% (${learnedCards}/${totalAnkiCards})`;
+			}
+
+			const ankiProgressBarEl = document.getElementById("ankiProgressBar");
+			if (ankiProgressBarEl) {
+				ankiProgressBarEl.style.width = ankiPct + "%";
+			}
+
+			// Stärkstes / Schwächstes Thema ermitteln
+			const topicsWithStats = [];
+			if (this.state.ankiStats) {
+				AP1_DATA.forEach((cat) => {
+					cat.topics.forEach((t) => {
+						const s = this.state.ankiStats[t.id];
+						if (s && s.total > 0) {
+							const acc = Math.round((s.correct / s.total) * 100);
+							topicsWithStats.push({ topic: t, acc, total: s.total, correct: s.correct || 0 });
+						}
+					});
+				});
+			}
+
+			const strongestEl = document.getElementById("strongestTopic");
+			const weakestEl = document.getElementById("weakestTopic");
+
+			if (topicsWithStats.length > 0) {
+				// Stärkstes (höchste Genauigkeit, dann mehr Antworten als Tie-Breaker)
+				const strongest = [...topicsWithStats].sort((a, b) => b.acc - a.acc || b.total - a.total)[0];
+				if (strongestEl) {
+					strongestEl.textContent = `${strongest.topic.title} (${strongest.correct}/${strongest.total} richtig)`;
+					strongestEl.title = `${strongest.topic.title} (${strongest.acc}% Erfolgsquote bei ${strongest.total} Versuchen)`;
+				}
+
+				// Schwächstes (niedrigste Genauigkeit, bei Gleichstand weniger Versuche)
+				const weakest = [...topicsWithStats].sort((a, b) => a.acc - b.acc || a.total - b.total)[0];
+				if (weakestEl) {
+					weakestEl.textContent = `${weakest.topic.title} (${weakest.correct}/${weakest.total} richtig)`;
+					weakestEl.title = `${weakest.topic.title} (${weakest.acc}% Erfolgsquote bei ${weakest.total} Versuchen)`;
+				}
+			} else {
+				if (strongestEl) strongestEl.textContent = "—";
+				if (weakestEl) weakestEl.textContent = "—";
+			}
 		} catch (err) {
 			console.error("[AP1] updateStats Fehler:", err);
 			const recShort = document.getElementById("recShort");

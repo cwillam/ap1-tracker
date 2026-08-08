@@ -782,17 +782,55 @@
             </div>
           </div>
 
-          <div class="mt-auto">
-            <div
-              class="w-full bg-dark-bg rounded-full h-2.5 overflow-hidden border border-dark-border"
-            >
-              <div
-                id="mainProgressBar"
-                class="h-full bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-400 shadow-[0_0_15px_rgba(14,165,233,0.4)] transition-all duration-1000 ease-out w-0 relative"
-              >
-                <div
-                  class="absolute inset-0 bg-white/20 w-full h-full animate-pulse"
-                ></div>
+          <!-- Karteikarten & Themen-Statistiken -->
+          <div class="border-t border-dark-border/40 pt-4 flex flex-col gap-4 no-print">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <!-- Karteikarten Stats -->
+              <div class="flex flex-col gap-2">
+                <span class="text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider">Karteikarten-Status</span>
+                <div class="grid grid-cols-3 gap-2 text-center">
+                  <div class="bg-dark-bg/40 border border-dark-border/40 rounded-xl p-2" title="Karten, die mindestens einmal gelernt wurden">
+                    <span class="block text-[8px] text-dark-muted font-bold uppercase tracking-wider">Gelernt</span>
+                    <span id="globalAnkiCardsCount" class="text-xs sm:text-sm font-black text-white">0</span>
+                  </div>
+                  <div class="bg-dark-bg/40 border border-dark-success/20 rounded-xl p-2" title="Gewusste Karten (Confidence hoch)">
+                    <span class="block text-[8px] text-dark-success font-bold uppercase tracking-wider">Gewusst</span>
+                    <span id="globalAnkiCardsCorrect" class="text-xs sm:text-sm font-black text-white">0</span>
+                  </div>
+                  <div class="bg-dark-bg/40 border border-dark-border/40 rounded-xl p-2" title="Prozentuale Erfolgsquote aller Wiederholungen">
+                    <span class="block text-[8px] text-dark-muted font-bold uppercase tracking-wider">Quote</span>
+                    <span id="globalAnkiAccuracy" class="text-xs sm:text-sm font-black text-dark-success">0%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Karteikarten Fortschrittsbalken -->
+              <div class="flex flex-col gap-2 justify-center">
+                <div class="flex justify-between text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider">
+                  <span>Anki-Lernfortschritt</span>
+                  <span id="ankiPercentText" class="text-white font-bold text-xs sm:text-sm">0% (0/0)</span>
+                </div>
+                <div class="w-full bg-dark-bg rounded-full h-2.5 overflow-hidden border border-dark-border">
+                  <div
+                    id="ankiProgressBar"
+                    class="h-full bg-gradient-to-r from-sky-600 to-cyan-400 shadow-[0_0_10px_rgba(14,165,233,0.3)] transition-all duration-1000 w-0"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stärkstes / Schwächstes Thema (nebeneinander in breiter Spalte) -->
+            <div class="flex flex-col gap-2">
+              <span class="text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider">Fokus-Bereiche (Spaced Repetition)</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-dark-bg/30 px-3 py-2 sm:py-2.5 rounded-lg border border-dark-border/30 gap-1 sm:gap-2" title="Thema mit der besten Antwortquote">
+                  <span class="text-dark-success font-bold flex items-center gap-1.5 shrink-0"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Stärkstes:</span>
+                  <span id="strongestTopic" class="font-medium text-white truncate pl-0 sm:pl-2 text-left sm:text-right w-full sm:w-auto">—</span>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-dark-bg/30 px-3 py-2 sm:py-2.5 rounded-lg border border-dark-border/30 gap-1 sm:gap-2" title="Thema mit dem größten Wiederholungsbedarf">
+                  <span class="text-dark-danger font-bold flex items-center gap-1.5 shrink-0"><i data-lucide="trending-down" class="w-3.5 h-3.5"></i> Schwächstes:</span>
+                  <span id="weakestTopic" class="font-medium text-white truncate pl-0 sm:pl-2 text-left sm:text-right w-full sm:w-auto">—</span>
+                </div>
               </div>
             </div>
           </div>
@@ -881,6 +919,44 @@
               Berechne...
             </p>
           </button>
+
+          <!-- Discord Lerngruppen Widget -->
+          <div
+            class="col-span-2 bg-dark-card border border-dark-border rounded-xl p-3 shadow-card relative overflow-hidden group flex flex-col justify-between min-h-[140px] hover:border-[#5865F2]/40 hover:bg-[#5865F2]/5 transition-all duration-300"
+          >
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-[#5865F2]/5 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none transition-opacity duration-500 group-hover:bg-[#5865F2]/10"
+            ></div>
+
+            <div class="flex justify-between items-start mb-1.5">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dark-success opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-dark-success"></span>
+                  </span>
+                  <span class="text-[9px] font-mono text-dark-muted uppercase font-bold tracking-wider">Gemeinsam Lernen</span>
+                </div>
+                <h4 class="text-sm font-bold text-white mt-0.5 group-hover:text-[#5865F2] transition-colors">Lerngruppen &amp; Austausch</h4>
+              </div>
+              <div class="w-7 h-7 rounded-lg bg-[#5865F2]/10 border border-[#5865F2]/30 flex items-center justify-center text-[#5865F2] shrink-0 group-hover:scale-105 transition-transform">
+                <i data-lucide="message-square" class="w-4 h-4"></i>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-slate-400 leading-relaxed mb-3">
+              Suchst du Lernpartner oder hast Fragen zu Aufgaben? Tausche dich direkt auf Discord aus.
+            </p>
+
+            <a
+              href="https://discord.gg/5BM5YJadDs"
+              target="_blank"
+              rel="noopener"
+              class="w-full py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white text-center text-xs font-bold rounded-lg transition-colors no-underline flex items-center justify-center gap-1.5 shadow-md shadow-[#5865F2]/10"
+            >
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Jetzt mitlernen
+            </a>
+          </div>
         </div>
       </div>
 
