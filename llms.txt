@@ -1,0 +1,29 @@
+# AP1 Tracker – IHK Prüfungsvorbereitung für Fachinformatiker
+
+> Ein interaktiver, lokaler Fortschritts-Tracker und Lernbegleiter zur Vorbereitung auf die IHK-Abschlussprüfung Teil 1 (AP1) für alle Fachinformatiker-Fachrichtungen (FIAE, FISI, FIDP, SE). 100 % kostenlos, werbefrei, ohne Registrierung und vollständig offline-fähig.
+
+## Kernfunktionen
+
+- **Interaktive Themen-Checklisten:** Detaillierte Übersicht aller prüfungsrelevanten IHK-Themen nach Rahmenlehrplan.
+- **Lernkarten-System (Anki 2.0):** Über 1.200 praxisnahe Karteikarten mit Spaced-Repetition-Algorithmus, 4-stufiger Bewertung und Tastatur-Shortcuts.
+- **SQL-Labor (`/sql.html`):** Integrierte, offline-fähige SQL-Übungsumgebung mit Mock-Datenbank, Echtzeit-Parser und Streak-System.
+- **Subnetz-Trainer (`/subnet.html`):** Interaktives Training für IPv4-Subnetting, Netzmasken, Host-Berechnungen und IPv6-Kompression.
+- **Glossar & Eselsbrücken (`/glossar.html`):** Spickzettel-Verzeichnis für 100 Kernbegriffe mit Merkhilfen, Kategorie- und Buchstabensuche sowie Merkliste.
+- **Fokus-Timer:** Pomodoro-Timer für strukturierte Lernintervalle.
+- **Datenschutz & Offline-First:** 100 % clientseitige Datenspeicherung (`localStorage`), PWA-Support und Android-App im Google Play Store.
+
+## Relevante Seiten
+
+- [Startseite & Checkliste](https://ap1.cwillam.de/)
+- [SQL-Labor](https://ap1.cwillam.de/sql.html)
+- [Subnetz- & IP-Trainer](https://ap1.cwillam.de/subnet.html)
+- [Glossar & Eselsbrücken](https://ap1.cwillam.de/glossar.html)
+- [Updates & Roadmap](https://ap1.cwillam.de/updates.html)
+- [Hilfe & FAQ](https://ap1.cwillam.de/help.html)
+- [Für Schulen & Bildungseinrichtungen](https://ap1.cwillam.de/bildungseinrichtungen.html)
+- [Datenschutzerklärung](https://ap1.cwillam.de/datenschutz.html)
+
+## Community & Open Source
+
+- **Discord-Community:** https://discord.gg/5BM5YJadDs (Lerngruppen, Fragen & Austausch)
+- **GitHub-Repository:** https://github.com/cwillam/ap1-tracker (AGPL-3.0 Lizenz)
