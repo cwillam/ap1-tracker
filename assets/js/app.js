@@ -519,10 +519,18 @@ const app = {
 				}
 			}
 
-			if (localStorage.getItem("ap1_infobox_dismissed_v2")) {
-				const infoBox = document.getElementById("infoBox");
-				if (infoBox) infoBox.classList.add("hidden");
-			}
+			["schoolBox", "infoBox"].forEach((boxId) => {
+				const storagePrefix = "ap1_";
+				if (localStorage.getItem(storagePrefix + boxId + "_dismissed") === "true") {
+					const el = document.getElementById(boxId);
+					if (el) el.remove();
+				} else if (localStorage.getItem(storagePrefix + boxId + "_collapsed") === "true") {
+					const content = document.getElementById(boxId + "Content");
+					const chevron = document.getElementById(boxId + "Chevron");
+					if (content) content.classList.add("hidden");
+					if (chevron) chevron.classList.add("rotate-180");
+				}
+			});
 
 			// --- UPDATE NOTIFICATION ---
 			this.checkForUpdate();
@@ -705,10 +713,23 @@ const app = {
 		}
 	},
 
-	hideInfoBox() {
-		const el = document.getElementById("infoBox");
+	toggleBox(boxId) {
+		const content = document.getElementById(boxId + "Content");
+		const chevron = document.getElementById(boxId + "Chevron");
+		if (!content) return;
+		const isHidden = content.classList.toggle("hidden");
+		if (chevron) chevron.classList.toggle("rotate-180", isHidden);
+		localStorage.setItem("ap1_" + boxId + "_collapsed", isHidden ? "true" : "false");
+	},
+
+	dismissBox(boxId) {
+		const el = document.getElementById(boxId);
 		if (el) el.remove();
-		localStorage.setItem("ap1_infobox_dismissed_v2", "true");
+		localStorage.setItem("ap1_" + boxId + "_dismissed", "true");
+	},
+
+	hideInfoBox() {
+		this.dismissBox("infoBox");
 	},
 
 	getState(id) {
@@ -1048,6 +1069,10 @@ const app = {
 		if (confirm("Wirklich ALLE Daten unwiderruflich löschen?")) {
 			localStorage.removeItem("ap1_dark_state_v1");
 			localStorage.removeItem("ap1_infobox_dismissed_v2");
+			localStorage.removeItem("ap1_schoolBox_dismissed");
+			localStorage.removeItem("ap1_schoolBox_collapsed");
+			localStorage.removeItem("ap1_infoBox_dismissed");
+			localStorage.removeItem("ap1_infoBox_collapsed");
 			location.reload();
 		}
 	},

@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.6.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.7.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
@@ -25,6 +25,13 @@ Das Projekt ist live und einsatzbereit gehostet:
 Der **AP1 Tracker** wurde entwickelt, um Fachinformatikern eine strukturierte Übersicht über die Lerninhalte der Abschlussprüfung Teil 1 zu geben.
 
 Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwendung anfühlt, aber komplett im Browser läuft. Der Fokus lag auf sauberem Code, Performance und maximalem Datenschutz.
+
+### Highlights v2.7.0 (Play Store Release & Vorbereitung)
+
+- **Google Play Store Release Ready:** 14-tägige geschlossene Testphase mit Testern erfolgreich abgeschlossen, Vorbereitung des weltweiten Rollouts und Android 16 (API-Level 36) Konformität.
+- **Einklappbare Banner mit Persistenz:** Community- und Schul-Hinweise lassen sich platzsparend einklappen (Zustand wird im `localStorage` gespeichert).
+- **Discord-Lerncommunity:** Direkte Integration unserer Community für AP1 & AP2 Lerngruppen, Prüfungsaustausch und Release-Ankündigungen.
+- **Service Worker & Cache-Busting:** Bereinigtes Caching (`v2.7.0`) für nahtlose Updates ohne manuellen Hard Refresh.
 
 ### Features
 
@@ -66,6 +73,12 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 ---
 
 ## Changelog
+
+### v2.7.0 (27. August 2026)
+- **Google Play Store Release:** 14-Tage-Testphase mit Testern erfolgreich abgeschlossen, Vorbereitung auf weltweiten Rollout und Android 16 (API-Level 36).
+- **Interaktive Banner:** Info- und Schulbereiche sind nun einklappbar mit Status-Speicherung (`localStorage`).
+- **Community-Integration:** Direkte Anbindung an den Discord-Lernkanal für AP1 & AP2 Lerngruppen.
+- **Wartung & Cache:** Cache-Busting auf Version v2.7.0 aktualisiert.
 
 ### v2.6.0 (4. August 2026)
 
@@ -155,11 +168,11 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 
 ## Roadmap
 
-Das Projekt wird stetig optimiert. Aktueller Entwicklungsstand:
-
-- [x] **PWA-Unterstützung:** Installation als App auf dem Homescreen/Desktop und 100% Offline-Fähigkeit via Service Worker.
-- [ ] **In Arbeit: Lernzettel & Skripte:** Inkl. Fragen, Diagramme und Zusammenfassungen für alle AP1 Themen.
-- [ ] **Geplant: Druck-Ansicht:** CSS-Optimierungen für den Ausdruck der Checklisten auf Papier.
+- [ ] **Google Play Store Release:** Öffentlicher Store-Rollout für Android-Geräte (Android 16 / API-Level 36).
+- [x] **Closed-Beta-Test:** 14-Tage-Testphase im Google Play Store erfolgreich abgeschlossen.
+- [ ] **Prüfungs-Simulator:** Zufällige Fragenkombinationen zur Simulation der echten Abschlussprüfung.
+- [ ] **Detaillierte Lernzettel:** Download-Bereich für komprimierte Zusammenfassungen (Cheat Sheets).
+- [x] **PWA Support:** Installation als App auf dem Homescreen und Offline-Caching.
 
 ---
 
