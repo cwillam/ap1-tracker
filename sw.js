@@ -6,6 +6,7 @@ const ASSETS = [
 	"help.html",
 	"subnet.html",
 	"sql.html",
+	"pseudocode.html",
 	"favicon.svg",
 	"manifest.json",
 	"assets/css/style.css?v=2.7.1",
@@ -17,6 +18,7 @@ const ASSETS = [
 	"assets/js/app.js?v=2.7.1",
 	"assets/js/subnet.js?v=2.7.1",
 	"assets/js/sql.js?v=2.7.1",
+	"assets/js/pseudocode.js?v=2.7.1",
 	"icon-192.png?v=2.7.1",
 	"icon-512.png?v=2.7.1",
 ];

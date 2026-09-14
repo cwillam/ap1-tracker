@@ -368,6 +368,18 @@
                 ></i>
               </a>
 
+              <!-- Pseudocode-Labor Button -->
+              <a
+                href="pseudocode.html"
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
+                title="Pseudocode & Algorithmen"
+              >
+                <i
+                  data-lucide="code-2"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
+                ></i>
+              </a>
+
               <!-- Glossary Button (Glossar) -->
               <a
                 href="glossar.html"
@@ -622,8 +634,8 @@
         </div>
       </div>
 
-      <!-- Quick Access SQL & Subnetz (Neu) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 no-print mb-6">
+      <!-- Quick Access Tools (Subnetz, SQL, Pseudocode) -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 no-print mb-6">
         <a
           href="subnet.html"
           class="flex items-center gap-4 bg-gradient-to-br from-slate-900 to-dark-card border border-dark-border hover:border-dark-accent/40 rounded-xl p-4 transition-all no-underline group shadow-card hover:shadow-[0_0_20px_rgba(14,165,233,0.12)]"
@@ -634,10 +646,9 @@
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2 mb-0.5">
               <span class="font-bold text-white text-sm group-hover:text-dark-accent transition-colors">Subnetz-Trainer</span>
-              <span class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 rounded text-[8px] font-black uppercase tracking-wider text-dark-accent">Neu</span>
             </div>
             <p class="text-xs text-slate-400 truncate">
-              IP-Rechnung, Subnetzmasken und IPv6-Kompression offline üben.
+              IP-Rechnung, Subnetzmasken und IPv6 offline üben.
             </p>
           </div>
         </a>
@@ -651,10 +662,26 @@
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2 mb-0.5">
               <span class="font-bold text-white text-sm group-hover:text-dark-accent transition-colors">SQL-Labor</span>
+            </div>
+            <p class="text-xs text-slate-400 truncate">
+              SELECT, WHERE und Aggregationen interaktiv lernen.
+            </p>
+          </div>
+        </a>
+        <a
+          href="pseudocode.html"
+          class="flex items-center gap-4 bg-gradient-to-br from-slate-900 to-dark-card border border-dark-border hover:border-dark-accent/40 rounded-xl p-4 transition-all no-underline group shadow-card hover:shadow-[0_0_20px_rgba(14,165,233,0.12)]"
+        >
+          <div class="w-10 h-10 rounded-lg bg-dark-accent/10 border border-dark-accent/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-dark-accent/15 transition-all">
+            <i data-lucide="code-2" class="text-dark-accent w-5 h-5"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="font-bold text-white text-sm group-hover:text-dark-accent transition-colors">Pseudocode-Labor</span>
               <span class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 rounded text-[8px] font-black uppercase tracking-wider text-dark-accent">Neu</span>
             </div>
             <p class="text-xs text-slate-400 truncate">
-              SELECT, WHERE und Aggregationen spielerisch im Browser lernen.
+              Visualizer, Schreibtischtests und Algos simulieren.
             </p>
           </div>
         </a>
@@ -1861,6 +1888,13 @@
           >
             <i data-lucide="database" class="w-4 h-4 text-dark-accent"></i>
             SQL-Labor
+          </a>
+          <a
+            href="pseudocode.html"
+            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
+          >
+            <i data-lucide="code-2" class="w-4 h-4 text-dark-accent"></i>
+            Pseudocode-Labor
           </a>
           <a
             href="glossar.html"
