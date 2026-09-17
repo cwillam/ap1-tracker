@@ -36,7 +36,7 @@ Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwend
 ### Highlights v2.7.1 (Pseudocode-Labor & Schreibtischtests)
 
 - **Algorithmen-Visualizer:** Lineare Suche, Minimum-Suche und Bubble Sort mit Zeiger- und Speicher-Animation live steuern.
-- **18 IHK-Übungen:** 10 interaktive Trace-Tabellen (Schreibtischtests) und 8 Code-Puzzles zur Ablauflogik.
+- **18 prüfungsnahe Übungen:** 10 interaktive Trace-Tabellen (Schreibtischtests) und 8 Code-Puzzles zur Ablauflogik.
 - **Mobile & Offline-First:** 100% ohne Server offline nutzbar, für Smartphones optimiert.
 
 ### Highlights v2.7.0 (Play Store Release & Vorbereitung)
@@ -94,7 +94,7 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 
 ### v2.7.1 (14. September 2026)
 - **Pseudocode-Labor:** Neuer interaktiver Algorithmen-Visualizer für Lineare Suche, Minimum-Suche und Bubble Sort.
-- **18 IHK-Übungen:** 10 Schreibtischtests (Trace-Tabellen) und 8 interaktive Code-Puzzles.
+- **18 prüfungsnahe Übungen:** 10 Schreibtischtests (Trace-Tabellen) und 8 interaktive Code-Puzzles.
 - **Offline & Mobil optimiert:** Vollständig clientseitig im Browser ausführbar.
 
 ### v2.7.0 (27. August 2026)
