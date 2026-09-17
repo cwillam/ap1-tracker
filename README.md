@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.7.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v2.7.2-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
@@ -26,12 +26,24 @@ Der **AP1 Tracker** wurde entwickelt, um Fachinformatikern eine strukturierte Ü
 
 Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwendung anfühlt, aber komplett im Browser läuft. Der Fokus lag auf sauberem Code, Performance und maximalem Datenschutz.
 
+### Highlights v2.7.2 (In-App Feedback-System & Qualitätssicherung)
+
+- **In-App Karten-Feedback:** Fehler, veraltete IHK-Normen oder Unklarheiten direkt auf jeder Lernkarte mit 1 Klick an die Redaktion melden.
+- **Automatischer Kontext:** Übermittlung von Karten-ID, Modul, Fragetext und Antwortauszug ohne manuelles Copy-Paste.
+- **100% DSGVO- & Offline-Safe:** Anonyme Übertragung ohne Cookies, Tracker oder Mailprogramm-Zwang.
+- **Service Worker & Cache-Busting:** Caching auf `v2.7.2` aktualisiert für sofortige automatische Updates.
+
+### Highlights v2.7.1 (Pseudocode-Labor & Schreibtischtests)
+
+- **Algorithmen-Visualizer:** Lineare Suche, Minimum-Suche und Bubble Sort mit Zeiger- und Speicher-Animation live steuern.
+- **18 IHK-Übungen:** 10 interaktive Trace-Tabellen (Schreibtischtests) und 8 Code-Puzzles zur Ablauflogik.
+- **Mobile & Offline-First:** 100% ohne Server offline nutzbar, für Smartphones optimiert.
+
 ### Highlights v2.7.0 (Play Store Release & Vorbereitung)
 
 - **Google Play Store Release Ready:** 14-tägige geschlossene Testphase mit Testern erfolgreich abgeschlossen, Vorbereitung des weltweiten Rollouts und Android 16 (API-Level 36) Konformität.
 - **Einklappbare Banner mit Persistenz:** Community- und Schul-Hinweise lassen sich platzsparend einklappen (Zustand wird im `localStorage` gespeichert).
 - **Discord-Lerncommunity:** Direkte Integration unserer Community für AP1 & AP2 Lerngruppen, Prüfungsaustausch und Release-Ankündigungen.
-- **Service Worker & Cache-Busting:** Bereinigtes Caching (`v2.7.0`) für nahtlose Updates ohne manuellen Hard Refresh.
 
 ### Features
 
@@ -73,6 +85,17 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 ---
 
 ## Changelog
+
+### v2.7.2 (17. September 2026)
+- **In-App Feedback-System:** 1-Klick-Meldesystem direkt auf jeder Lernkarte zur Meldung von Fehlern, veralteten IHK-Normen oder Unklarheiten.
+- **Kontext-Übertragung:** Automatische Erfassung von Karten-ID, Modul, Frage, Antwort und Lernmodus.
+- **100% DSGVO-konform:** Kein Tracking, keine externen Bibliotheken, vollkommen anonym nutzbar.
+- **Service Worker & Cache:** Cache auf `v2.7.2` gebumpt.
+
+### v2.7.1 (14. September 2026)
+- **Pseudocode-Labor:** Neuer interaktiver Algorithmen-Visualizer für Lineare Suche, Minimum-Suche und Bubble Sort.
+- **18 IHK-Übungen:** 10 Schreibtischtests (Trace-Tabellen) und 8 interaktive Code-Puzzles.
+- **Offline & Mobil optimiert:** Vollständig clientseitig im Browser ausführbar.
 
 ### v2.7.0 (27. August 2026)
 - **Google Play Store Release:** 14-Tage-Testphase mit Testern erfolgreich abgeschlossen, Vorbereitung auf weltweiten Rollout und Android 16 (API-Level 36).
