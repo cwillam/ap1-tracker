@@ -28,7 +28,7 @@ Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwend
 
 ### Highlights v2.7.2 (In-App Feedback-System & Qualitätssicherung)
 
-- **In-App Karten-Feedback:** Fehler, veraltete IHK-Normen oder Unklarheiten direkt auf jeder Lernkarte mit 1 Klick an die Redaktion melden.
+- **In-App Karten-Feedback:** Fehler, veraltete Prüfungsnormen oder Unklarheiten direkt auf jeder Lernkarte mit 1 Klick an die Redaktion melden.
 - **Automatischer Kontext:** Übermittlung von Karten-ID, Modul, Fragetext und Antwortauszug ohne manuelles Copy-Paste.
 - **100% DSGVO- & Offline-Safe:** Anonyme Übertragung ohne Cookies, Tracker oder Mailprogramm-Zwang.
 - **Service Worker & Cache-Busting:** Caching auf `v2.7.2` aktualisiert für sofortige automatische Updates.
@@ -87,7 +87,7 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 ## Changelog
 
 ### v2.7.2 (17. September 2026)
-- **In-App Feedback-System:** 1-Klick-Meldesystem direkt auf jeder Lernkarte zur Meldung von Fehlern, veralteten IHK-Normen oder Unklarheiten.
+- **In-App Feedback-System:** 1-Klick-Meldesystem direkt auf jeder Lernkarte zur Meldung von Fehlern, veralteten Prüfungsnormen oder Unklarheiten.
 - **Kontext-Übertragung:** Automatische Erfassung von Karten-ID, Modul, Frage, Antwort und Lernmodus.
 - **100% DSGVO-konform:** Kein Tracking, keine externen Bibliotheken, vollkommen anonym nutzbar.
 - **Service Worker & Cache:** Cache auf `v2.7.2` gebumpt.
