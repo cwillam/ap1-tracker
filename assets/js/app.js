@@ -94,6 +94,12 @@ const app = {
 				? topic.title
 				: "Lernkarten";
 
+			const rBtn = document.getElementById("ankiHeaderReportBtn");
+			if (rBtn) {
+				rBtn.classList.add("hidden");
+				rBtn.classList.remove("inline-flex");
+			}
+
 			// Statistiken laden
 			if (!app.state.ankiStats) app.state.ankiStats = {};
 			const stats = app.state.ankiStats[topicId] || {
@@ -277,6 +283,12 @@ const app = {
 
 			document.getElementById("ankiQuestionView").classList.remove("hidden");
 			document.getElementById("ankiAnswerView").classList.add("hidden");
+
+			const rBtn = document.getElementById("ankiHeaderReportBtn");
+			if (rBtn) {
+				rBtn.classList.remove("hidden");
+				rBtn.classList.add("inline-flex");
+			}
 		},
 
 		showAnswer() {
@@ -418,6 +430,11 @@ const app = {
 		},
 
 		showFinish() {
+			const rBtn = document.getElementById("ankiHeaderReportBtn");
+			if (rBtn) {
+				rBtn.classList.add("hidden");
+				rBtn.classList.remove("inline-flex");
+			}
 			document.getElementById("ankiProgress").style.width = "100%";
 			document.getElementById("ankiAnswerView").classList.add("hidden");
 			document.getElementById("ankiFinishView").classList.remove("hidden");
@@ -433,9 +450,195 @@ const app = {
 		},
 
 		close() {
+			this.closeReportModal();
 			const modal = document.getElementById("ankiModal");
 			modal.classList.add("hidden");
 			document.body.style.overflow = "";
+		},
+
+		openReportModal() {
+			if (!this.cards || !this.cards[this.currentIndex]) return;
+			const card = this.cards[this.currentIndex];
+			const topic = app.findTopic(this.currentTopicId);
+			const topicTitle = topic ? topic.title : `Thema ${this.currentTopicId}`;
+
+			// Ansicht zurücksetzen
+			document.getElementById("reportFormView")?.classList.remove("hidden");
+			document.getElementById("reportSuccessView")?.classList.add("hidden");
+
+			const subtitle = document.getElementById("reportModalSubtitle");
+			if (subtitle) {
+				subtitle.textContent = `${topicTitle} · Karte ${this.currentIndex + 1} von ${this.cards.length} (ID: ${card.id})`;
+			}
+			const qEl = document.getElementById("reportModalQuestion");
+			if (qEl) qEl.textContent = card.q || "";
+			const aEl = document.getElementById("reportModalAnswer");
+			if (aEl) aEl.textContent = card.a || "";
+
+			const input = document.getElementById("reportFeedbackText");
+			if (input) input.value = "";
+			const hp = document.getElementById("reportHpCheck");
+			if (hp) hp.value = "";
+			const hint = document.getElementById("reportErrorHint");
+			if (hint) hint.classList.add("hidden");
+
+			const submitBtn = document.getElementById("reportSubmitBtn");
+			if (submitBtn) {
+				submitBtn.disabled = false;
+				submitBtn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i><span>Fehler jetzt absenden</span>`;
+			}
+
+			const modal = document.getElementById("cardReportModal");
+			if (modal) {
+				modal.classList.remove("hidden");
+				modal.classList.add("flex");
+				setTimeout(() => input?.focus(), 50);
+			}
+			app.refreshIcons();
+		},
+
+		closeReportModal() {
+			const modal = document.getElementById("cardReportModal");
+			if (modal) {
+				modal.classList.add("hidden");
+				modal.classList.remove("flex");
+			}
+		},
+
+		getReportPayload() {
+			if (!this.cards || !this.cards[this.currentIndex]) return null;
+			const card = this.cards[this.currentIndex];
+			const topic = app.findTopic(this.currentTopicId);
+			const topicTitle = topic ? topic.title : `Thema ${this.currentTopicId}`;
+			const feedback = (document.getElementById("reportFeedbackText")?.value || "").trim();
+
+			return {
+				tracker: "AP1 Tracker",
+				topicTitle,
+				topicId: this.currentTopicId,
+				cardNumber: this.currentIndex + 1,
+				totalCards: this.cards.length,
+				cardId: card.id,
+				question: card.q,
+				answer: card.a,
+				feedback,
+			};
+		},
+
+		showReportSuccess() {
+			document.getElementById("reportFormView")?.classList.add("hidden");
+			const succView = document.getElementById("reportSuccessView");
+			if (succView) {
+				succView.classList.remove("hidden");
+				app.refreshIcons();
+			}
+			setTimeout(() => {
+				const modal = document.getElementById("cardReportModal");
+				if (modal && !modal.classList.contains("hidden")) {
+					this.closeReportModal();
+				}
+			}, 2500);
+		},
+
+		async submitReport() {
+			const p = this.getReportPayload();
+			if (!p) return;
+
+			if (!p.feedback) {
+				const hint = document.getElementById("reportErrorHint");
+				if (hint) hint.classList.remove("hidden");
+				document.getElementById("reportFeedbackText")?.focus();
+				return;
+			}
+
+			const submitBtn = document.getElementById("reportSubmitBtn");
+			if (submitBtn) {
+				submitBtn.disabled = true;
+				submitBtn.innerHTML = `<span class="inline-block animate-spin mr-2">⏳</span><span>Wird gesendet...</span>`;
+			}
+
+			const payload = {
+				...p,
+				hp_check: document.getElementById("reportHpCheck")?.value || "",
+			};
+
+			// Lokale Testumgebung (file://, localhost, 127.0.0.1 wie z. B. VS Code Live Server):
+			const isLocalEnv =
+				window.location.protocol === "file:" ||
+				window.location.hostname === "localhost" ||
+				window.location.hostname === "127.0.0.1";
+
+			if (isLocalEnv) {
+				setTimeout(() => {
+					console.log("[Report] Lokaler Testmodus aktiv. Formulardaten:", payload);
+					this.showReportSuccess();
+					if (submitBtn) {
+						submitBtn.disabled = false;
+						submitBtn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i><span>Fehler jetzt absenden</span>`;
+						app.refreshIcons();
+					}
+				}, 400);
+				return;
+			}
+
+			try {
+				const res = await fetch("api/report.php", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(payload),
+				});
+
+				const result = await res.json().catch(() => null);
+
+				if (res.ok && result && result.success) {
+					this.showReportSuccess();
+				} else {
+					throw new Error(result?.error || "Fehler beim Versenden");
+				}
+			} catch (err) {
+				console.warn("[Report] In-App-Versand nicht verfügbar, Fallback auf E-Mail:", err);
+				this.sendReportEmail();
+			} finally {
+				if (submitBtn) {
+					submitBtn.disabled = false;
+					submitBtn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i><span>Fehler jetzt absenden</span>`;
+					app.refreshIcons();
+				}
+			}
+		},
+
+		sendReportEmail() {
+			const p = this.getReportPayload();
+			if (!p) return;
+
+			const subject = `[AP1-Lernkarten] Feedback/Fehler: ${p.topicTitle} (${p.cardId})`;
+			const bodyLines = [
+				"Hallo Christoph,",
+				"",
+				"ich habe einen Fehler bzw. Feedback zu einer Lernkarte im AP1 Tracker:",
+				"",
+				"--------------------------------------------------",
+				`Lernkarte: Karte ${p.cardNumber} von ${p.totalCards} (ID: ${p.cardId})`,
+				`Thema: ${p.topicTitle}`,
+				`Frage: ${p.question}`,
+				`Aktuelle Antwort: ${p.answer}`,
+				"--------------------------------------------------",
+				"",
+				"MEINE ANMERKUNG / FEHLERBESCHREIBUNG:",
+				p.feedback,
+				"",
+				"Gesendet aus dem AP1 Tracker (Web/PWA)",
+			];
+
+			const mailtoUrl = `mailto:info@cwillam.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+			window.location.href = mailtoUrl;
+
+			this.closeReportModal();
+			app.showNotification(
+				"E-Mail vorbereitet",
+				"Dein E-Mail-Programm wurde geöffnet. Klicke dort einfach auf Senden!",
+				"success",
+			);
 		},
 	},
 
@@ -546,6 +749,15 @@ const app = {
 
 			// Keyboard Shortcuts für Lernkarten (Anki)
 			window.addEventListener("keydown", (e) => {
+				const reportModal = document.getElementById("cardReportModal");
+				if (reportModal && !reportModal.classList.contains("hidden")) {
+					if (e.key === "Escape") {
+						e.preventDefault();
+						this.anki.closeReportModal();
+					}
+					return; // Während das Melde-Fenster offen ist, keine Lernkarten-Shortcuts auslösen
+				}
+
 				const modal = document.getElementById("ankiModal");
 				if (modal && !modal.classList.contains("hidden")) {
 					const modeView = document.getElementById("ankiModeView");
