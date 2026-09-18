@@ -188,19 +188,23 @@ function switchTab(tab) {
 	const btnIpv4 = document.getElementById("btn-ipv4");
 	const btnIpv6 = document.getElementById("btn-ipv6");
 
+	const activeClass = "px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-colors bg-blue-600/15 border border-blue-500/40 text-blue-400";
+	const inactiveClass = "px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-colors text-dark-muted hover:text-white border border-transparent";
+
 	if (tab === 'ipv4') {
 		if (tabIpv4) tabIpv4.classList.remove("hidden");
 		if (tabIpv6) tabIpv6.classList.add("hidden");
-		if (btnIpv4) btnIpv4.className = "px-5 py-1.5 rounded-full text-xs font-bold transition-all bg-dark-accent text-white shadow-lg shadow-blue-900/20";
-		if (btnIpv6) btnIpv6.className = "px-5 py-1.5 rounded-full text-xs font-bold text-dark-muted hover:text-white transition-all";
+		if (btnIpv4) btnIpv4.className = activeClass;
+		if (btnIpv6) btnIpv6.className = inactiveClass;
 		generateIPv4();
 	} else {
 		if (tabIpv4) tabIpv4.classList.add("hidden");
 		if (tabIpv6) tabIpv6.classList.remove("hidden");
-		if (btnIpv4) btnIpv4.className = "px-5 py-1.5 rounded-full text-xs font-bold text-dark-muted hover:text-white transition-all";
-		if (btnIpv6) btnIpv6.className = "px-5 py-1.5 rounded-full text-xs font-bold transition-all bg-dark-accent text-white shadow-lg shadow-blue-900/20";
+		if (btnIpv4) btnIpv4.className = inactiveClass;
+		if (btnIpv6) btnIpv6.className = activeClass;
 		generateIPv6();
 	}
+	if (window.lucide) lucide.createIcons();
 }
 
 function checkIPv4() {
@@ -224,12 +228,13 @@ function checkIPv4() {
 
 	if (isMaskCorrect && isNetCorrect && isBcastCorrect && isHostsCorrect) {
 		ipv4Streak++;
-		if (ipv4StreakEl) ipv4StreakEl.innerText = `🔥 ${ipv4Streak}er Streak`;
+		if (ipv4StreakEl) ipv4StreakEl.innerHTML = `<i data-lucide="flame" class="w-3.5 h-3.5 text-amber-500"></i> ${ipv4Streak}er Streak`;
 	} else {
 		ipv4Streak = 0;
-		if (ipv4StreakEl) ipv4StreakEl.innerText = `🔥 0er Streak`;
+		if (ipv4StreakEl) ipv4StreakEl.innerHTML = `<i data-lucide="flame" class="w-3.5 h-3.5 text-dark-dim"></i> 0er Streak`;
 		if (btnSolutionEl) btnSolutionEl.classList.remove("hidden");
 	}
+	if (window.lucide) lucide.createIcons();
 }
 
 function setFieldStatus(field, isCorrect) {
@@ -237,16 +242,16 @@ function setFieldStatus(field, isCorrect) {
 	const feedback = document.getElementById("feedback" + field);
 
 	if (isCorrect) {
-		if (input) input.className = "w-full bg-dark-bg border border-dark-success/40 rounded-xl px-4 py-3 text-sm text-dark-success focus:border-dark-success outline-none font-mono";
+		if (input) input.className = "w-full bg-dark-bg border border-emerald-500/40 rounded-lg px-3.5 py-2.5 text-sm text-emerald-400 focus:border-emerald-400 outline-none font-mono";
 		if (feedback) {
 			feedback.innerText = "✓";
-			feedback.className = "absolute right-3 top-3 text-dark-success font-bold";
+			feedback.className = "absolute right-3 top-2.5 text-emerald-400 font-bold";
 		}
 	} else {
-		if (input) input.className = "w-full bg-dark-bg border border-dark-danger/40 rounded-xl px-4 py-3 text-sm text-dark-danger focus:border-dark-danger outline-none font-mono";
+		if (input) input.className = "w-full bg-dark-bg border border-red-500/40 rounded-lg px-3.5 py-2.5 text-sm text-red-400 focus:border-red-400 outline-none font-mono";
 		if (feedback) {
 			feedback.innerText = "✗";
-			feedback.className = "absolute right-3 top-3 text-dark-danger font-bold";
+			feedback.className = "absolute right-3 top-2.5 text-red-400 font-bold";
 		}
 	}
 }
@@ -263,24 +268,25 @@ function checkIPv6() {
 	const isCorrect = ans === expected;
 
 	if (isCorrect) {
-		if (ansEl) ansEl.className = "w-full bg-dark-bg border border-dark-success/40 rounded-xl px-4 py-3 text-sm text-dark-success focus:border-dark-success outline-none font-mono";
+		if (ansEl) ansEl.className = "w-full bg-dark-bg border border-emerald-500/40 rounded-lg px-3.5 py-2.5 text-sm text-emerald-400 focus:border-emerald-400 outline-none font-mono";
 		if (feedbackEl) {
 			feedbackEl.innerText = "✓";
-			feedbackEl.className = "absolute right-3 top-3 text-dark-success font-bold";
+			feedbackEl.className = "absolute right-3 top-2.5 text-emerald-400 font-bold";
 		}
 		ipv6Streak++;
-		if (ipv6StreakEl) ipv6StreakEl.innerText = `🔥 ${ipv6Streak}er Streak`;
+		if (ipv6StreakEl) ipv6StreakEl.innerHTML = `<i data-lucide="flame" class="w-3.5 h-3.5 text-amber-500"></i> ${ipv6Streak}er Streak`;
 	} else {
-		if (ansEl) ansEl.className = "w-full bg-dark-bg border border-dark-danger/40 rounded-xl px-4 py-3 text-sm text-dark-danger focus:border-dark-danger outline-none font-mono";
+		if (ansEl) ansEl.className = "w-full bg-dark-bg border border-red-500/40 rounded-lg px-3.5 py-2.5 text-sm text-red-400 focus:border-red-400 outline-none font-mono";
 		if (feedbackEl) {
 			feedbackEl.innerText = "✗";
-			feedbackEl.className = "absolute right-3 top-3 text-dark-danger font-bold";
+			feedbackEl.className = "absolute right-3 top-2.5 text-red-400 font-bold";
 		}
 		ipv6Streak = 0;
-		if (ipv6StreakEl) ipv6StreakEl.innerText = `🔥 0er Streak`;
+		if (ipv6StreakEl) ipv6StreakEl.innerHTML = `<i data-lucide="flame" class="w-3.5 h-3.5 text-dark-dim"></i> 0er Streak`;
 		if (solutionPanelIpv6) solutionPanelIpv6.classList.remove("hidden");
 		if (ipv6SolutionText) ipv6SolutionText.innerText = currentIpv6.compressed;
 	}
+	if (window.lucide) lucide.createIcons();
 }
 
 function showSolution() {

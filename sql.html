@@ -11,17 +11,16 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-    <meta name="theme-color" content="#0ea5e9" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#09090b" />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.7.1" />
+    <!-- Preload Local Typography -->
+    <link rel="preload" href="assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js?v=2.7.1"></script>
+    <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
+    <script src="assets/js/tailwind.js?v=3.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -29,268 +28,443 @@
           extend: {
             fontFamily: {
               sans: [
+                "Inter",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
                 "Segoe UI",
                 "Roboto",
-                "Helvetica Neue",
-                "Arial",
                 "sans-serif",
               ],
               mono: [
                 "ui-monospace",
                 "SFMono-Regular",
+                "JetBrains Mono",
                 "Menlo",
                 "Monaco",
                 "Consolas",
-                "Liberation Mono",
-                "Courier New",
                 "monospace",
               ],
             },
             colors: {
               dark: {
-                bg: "#020617",
-                card: "#0f172a",
-                border: "#1e293b",
-                muted: "#94a3b8",
-                text: "#f8fafc",
-                accent: "#0ea5e9",
-                "accent-hover": "#0284c7",
-                success: "#10b981",
-                warning: "#f59e0b",
-                danger: "#ef4444",
+                bg: "#09090b", // Pure obsidian / Zinc 950
+                card: "#121215", // Dense workbench surface
+                "card-hover": "#18181d",
+                border: "#23232a", // Hairline border
+                "border-subtle": "#191920",
+                text: "#f4f4f5", // High-contrast Zinc 100
+                muted: "#a1a1aa", // Zinc 400
+                dim: "#71717a", // Zinc 500
+                accent: "#3b82f6", // Electric Cobalt
+                "accent-dim": "rgba(59, 130, 246, 0.12)",
+                success: "#10b981", // Crisp Emerald
+                warning: "#f59e0b", // Amber
+                danger: "#ef4444", // Crimson
               },
             },
           },
         },
       };
     </script>
-  </head>
-  <body
-    class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white"
-  >
+
+    <!-- Custom High-Craft CSS Tokens & Keycaps -->
+    <link href="assets/css/style.css?v=3.0.0" rel="stylesheet" />
+
     <style>
       .sql-next-pulse {
         animation: sql-pulse 1.4s ease-in-out infinite;
-        border-color: rgb(16, 185, 129);
-        color: white;
-        background-color: rgb(16, 185, 129);
+        border-color: rgba(16, 185, 129, 0.5) !important;
+        color: #ffffff !important;
+        background-color: #10b981 !important;
       }
       @keyframes sql-pulse {
-        0%,
-        100% {
+        0%, 100% {
           box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
           transform: scale(1);
         }
         50% {
-          box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.4);
-          transform: scale(1.05);
+          box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.35);
+          transform: scale(1.03);
         }
       }
       .sql-next-pulse:hover {
         animation: none;
-        transform: scale(1.06);
-        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.55);
+        transform: scale(1.04);
+        box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.5);
       }
     </style>
+  </head>
 
-    <!-- Header -->
-    <header
-      class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50"
-    >
-      <div
-        class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between"
-      >
-        <a
-          href="index.html"
-          class="flex items-center gap-3 group hover:opacity-80 transition-opacity"
-        >
-          <div
-            class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors"
-          >
-            <i
-              data-lucide="arrow-left"
-              class="text-dark-muted group-hover:text-dark-accent transition-colors"
-            ></i>
+  <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- ============================================================
+         TOP COMMAND BAR (Sticky Hairline Header)
+         ============================================================ -->
+    <header class="sticky top-0 z-40 w-full border-b border-dark-border bg-dark-bg/90 backdrop-blur-md">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+        <!-- Left: Back to Dashboard & Title -->
+        <a href="index.html" class="flex items-center gap-2.5 sm:gap-3 group focus:outline-none shrink-0">
+          <div class="w-8 h-8 rounded-lg border border-dark-border bg-dark-card group-hover:border-dark-strong flex items-center justify-center text-dark-muted group-hover:text-white transition-all">
+            <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-0.5"></i>
           </div>
-          <div class="flex flex-col">
-            <span class="font-bold text-lg tracking-tight leading-none"
-              >AP1 <span class="text-dark-accent">Tracker</span></span
-            >
-            <span class="text-[10px] text-dark-muted font-mono"
-              >Zurück zum Dashboard</span
-            >
+          <div class="flex items-center gap-2">
+            <span class="kbd-cap bg-blue-600/15 border-blue-500/40 text-blue-400 font-bold px-2 py-0.5 text-xs">AP1</span>
+            <div class="flex flex-col">
+              <span class="font-bold text-sm tracking-tight text-white group-hover:text-blue-400 transition-colors">
+                SQL-Labor
+              </span>
+              <span class="text-[10px] font-mono text-dark-dim leading-none hidden sm:block">Interaktiver Query-Trainer</span>
+            </div>
           </div>
         </a>
-        <div class="flex items-center gap-3">
-          <span
+
+        <!-- Right: Tools, Telemetry Badges & Discord -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Quick Tools Switcher -->
+          <div class="hidden lg:flex items-center gap-1.5 border-r border-dark-border pr-3 mr-1">
+            <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Dashboard">
+              <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span>Dashboard</span>
+            </a>
+            <a href="subnet.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Subnetz-Trainer">
+              <i data-lucide="network" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span>Subnetz</span>
+            </a>
+            <a href="pseudocode.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Pseudocode-Labor">
+              <i data-lucide="code" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Pseudocode</span>
+            </a>
+            <a href="glossar.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Fach-Glossar">
+              <i data-lucide="book-open" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Glossar</span>
+            </a>
+            <a href="help.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Hilfe & FAQ">
+              <i data-lucide="help-circle" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>Hilfe</span>
+            </a>
+          </div>
+
+          <!-- Streak Badge -->
+          <div
             id="streakBadge"
-            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-accent"
-            >🔥 0</span
+            class="font-mono text-xs font-bold text-dark-muted flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-dark-border bg-dark-card"
           >
-          <span
+            <i data-lucide="flame" class="w-3.5 h-3.5 text-dark-dim"></i> 0
+          </div>
+
+          <!-- XP Badge -->
+          <div
             id="xpBadge"
-            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-emerald-400"
-            >0 XP</span
+            class="hidden sm:flex font-mono text-xs font-bold text-emerald-400 items-center gap-1.5 px-2.5 py-1 rounded-md border border-dark-border bg-dark-card"
           >
-          <span
-            class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted hidden sm:inline"
-            >v2.7.2</span
+            <i data-lucide="zap" class="w-3.5 h-3.5 text-emerald-400"></i> 0 XP
+          </div>
+
+          <!-- Support Button -->
+          <button
+            type="button"
+            onclick="openSupportModal()"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#FFDD00]/40 bg-dark-card hover:bg-[#FFDD00]/10 text-dark-muted hover:text-[#FFDD00] transition-all text-xs flex items-center gap-1.5 shrink-0"
+            title="Support / Projekt unterstützen"
           >
+            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
+            <span class="hidden sm:inline font-mono text-[11px] font-medium">Support</span>
+          </button>
+
+          <!-- Discord -->
+          <a
+            href="https://discord.gg/5BM5YJadDs"
+            target="_blank"
+            rel="noopener"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#5865F2]/50 bg-dark-card hover:bg-[#5865F2]/10 text-dark-muted hover:text-white transition-all text-xs flex items-center gap-1.5 shrink-0"
+            title="Discord: Lerngruppen & Fragen"
+          >
+            <i data-lucide="message-square" class="w-4 h-4 text-[#5865F2]"></i>
+            <span class="hidden sm:inline font-mono text-[11px]">Discord</span>
+          </a>
         </div>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow w-full max-w-6xl mx-auto px-4 py-6">
-      <div class="text-center mb-6">
-        <h1
-          class="text-3xl font-extrabold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-2 pb-1 flex items-center justify-center gap-3"
-        >
-          <i data-lucide="database" class="text-dark-accent"></i>
-          SQL-Labor
-        </h1>
-        <p class="text-dark-muted text-sm max-w-xl mx-auto">
-          Trainiere SQL-Abfragen gegen eine kleine Mock-Datenbank. Tippe deine
-          Query in den Editor und drücke
-          <kbd
-            class="font-mono bg-dark-card border border-dark-border px-1 rounded"
-            >Strg+Enter</kbd
-          >.
+    <!-- ============================================================
+         MAIN WORKSPACE CONTAINER
+         ============================================================ -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+      <!-- Workbench Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-dark-border">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="kbd-cap text-[9px] text-blue-400 border-blue-900/40 bg-blue-950/20">INTERAKTIVES LABOR</span>
+            <span class="font-mono text-[11px] text-dark-dim uppercase tracking-wider">In-Memory Mock DB</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+            <i data-lucide="database" class="w-5 h-5 text-emerald-400"></i>
+            <span>SQL-Labor &amp; Abfrage-Trainer</span>
+          </h1>
+        </div>
+        <p class="text-xs text-dark-muted font-mono max-w-md leading-relaxed">
+          Tippe deine SQL-Query in den Editor und drücke <kbd class="kbd-cap text-[10px]">Strg+Enter</kbd> zum Ausführen.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <!-- Schema-Explorer -->
-        <aside class="lg:col-span-1 space-y-3">
-          <div class="bg-dark-card border border-dark-border rounded-2xl p-4">
-            <div class="flex items-center justify-between mb-3">
-              <h2 class="font-bold text-sm text-white flex items-center gap-2">
-                <i
-                  data-lucide="table-properties"
-                  class="w-4 h-4 text-dark-accent"
-                ></i>
-                Datenbank-Schema
+      <!-- 2-Column Workbench Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+        <!-- ============================================================
+             LEFT: Schema-Explorer (4 Columns)
+             ============================================================ -->
+        <aside class="lg:col-span-4 space-y-4">
+          <!-- Schema Explorer Card -->
+          <div class="p-4 rounded-xl border border-dark-border bg-dark-card space-y-3 shadow-sm">
+            <div class="flex items-center justify-between border-b border-dark-border pb-2.5">
+              <h2 class="font-bold text-xs uppercase tracking-wider text-white font-mono flex items-center gap-2">
+                <i data-lucide="table-properties" class="w-4 h-4 text-blue-400"></i>
+                <span>Datenbank-Schema</span>
               </h2>
               <button
                 id="btnReset"
-                class="text-[10px] font-mono text-dark-muted hover:text-dark-accent flex items-center gap-1"
+                class="px-2 py-1 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors flex items-center gap-1"
+                title="Mock-Datenbank auf Originalzustand zurücksetzen"
               >
                 <i data-lucide="rotate-ccw" class="w-3 h-3"></i> Reset
               </button>
             </div>
-            <div id="schemaExplorer" class="space-y-3"></div>
+
+            <!-- Dynamic Schema Output -->
+            <div id="schemaExplorer" class="space-y-3 font-mono text-xs"></div>
           </div>
-          <div
-            class="bg-dark-card border border-dark-border rounded-2xl p-4 text-xs text-dark-muted leading-relaxed"
-          >
-            <h3
-              class="font-bold text-white mb-2 text-sm flex items-center gap-2"
-            >
-              <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400"></i>
-              Hinweis
+
+          <!-- Sandbox Guarantee Notice -->
+          <div class="p-4 rounded-xl border border-dark-border bg-dark-card text-xs text-dark-muted leading-relaxed space-y-2">
+            <h3 class="font-bold text-white text-xs font-mono flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+              <span>100% Lokale Sandbox</span>
             </h3>
-            Alle Daten werden lokal in deinem Browser gehalten. Es wird keine
-            Verbindung zu einem echten DBMS aufgebaut – das SQL wird direkt im
-            JS-Parser ausgeführt.
+            <p>
+              Alle Tabellen liegen als Javascript-Objekte im Browser-Speicher. Du kannst gefahrlos Abfragen testen, modifizieren oder zurücksetzen. Keine Serververbindung.
+            </p>
           </div>
         </aside>
 
-        <!-- Editor + Result -->
-        <section class="lg:col-span-2 space-y-4">
-          <!-- Aufgabenstellung -->
-          <div class="bg-dark-card border border-dark-border rounded-2xl p-5">
-            <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+        <!-- ============================================================
+             RIGHT: Task, Editor & Live Results (8 Columns)
+             ============================================================ -->
+        <section class="lg:col-span-8 space-y-4">
+
+          <!-- 01 Task Card -->
+          <div class="p-5 rounded-xl border border-dark-border bg-dark-card space-y-3 shadow-sm">
+            <div class="flex items-center justify-between flex-wrap gap-2 border-b border-dark-border pb-3">
               <div class="flex items-center gap-2">
                 <span
                   id="taskLevel"
-                  class="bg-dark-accent/15 text-dark-accent px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider"
-                  >Stufe 1</span
+                  class="kbd-cap bg-blue-600/20 text-blue-400 border-blue-500/30 text-[10px]"
                 >
-                <span id="taskCounter" class="text-dark-muted text-xs font-mono"
-                  >1 / 10</span
-                >
+                  Stufe 1
+                </span>
+                <span id="taskCounter" class="text-dark-muted text-xs font-mono font-semibold">
+                  1 / 10
+                </span>
               </div>
-              <div class="flex items-center gap-2">
+
+              <!-- Next / Prev Controls -->
+              <div class="flex items-center gap-1.5">
                 <button
                   id="btnPrev"
-                  class="px-2 py-1 bg-dark-bg border border-dark-border rounded-lg text-dark-muted hover:text-white text-xs"
+                  class="px-2.5 py-1.5 bg-dark-bg border border-dark-border hover:border-dark-strong rounded-lg text-dark-muted hover:text-white text-xs font-mono flex items-center gap-1 transition-colors"
                 >
-                  <i data-lucide="chevron-left" class="w-3 h-3 inline"></i>
-                  Zurück
+                  <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+                  <span>Zurück</span>
                 </button>
                 <button
                   id="btnNext"
-                  class="px-2 py-1 bg-dark-bg border border-dark-border rounded-lg text-dark-muted hover:text-white text-xs"
+                  class="px-3 py-1.5 bg-dark-bg border border-dark-border hover:border-dark-strong rounded-lg text-dark-muted hover:text-white text-xs font-mono font-semibold flex items-center gap-1 transition-colors"
                 >
-                  Weiter
-                  <i data-lucide="chevron-right" class="w-3 h-3 inline"></i>
+                  <span>Weiter</span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                 </button>
               </div>
             </div>
-            <h2 id="taskTitle" class="text-lg font-bold text-white mb-2"></h2>
-            <p
-              id="taskPrompt"
-              class="text-dark-muted text-sm leading-relaxed"
-            ></p>
+
+            <!-- Task Title & Prompt -->
+            <div>
+              <h2 id="taskTitle" class="text-base sm:text-lg font-bold text-white tracking-tight"></h2>
+              <p id="taskPrompt" class="text-xs sm:text-sm text-dark-muted leading-relaxed mt-1"></p>
+            </div>
           </div>
 
-          <!-- Editor -->
-          <div class="bg-dark-card border border-dark-border rounded-2xl p-3">
-            <div class="flex items-center justify-between mb-2 px-1">
-              <span
-                class="text-[10px] font-mono uppercase tracking-wider text-dark-muted"
-                >SQL-Editor</span
-              >
+          <!-- 02 SQL-Editor Card -->
+          <div class="p-4 rounded-xl border border-dark-border bg-dark-card space-y-2.5 shadow-sm">
+            <div class="flex items-center justify-between px-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-[10px] uppercase font-bold tracking-wider text-dark-dim">
+                  // SQL-QUERY
+                </span>
+                <span class="text-[10px] font-mono text-dark-dim hidden sm:inline">
+                  (Strg+Enter zum Ausführen)
+                </span>
+              </div>
               <button
                 id="btnRun"
-                class="px-3 py-1.5 bg-dark-accent text-white rounded-lg font-bold text-xs hover:bg-dark-accent-hover transition-all flex items-center gap-1"
+                class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-mono font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-sm"
               >
-                <i data-lucide="play" class="w-3 h-3"></i> Ausführen
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+                <span>Ausführen</span>
               </button>
             </div>
+
             <textarea
               id="editor"
               spellcheck="false"
-              class="w-full h-32 bg-dark-bg border border-dark-border rounded-lg p-3 font-mono text-sm text-slate-200 focus:outline-none focus:border-dark-accent resize-y"
+              class="w-full h-32 bg-dark-bg border border-dark-border rounded-lg p-3 font-mono text-xs sm:text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-y leading-relaxed transition-colors selection:bg-blue-600 selection:text-white"
               placeholder="SELECT * FROM Mitarbeiter;"
             ></textarea>
           </div>
 
-          <!-- Feedback -->
+          <!-- 03 Dynamic Feedback Banner -->
           <div id="feedback"></div>
 
-          <!-- Live-Ergebnis -->
-          <div class="bg-dark-card border border-dark-border rounded-2xl p-4">
-            <div class="flex items-center justify-between mb-2">
-              <h2 class="font-bold text-sm text-white flex items-center gap-2">
-                <i data-lucide="table-2" class="w-4 h-4 text-dark-accent"></i>
-                Live-Ergebnis
+          <!-- 04 Live Results Card -->
+          <div class="p-4 rounded-xl border border-dark-border bg-dark-card space-y-3 shadow-sm">
+            <div class="flex items-center justify-between border-b border-dark-border pb-2">
+              <h2 class="font-bold text-xs uppercase tracking-wider text-white font-mono flex items-center gap-2">
+                <i data-lucide="table-2" class="w-4 h-4 text-emerald-400"></i>
+                <span>Live-Ergebnis</span>
               </h2>
             </div>
-            <div id="resultTable"></div>
+            <div id="resultTable" class="min-h-[60px]"></div>
           </div>
+
         </section>
       </div>
+
     </main>
 
-    <footer class="text-center text-[10px] text-dark-muted py-4 font-mono">
-      SQL-Labor v2.7.2 · Mock-Engine · Offline-fähig
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="border-t border-dark-border mt-auto bg-dark-bg/60 text-xs text-dark-dim font-mono">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span>cwillam © 2026</span>
+          <span>·</span>
+          <span>Open Source &amp; 100% Lokal</span>
+        </div>
+        <div class="flex items-center gap-4 flex-wrap justify-center text-dark-muted">
+          <button onclick="openSupportModal()" class="hover:text-[#FFDD00] transition-colors flex items-center gap-1 font-bold">
+            <i data-lucide="coffee" class="w-3.5 h-3.5 text-[#FFDD00]"></i> Support
+          </button>
+          <a href="index.html" class="hover:text-white transition-colors">Dashboard</a>
+          <a href="subnet.html" class="hover:text-white transition-colors">Subnetz-Trainer</a>
+          <a href="pseudocode.html" class="hover:text-white transition-colors">Pseudocode</a>
+          <a href="glossar.html" class="hover:text-white transition-colors">Glossar</a>
+          <a href="help.html" class="hover:text-white transition-colors">Hilfe &amp; FAQ</a>
+          <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="hover:text-[#5865F2] transition-colors flex items-center gap-1">
+            <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Discord
+          </a>
+        </div>
+      </div>
     </footer>
 
-    <script src="assets/js/lucide.min.js?v=2.7.1"></script>
-    <script src="assets/js/confetti.js?v=2.7.1"></script>
-    <script src="assets/js/sql.js?v=2.7.1"></script>
+    <!-- Standardized Support Modal -->
+    <div
+      id="supportModal"
+      class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4"
+      onclick="if(event.target === this) closeSupportModal()"
+    >
+      <div class="w-full max-w-md bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl space-y-4 relative">
+        <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[#FFDD00]/15 border border-[#FFDD00]/30 flex items-center justify-center text-[#FFDD00]">
+              <i data-lucide="coffee" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-white leading-tight">Projekt unterstützen</h3>
+              <span class="text-[10px] font-mono text-dark-dim leading-none">Freiwillig &amp; 100% werbefrei</span>
+            </div>
+          </div>
+          <button
+            onclick="closeSupportModal()"
+            class="w-8 h-8 rounded-lg border border-dark-border hover:border-dark-border/80 bg-dark-bg hover:bg-dark-border/40 text-dark-muted hover:text-white transition-all flex items-center justify-center"
+            title="Schließen"
+            aria-label="Modal schließen"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Die Tracker sind komplett kostenlos, werbefrei und quelloffen. Wenn dir das Tool bei der Prüfungsvorbereitung hilft, freue ich mich riesig über einen Kaffee!
+        </p>
+        <div class="flex flex-col gap-3 pt-1">
+          <!-- PayPal Button -->
+          <a
+            href="https://www.paypal.com/paypalme/parablepanorama"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#0070BA]/10 border border-[#0070BA]/30 hover:border-[#0070BA]/60 hover:bg-[#0070BA]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#0070BA]/20 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
+                <i data-lucide="wallet" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">PayPal</span>
+                <span class="text-[10px] text-dark-muted font-mono">paypal.me/parablepanorama · Schnell &amp; unkompliziert</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+
+          <!-- Buy Me A Coffee Button -->
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#FFDD00]/10 border border-[#FFDD00]/30 hover:border-[#FFDD00]/60 hover:bg-[#FFDD00]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#FFDD00]/20 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
+                <i data-lucide="coffee" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">Buy Me a Coffee</span>
+                <span class="text-[10px] text-dark-muted font-mono">buymeacoffee.com/cwillam · Einmalig spenden</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+        </div>
+        <div class="pt-2 border-t border-dark-border/60 flex items-center justify-center gap-1.5 text-[11px] font-mono text-dark-dim">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Sichere Weiterleitung · Keine Datenübertragung</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script src="assets/js/confetti.js?v=3.0.0"></script>
+    <script src="assets/js/sql.js?v=3.0.0"></script>
     <script>
+      function openSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) {
+          modal.classList.remove("hidden");
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+      function closeSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) modal.classList.add("hidden");
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeSupportModal();
+      });
       if (window.lucide) lucide.createIcons();
-    </script>
-    <script>
-      // Service Worker Registration
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("sw.js?v=2.7.1").catch(() => {});
+          navigator.serviceWorker.register("sw.js?v=3.0.0").catch(() => {});
         });
       }
     </script>

@@ -1,74 +1,202 @@
-/* Global Styles & Overrides */
+/* ============================================================
+   AP1 TRACKER · HIGH-CRAFT WORKBENCH (v3)
+   High-Craft · Tactile · Dense · Architectural Workbench
+   Obsidian Zinc · Electric Cobalt Accent · Tabular Monospace
+   ============================================================ */
+
+/* ----- FONTS (Self-hosted, 100% offline, zero CDN) ----- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/Inter-Bold.woff2') format('woff2');
+}
+
+/* ----- DESIGN TOKENS ----- */
+:root {
+  --bg: #09090b;             /* Pure Obsidian / Zinc 950 */
+  --surface: #121215;        /* Primary Workbench Surface */
+  --surface-raised: #18181d; /* Elevated Cards / Menus */
+  --surface-hover: #1e1e24;  /* Hover state */
+  --surface-inset: #0d0d10;  /* Inset wells */
+
+  --border: #23232a;         /* Crisp 1px hairline */
+  --border-subtle: #191920;  /* Sub-hairline separator */
+  --border-strong: #383842;  /* Focused / Active border */
+
+  --ink: #f4f4f5;            /* Zinc 100 high-contrast text */
+  --ink-secondary: #a1a1aa;  /* Zinc 400 secondary */
+  --ink-muted: #71717a;      /* Zinc 500 metadata */
+  --ink-dim: #52525b;        /* Zinc 600 labels */
+
+  --accent: #3b82f6;         /* Electric Cobalt */
+  --accent-muted: rgba(59, 130, 246, 0.12);
+  --accent-glow: rgba(59, 130, 246, 0.25);
+
+  --success: #10b981;        /* Emerald */
+  --success-muted: rgba(16, 185, 129, 0.12);
+
+  --warning: #f59e0b;        /* Amber */
+  --warning-muted: rgba(245, 158, 11, 0.12);
+
+  --danger: #ef4444;         /* Crimson */
+  --danger-muted: rgba(239, 68, 68, 0.12);
+
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Monaco, Consolas, monospace;
+}
+
+/* ----- GLOBAL RESET & BASE ----- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: #020617;
-  color: #f8fafc;
-  /* Fallback auf System Fonts für maximale Performance & Privacy */
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
   overscroll-behavior-y: none;
 }
 
-/* Accordion Transitions */
+/* Tabular numbers for clean alignment */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----- TACTILE KEYCAP COMPONENT ----- */
+.kbd-cap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 2.5px 6px;
+  border-radius: 4px;
+  background: #191920;
+  border: 1px solid #2e2e3a;
+  color: #d4d4d8;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* ----- HAIRLINE PROGRESS SYSTEM ----- */
+.hairline-track {
+  width: 100%;
+  height: 2px;
+  background: #23232a;
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+.hairline-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hairline-fill.success {
+  background: var(--success);
+}
+.hairline-fill.warning {
+  background: var(--warning);
+}
+
+/* ----- ACCORDION & TOPIC CARDS ----- */
 .topic-body {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease;
+  transition: grid-template-rows 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
   opacity: 0;
   overflow: hidden;
 }
 .topic-body.open {
   grid-template-rows: 1fr;
   opacity: 1;
-  border-top: 1px solid #1e293b;
+  border-top: 1px solid var(--border-subtle);
 }
 .topic-content {
   min-height: 0;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Topic Card Hover & Selection */
+.topic-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
-::-webkit-scrollbar-track {
-  background: #020617;
-}
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+.topic-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
 }
 
-/* Checkbox Animation */
-.checkbox-wrapper input:checked + div {
-  background-color: #0ea5e9;
-  border-color: #0ea5e9;
+/* ----- CHECKBOX SYSTEM ----- */
+.checkbox-wrapper input:checked + div,
+input.topic-check:checked + div {
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
-.checkbox-wrapper input:checked + div svg {
+.checkbox-wrapper input:checked + div svg,
+input.topic-check:checked + div svg {
   transform: scale(1);
 }
 
-/* Header Blur */
-.glass-header {
-  background: rgba(2, 6, 23, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid #1e293b;
-}
-
-/* Streak Calendar */
+/* ----- STREAK HEATMAP (80 DAYS) ----- */
 .streak-cell {
-  transition: all 0.2s ease;
+  transition: transform 0.15s ease, background-color 0.15s ease;
 }
 .streak-cell:hover {
-  transform: scale(1.2);
+  transform: scale(1.25);
   z-index: 10;
-  box-shadow: 0 0 8px rgba(14, 165, 233, 0.6);
+  outline: 1px solid var(--accent);
 }
 
-/* Utility Classes */
+/* ----- SCROLLBAR (Minimal & Dark) ----- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #272730;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f4e;
+}
+
+/* ----- UTILITIES ----- */
 .force-hide {
   opacity: 0 !important;
   pointer-events: none !important;
@@ -83,42 +211,13 @@ body {
   scrollbar-width: none;
 }
 
-/* Micro-Animations */
-@keyframes dice-soft-tumble {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(-5deg) scale(1.05);
-  }
-  50% {
-    transform: rotate(5deg) scale(1.05);
-  }
-  75% {
-    transform: rotate(-2deg) scale(1.02);
-  }
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-}
-.group:hover .animate-dice-hover {
-  animation: dice-soft-tumble 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
-}
-
-@keyframes focus-soft-snap {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  40% {
-    transform: scale(1.1) rotate(5deg);
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
-}
-.group:hover .animate-focus-hover {
-  animation: focus-soft-snap 0.3s ease-out forwards;
-  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
+/* Dynamic Lucide SVGs */
+svg.lucide {
+  display: inline-block;
+  vertical-align: -0.125em;
+  width: 1.15em;
+  height: 1.15em;
+  stroke-width: 2px;
 }
 
 /* Print Styles */
@@ -133,81 +232,12 @@ body {
   .topic-card {
     border: 1px solid #ccc;
     break-inside: avoid;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     color: black;
     background: white;
-    box-shadow: none;
-  }
-  .topic-title {
-    color: black !important;
   }
   .topic-body {
     display: block !important;
     opacity: 1 !important;
-    grid-template-rows: 1fr !important;
-  }
-  .topic-content {
-    padding: 10px !important;
   }
 }
-
-/* Lucide SVGs dynamisch an Textgröße anpassen (verhindert Riesen-Icons) */
-svg.lucide {
-  display: inline-block;
-  vertical-align: -0.125em;
-  width: 1.15em;
-  height: 1.15em;
-  stroke-width: 2px;
-}
-
-/* Header Specific Micro-Animations */
-@keyframes bell-ring {
-  0%, 100% { transform: rotate(0deg); }
-  15% { transform: rotate(12deg); }
-  30% { transform: rotate(-12deg); }
-  45% { transform: rotate(8deg); }
-  60% { transform: rotate(-8deg); }
-  75% { transform: rotate(4deg); }
-  90% { transform: rotate(-4deg); }
-}
-.group:hover .animate-bell-ring-hover {
-  animation: bell-ring 0.6s ease-in-out;
-  transform-origin: top center;
-}
-
-@keyframes trash-shake {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(-1px, 1px) rotate(-3deg); }
-  50% { transform: translate(1px, -1px) rotate(3deg); }
-  75% { transform: translate(-1px, -1px) rotate(-1deg); }
-}
-.group:hover .animate-trash-hover {
-  animation: trash-shake 0.3s ease-in-out;
-}
-
-/* Hamburger Line Transitions */
-.hamburger-line {
-  transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
-}
-.menu-open .line-1 {
-  transform: translateY(8px) rotate(45deg);
-}
-.menu-open .line-2 {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.menu-open .line-3 {
-  transform: translateY(-8px) rotate(-45deg);
-}
-.z-45 {
-  z-index: 45;
-}
-
-.fade-in {
-  animation: fadeIn 0.3s ease-out forwards;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-

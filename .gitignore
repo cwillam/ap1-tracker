@@ -1,0 +1,38 @@
+# OS & System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Keystores & Signing Keys (CRITICAL)
+*.keystore
+*.jks
+signing-key-info.txt
+*.p12
+*.key
+*.pem
+
+# Dependencies & Build artifacts
+node_modules/
+dist/
+build/
+*.aab
+*.apk
+*.zip
+*.tar.gz
+
+# Environment & Local Secrets
+.env
+.env.*
+*.local
+
+# Editor directories
+.idea/
+.vscode/
+*.sublime-workspace
+*.swp
+*~
+*.bak
+
+# Logs
+*.log
+npm-debug.log*

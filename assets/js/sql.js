@@ -868,7 +868,7 @@
 			level: "Stufe 1",
 			title: "Alle Mitarbeiter anzeigen",
 			prompt: "Zeige alle Spalten aller Mitarbeiter an.",
-			hint: "SELECT * FROM Mitarbeiter;",
+			hint: "Frage mit SELECT alle Spalten (*) aus der Tabelle Mitarbeiter ab.",
 			solution: "SELECT * FROM Mitarbeiter;",
 			verify: (res) =>
 				res.type === "select" &&
@@ -880,7 +880,7 @@
 			level: "Stufe 1",
 			title: "Nur Name und Abteilung",
 			prompt: "Liste Name und Abteilung aller Mitarbeiter auf.",
-			hint: "SELECT Name, Abteilung FROM Mitarbeiter;",
+			hint: "Nenne die Spalten Name und Abteilung kommagetrennt nach dem SELECT-Befehl.",
 			solution: "SELECT Name, Abteilung FROM Mitarbeiter;",
 			verify: (res) =>
 				res.type === "select" &&
@@ -894,7 +894,7 @@
 			level: "Stufe 1",
 			title: "Mitarbeiter der IT filtern",
 			prompt: "Welche Mitarbeiter arbeiten in der IT? Zeige Name und Gehalt.",
-			hint: "SELECT Name, Gehalt FROM Mitarbeiter WHERE Abteilung = 'IT';",
+			hint: "Filtere die Zeilen mit einer WHERE-Bedingung auf die Abteilung 'IT'.",
 			solution: "SELECT Name, Gehalt FROM Mitarbeiter WHERE Abteilung = 'IT';",
 			verify: (res) =>
 				res.type === "select" &&
@@ -907,7 +907,7 @@
 			title: "Nach Gehalt absteigend sortieren",
 			prompt:
 				"Sortiere alle Mitarbeiter nach Gehalt absteigend. Zeige Name und Gehalt.",
-			hint: "SELECT Name, Gehalt FROM Mitarbeiter ORDER BY Gehalt DESC;",
+			hint: "Nutze am Ende der Abfrage ORDER BY mit dem Schlüsselwort DESC für absteigende Sortierung.",
 			solution: "SELECT Name, Gehalt FROM Mitarbeiter ORDER BY Gehalt DESC;",
 			verify: (res) =>
 				res.type === "select" &&
@@ -919,7 +919,7 @@
 			level: "Stufe 1",
 			title: "Top 3 nach Gehalt",
 			prompt: "Zeige die 3 bestbezahlten Mitarbeiter mit Name und Gehalt.",
-			hint: "SELECT Name, Gehalt FROM Mitarbeiter ORDER BY Gehalt DESC LIMIT 3;",
+			hint: "Kombiniere die absteigende Sortierung (ORDER BY Gehalt DESC) mit LIMIT 3.",
 			solution:
 				"SELECT Name, Gehalt FROM Mitarbeiter ORDER BY Gehalt DESC LIMIT 3;",
 			verify: (res) =>
@@ -932,7 +932,7 @@
 			level: "Stufe 1",
 			title: "Eindeutige Abteilungen",
 			prompt: "Welche unterschiedlichen Abteilungen gibt es? (DISTINCT)",
-			hint: "SELECT DISTINCT Abteilung FROM Mitarbeiter;",
+			hint: "Verwende das Schlüsselwort DISTINCT direkt nach SELECT, um Duplikate zu entfernen.",
 			solution: "SELECT DISTINCT Abteilung FROM Mitarbeiter;",
 			verify: (res) => res.type === "select" && res.rows.length === 4,
 		},
@@ -941,7 +941,7 @@
 			level: "Stufe 1",
 			title: "Anzahl Mitarbeiter pro Abteilung",
 			prompt: "Wie viele Mitarbeiter hat jede Abteilung?",
-			hint: "SELECT Abteilung, COUNT(*) FROM Mitarbeiter GROUP BY Abteilung;",
+			hint: "Nutze GROUP BY Abteilung zusammen mit der Aggregatfunktion COUNT(*).",
 			solution:
 				"SELECT Abteilung, COUNT(*) FROM Mitarbeiter GROUP BY Abteilung;",
 			verify: (res) =>
@@ -954,7 +954,7 @@
 			level: "Stufe 1",
 			title: "Durchschnittsgehalt IT",
 			prompt: "Wie hoch ist das Durchschnittsgehalt der IT-Abteilung?",
-			hint: "SELECT AVG(Gehalt) FROM Mitarbeiter WHERE Abteilung = 'IT';",
+			hint: "Verwende die Aggregatfunktion AVG(Gehalt) und filtere mit WHERE auf Abteilung = 'IT'.",
 			solution: "SELECT AVG(Gehalt) FROM Mitarbeiter WHERE Abteilung = 'IT';",
 			verify: (res) =>
 				res.type === "select" &&
@@ -965,7 +965,7 @@
 			level: "Stufe 1",
 			title: "Gesamtgehaltssumme aller Mitarbeiter",
 			prompt: "Wie viel Gehalt wird insgesamt ausgezahlt?",
-			hint: "SELECT SUM(Gehalt) FROM Mitarbeiter;",
+			hint: "Nutze die Aggregatfunktion SUM(Gehalt) auf die Gehaltsspalte.",
 			solution: "SELECT SUM(Gehalt) FROM Mitarbeiter;",
 			verify: (res) =>
 				res.type === "select" && res.rows[0]["SUM(Gehalt)"] === 49900,
@@ -975,7 +975,7 @@
 			level: "Stufe 1",
 			title: "Gehaltsbereich",
 			prompt: "Wie hoch sind das niedrigste und höchste Gehalt?",
-			hint: "SELECT MIN(Gehalt), MAX(Gehalt) FROM Mitarbeiter;",
+			hint: "Du kannst MIN(Gehalt) und MAX(Gehalt) kommagetrennt in einem einzigen SELECT abfragen.",
 			solution: "SELECT MIN(Gehalt), MAX(Gehalt) FROM Mitarbeiter;",
 			verify: (res) =>
 				res.type === "select" &&
@@ -987,7 +987,7 @@
 			level: "Stufe 1",
 			title: "WHERE mit AND",
 			prompt: "Zeige alle Mitarbeiter der IT-Abteilung mit Gehalt über 5500.",
-			hint: "SELECT Name, Gehalt FROM Mitarbeiter WHERE Abteilung = 'IT' AND Gehalt > 5500;",
+			hint: "Verknüpfe die beiden Kriterien in der WHERE-Klausel mit dem logischen Operator AND.",
 			solution:
 				"SELECT Name, Gehalt FROM Mitarbeiter WHERE Abteilung = 'IT' AND Gehalt > 5500;",
 			verify: (res) => res.type === "select" && res.rows.length === 2,
@@ -997,7 +997,7 @@
 			level: "Stufe 1",
 			title: "WHERE mit OR",
 			prompt: "Wer hat ein Gehalt über 6000 oder arbeitet in der HR-Abteilung?",
-			hint: "SELECT Name, Gehalt, Abteilung FROM Mitarbeiter WHERE Gehalt > 6000 OR Abteilung = 'HR';",
+			hint: "Verknüpfe die beiden alternativen Bedingungen in der WHERE-Klausel mit dem Operator OR.",
 			solution:
 				"SELECT Name, Gehalt, Abteilung FROM Mitarbeiter WHERE Gehalt > 6000 OR Abteilung = 'HR';",
 			verify: (res) => res.type === "select" && res.rows.length === 3,
@@ -1007,7 +1007,7 @@
 			level: "Stufe 1",
 			title: "IN-Operator",
 			prompt: "Zeige alle Mitarbeiter aus den Abteilungen IT oder Vertrieb.",
-			hint: "SELECT Name, Abteilung FROM Mitarbeiter WHERE Abteilung IN ('IT', 'Vertrieb');",
+			hint: "Verwende den IN-Operator: WHERE Abteilung IN ('IT', 'Vertrieb').",
 			solution:
 				"SELECT Name, Abteilung FROM Mitarbeiter WHERE Abteilung IN ('IT', 'Vertrieb');",
 			verify: (res) => res.type === "select" && res.rows.length === 6,
@@ -1018,7 +1018,7 @@
 			title: "BETWEEN",
 			prompt:
 				"Welche Mitarbeiter haben ein Gehalt zwischen 4500 und 5500 (inklusive)?",
-			hint: "SELECT Name, Gehalt FROM Mitarbeiter WHERE Gehalt BETWEEN 4500 AND 5500;",
+			hint: "Verwende den BETWEEN-Operator: WHERE Gehalt BETWEEN 4500 AND 5500.",
 			solution:
 				"SELECT Name, Gehalt FROM Mitarbeiter WHERE Gehalt BETWEEN 4500 AND 5500;",
 			verify: (res) => res.type === "select" && res.rows.length === 5,
@@ -1028,7 +1028,7 @@
 			level: "Stufe 1",
 			title: "LIKE – Namenssuche",
 			prompt: "Finde alle Mitarbeiter, deren Name mit 'A' beginnt.",
-			hint: "SELECT Name FROM Mitarbeiter WHERE Name LIKE 'A%';",
+			hint: "Nutze den LIKE-Operator mit dem Prozent-Platzhalter: WHERE Name LIKE 'A%'.",
 			solution: "SELECT Name FROM Mitarbeiter WHERE Name LIKE 'A%';",
 			verify: (res) =>
 				res.type === "select" &&
@@ -1041,7 +1041,7 @@
 			title: "Sortieren mit zwei Spalten",
 			prompt:
 				"Sortiere Mitarbeiter zuerst nach Abteilung (ABC), dann nach Gehalt absteigend.",
-			hint: "SELECT Name, Abteilung, Gehalt FROM Mitarbeiter ORDER BY Abteilung ASC, Gehalt DESC;",
+			hint: "Gib mehrere Sortierspalten kommagetrennt an: ORDER BY Abteilung ASC, Gehalt DESC.",
 			solution:
 				"SELECT Name, Abteilung, Gehalt FROM Mitarbeiter ORDER BY Abteilung ASC, Gehalt DESC;",
 			verify: (res) => {
@@ -1145,11 +1145,19 @@
 
 	function setXp(v) {
 		xp = Math.max(0, v);
-		document.getElementById("xpBadge").textContent = `${xp} XP`;
+		const el = document.getElementById("xpBadge");
+		if (el) {
+			el.innerHTML = `<i data-lucide="zap" class="w-3.5 h-3.5 inline text-emerald-400"></i> ${xp} XP`;
+			if (window.lucide) lucide.createIcons();
+		}
 	}
 	function setStreak(v) {
 		streak = Math.max(0, v);
-		document.getElementById("streakBadge").textContent = `🔥 ${streak}`;
+		const el = document.getElementById("streakBadge");
+		if (el) {
+			el.innerHTML = `<i data-lucide="flame" class="w-3.5 h-3.5 inline text-amber-500"></i> ${streak}`;
+			if (window.lucide) lucide.createIcons();
+		}
 	}
 
 	function showTask(idx) {
@@ -1206,14 +1214,22 @@
 			setNextPulse(true);
 		} else {
 			setStreak(0);
-			fb.innerHTML = `<div class="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-sm">
-        <div class="text-red-400 font-bold mb-1">✗ Noch nicht richtig.</div>
-        <div class="text-dark-muted text-xs mb-2">Tipp: <code class="font-mono text-amber-300">${t.hint}</code></div>
-        <details class="text-xs text-dark-muted">
-          <summary class="cursor-pointer hover:text-white">Lösung anzeigen</summary>
-          <pre class="font-mono text-emerald-300 mt-2 whitespace-pre-wrap">${t.solution}</pre>
+			fb.innerHTML = `<div class="bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-xs">
+        <div class="text-red-400 font-bold mb-1.5 flex items-center gap-1.5">
+          <i data-lucide="alert-circle" class="w-4 h-4"></i>
+          <span>Noch nicht ganz richtig</span>
+        </div>
+        <div class="text-dark-muted leading-relaxed mb-3">
+          <span class="font-bold text-slate-300">Hinweis:</span> ${t.hint}
+        </div>
+        <details class="pt-2 border-t border-red-500/20 text-dark-muted">
+          <summary class="cursor-pointer text-dark-dim hover:text-white font-mono flex items-center gap-1.5 select-none transition-colors">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Musterlösung einblenden
+          </summary>
+          <pre class="font-mono text-emerald-400 mt-2 p-2.5 bg-dark-bg border border-dark-border rounded-lg select-all whitespace-pre-wrap">${t.solution}</pre>
         </details>
       </div>`;
+			if (window.lucide) lucide.createIcons();
 		}
 		renderSchema();
 	}

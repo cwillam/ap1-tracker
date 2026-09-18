@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Impressum - AP1 Tracker</title>
+    <link rel="canonical" href="https://ap1.cwillam.de/impressum.html" />
+    <meta
+      name="description"
+      content="Rechtliche Anbieterkennzeichnung (Impressum) gemäß § 5 DDG und § 18 Abs. 2 MStV für den AP1 Prüfungs-Tracker."
+    />
+    <meta name="author" content="Christoph Willam" />
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#09090b" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- Preload Fonts -->
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-SemiBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css?v=3.0.0" />
+
+    <!-- Tailwind 3 Engine (Offline / Local) -->
+    <script src="assets/js/tailwind.js?v=3.0.0"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              dark: {
+                bg: "#09090b",
+                card: "#121215",
+                "card-hover": "#18181d",
+                border: "#23232a",
+                "border-subtle": "#191920",
+                strong: "#383842",
+                text: "#f4f4f5",
+                muted: "#a1a1aa",
+                dim: "#71717a",
+                accent: "#3b82f6",
+                "accent-hover": "#2563eb",
+                "accent-dim": "rgba(59, 130, 246, 0.12)",
+                success: "#10b981",
+                warning: "#f59e0b",
+                danger: "#ef4444",
+              },
+            },
+            fontFamily: {
+              sans: [
+                "Inter",
+                "system-ui",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "Roboto",
+                "sans-serif",
+              ],
+              mono: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "JetBrains Mono",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "monospace",
+              ],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      button, a {
+        -webkit-tap-highlight-color: transparent;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 5rem;
+      }
+    </style>
+  </head>
+
+  <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-blue-600 selection:text-white font-sans">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 w-full border-b border-dark-border bg-dark-bg/90 backdrop-blur-md">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+        <!-- Left: Back link & Title -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <a href="index.html" class="flex items-center gap-2 group focus:outline-none shrink-0" title="Zurück zum Dashboard">
+            <div class="w-8 h-8 rounded-lg border border-dark-border bg-dark-card group-hover:border-blue-500 transition-all flex items-center justify-center text-dark-muted group-hover:text-blue-400">
+              <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-0.5"></i>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="kbd-cap bg-blue-600/15 border-blue-500/40 text-blue-400 font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs">AP1</span>
+              <span class="font-bold text-sm sm:text-base tracking-tight text-white group-hover:text-blue-400 transition-colors">Tracker</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Right: Jump to Datenschutz & Support -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="datenschutz.html" class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-blue-500/40 bg-dark-card text-dark-muted hover:text-white transition-colors flex items-center gap-1.5 font-mono text-xs">
+            <i data-lucide="shield" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>Datenschutz</span>
+          </a>
+
+          <button
+            type="button"
+            onclick="openSupportModal()"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#FFDD00]/40 bg-dark-card hover:bg-[#FFDD00]/10 text-dark-muted hover:text-[#FFDD00] transition-all text-xs flex items-center gap-1.5 shrink-0"
+            title="Support"
+          >
+            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
+            <span class="hidden sm:inline font-mono text-[11px] font-medium">Support</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-8">
+      <!-- Badge -->
+      <div class="flex items-center justify-between gap-2">
+        <span class="kbd-cap bg-blue-600/15 border-blue-500/30 text-blue-400 px-2.5 py-0.5 text-[10px] font-mono font-bold flex items-center gap-1.5 uppercase tracking-wider">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+          Anbieterkennzeichnung gemäß § 5 DDG &amp; § 18 Abs. 2 MStV
+        </span>
+        <span class="text-[11px] font-mono text-dark-dim">Stand: 2026</span>
+      </div>
+
+      <!-- Impressum Card -->
+      <section class="bg-dark-card border border-dark-border rounded-xl p-6 sm:p-8 space-y-6 shadow-sm">
+        <div class="border-b border-dark-border pb-4">
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">Impressum</h1>
+          <p class="text-xs text-dark-muted mt-2 leading-relaxed">
+            Gesetzliche Pflichtangaben für den AP1 Tracker (<a href="https://ap1.cwillam.de" class="text-blue-400 hover:underline">ap1.cwillam.de</a>).
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Dienstanbieter -->
+          <div class="p-4 rounded-xl bg-dark-bg/60 border border-dark-border space-y-2">
+            <div class="flex items-center gap-2 text-white font-semibold text-xs font-mono">
+              <i data-lucide="user" class="w-4 h-4 text-blue-400"></i>
+              <span>Dienstanbieter (§ 5 DDG)</span>
+            </div>
+            <p class="text-xs text-dark-text leading-relaxed font-mono">
+              Christoph Willam<br />
+              Tocklergasse 14<br />
+              96129 Strullendorf<br />
+              Deutschland
+            </p>
+          </div>
+
+          <!-- Kontakt -->
+          <div class="p-4 rounded-xl bg-dark-bg/60 border border-dark-border space-y-2">
+            <div class="flex items-center gap-2 text-white font-semibold text-xs font-mono">
+              <i data-lucide="mail" class="w-4 h-4 text-blue-400"></i>
+              <span>Elektronische Kontaktaufnahme</span>
+            </div>
+            <p class="text-xs text-dark-muted leading-relaxed">
+              E-Mail:
+              <a href="mailto:info@cwillam.de" class="text-blue-400 font-mono hover:underline font-semibold">info@cwillam.de</a><br />
+              Webseite:
+              <a href="https://cwillam.de" target="_blank" rel="noopener" class="text-white hover:underline">cwillam.de</a><br />
+              Discord:
+              <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="text-[#5865F2] hover:underline">Community-Server</a>
+            </p>
+          </div>
+
+          <!-- Berufsbezeichnung -->
+          <div class="p-4 rounded-xl bg-dark-bg/60 border border-dark-border space-y-2">
+            <div class="flex items-center gap-2 text-white font-semibold text-xs font-mono">
+              <i data-lucide="briefcase" class="w-4 h-4 text-purple-400"></i>
+              <span>Berufsbezeichnung &amp; Kammer</span>
+            </div>
+            <p class="text-xs text-dark-muted leading-relaxed">
+              Fachinformatiker für Anwendungsentwicklung<br />
+              <span class="text-dark-dim text-[11px]">(Staatlich anerkannter Ausbildungsberuf, verliehen in Deutschland)</span>
+            </p>
+          </div>
+
+          <!-- Redaktionell Verantwortlicher -->
+          <div class="p-4 rounded-xl bg-dark-bg/60 border border-dark-border space-y-2">
+            <div class="flex items-center gap-2 text-white font-semibold text-xs font-mono">
+              <i data-lucide="file-check" class="w-4 h-4 text-amber-400"></i>
+              <span>Verantwortlich für redaktionelle Inhalte (§ 18 Abs. 2 MStV)</span>
+            </div>
+            <p class="text-xs text-dark-muted leading-relaxed font-mono">
+              Christoph Willam<br />
+              Tocklergasse 14<br />
+              96129 Strullendorf
+            </p>
+          </div>
+        </div>
+
+        <!-- Rechtlicher Hinweis & Haftungsausschluss -->
+        <div class="space-y-3 pt-2 text-xs text-dark-muted leading-relaxed">
+          <h2 class="text-sm font-bold text-white flex items-center gap-2">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400"></i>
+            <span>Hinweis zur Unabhängigkeit &amp; Markenzeichen</span>
+          </h2>
+          <p>
+            Dieses Projekt ist ein <strong>unabhängiges, privates Open-Source-Lernangebot</strong> und steht in keinerlei Verbindung, Kooperation, Autorisierung oder geschäftlicher Partnerschaft mit der Industrie- und Handelskammer (IHK), der DIHK-Bildungs-GmbH oder den Aufgabenprüfungs- und -erstellungseinrichtungen (z.&nbsp;B. ZPA / PAL / AkA).
+          </p>
+          <p>
+            Die Bezeichnungen „IHK“, „AP1“, „AP2“ und zugehörige Berufsbezeichnungen dienen ausschließlich der inhaltlichen Beschreibung und Zuordnung der Prüfungsvorbereitungsinhalte für Auszubildende.
+          </p>
+
+          <h2 class="text-sm font-bold text-white flex items-center gap-2 pt-2">
+            <i data-lucide="code-2" class="w-4 h-4 text-blue-400"></i>
+            <span>Open Source &amp; Lizenzierung</span>
+          </h2>
+          <p>
+            Der Quellcode dieser Anwendung steht unter der <strong>GNU Affero General Public License v3.0 (AGPL-3.0)</strong>. Quelltext und Dokumentation sind öffentlich auf GitHub zugänglich:
+            <a href="https://github.com/cwillam/ap1-tracker" target="_blank" rel="noopener" class="text-blue-400 hover:underline font-mono">github.com/cwillam/ap1-tracker</a>.
+          </p>
+          <p class="text-[11px] text-dark-dim pt-2 border-t border-dark-border/60">
+            Quelle: Erstellt in Anlehnung an Muster von <a href="https://www.e-recht24.de" target="_blank" rel="noopener" class="hover:underline text-dark-muted">e-recht24.de</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- Support CTA Banner -->
+      <section class="p-6 rounded-xl bg-dark-card border border-dark-border flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="space-y-1 text-center sm:text-left">
+          <h2 class="text-sm font-bold text-white flex items-center justify-center sm:justify-start gap-2">
+            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
+            <span>Gefällt dir der AP1 Tracker?</span>
+          </h2>
+          <p class="text-xs text-dark-muted">
+            Das Projekt ist komplett kostenlos &amp; werbefrei. Unterstütze die Weiterentwicklung mit einem Kaffee!
+          </p>
+        </div>
+        <button
+          onclick="openSupportModal()"
+          class="px-4 py-2 rounded-lg bg-[#FFDD00]/15 hover:bg-[#FFDD00]/25 border border-[#FFDD00]/40 text-[#FFDD00] font-mono text-xs font-semibold transition-colors flex items-center gap-2 shrink-0"
+        >
+          <i data-lucide="coffee" class="w-4 h-4"></i>
+          <span>Kaffeekasse öffnen</span>
+        </button>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-dark-border mt-auto bg-dark-bg/60 text-xs text-dark-dim font-mono">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span>cwillam © 2026</span>
+          <span>·</span>
+          <span>Open Source &amp; 100% Lokal</span>
+        </div>
+        <div class="flex items-center gap-4 flex-wrap justify-center text-dark-muted">
+          <a href="index.html" class="hover:text-white transition-colors">Dashboard</a>
+          <a href="https://github.com/cwillam/ap1-tracker" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a>
+          <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="hover:text-[#5865F2] transition-colors">Discord</a>
+          <a href="datenschutz.html" class="hover:text-white transition-colors">Datenschutz</a>
+          <a href="impressum.html" class="text-blue-400 font-semibold">Impressum</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Support Modal -->
+    <div
+      id="supportModal"
+      class="fixed inset-0 z-[90] hidden bg-black/80 backdrop-blur-sm overflow-y-auto flex items-center justify-center p-4"
+    >
+      <div
+        class="w-full max-w-md p-6 bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative transition-all"
+      >
+        <button
+          onclick="document.getElementById('supportModal').classList.add('hidden')"
+          class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
+          title="Schließen"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <h2 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+          <i data-lucide="coffee" class="w-5 h-5 text-[#FFDD00]"></i> Projekt unterstützen
+        </h2>
+        <p class="text-dark-muted text-xs mb-5 leading-relaxed">
+          Die Tracker sind 100% kostenlos, quelloffen und werbefrei. Wenn dir das Tool bei deiner Prüfungsvorbereitung hilft, freue ich mich über einen Kaffee!
+        </p>
+
+        <div class="flex flex-col gap-3">
+          <!-- PayPal Button -->
+          <a
+            href="https://www.paypal.com/paypalme/parablepanorama"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#003087]/10 border border-[#003087]/30 hover:border-[#003087]/60 hover:bg-[#003087]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#003087]/20 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
+                <i data-lucide="wallet" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-white text-xs">PayPal</span>
+                <span class="text-[10px] text-dark-muted font-mono">paypal.me/parablepanorama · Schnell &amp; unkompliziert</span>
+              </div>
+            </div>
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-dark-muted group-hover:text-white transition-colors"></i>
+          </a>
+
+          <!-- Buy Me a Coffee Button -->
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#FFDD00]/10 border border-[#FFDD00]/30 hover:border-[#FFDD00]/60 hover:bg-[#FFDD00]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#FFDD00]/20 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
+                <i data-lucide="coffee" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-white text-xs">Buy Me a Coffee</span>
+                <span class="text-[10px] text-dark-muted font-mono">buymeacoffee.com/cwillam · Einmalig spenden</span>
+              </div>
+            </div>
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-dark-muted group-hover:text-white transition-colors"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      });
+
+      function openSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) {
+          modal.classList.remove("hidden");
+          if (window.lucide) {
+            lucide.createIcons();
+          }
+        }
+      }
+
+      // TWA Kaffeekasse Redirect
+      document.addEventListener("DOMContentLoaded", () => {
+        const isTWA =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          window.navigator.standalone ||
+          document.referrer.includes("android-app://") ||
+          window.location.search.includes("mode=twa");
+
+        if (isTWA) {
+          const coffeeButtons = document.querySelectorAll(
+            'button[title="Support"], button[title="Kaffeekasse"], a[title="Kaffeekasse"]'
+          );
+          coffeeButtons.forEach((btn) => {
+            btn.removeAttribute("onclick");
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              window.open("https://cwillam.de/spende.html", "_blank");
+            });
+          });
+        }
+      });
+    </script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("sw.js?v=3.0.0")
+            .catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

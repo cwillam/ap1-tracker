@@ -98,7 +98,7 @@ $message = "Hallo Christoph,\n\n"
          . "==================================================\n"
          . "{$feedback}\n\n"
          . "==================================================\n"
-         . "Gesendet aus der PWA / Web-App (100% DSGVO-konform, keine IP gespeichert).\n";
+         . "Gesendet aus der PWA / Web-App (Keine IP gespeichert, lokal im Browser).\n";
 
 // IONOS Mail-Header
 $headers = [

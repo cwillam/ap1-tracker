@@ -2,103 +2,64 @@
 <html lang="de" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
 
     <!-- SEO Meta Tags -->
     <meta
       name="description"
-      content="AP1 Tracker - Kostenlose Lernkarten (Anki-Style) für Fachinformatiker aller Fachrichtungen: FI-AE (Anwendungsentwicklung), FI-SI (Systemintegration), FI-DP (Daten- und Prozessanalyse) & Digitale Vernetzung. Über 1.228 Fragen für die AP-Vorbereitung."
+      content="AP1 Tracker - Prüfungstrainer & 1.228 Lernkarten (Anki-Style) für Fachinformatiker aller Fachrichtungen: FI-AE, FI-SI, FI-DP & Digitale Vernetzung. 100% lokal, kostenlos, werbefrei."
     />
     <meta
       name="keywords"
-      content="AP1, Fachinformatiker, Abschlussprüfung Teil 1, Lernkarten, Anki, Prüfungsvorbereitung, FI-AE, FI-SI, FI-DP, Digitale Vernetzung, Anwendungsentwicklung, Systemintegration, Daten- und Prozessanalyse, Industrie 4.0"
+      content="AP1, Fachinformatiker, Abschlussprüfung Teil 1, Lernkarten, Anki, Prüfungsvorbereitung, FI-AE, FI-SI, FI-DP, Digitale Vernetzung"
     />
     <meta name="author" content="Christoph Willam" />
-    <meta
-      name="google-site-verification"
-      content="FLinj-O_U1xA_xhD9gttncj2cvryZglhMnC5Zm92Rk0"
-    />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ap1.cwillam.de" />
-    <meta
-      property="og:title"
-      content="AP1 Tracker | Kostenlose Lernkarten für die Fachinformatiker-Abschlussprüfung"
-    />
-    <meta
-      property="og:description"
-      content="Kostenlos, ohne Anmeldung, alles lokal. Über 1.228 Lernkarten für die Abschlussprüfung Teil 1 - Für alle Fachrichtungen: FI-AE, FI-SI, FI-DP & Digitale Vernetzung."
-    />
-    <meta
-      property="og:image"
-      content="https://ap1.cwillam.de/assets/img/og-image.png"
-    />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ap1.cwillam.de" />
-    <meta
-      property="twitter:title"
-      content="AP1 Tracker | Kostenlose Lernkarten für die Fachinformatiker-Abschlussprüfung"
-    />
-    <meta
-      property="twitter:description"
-      content="Kostenlos, ohne Anmeldung, alles lokal. Über 1.228 Lernkarten für die Abschlussprüfung Teil 1 - Für alle Fachrichtungen: FI-AE, FI-SI, FI-DP & Digitale Vernetzung."
-    />
-    <meta
-      property="twitter:image"
-      content="https://ap1.cwillam.de/assets/img/og-image.png"
-    />
-
     <meta name="robots" content="index, follow" />
 
-    <title>
-      AP1 Tracker - Prüfungstrainer & Lernkarten für die Abschlussprüfung
-    </title>
-
-    <!-- PWA Meta Tags -->
-    <link rel="manifest" href="manifest.json" />
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="apple-touch-icon" href="favicon.svg" />
+    <link rel="manifest" href="manifest.json" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <meta name="theme-color" content="#3b82f6" />
+    <meta name="theme-color" content="#09090b" />
     <link rel="canonical" href="https://ap1.cwillam.de/" />
 
-    <!-- Structured Data (Schema.org) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "AP1 Tracker",
-        "applicationCategory": "EducationalApplication",
-        "operatingSystem": "All",
-        "description": "Kostenloser Lernbegleiter für die Abschlussprüfung Teil 1 (AP1) der Fachinformatiker. Alle Fachrichtungen: FI-AE (Anwendungsentwicklung), FI-SI (Systemintegration), FI-DP (Daten- und Prozessanalyse) & Digitale Vernetzung. Über 1.228 Lernkarten im Anki-Style.",
-        "author": {
-          "@type": "Person",
-          "name": "Christoph Willam"
-        },
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "EUR"
-        },
-        "educationalUse": "Vocational Training",
-        "audience": {
-          "@type": "EducationalAudience",
-          "educationalRole": "student"
-        }
-      }
-    </script>
+    <title>
+      AP1 Tracker — Prüfungstrainer & Lernkarten für Fachinformatiker
+    </title>
 
-    <script src="assets/js/tailwind.js?v=2.7.1"></script>
+    <!-- Preload self-hosted fonts -->
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-SemiBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/Inter-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
+    <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
+    <script src="assets/js/tailwind.js?v=3.0.0"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -106,1806 +67,840 @@
           extend: {
             fontFamily: {
               sans: [
+                "Inter",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
                 "Segoe UI",
                 "Roboto",
-                "Helvetica Neue",
-                "Arial",
                 "sans-serif",
               ],
               mono: [
                 "ui-monospace",
                 "SFMono-Regular",
+                "JetBrains Mono",
                 "Menlo",
                 "Monaco",
                 "Consolas",
-                "Liberation Mono",
-                "Courier New",
                 "monospace",
               ],
             },
             colors: {
               dark: {
-                bg: "#020617", // Slate 950
-                card: "#0f172a", // Slate 900
-                border: "#1e293b", // Slate 800
-                text: "#f8fafc", // Slate 50
-                muted: "#94a3b8", // Slate 400
-                accent: "#0ea5e9", // Sky 500
-                success: "#10b981", // Emerald 500
-                warning: "#f59e0b", // Amber 500
-                danger: "#ef4444", // Red 500
+                bg: "#09090b", // Pure obsidian / Zinc 950
+                card: "#121215", // Dense workbench surface
+                "card-hover": "#18181d",
+                border: "#23232a", // Hairline border
+                "border-subtle": "#191920",
+                text: "#f4f4f5", // High-contrast Zinc 100
+                muted: "#a1a1aa", // Zinc 400
+                dim: "#71717a", // Zinc 500
+                accent: "#3b82f6", // Electric Cobalt
+                "accent-dim": "rgba(59, 130, 246, 0.12)",
+                success: "#10b981", // Crisp Emerald
+                "success-dim": "rgba(16, 185, 129, 0.12)",
+                warning: "#f59e0b", // Amber
+                "warning-dim": "rgba(245, 158, 11, 0.12)",
+                danger: "#ef4444", // Crimson
+                "danger-dim": "rgba(239, 68, 68, 0.12)",
               },
-            },
-            boxShadow: {
-              glow: "0 0 20px rgba(14, 165, 233, 0.15)",
-              card: "0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)",
-            },
-            animation: {
-              "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-            },
-            screens: {
-              xs: "400px",
             },
           },
         },
       };
     </script>
 
-    <link href="assets/css/style.css?v=2.7.1" rel="stylesheet" />
+    <!-- Custom High-Craft CSS Tokens & Keycaps -->
+    <link href="assets/css/style.css?v=3.0.0" rel="stylesheet" />
   </head>
 
-  <body class="flex flex-col min-h-screen">
-    <!-- Loading Overlay -->
+  <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-blue-600 selection:text-white">
+    <!-- Minimalist System Loader -->
     <div
       id="loadingOverlay"
-      class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-dark-bg transition-opacity duration-500"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-dark-bg transition-opacity duration-300"
     >
-      <div class="relative w-16 h-16 mb-4">
-        <div
-          class="absolute inset-0 border-t-2 border-dark-accent rounded-full animate-spin"
-        ></div>
-        <div
-          class="absolute inset-2 border-t-2 border-dark-success rounded-full animate-spin reverse"
-        ></div>
+      <div class="flex items-center gap-2 mb-3">
+        <span class="kbd-cap text-xs text-blue-400 border-blue-900/50 bg-blue-950/40">AP1</span>
+        <span class="font-mono text-xs text-dark-muted tracking-wider uppercase font-semibold">Mission Control</span>
       </div>
       <p
-        class="text-dark-muted font-mono text-xs tracking-widest uppercase animate-pulse"
+        class="text-dark-dim font-mono text-[11px] tracking-widest uppercase animate-pulse"
         id="loadingText"
       >
-        System Init...
+        Lade Datenbank...
       </p>
     </div>
 
-    <!-- Legal Modal -->
-    <div
-      id="legalModal"
-      class="fixed inset-0 z-[90] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print"
-    >
-      <div class="min-h-screen px-4 text-center">
-        <span class="inline-block h-screen align-middle" aria-hidden="true"
-          >&#8203;</span
-        >
+    <!-- ============================================================
+         1. TOP COMMAND BAR (Sticky Hairline Header)
+         ============================================================ -->
+    <header class="sticky top-0 z-40 w-full border-b border-dark-border bg-dark-bg/90 backdrop-blur-md">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6">
+        <!-- Left: Brand & Badges -->
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="index.html" class="flex items-center gap-2.5 group focus:outline-none">
+            <span class="kbd-cap bg-blue-600/15 border-blue-500/40 text-blue-400 font-bold px-2 py-1 text-xs group-hover:border-blue-400 transition-colors">AP1</span>
+            <span class="font-bold text-base tracking-tight text-white group-hover:text-blue-400 transition-colors">Tracker</span>
+          </a>
+          <span class="hidden sm:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
+            v3.0.0 · Offline
+          </span>
+        </div>
 
-        <div
-          class="inline-block w-full max-w-2xl p-6 my-8 text-left align-middle transition-all transform bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative"
-        >
-          <button
-            onclick="app.closeLegal()"
-            class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
+        <!-- Right: Actions & Tools with generous breathing room -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Tools Quick Links (Desktop) -->
+          <div class="hidden lg:flex items-center gap-1.5 border-r border-dark-border pr-3 mr-1">
+            <a href="subnet.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Subnetz-Trainer">
+              <i data-lucide="network" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span>Subnetz</span>
+            </a>
+            <a href="sql.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="SQL-Labor">
+              <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>SQL</span>
+            </a>
+            <a href="pseudocode.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Pseudocode-Labor">
+              <i data-lucide="code" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Pseudocode</span>
+            </a>
+            <a href="glossar.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Fach-Glossar">
+              <i data-lucide="book-open" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Glossar</span>
+            </a>
+            <a href="help.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Hilfe & FAQ">
+              <i data-lucide="help-circle" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>Hilfe</span>
+            </a>
+          </div>
+
+          <!-- Discord Community Button -->
+          <a
+            href="https://discord.gg/5BM5YJadDs"
+            target="_blank"
+            rel="noopener"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#5865F2]/50 bg-dark-card hover:bg-[#5865F2]/10 text-dark-muted hover:text-white transition-all text-xs flex items-center gap-1.5"
+            title="Discord-Community: Lerngruppen, Fragen & Austausch"
           >
-            <i data-lucide="x" class="text-xl"></i>
+            <i data-lucide="message-square" class="w-4 h-4 text-[#5865F2]"></i>
+            <span class="hidden sm:inline font-mono text-[11px]">Discord</span>
+          </a>
+
+          <!-- Backup Modal Button -->
+          <button
+            onclick="document.getElementById('backupModal').classList.remove('hidden')"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-card hover:bg-dark-card-hover text-dark-muted hover:text-white transition-all text-xs flex items-center gap-1.5"
+            title="Daten exportieren / sichern"
+          >
+            <i data-lucide="hard-drive" class="w-4 h-4"></i>
+            <span class="hidden sm:inline font-mono text-[11px]">Backup</span>
           </button>
 
-          <div
-            id="legalContent"
-            class="prose prose-invert prose-sm max-w-none"
-          ></div>
+          <!-- Support Button -->
+          <button
+            type="button"
+            onclick="openSupportModal()"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#FFDD00]/40 bg-dark-card hover:bg-[#FFDD00]/10 text-dark-muted hover:text-[#FFDD00] transition-all text-xs flex items-center gap-1.5 shrink-0"
+            title="Support / Projekt unterstützen"
+          >
+            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
+            <span class="hidden sm:inline font-mono text-[11px] font-medium">Support</span>
+          </button>
+
+          <!-- PWA Install Button (Dynamic) -->
+          <div id="pwa-install-container" class="hidden shrink-0">
+            <button
+              id="pwa-install-btn"
+              class="hidden px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold items-center gap-1.5 shadow-sm transition-colors"
+            >
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              <span>App</span>
+            </button>
+          </div>
+
+          <!-- Mobile Menu Hamburger -->
+          <button
+            id="hamburgerBtn"
+            onclick="app.toggleMobileMenu()"
+            class="md:hidden p-2 rounded-lg border border-dark-border bg-dark-card text-dark-muted hover:text-white transition-colors"
+            aria-label="Menü öffnen"
+          >
+            <i data-lucide="menu" class="w-4 h-4"></i>
+          </button>
         </div>
       </div>
-    </div>
+    </header>
 
-    <!-- Support Modal -->
+    <!-- Mobile Navigation Drawer -->
     <div
-      id="supportModal"
-      class="fixed inset-0 z-[90] hidden bg-dark-bg/80 backdrop-blur-sm overflow-y-auto no-print flex items-center justify-center p-4"
+      id="mobileMenu"
+      class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden transition-opacity duration-200"
+      onclick="if(event.target === this) app.toggleMobileMenu()"
     >
-      <div
-        class="w-full max-w-md p-6 bg-dark-card border border-dark-border shadow-2xl rounded-2xl relative transition-all transform"
-      >
-        <button
-          onclick="
-            document.getElementById('supportModal').classList.add('hidden')
-          "
-          class="absolute top-4 right-4 p-2 text-dark-muted hover:text-white transition-colors"
-          title="Schließen"
-        >
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+      <div class="fixed right-0 top-0 bottom-0 w-72 bg-dark-card border-l border-dark-border p-5 flex flex-col justify-between transform translate-x-full transition-transform duration-300">
+        <div>
+          <div class="flex items-center justify-between pb-4 border-b border-dark-border mb-4">
+            <span class="font-bold text-sm tracking-wide text-white">Navigation</span>
+            <button onclick="app.toggleMobileMenu()" class="p-1 rounded text-dark-muted hover:text-white">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+          <div class="space-y-1 font-mono text-xs">
+            <a href="index.html" class="flex items-center gap-2.5 px-3 py-2 rounded bg-blue-600/10 text-blue-400 border border-blue-500/20">
+              <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+            </a>
+            <a href="subnet.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="network" class="w-4 h-4"></i> Subnetz-Trainer
+            </a>
+            <a href="sql.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="database" class="w-4 h-4"></i> SQL-Labor
+            </a>
+            <a href="pseudocode.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="code" class="w-4 h-4"></i> Pseudocode-Labor
+            </a>
+            <a href="glossar.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="book-open" class="w-4 h-4"></i> Fach-Glossar
+            </a>
+            <a href="help.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="help-circle" class="w-4 h-4"></i> Hilfe & FAQ
+            </a>
+            <a href="updates.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="history" class="w-4 h-4"></i> Updates & Changelog
+            </a>
+            <a href="bildungseinrichtungen.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="graduation-cap" class="w-4 h-4"></i> Für Berufsschulen
+            </a>
+            <button onclick="document.getElementById('backupModal').classList.remove('hidden'); app.toggleMobileMenu();" class="w-full flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors text-left">
+              <i data-lucide="hard-drive" class="w-4 h-4"></i> Backup & Übertragen
+            </button>
+            <button type="button" onclick="openSupportModal(); app.toggleMobileMenu();" class="w-full flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-[#FFDD00] hover:bg-dark-bg transition-colors text-left">
+              <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i> Support
+            </button>
+          </div>
+        </div>
 
-        <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-          <i data-lucide="coffee" class="text-[#FFDD00]"></i> Kaffeekasse
-        </h2>
-        <p class="text-dark-muted text-sm mb-6 leading-relaxed">
-          Die Tracker sind komplett kostenlos und open-source. Wenn sie dir
-          geholfen haben, freue ich mich riesig über eine freiwillige Spende zur
-          Unterstützung des Projekts!
-        </p>
-
-        <div class="flex flex-col gap-4">
-          <!-- PayPal Button -->
-          <a
-            href="https://www.paypal.com/paypalme/parablepanorama"
-            target="_blank"
-            class="flex items-center justify-between p-4 rounded-xl bg-[#003087]/5 border border-[#003087]/20 hover:border-[#003087]/50 hover:bg-[#003087]/10 transition-all group"
-          >
-            <div class="flex items-center gap-3">
-              <div
-                class="w-10 h-10 rounded-lg bg-[#003087]/15 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform"
-              >
-                <i data-lucide="wallet" class="w-5 h-5"></i>
-              </div>
-              <div class="flex flex-col">
-                <span class="font-bold text-white text-sm">PayPal</span>
-                <span class="text-[11px] text-dark-muted"
-                  >In Deutschland am beliebtesten</span
-                >
-              </div>
-            </div>
-            <i
-              data-lucide="chevron-right"
-              class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"
-            ></i>
-          </a>
-
-          <!-- Buy Me A Coffee Button -->
-          <a
-            href="https://buymeacoffee.com/cwillam"
-            target="_blank"
-            class="flex items-center justify-between p-4 rounded-xl bg-[#FFDD00]/5 border border-[#FFDD00]/20 hover:border-[#FFDD00]/50 hover:bg-[#FFDD00]/10 transition-all group"
-          >
-            <div class="flex items-center gap-3">
-              <div
-                class="w-10 h-10 rounded-lg bg-[#FFDD00]/15 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform"
-              >
-                <i data-lucide="coffee" class="w-5 h-5"></i>
-              </div>
-              <div class="flex flex-col">
-                <span class="font-bold text-white text-sm"
-                  >Buy Me a Coffee</span
-                >
-                <span class="text-[11px] text-dark-muted"
-                  >Kreditkarte, Apple Pay, Google Pay</span
-                >
-              </div>
-            </div>
-            <i
-              data-lucide="chevron-right"
-              class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"
-            ></i>
-          </a>
+        <div class="pt-4 border-t border-dark-border space-y-2 text-xs font-mono text-dark-dim">
+          <div class="flex items-center justify-between">
+            <span>Prüfung:</span>
+            <span class="text-amber-400 font-bold">30.09.2026</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Version:</span>
+            <span>v3.0.0</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="glass-header sticky top-0 z-50 no-print">
-      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 items-center">
-          <!-- Logo & Titel -->
-          <div
-            class="flex items-center gap-2 sm:gap-3.5 cursor-pointer group shrink-0"
-            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-          >
-            <div
-              class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-accent/5 border border-dark-accent/25 flex items-center justify-center transition-all group-hover:bg-dark-accent/15 group-hover:border-dark-accent/40 shrink-0"
-            >
-              <i
-                data-lucide="graduation-cap"
-                class="text-dark-accent text-xs sm:text-base transition-transform group-hover:-rotate-6"
-              ></i>
-            </div>
-            <div class="flex flex-col">
-              <h1
-                class="font-bold text-base sm:text-lg leading-none text-white tracking-tight text-nowrap"
-              >
-                AP1 <span class="text-dark-accent">Tracker</span>
-                <span
-                  class="hidden xs:inline-block ml-0.5 text-[9px] bg-dark-accent/20 text-dark-accent px-1 py-0.5 rounded border border-dark-accent/30"
-                  >CORE</span
-                >
-              </h1>
-              <div class="hidden sm:flex items-center gap-2 mt-0.5">
-                <span class="text-[10px] font-mono text-dark-muted leading-none"
-                  >by cwillam</span
-                >
-                <span
-                  class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted"
-                  >v2.7.2</span
-                >
-              </div>
-            </div>
+    <!-- ============================================================
+         2. MAIN WORKSPACE CONTAINER
+         ============================================================ -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+      <!-- LEAN STATUS & COMMUNITY BULLETIN (Collapsible & Dismissible) -->
+      <section id="infoBox" class="border border-dark-border rounded-xl bg-dark-card overflow-hidden">
+        <div class="px-4 py-3 bg-dark-card/60 flex items-center justify-between gap-3 select-none">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse shrink-0"></span>
+            <span class="font-mono text-xs font-bold text-white uppercase tracking-wider truncate">
+              Google Play Beta & Community
+            </span>
+            <span class="hidden sm:inline-flex kbd-cap text-[9px] text-blue-400 border-blue-900/40 bg-blue-950/20">
+              Offener Test
+            </span>
           </div>
-
-          <!-- Action Buttons -->
-          <div class="flex items-center gap-1 sm:gap-2">
-            <!-- Countdown (Desktop only) -->
-            <div class="hidden lg:flex flex-col items-end mr-2">
-              <span class="text-[10px] font-mono text-dark-muted uppercase"
-                >Prüfung: vorauss. 30.09.2026</span
-              >
-              <span class="text-sm font-bold text-white font-mono">
-                <span id="headerCountdown" class="text-dark-accent">--</span>
-                Tage
-              </span>
-            </div>
-
-            <!-- Desktop Navigation Links (hidden on mobile) -->
-            <div class="hidden md:flex items-center gap-1 sm:gap-2">
-              <!-- Subnetz-Trainer Button -->
-              <a
-                href="subnet.html"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-                title="Subnetz-Trainer"
-              >
-                <i
-                  data-lucide="binary"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-                ></i>
-              </a>
-
-              <!-- SQL-Labor Button -->
-              <a
-                href="sql.html"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-                title="SQL-Labor"
-              >
-                <i
-                  data-lucide="database"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-                ></i>
-              </a>
-
-              <!-- Pseudocode-Labor Button -->
-              <a
-                href="pseudocode.html"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-                title="Pseudocode & Algorithmen"
-              >
-                <i
-                  data-lucide="code-2"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-                ></i>
-              </a>
-
-              <!-- Glossary Button (Glossar) -->
-              <a
-                href="glossar.html"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-                title="Glossar & Eselsbrücken"
-              >
-                <i
-                  data-lucide="brain"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-                ></i>
-              </a>
-
-              <!-- Help Button (Hilfe) -->
-              <a
-                href="help.html"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-                title="Hilfe & FAQ"
-              >
-                <i
-                  data-lucide="help-circle"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-                ></i>
-              </a>
-
-              <!-- Support -->
-              <button
-                onclick="
-                  document
-                    .getElementById('supportModal')
-                    .classList.remove('hidden');
-                  if (window.lucide) {
-                    lucide.createIcons();
-                  }
-                "
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-[#FFDD00] flex items-center justify-center transition-all hover:border-[#FFDD00]/30 hover:bg-[#FFDD00]/5 group shrink-0"
-                title="Kaffeekasse"
-              >
-                <i
-                  data-lucide="coffee"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-                ></i>
-              </button>
-
-              <!-- Export -->
-              <button
-                onclick="app.exportData()"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-                title="Backup speichern"
-              >
-                <i
-                  data-lucide="download"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-y-[-1px]"
-                ></i>
-              </button>
-
-              <!-- Import -->
-              <button
-                onclick="document.getElementById('importFile').click()"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group shrink-0"
-                title="Backup laden"
-              >
-                <i
-                  data-lucide="upload"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-y-[1px]"
-                ></i>
-              </button>
-
-              <!-- Reset -->
-              <button
-                onclick="app.resetData()"
-                class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-dark-danger flex items-center justify-center transition-all hover:border-dark-danger/30 hover:bg-dark-danger/5 group shrink-0"
-                title="Alles zurücksetzen"
-              >
-                <i
-                  data-lucide="trash-2"
-                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform animate-trash-hover"
-                ></i>
-              </button>
-
-              <!-- PWA Install Button (visible only when installable, shown via JS) -->
-              <div id="pwa-install-container" class="hidden shrink-0">
-                <button
-                  id="pwa-install-btn"
-                  class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex items-center justify-center transition-all hover:border-dark-accent/40 hover:bg-dark-accent/5 group"
-                  title="Als App installieren (Offline-Modus)"
-                >
-                  <i
-                    data-lucide="smartphone"
-                    class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110"
-                  ></i>
-                </button>
-              </div>
-            </div>
-
-            <!-- Hamburger Button (visible on mobile only) -->
+          <div class="flex items-center gap-2 shrink-0">
             <button
-              id="hamburgerBtn"
-              onclick="app.toggleMobileMenu()"
-              class="flex md:hidden w-8 h-8 rounded-lg bg-dark-card/40 border border-dark-border/60 text-dark-muted hover:text-white flex-col items-center justify-center gap-1.5 transition-all relative z-50 shrink-0"
-              title="Menü öffnen"
-            >
-              <span
-                class="hamburger-line line-1 w-4 h-0.5 bg-current rounded-full"
-              ></span>
-              <span
-                class="hamburger-line line-2 w-4 h-0.5 bg-current rounded-full"
-              ></span>
-              <span
-                class="hamburger-line line-3 w-4 h-0.5 bg-current rounded-full"
-              ></span>
-            </button>
-
-            <input
-              type="file"
-              id="importFile"
-              class="hidden"
-              onchange="app.importData(this)"
-            />
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main
-      class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6"
-    >
-      <!-- Für Berufsschulen & Bildungsträger (CTA-Box) -->
-      <div
-        id="schoolBox"
-        class="bg-dark-card border border-dark-border/80 rounded-xl overflow-hidden shadow-card transition-all no-print"
-      >
-        <div class="p-4 sm:p-5 flex items-center justify-between gap-3 border-b border-dark-border/40">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center shrink-0">
-              <i data-lucide="graduation-cap" class="w-5 h-5 text-sky-400"></i>
-            </div>
-            <div class="min-w-0">
-              <div class="flex items-center gap-2 mb-0.5 flex-wrap">
-                <span class="inline-block px-1.5 py-0.5 bg-sky-500/20 border border-sky-500/40 rounded text-[9px] font-bold uppercase tracking-wider text-sky-400">Für Lehrkräfte</span>
-                <span class="inline-block px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-[9px] font-bold uppercase tracking-wider text-slate-300">Berufsschule &amp; Bildungsträger</span>
-              </div>
-              <h3 class="text-sm sm:text-base font-bold text-white leading-tight truncate">
-                AP-Tracker im Unterricht einsetzen
-              </h3>
-            </div>
-          </div>
-          <div class="flex items-center gap-1 shrink-0">
-            <button
-              type="button"
-              onclick="app.toggleBox('schoolBox')"
-              class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800/60 rounded-lg transition-colors"
-              title="Einklappen / Ausklappen"
-              aria-label="Einklappen / Ausklappen"
-            >
-              <i id="schoolBoxChevron" data-lucide="chevron-up" class="w-4 h-4 transition-transform duration-200"></i>
-            </button>
-            <button
-              type="button"
-              onclick="app.dismissBox('schoolBox')"
-              class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
-              title="Schließen"
-              aria-label="Schließen"
-            >
-              <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
-          </div>
-        </div>
-        <div id="schoolBoxContent" class="p-4 sm:p-5 pt-3 sm:pt-4 bg-slate-900/40">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
-              Kostenlos, werbefrei und DSGVO-konform für Berufsschulen und Bildungsträger.
-              Offline-fähig, ohne Schüler-Accounts und direkt im Browser oder als App nutzbar.
-            </p>
-            <div class="shrink-0">
-              <a
-                href="bildungseinrichtungen.html"
-                class="inline-flex items-center gap-2 px-3.5 py-2 bg-sky-500 hover:bg-sky-400 text-white font-bold text-xs sm:text-sm rounded-lg transition-colors no-underline shadow-sm"
-              >
-                <span>Mehr erfahren</span>
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Release-Status & Discord Community Box -->
-      <div
-        id="infoBox"
-        class="bg-dark-card border border-dark-accent/30 rounded-xl overflow-hidden shadow-card transition-all no-print"
-      >
-        <div class="p-4 sm:p-5 flex items-center justify-between gap-3 border-b border-dark-border/40">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-lg bg-dark-accent/10 border border-dark-accent/30 flex items-center justify-center shrink-0">
-              <i data-lucide="smartphone" class="w-5 h-5 text-dark-accent"></i>
-            </div>
-            <div class="min-w-0">
-              <div class="flex items-center gap-2 mb-0.5 flex-wrap">
-                <span class="inline-block px-1.5 py-0.5 bg-amber-500/20 border border-amber-500/40 rounded text-[9px] font-bold uppercase tracking-wider text-amber-400">Geschlossener Test aktiv</span>
-                <span class="inline-block px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 rounded text-[9px] font-black uppercase tracking-wider text-dark-accent">Android-Tester gesucht</span>
-              </div>
-              <h3 class="text-sm sm:text-base font-bold text-white leading-snug">
-                Community-Endspurt: Bring den AP1 Tracker in den Play Store!
-              </h3>
-            </div>
-          </div>
-          <div class="flex items-center gap-1 shrink-0">
-            <button
-              type="button"
               onclick="app.toggleBox('infoBox')"
-              class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800/60 rounded-lg transition-colors"
-              title="Einklappen / Ausklappen"
-              aria-label="Einklappen / Ausklappen"
+              class="text-dark-muted hover:text-white transition-colors p-1.5 rounded-lg hover:bg-dark-border/40"
+              title="Aufklappen / Zuklappen"
+              aria-label="Info-Box ein- oder ausklappen"
             >
               <i id="infoBoxChevron" data-lucide="chevron-up" class="w-4 h-4 transition-transform duration-200"></i>
             </button>
           </div>
         </div>
-                        <div id="infoBoxContent" class="p-4 sm:p-5 pt-3 sm:pt-4 bg-slate-900/40">
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center">
-            <div class="md:col-span-8 text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2.5">
-              <p>
-                <strong class="text-emerald-400">Großer Meilenstein:</strong> AP2 FIAE hat es bereits geschafft und ist offiziell im Google Play Store live! Für den <strong class="text-white">AP1 Tracker</strong> fehlen uns nur noch 14 Tage aktive tägliche Nutzung von Android-Testern, damit Google auch hier den weltweiten Store-Release freischaltet.
-              </p>
-              <p class="text-slate-300 text-xs sm:text-sm">
-                <strong class="text-white">Sei beim Start dabei:</strong> Trage dich kurz in unser Formular ein (oder melde dich auf Discord), lade die Vorab-App über Google Play und nutze sie einfach aktiv für deine tägliche Prüfungsvorbereitung.
-                <span class="text-slate-400 block mt-1">Dauerhaft 100 % kostenlos, werbefrei und ohne Registrierung.</span>
-              </p>
-            </div>
-            <div class="md:col-span-4 flex flex-col gap-2.5 justify-center">
+
+        <div id="infoBoxContent" class="px-4 py-3.5 border-t border-dark-border text-xs text-dark-muted space-y-3">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <p class="leading-relaxed">
+              <strong class="text-white">Community-Endspurt:</strong> AP2 FIAE ist bereits im Google Play Store live. Für den AP1 Tracker brauchen wir noch aktive Tester, damit Google den Store-Release freischaltet. Dauerhaft 100% kostenlos, werbefrei und ohne Registrierung.
+            </p>
+            <div class="flex items-center gap-2 shrink-0 flex-wrap">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSeC875SbVzBSszBqdk2quIeZL-YI2SUkXMXBS3wMnbJnJvpMw/viewform"
                 target="_blank"
                 rel="noopener"
-                class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-sky-600 hover:bg-sky-500 text-white shadow-sky-600/20 text-xs sm:text-sm font-bold rounded-lg transition-colors no-underline shadow-sm"
+                class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold font-mono text-xs flex items-center gap-1.5 transition-colors"
               >
-                <i data-lucide="clipboard-check" class="w-4 h-4"></i>
-                <span>Jetzt als Tester mitmachen</span>
+                <i data-lucide="play" class="w-3 h-3 fill-white"></i> Tester werden
               </a>
               <a
                 href="https://discord.gg/5BM5YJadDs"
                 target="_blank"
                 rel="noopener"
-                class="inline-flex items-center justify-center gap-2 w-full py-2 px-3 bg-[#5865F2]/15 hover:bg-[#5865F2]/25 border border-[#5865F2]/40 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold rounded-lg transition-colors no-underline"
+                class="px-3 py-1.5 rounded-lg border border-dark-border hover:border-[#5865F2]/50 bg-dark-bg text-white hover:text-[#5865F2] font-mono text-xs flex items-center gap-1.5 transition-colors"
+                title="Discord-Community für Lerngruppen & Austausch"
               >
-                <i data-lucide="message-square" class="w-4 h-4 text-[#5865F2]"></i>
-                <span>Oder auf Discord melden</span>
+                <i data-lucide="message-square" class="w-3.5 h-3.5 text-[#5865F2]"></i> Discord · Lerngruppen
+              </a>
+              <a
+                href="bildungseinrichtungen.html"
+                class="px-3 py-1.5 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-bg text-dark-muted hover:text-white font-mono text-xs flex items-center gap-1.5 transition-colors"
+              >
+                <i data-lucide="graduation-cap" class="w-3 h-3"></i> Für Lehrkräfte
               </a>
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- Optional Lehrkräfte Box (für Compatibility mit app.js Dismiss-Logik) -->
+      <div id="schoolBox" class="hidden">
+        <div id="schoolBoxContent"></div>
+        <i id="schoolBoxChevron" class="hidden"></i>
       </div>
 
-      <!-- Quick Access Tools (Subnetz, SQL, Pseudocode) -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 no-print mb-6">
-        <a
-          href="subnet.html"
-          class="flex items-center gap-4 bg-gradient-to-br from-slate-900 to-dark-card border border-dark-border hover:border-dark-accent/40 rounded-xl p-4 transition-all no-underline group shadow-card hover:shadow-[0_0_20px_rgba(14,165,233,0.12)]"
-        >
-          <div class="w-10 h-10 rounded-lg bg-dark-accent/10 border border-dark-accent/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-dark-accent/15 transition-all">
-            <i data-lucide="binary" class="text-dark-accent w-5 h-5"></i>
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-0.5">
-              <span class="font-bold text-white text-sm group-hover:text-dark-accent transition-colors">Subnetz-Trainer</span>
+      <!-- ============================================================
+           3. TELEMETRY MATRIX (4-Spalten High-Density Grid)
+           ============================================================ -->
+      <section aria-label="Fortschritt und Telemetrie" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <!-- 01 Lehrplan Fortschritt -->
+        <div class="p-4 rounded-xl border border-dark-border bg-dark-card hover:border-dark-strong transition-colors flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
+              <span>// 01 LEHRPLAN</span>
+              <span class="text-blue-400">AP1</span>
             </div>
-            <p class="text-xs text-slate-400 truncate">
-              IP-Rechnung, Subnetzmasken und IPv6 offline üben.
+            <div class="flex items-baseline gap-2">
+              <span id="totalPercentTop" class="text-2xl sm:text-3xl font-bold font-mono text-white tabular-nums">0%</span>
+            </div>
+            <p class="text-xs text-dark-muted mt-1 truncate">
+              <span id="doneCount" class="font-mono font-semibold text-white">0</span> von 50 Themen abgehakt
             </p>
           </div>
-        </a>
-        <a
-          href="sql.html"
-          class="flex items-center gap-4 bg-gradient-to-br from-slate-900 to-dark-card border border-dark-border hover:border-dark-accent/40 rounded-xl p-4 transition-all no-underline group shadow-card hover:shadow-[0_0_20px_rgba(14,165,233,0.12)]"
-        >
-          <div class="w-10 h-10 rounded-lg bg-dark-accent/10 border border-dark-accent/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-dark-accent/15 transition-all">
-            <i data-lucide="database" class="text-dark-accent w-5 h-5"></i>
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-0.5">
-              <span class="font-bold text-white text-sm group-hover:text-dark-accent transition-colors">SQL-Labor</span>
-            </div>
-            <p class="text-xs text-slate-400 truncate">
-              SELECT, WHERE und Aggregationen interaktiv lernen.
-            </p>
-          </div>
-        </a>
-        <a
-          href="pseudocode.html"
-          class="flex items-center gap-4 bg-gradient-to-br from-slate-900 to-dark-card border border-dark-border hover:border-dark-accent/40 rounded-xl p-4 transition-all no-underline group shadow-card hover:shadow-[0_0_20px_rgba(14,165,233,0.12)]"
-        >
-          <div class="w-10 h-10 rounded-lg bg-dark-accent/10 border border-dark-accent/30 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-dark-accent/15 transition-all">
-            <i data-lucide="code-2" class="text-dark-accent w-5 h-5"></i>
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-0.5">
-              <span class="font-bold text-white text-sm group-hover:text-dark-accent transition-colors">Pseudocode-Labor</span>
-              <span class="px-1.5 py-0.5 bg-dark-accent/20 border border-dark-accent/40 rounded text-[8px] font-black uppercase tracking-wider text-dark-accent">Neu</span>
-            </div>
-            <p class="text-xs text-slate-400 truncate">
-              Visualizer, Schreibtischtests und Algos simulieren.
-            </p>
-          </div>
-        </a>
-      </div>
-
-      <!-- Dashboard Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 no-print">
-        <!-- Stats Card -->
-        <div
-          class="lg:col-span-8 bg-dark-card border border-dark-border rounded-xl p-5 relative overflow-hidden shadow-card flex flex-col gap-5 justify-between group min-h-[160px]"
-        >
-          <div
-            class="absolute top-0 right-0 w-64 h-64 bg-dark-accent/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none transition-opacity duration-1000 group-hover:opacity-100 opacity-50"
-          ></div>
-
-          <div class="flex flex-col sm:flex-row justify-between gap-4 w-full">
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between mb-2">
-                <span
-                  class="text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider"
-                  >Aktivität (80 Tage)</span
-                >
-                <span
-                  class="text-[10px] font-mono text-dark-success uppercase bg-dark-success/10 px-2 py-0.5 rounded border border-dark-success/20 hidden sm:inline-block"
-                  id="streakBadge"
-                >
-                  🔥 <span id="streakCount">0</span> Tag Streak
-                </span>
-              </div>
-              <div class="flex flex-wrap gap-1" id="streakGraph"></div>
-            </div>
-
-            <div
-              class="flex items-center gap-5 shrink-0 border-l border-dark-border pl-5"
-            >
-              <div class="text-right">
-                <div
-                  class="text-3xl font-bold text-white font-mono leading-none"
-                  id="doneCount"
-                >
-                  0
-                </div>
-                <div class="text-[10px] text-dark-muted uppercase mt-1">
-                  Erledigt
-                </div>
-              </div>
-              <div class="text-right">
-                <div
-                  class="text-3xl font-bold text-dark-accent font-mono leading-none"
-                  id="totalPercentTop"
-                >
-                  0%
-                </div>
-                <div class="text-[10px] text-dark-muted uppercase mt-1">
-                  Gesamt
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="w-full bg-dark-bg/50 rounded-lg p-3 border border-dark-border/50 flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between"
-          >
-            <div class="flex items-center gap-3">
-              <div
-                class="w-8 h-8 rounded bg-dark-card border border-dark-border flex items-center justify-center"
-              >
-                <i data-lucide="crown" class="text-dark-warning"></i>
-              </div>
-              <div class="flex flex-col">
-                <span class="text-[9px] font-mono text-dark-muted uppercase"
-                  >Aktueller Rang</span
-                >
-                <span
-                  class="font-bold text-white text-sm tracking-wide"
-                  id="levelName"
-                  >Hello World</span
-                >
-              </div>
-            </div>
-
-            <div class="w-full sm:w-1/2 flex flex-col gap-1">
-              <div class="flex justify-between text-[9px] text-dark-muted">
-                <span>Fortschritt zum nächsten Rang</span>
-              </div>
-              <div
-                class="w-full bg-dark-card rounded-full h-2 overflow-hidden border border-dark-border/50"
-              >
-                <div
-                  id="levelProgress"
-                  class="h-full bg-dark-warning w-0 transition-all duration-1000"
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Karteikarten & Themen-Statistiken -->
-          <div class="border-t border-dark-border/40 pt-4 flex flex-col gap-4 no-print">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <!-- Karteikarten Stats -->
-              <div class="flex flex-col gap-2">
-                <span class="text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider">Karteikarten-Status</span>
-                <div class="grid grid-cols-3 gap-2 text-center">
-                  <div class="bg-dark-bg/40 border border-dark-border/40 rounded-xl p-2" title="Karten, die mindestens einmal gelernt wurden">
-                    <span class="block text-[8px] text-dark-muted font-bold uppercase tracking-wider">Gelernt</span>
-                    <span id="globalAnkiCardsCount" class="text-xs sm:text-sm font-black text-white">0</span>
-                  </div>
-                  <div class="bg-dark-bg/40 border border-dark-success/20 rounded-xl p-2" title="Gewusste Karten (Confidence hoch)">
-                    <span class="block text-[8px] text-dark-success font-bold uppercase tracking-wider">Gewusst</span>
-                    <span id="globalAnkiCardsCorrect" class="text-xs sm:text-sm font-black text-white">0</span>
-                  </div>
-                  <div class="bg-dark-bg/40 border border-dark-border/40 rounded-xl p-2" title="Prozentuale Erfolgsquote aller Wiederholungen">
-                    <span class="block text-[8px] text-dark-muted font-bold uppercase tracking-wider">Quote</span>
-                    <span id="globalAnkiAccuracy" class="text-xs sm:text-sm font-black text-dark-success">0%</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Karteikarten Fortschrittsbalken -->
-              <div class="flex flex-col gap-2 justify-center">
-                <div class="flex justify-between text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider">
-                  <span>Anki-Lernfortschritt</span>
-                  <span id="ankiPercentText" class="text-white font-bold text-xs sm:text-sm">0% (0/0)</span>
-                </div>
-                <div class="w-full bg-dark-bg rounded-full h-2.5 overflow-hidden border border-dark-border">
-                  <div
-                    id="ankiProgressBar"
-                    class="h-full bg-gradient-to-r from-sky-600 to-cyan-400 shadow-[0_0_10px_rgba(14,165,233,0.3)] transition-all duration-1000 w-0"
-                  ></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Stärkstes / Schwächstes Thema (nebeneinander in breiter Spalte) -->
-            <div class="flex flex-col gap-2">
-              <span class="text-[10px] font-mono text-dark-muted uppercase font-bold tracking-wider">Fokus-Bereiche (Spaced Repetition)</span>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-dark-bg/30 px-3 py-2 sm:py-2.5 rounded-lg border border-dark-border/30 gap-1 sm:gap-2" title="Thema mit der besten Antwortquote">
-                  <span class="text-dark-success font-bold flex items-center gap-1.5 shrink-0"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Stärkstes:</span>
-                  <span id="strongestTopic" class="font-medium text-white truncate pl-0 sm:pl-2 text-left sm:text-right w-full sm:w-auto">—</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-dark-bg/30 px-3 py-2 sm:py-2.5 rounded-lg border border-dark-border/30 gap-1 sm:gap-2" title="Thema mit dem größten Wiederholungsbedarf">
-                  <span class="text-dark-danger font-bold flex items-center gap-1.5 shrink-0"><i data-lucide="trending-down" class="w-3.5 h-3.5"></i> Schwächstes:</span>
-                  <span id="weakestTopic" class="font-medium text-white truncate pl-0 sm:pl-2 text-left sm:text-right w-full sm:w-auto">—</span>
-                </div>
-              </div>
-            </div>
+          <!-- 1px Hairline Progress Bar (User Request: Visueller Anker) -->
+          <div class="hairline-track mt-3.5">
+            <div id="mainProgressBar" class="hairline-fill bg-blue-500" style="width: 0%;"></div>
           </div>
         </div>
 
-        <!-- Sidebar Widgets -->
-        <div class="lg:col-span-4 grid grid-cols-2 gap-4">
-          <!-- Focus Timer -->
-          <div
-            class="col-span-2 bg-dark-card border border-dark-border rounded-xl p-3 shadow-card relative overflow-hidden group flex flex-col justify-between min-h-[140px]"
-          >
-            <div class="flex justify-between items-center mb-1">
-              <p
-                class="text-[10px] font-mono text-dark-muted uppercase flex items-center gap-1.5"
-              >
-                <i data-lucide="clock" class="w-3.5 h-3.5"></i
-                ><span>Focus Timer</span>
-              </p>
+        <!-- 02 Anki-Lernkarten Beherrscht -->
+        <div class="p-4 rounded-xl border border-dark-border bg-dark-card hover:border-dark-strong transition-colors flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
+              <span>// 02 LERNKARTEN</span>
+              <span class="text-emerald-400">ANKI</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span id="ankiPercentText" class="text-xl sm:text-2xl font-bold font-mono text-white tabular-nums truncate">0% (0/1.228)</span>
+            </div>
+            <p class="text-xs text-dark-muted mt-1 truncate">
+              Quote: <span id="globalAnkiAccuracy" class="font-mono font-semibold text-emerald-400">0%</span> · <span id="globalAnkiCardsCount" class="font-mono text-white">0</span> geübt
+            </p>
+            <span id="globalAnkiCardsCorrect" class="hidden">0</span>
+          </div>
+          <!-- Hairline Progress Bar -->
+          <div class="hairline-track mt-3.5">
+            <div id="ankiProgressBar" class="hairline-fill success" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- 03 Streak & Entwickler-Rang -->
+        <div class="p-4 rounded-xl border border-dark-border bg-dark-card hover:border-dark-strong transition-colors flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
+              <span>// 03 DISZIPLIN</span>
+              <span class="text-orange-400">STREAK</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="flame" class="w-5 h-5 text-orange-400 shrink-0"></i>
+              <span id="streakCount" class="text-2xl sm:text-3xl font-bold font-mono text-white tabular-nums">0</span>
+              <span class="text-xs text-dark-muted font-mono">Tage</span>
+            </div>
+            <p class="text-xs text-dark-muted mt-1 truncate">
+              Rang: <span id="levelName" class="font-mono font-semibold text-blue-400">Hello World</span>
+            </p>
+          </div>
+          <!-- Hairline Progress Bar -->
+          <div class="hairline-track mt-3.5">
+            <div id="levelProgress" class="hairline-fill bg-blue-500" style="width: 5%;"></div>
+          </div>
+        </div>
+
+        <!-- 04 Prüfungscountdown -->
+        <div class="p-4 rounded-xl border border-dark-border bg-dark-card hover:border-dark-strong transition-colors flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
+              <span>// 04 TERMIN</span>
+              <span class="text-amber-400">IHK</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="calendar" class="w-5 h-5 text-amber-400 shrink-0"></i>
+              <span id="headerCountdown" class="text-2xl sm:text-3xl font-bold font-mono text-amber-400 tabular-nums">13</span>
+              <span class="text-xs text-dark-muted font-mono">Tage</span>
+            </div>
+            <p class="text-xs text-dark-muted mt-1 truncate">
+              AP1 Prüfung: <span class="font-mono font-semibold text-white">30.09.2026</span>
+            </p>
+          </div>
+          <!-- Hairline Progress Bar -->
+          <div class="hairline-track mt-3.5">
+            <div class="hairline-fill warning" style="width: 82%;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           4. WORKBENCH (2-Column Mission Control)
+           ============================================================ -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Left: Smart Focus & Fast Training (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <!-- Smart Focus Card -->
+          <div class="p-5 rounded-xl border border-dark-border bg-dark-card relative overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="kbd-cap bg-blue-600/20 text-blue-400 border-blue-500/30 text-[9px]">FOCUS</span>
+                  <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
+                    Intelligente Lernempfehlung
+                  </span>
+                </div>
+                <span class="font-mono text-[10px] text-dark-dim">Algorithmus: Leitner/Spaced</span>
+              </div>
+
+              <div class="mt-2">
+                <h2 class="text-lg sm:text-xl font-bold text-white tracking-tight">
+                  Heutiges Schwerpunkt-Modul
+                </h2>
+                <p class="text-xs text-dark-muted mt-1 leading-relaxed" id="recShort">
+                  Berechne deinen optimalen Lernpfad anhand deiner bisherigen Antworten...
+                </p>
+              </div>
+
+              <!-- Metrics sub-row -->
+              <div class="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-dark-border text-xs font-mono">
+                <div>
+                  <span class="text-dark-dim block text-[10px] uppercase">Stärkstes Thema</span>
+                  <span id="strongestTopic" class="text-white font-semibold truncate block mt-0.5">—</span>
+                </div>
+                <div>
+                  <span class="text-dark-dim block text-[10px] uppercase">Schwächstes Thema</span>
+                  <span id="weakestTopic" class="text-white font-semibold truncate block mt-0.5">—</span>
+                </div>
+              </div>
             </div>
 
-            <div class="flex items-center justify-between mt-1 mb-2">
-              <h3
-                class="text-4xl font-bold text-white font-mono tabular-nums tracking-tight"
-                id="pomoTimer"
-              >
-                25:00
-              </h3>
+            <!-- Action Buttons -->
+            <div class="mt-5 flex flex-col sm:flex-row items-center gap-2.5">
               <button
-                onclick="app.togglePomodoro()"
-                id="pomoBtn"
-                class="w-10 h-10 rounded-xl bg-dark-border hover:bg-dark-accent hover:text-white text-dark-muted flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-lg"
+                onclick="app.startSmartFocus()"
+                class="w-full sm:flex-1 py-2.5 px-4 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs font-mono flex items-center justify-center gap-2 transition-colors shadow-sm"
               >
-                <i data-lucide="play" class="w-5 h-5 ml-0.5"></i>
-              </button>
-            </div>
-
-            <div class="flex justify-between gap-1">
-              <button
-                onclick="app.setPomoTime(5)"
-                class="flex-1 text-[9px] font-bold bg-dark-bg border border-dark-border hover:border-dark-accent text-dark-muted hover:text-white py-1.5 rounded transition-colors"
-              >
-                5
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+                <span>Lernsitzung starten</span>
               </button>
               <button
-                onclick="app.setPomoTime(15)"
-                class="flex-1 text-[9px] font-bold bg-dark-bg border border-dark-border hover:border-dark-accent text-dark-muted hover:text-white py-1.5 rounded transition-colors"
+                onclick="app.startRandomTopic()"
+                class="w-full sm:w-auto py-2.5 px-3 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-bg text-dark-muted hover:text-white font-mono text-xs flex items-center justify-center gap-1.5 transition-colors"
+                title="Zufälliges Thema aus allen 50 Modulen abfragen"
               >
-                15
-              </button>
-              <button
-                onclick="app.setPomoTime(25)"
-                class="flex-1 text-[9px] font-bold bg-dark-bg border border-dark-border hover:border-dark-accent text-dark-muted hover:text-white py-1.5 rounded transition-colors"
-              >
-                25
+                <i data-lucide="shuffle" class="w-3.5 h-3.5"></i>
+                <span>Zufallsmix</span>
               </button>
             </div>
           </div>
 
-          <!-- Random Button -->
-          <button
-            onclick="app.randomTopic()"
-            class="col-span-1 bg-dark-card border border-dark-border rounded-xl p-3 hover:border-dark-warning/50 hover:bg-dark-warning/5 transition-all text-left group relative overflow-hidden flex flex-col justify-center outline-none focus:ring-1 focus:ring-dark-warning/50"
-          >
-            <i
-              data-lucide="dice-5"
-              class="text-dark-warning text-xl mb-1 animate-dice-hover"
-            ></i>
-            <p class="text-xs font-bold text-white">Zufall</p>
-            <p class="text-[9px] text-dark-muted">Lern-Roulette</p>
-          </button>
-
-          <!-- Smart Focus Button -->
-          <button
-            onclick="app.scrollToRec()"
-            class="col-span-1 bg-dark-card border border-dark-border rounded-xl p-3 hover:border-dark-success/50 hover:bg-dark-success/5 transition-all text-left group relative flex flex-col justify-center outline-none focus:ring-1 focus:ring-dark-success/50"
-          >
-            <div
-              class="absolute top-2 right-2 w-2 h-2 bg-dark-success rounded-full animate-pulse-slow"
-            ></div>
-            <i
-              data-lucide="crosshair"
-              class="text-dark-success text-xl mb-1 animate-focus-hover"
-            ></i>
-            <p class="text-xs font-bold text-white">Smart Focus</p>
-            <p class="text-[9px] text-dark-muted truncate w-full" id="recShort">
-              Berechne...
-            </p>
-          </button>
-
-          <!-- Discord Lerngruppen Widget -->
-          <div
-            class="col-span-2 bg-dark-card border border-dark-border rounded-xl p-3 shadow-card relative overflow-hidden group flex flex-col justify-between min-h-[140px] hover:border-[#5865F2]/40 hover:bg-[#5865F2]/5 transition-all duration-300"
-          >
-            <div
-              class="absolute top-0 right-0 w-32 h-32 bg-[#5865F2]/5 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none transition-opacity duration-500 group-hover:bg-[#5865F2]/10"
-            ></div>
-
-            <div class="flex justify-between items-start mb-1.5">
-              <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dark-success opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-dark-success"></span>
-                  </span>
-                  <span class="text-[9px] font-mono text-dark-muted uppercase font-bold tracking-wider">Gemeinsam Lernen</span>
-                </div>
-                <h4 class="text-sm font-bold text-white mt-0.5 group-hover:text-[#5865F2] transition-colors">Lerngruppen &amp; Austausch</h4>
+          <!-- Tools Hub Grid (4 Items) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <a
+              href="subnet.html"
+              class="p-3 rounded-lg border border-dark-border bg-dark-card hover:bg-dark-card-hover hover:border-dark-strong transition-all group"
+            >
+              <div class="flex items-center justify-between text-dark-dim group-hover:text-blue-400 mb-1">
+                <span class="font-mono text-[9px] uppercase font-bold tracking-wider">[NET]</span>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
               </div>
-              <div class="w-7 h-7 rounded-lg bg-[#5865F2]/10 border border-[#5865F2]/30 flex items-center justify-center text-[#5865F2] shrink-0 group-hover:scale-105 transition-transform">
-                <i data-lucide="message-square" class="w-4 h-4"></i>
-              </div>
-            </div>
-
-            <p class="text-[11px] text-slate-400 leading-relaxed mb-3">
-              Suchst du Lernpartner oder hast Fragen zu Aufgaben? Tausche dich direkt auf Discord aus.
-            </p>
+              <div class="font-bold text-xs text-white group-hover:text-blue-400 transition-colors">Subnetz-Trainer</div>
+              <div class="text-[10px] text-dark-muted mt-0.5 truncate">IPv4, CIDR, Masks</div>
+            </a>
 
             <a
-              href="https://discord.gg/5BM5YJadDs"
-              target="_blank"
-              rel="noopener"
-              class="w-full py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white text-center text-xs font-bold rounded-lg transition-colors no-underline flex items-center justify-center gap-1.5 shadow-md shadow-[#5865F2]/10"
+              href="sql.html"
+              class="p-3 rounded-lg border border-dark-border bg-dark-card hover:bg-dark-card-hover hover:border-dark-strong transition-all group"
             >
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Jetzt mitlernen
+              <div class="flex items-center justify-between text-dark-dim group-hover:text-emerald-400 mb-1">
+                <span class="font-mono text-[9px] uppercase font-bold tracking-wider">[SQL]</span>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+              </div>
+              <div class="font-bold text-xs text-white group-hover:text-emerald-400 transition-colors">SQL-Labor</div>
+              <div class="text-[10px] text-dark-muted mt-0.5 truncate">SELECT, JOIN, GROUP</div>
+            </a>
+
+            <a
+              href="pseudocode.html"
+              class="p-3 rounded-lg border border-dark-border bg-dark-card hover:bg-dark-card-hover hover:border-dark-strong transition-all group"
+            >
+              <div class="flex items-center justify-between text-dark-dim group-hover:text-purple-400 mb-1">
+                <span class="font-mono text-[9px] uppercase font-bold tracking-wider">[CODE]</span>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+              </div>
+              <div class="font-bold text-xs text-white group-hover:text-purple-400 transition-colors">Pseudocode</div>
+              <div class="text-[10px] text-dark-muted mt-0.5 truncate">Visualizer & Tests</div>
+            </a>
+
+            <a
+              href="glossar.html"
+              class="p-3 rounded-lg border border-dark-border bg-dark-card hover:bg-dark-card-hover hover:border-dark-strong transition-all group"
+            >
+              <div class="flex items-center justify-between text-dark-dim group-hover:text-amber-400 mb-1">
+                <span class="font-mono text-[9px] uppercase font-bold tracking-wider">[DOCS]</span>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+              </div>
+              <div class="font-bold text-xs text-white group-hover:text-amber-400 transition-colors">Fach-Glossar</div>
+              <div class="text-[10px] text-dark-muted mt-0.5 truncate">100+ IHK-Begriffe</div>
             </a>
           </div>
         </div>
-      </div>
 
-      <!-- Filter Bar -->
-      <div class="sticky top-4 sm:top-4 z-40 no-print" id="filterBar">
-        <div
-          class="bg-dark-bg/95 backdrop-blur-md border border-dark-border rounded-xl p-2 flex flex-col sm:flex-row gap-3 justify-between items-center shadow-2xl ring-1 ring-white/5"
-        >
-          <div
-            class="flex gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar pb-1 sm:pb-0"
-          >
+        <!-- Right: Focus Station & Heatmap (5 Cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-4">
+          <!-- Pomodoro Focus Station -->
+          <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="flex items-center gap-2">
+                <i data-lucide="clock" class="w-4 h-4 text-dark-muted"></i>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-dark-muted font-bold">
+                  Focus Timer
+                </span>
+              </div>
+              <!-- Presets -->
+              <div class="flex items-center gap-1">
+                <button
+                  onclick="app.setPomoTime(15)"
+                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
+                >
+                  15m
+                </button>
+                <button
+                  onclick="app.setPomoTime(25)"
+                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
+                >
+                  25m
+                </button>
+                <button
+                  onclick="app.setPomoTime(45)"
+                  class="px-2 py-0.5 rounded text-[10px] font-mono text-dark-muted hover:text-white border border-dark-border bg-dark-bg hover:border-dark-strong transition-colors"
+                >
+                  45m
+                </button>
+              </div>
+            </div>
+
+            <!-- Digital Readout + Play Button -->
+            <div class="flex items-center justify-between my-1.5">
+              <div id="pomoTimer" class="font-mono text-3xl sm:text-4xl font-black text-white tabular-nums tracking-tight">
+                25:00
+              </div>
+              <button
+                id="pomoBtn"
+                onclick="app.togglePomodoro()"
+                class="w-10 h-10 rounded-lg bg-dark-border hover:bg-blue-600 text-dark-muted hover:text-white flex items-center justify-center transition-all duration-200"
+                aria-label="Timer starten / stoppen"
+              >
+                <i data-lucide="play" class="w-4 h-4 ml-0.5"></i>
+              </button>
+            </div>
+            <div class="text-[10px] font-mono text-dark-dim">
+              Keine Ablenkung · Intervalle mit Pausen festigen den Lernerfolg
+            </div>
+          </div>
+
+          <!-- 80-Days Activity Heatmap -->
+          <div class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-2.5">
+                <span>Aktivitäts-Heatmap (80 Tage)</span>
+                <span class="text-dark-muted">Lokal gespeichert</span>
+              </div>
+              <!-- Streak Matrix Container -->
+              <div id="streakGraph" class="flex flex-wrap gap-1 pt-0.5"></div>
+            </div>
+            <div class="pt-2.5 mt-3 border-t border-dark-border flex items-center justify-between text-[10px] font-mono text-dark-dim">
+              <span>Gering</span>
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-sm bg-dark-border"></span>
+                <span class="w-2.5 h-2.5 rounded-sm bg-blue-500/40"></span>
+                <span class="w-2.5 h-2.5 rounded-sm bg-blue-500/70"></span>
+                <span class="w-2.5 h-2.5 rounded-sm bg-blue-500"></span>
+              </div>
+              <span>Hohe Aktivität</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           5. CURRICULUM EXPLORER & SEARCH
+           ============================================================ -->
+      <section class="space-y-4 pt-2">
+        <!-- Sticky Filter & Search Toolbar -->
+        <div id="filterBar" class="sticky top-16 z-30 py-2.5 -mx-4 px-4 sm:-mx-6 sm:px-6 bg-dark-bg/95 backdrop-blur border-y border-dark-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <!-- Filter Pills -->
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
             <button
-              class="filter-btn active px-4 py-2 text-xs font-bold rounded-lg bg-dark-card text-white border border-dark-border transition-all whitespace-nowrap"
-              data-filter="all"
               onclick="app.setFilter('all')"
+              class="filter-btn active px-3 py-1.5 rounded-md text-xs font-mono font-semibold transition-colors border border-blue-500/40 bg-blue-600/15 text-blue-400"
+              data-filter="all"
             >
-              Alle
+              Alle Themen (50)
             </button>
             <button
-              class="filter-btn px-4 py-2 text-xs font-bold rounded-lg text-dark-muted hover:text-white border border-transparent hover:bg-dark-border transition-all whitespace-nowrap"
-              data-filter="open"
               onclick="app.setFilter('open')"
+              class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-colors border border-dark-border bg-dark-card text-dark-muted hover:text-white"
+              data-filter="open"
             >
               Noch offen
             </button>
             <button
-              class="filter-btn px-4 py-2 text-xs font-bold rounded-lg text-dark-muted hover:text-white border border-transparent hover:bg-dark-border transition-all whitespace-nowrap"
-              data-filter="high"
               onclick="app.setFilter('high')"
+              class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-colors border border-dark-border bg-dark-card text-dark-muted hover:text-white"
+              data-filter="high"
             >
-              <span class="text-dark-danger mr-1">●</span> Prio Hoch
+              Hohe Prio
             </button>
           </div>
 
-          <div class="relative w-full sm:w-auto group">
-            <i
-              data-lucide="search"
-              class="absolute left-3 top-1/2 -translate-y-1/2 text-dark-muted text-xs group-focus-within:text-dark-accent transition-colors"
-            ></i>
+          <!-- Search Bar with pixel-perfect icon centering -->
+          <div class="relative w-full sm:w-80 flex items-center">
+            <i data-lucide="search" class="w-4 h-4 text-dark-dim absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
             <input
               type="text"
               id="searchInput"
-              onkeyup="app.search()"
-              placeholder="Thema, Stichwort..."
-              class="w-full sm:w-56 bg-dark-bg border border-dark-border rounded-lg py-2 pl-9 pr-3 text-xs text-white focus:border-dark-accent focus:ring-1 focus:ring-dark-accent outline-none transition-all placeholder:text-dark-muted/50"
+              oninput="app.search(this.value)"
+              placeholder="Themen durchsuchen... (Ctrl+K)"
+              class="w-full bg-dark-card border border-dark-border rounded-lg pl-9 pr-14 py-2 text-xs text-white placeholder-dark-dim focus:outline-none focus:border-blue-500 transition-colors font-mono"
             />
+            <kbd class="kbd-cap absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:inline-flex text-[9px] text-dark-dim pointer-events-none">Ctrl+K</kbd>
           </div>
         </div>
-      </div>
 
-      <!-- Content Container -->
-      <div id="contentList" class="space-y-8 pb-20 min-h-[300px]"></div>
+        <!-- Curriculum Module List -->
+        <div id="contentList" class="space-y-6 pb-12 min-h-[300px]"></div>
 
-      <!-- Empty State -->
-      <div
-        id="emptyState"
-        class="hidden flex-col items-center justify-center py-20 text-center opacity-50 no-print"
-      >
-        <div
-          class="w-20 h-20 bg-dark-card rounded-full flex items-center justify-center mb-4 border border-dark-border"
-        >
-          <i data-lucide="check-check" class="text-3xl text-dark-success"></i>
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden p-12 text-center border border-dashed border-dark-border rounded-xl">
+          <i data-lucide="search-x" class="w-8 h-8 text-dark-dim mx-auto mb-2"></i>
+          <p class="font-mono text-sm text-dark-muted">Keine passenden Themen gefunden.</p>
+          <button
+            onclick="document.getElementById('searchInput').value=''; app.search(''); app.setFilter('all');"
+            class="mt-3 px-3 py-1 rounded text-xs font-mono text-blue-400 hover:underline"
+          >
+            Filter & Suche zurücksetzen
+          </button>
         </div>
-        <p class="text-dark-muted text-sm font-medium">Nichts gefunden.</p>
-        <button
-          onclick="
-            app.setFilter('all');
-            document.getElementById('searchInput').value = '';
-            app.search();
-          "
-          class="mt-6 text-xs font-bold text-white bg-dark-accent hover:bg-sky-400 px-4 py-2 rounded-lg transition-colors"
-        >
-          Alles anzeigen
-        </button>
-      </div>
+      </section>
+
+      <!-- ============================================================
+           6. AP2 TRACKER PARTNER STRIP
+           ============================================================ -->
+      <section class="p-4 sm:p-5 rounded-xl border border-dark-border bg-dark-card/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <span class="kbd-cap text-[9px] text-emerald-400 border-emerald-900/40 bg-emerald-950/20 mb-1">AP2 ÖKOSYSTEM</span>
+          <h3 class="text-sm font-bold text-white tracking-tight">Vorbereitung auf die Abschlussprüfung Teil 2?</h3>
+          <p class="text-xs text-dark-muted mt-0.5">Separate Trainer mit weiteren 1.700+ spezialisierten Lernkarten für FIAE & FISI.</p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a
+            href="https://ap2.cwillam.de"
+            target="_blank"
+            rel="noopener"
+            class="px-3 py-1.5 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-card text-white font-mono text-xs flex items-center gap-1.5 transition-colors"
+          >
+            <span>AP2 FIAE</span>
+            <i data-lucide="external-link" class="w-3 h-3 text-dark-muted"></i>
+          </a>
+          <a
+            href="https://ap2-fisi.cwillam.de"
+            target="_blank"
+            rel="noopener"
+            class="px-3 py-1.5 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-card text-white font-mono text-xs flex items-center gap-1.5 transition-colors"
+          >
+            <span>AP2 FISI</span>
+            <i data-lucide="external-link" class="w-3 h-3 text-dark-muted"></i>
+          </a>
+        </div>
+      </section>
     </main>
 
-    <!-- ANKI Lernkarten Modal (Full Screen) -->
-    <div
-      id="ankiModal"
-      class="fixed inset-0 z-[9999] hidden bg-[#020617] no-print flex flex-col"
-    >
-      <div
-        class="p-4 border-b border-dark-border flex items-center justify-between bg-[#0f172a] shrink-0"
-      >
-        <div class="flex-1 flex items-center">
-          <button
-            id="ankiHeaderReportBtn"
-            onclick="app.anki.openReportModal()"
-            title="Fehler zu dieser Karte melden"
-            class="hidden items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-dark-bg/60 border border-dark-border/60 text-dark-muted hover:text-rose-400 hover:border-rose-500/40 hover:bg-rose-500/10 text-xs transition-all"
-          >
-            <i data-lucide="flag" class="w-3.5 h-3.5"></i>
-            <span class="hidden sm:inline">Fehler melden</span>
-          </button>
-        </div>
-        <div
-          class="flex flex-col items-center text-center flex-[3] min-w-0 px-2"
-        >
-          <h2
-            id="ankiTopicTitle"
-            class="text-sm font-bold text-white truncate w-full"
-          >
-            Thema
-          </h2>
-          <div
-            id="ankiModeBadge"
-            class="flex items-center justify-center gap-1.5 mt-0.5"
-          ></div>
-        </div>
-        <div class="flex-1 flex justify-end">
-          <button
-            onclick="app.anki.close()"
-            class="w-10 h-10 flex items-center justify-center rounded-xl bg-[#020617] border border-dark-border text-dark-muted hover:text-white transition-all hover:scale-105 active:scale-95 shrink-0"
-          >
-            <i data-lucide="x" class="text-lg"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="h-1 w-full bg-[#020617] shrink-0">
-        <div
-          id="ankiProgress"
-          class="h-full bg-dark-accent shadow-[0_0_10px_rgba(14,165,233,0.5)] transition-all duration-500 w-0"
-        ></div>
-      </div>
-
-      <div
-        class="flex-grow overflow-y-auto flex flex-col items-center bg-[#020617]"
-      >
-        <div
-          class="w-full max-w-2xl px-6 py-12 flex-grow flex flex-col justify-center min-h-full text-center"
-        >
-          <div
-            id="ankiModeView"
-            class="w-full space-y-6 animate-in fade-in zoom-in duration-300"
-          >
-            <div class="mb-6 md:mb-10">
-              <div
-                class="w-12 h-12 md:w-20 md:h-20 bg-dark-accent/10 rounded-xl md:rounded-2xl flex items-center justify-center text-dark-accent mx-auto mb-4 md:mb-6 border border-dark-accent/20"
-              >
-                <i data-lucide="layers" class="text-2xl md:text-4xl"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-white tracking-tight">
-                Lern-Zentrale
-              </h3>
-              <p class="text-dark-muted mt-2 text-sm">
-                Wähle deine Strategie für dieses Modul.
-              </p>
-              <div id="ankiTopicStats" class="hidden"></div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-              <button
-                onclick="app.anki.start('spaced')"
-                class="w-full p-3 md:p-6 bg-dark-card border border-dark-accent/30 hover:border-dark-accent rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-accent/5"
-              >
-                <div class="flex flex-col items-center gap-2 md:gap-4">
-                  <div
-                    class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-dark-accent/20 flex items-center justify-center text-dark-accent group-hover:scale-110 transition-transform shrink-0"
-                  >
-                    <i data-lucide="brain" class="text-xl"></i>
-                  </div>
-                  <div>
-                    <h4
-                      class="text-sm md:text-base font-bold text-white group-hover:text-dark-accent transition-colors"
-                    >
-                      Strategie-Modus
-                    </h4>
-                    <p
-                      class="text-[10px] md:text-xs text-dark-muted leading-snug md:leading-relaxed mt-1 max-w-sm"
-                    >
-                      <span class="text-dark-accent font-bold"
-                        >Intelligente Intervalle.</span
-                      >
-                      Richtige Antworten erhöhen die Pause bis zur nächsten
-                      Wiederholung.
-                    </p>
-                  </div>
-                </div>
-              </button>
-
-              <button
-                onclick="app.anki.start('exam-prep')"
-                class="w-full p-3 md:p-6 bg-dark-card border border-dark-danger/30 hover:border-dark-danger rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-danger/5"
-              >
-                <div class="flex flex-col items-center gap-2 md:gap-4">
-                  <div
-                    class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-dark-danger/20 flex items-center justify-center text-dark-danger group-hover:scale-110 transition-transform shrink-0"
-                  >
-                    <i data-lucide="flame" class="text-xl"></i>
-                  </div>
-                  <div>
-                    <h4
-                      class="text-sm md:text-base font-bold text-white group-hover:text-dark-danger transition-colors"
-                    >
-                      Prüfungs-Modus
-                    </h4>
-                    <p
-                      class="text-[10px] md:text-xs text-dark-muted leading-snug md:leading-relaxed mt-1 max-w-sm"
-                    >
-                      <span class="text-dark-danger font-bold"
-                        >Schnellere Wiederholungen.</span
-                      >
-                      Halbierte Intervalle - perfekt für die letzten Wochen vor
-                      der Prüfung.
-                    </p>
-                  </div>
-                </div>
-              </button>
-
-              <button
-                onclick="app.anki.start('weaknesses')"
-                class="w-full p-3 md:p-6 bg-dark-card border border-dark-warning/30 hover:border-dark-warning rounded-2xl text-center group transition-all shadow-lg hover:shadow-dark-warning/5"
-              >
-                <div class="flex flex-col items-center gap-2 md:gap-4">
-                  <div
-                    class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-dark-warning/20 flex items-center justify-center text-dark-warning group-hover:scale-110 transition-transform shrink-0"
-                  >
-                    <i data-lucide="alert-triangle" class="text-xl"></i>
-                  </div>
-                  <div>
-                    <h4
-                      class="text-sm md:text-base font-bold text-white group-hover:text-dark-warning transition-colors"
-                    >
-                      Schwachstellen-Modus
-                    </h4>
-                    <p
-                      class="text-[10px] md:text-xs text-dark-muted leading-snug md:leading-relaxed mt-1 max-w-sm"
-                    >
-                      <span class="text-dark-warning font-bold"
-                        >Fehler fokussieren.</span
-                      >
-                      Wiederhole gezielt nur Karten, die du falsch beantwortet
-                      oder geraten hast.
-                    </p>
-                  </div>
-                </div>
-              </button>
-
-              <button
-                onclick="app.anki.start('manual')"
-                class="w-full p-3 md:p-6 bg-dark-card border border-dark-border hover:border-dark-muted rounded-2xl text-center group transition-all shadow-lg"
-              >
-                <div class="flex flex-col items-center gap-2 md:gap-4">
-                  <div
-                    class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-dark-bg flex items-center justify-center text-dark-muted group-hover:scale-110 transition-transform shrink-0"
-                  >
-                    <i data-lucide="dumbbell" class="text-xl"></i>
-                  </div>
-                  <div>
-                    <h4 class="text-sm md:text-base font-bold text-white">
-                      Freies Training
-                    </h4>
-                    <p
-                      class="text-[10px] md:text-xs text-dark-muted leading-snug md:leading-relaxed mt-1 max-w-sm"
-                    >
-                      <span class="text-white font-bold text-opacity-70"
-                        >Reinpauken ohne Limit.</span
-                      >
-                      Alle Karten sofort wiederholen. Kein Speichern, kein
-                      Druck.
-                    </p>
-                  </div>
-                </div>
-              </button>
-            </div>
-            <div
-              class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono"
-            >
-              Shortcuts: [1] Freies Training &nbsp;|&nbsp; [2] Strategie-Modus
-              &nbsp;|&nbsp; [3] Prüfungs-Modus &nbsp;|&nbsp; [4]
-              Schwachstellen-Modus &nbsp;|&nbsp; [Esc] Schließen
-            </div>
-          </div>
-
-          <div
-            id="ankiQuestionView"
-            class="w-full hidden animate-in fade-in slide-in-from-bottom-8 duration-500 text-center flex flex-col items-center"
-          >
-            <div class="mb-10 w-full">
-              <span
-                class="inline-block px-3 py-1 bg-dark-bg border border-dark-border rounded-full text-[10px] text-dark-muted uppercase font-mono tracking-widest mb-6"
-                id="ankiCardCounter"
-                >Karte 1 von 10</span
-              >
-              <h4
-                id="ankiQuestionText"
-                class="text-xl sm:text-3xl font-bold text-white leading-tight tracking-tight px-4 max-w-xl mx-auto"
-              >
-                Frage wird geladen...
-              </h4>
-            </div>
-            <button
-              onclick="app.anki.showAnswer()"
-              class="w-full max-w-md py-4 px-6 bg-dark-accent hover:bg-sky-400 text-white font-bold rounded-xl transition-all shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-base flex items-center justify-center gap-2"
-            >
-              <span>Antwort aufdecken</span>
-              <i data-lucide="eye" class="w-5 h-5"></i>
-            </button>
-            <div
-              class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono"
-            >
-              Shortcuts: [Leertaste] Antwort aufdecken &nbsp;|&nbsp; [Esc]
-              Schließen
-            </div>
-            <button
-              type="button"
-              onclick="app.anki.openReportModal()"
-              class="mt-4 inline-flex items-center gap-1.5 text-xs text-dark-muted hover:text-rose-400 transition-colors py-1.5 px-3 rounded-lg hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20"
-              title="Fehler oder Verbesserung zu dieser Karte melden"
-            >
-              <i data-lucide="flag" class="w-3.5 h-3.5"></i>
-              <span>Fehler zu dieser Karte melden</span>
-            </button>
-          </div>
-
-          <div
-            id="ankiAnswerView"
-            class="w-full hidden animate-in fade-in zoom-in duration-300 text-center flex flex-col items-center"
-          >
-            <div class="mb-8 w-full max-w-xl">
-              <span
-                class="inline-block px-3 py-1 bg-dark-accent/10 border border-dark-accent/30 rounded-full text-[10px] text-dark-accent uppercase font-bold tracking-widest mb-6"
-                >Lösung</span
-              >
-              <div
-                class="bg-dark-card border border-dark-border rounded-2xl p-6 sm:p-10 shadow-2xl w-full"
-              >
-                <div
-                  class="text-xs sm:text-sm text-violet-400 font-bold mb-4 border-b border-dark-border/40 pb-4 text-center tracking-wider uppercase"
-                >
-                  Frage:
-                  <span
-                    id="ankiAnswerQuestionText"
-                    class="text-white font-semibold normal-case block mt-1 leading-snug"
-                  ></span>
-                </div>
-                <p
-                  id="ankiAnswerText"
-                  class="text-base sm:text-xl text-white leading-relaxed font-medium"
-                >
-                  Antwort wird geladen...
-                </p>
-              </div>
-            </div>
-            <div
-              class="mt-4 md:mt-2 grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-2xl"
-            >
-              <button
-                onclick="app.anki.next(0)"
-                title="Sofort gewusst (1)"
-                class="py-3 px-3 sm:py-3.5 sm:px-4 bg-dark-success/10 border border-dark-success/40 text-dark-success hover:bg-dark-success/20 font-bold rounded-xl transition-all flex flex-col items-center justify-center gap-1.5 min-h-[68px]"
-              >
-                <i data-lucide="zap" class="w-5 h-5"></i>
-                <span class="text-[11px] sm:text-xs">Sofort gewusst</span>
-              </button>
-              <button
-                onclick="app.anki.next(1)"
-                title="Nachgedacht (2)"
-                class="py-3 px-3 sm:py-3.5 sm:px-4 bg-dark-accent/10 border border-dark-accent/40 text-dark-accent hover:bg-dark-accent/20 font-bold rounded-xl transition-all flex flex-col items-center justify-center gap-1.5 min-h-[68px]"
-              >
-                <i data-lucide="brain" class="w-5 h-5"></i>
-                <span class="text-[11px] sm:text-xs">Nachgedacht</span>
-              </button>
-              <button
-                onclick="app.anki.next(2)"
-                title="Geraten (3)"
-                class="py-3 px-3 sm:py-3.5 sm:px-4 bg-dark-warning/10 border border-dark-warning/40 text-dark-warning hover:bg-dark-warning/20 font-bold rounded-xl transition-all flex flex-col items-center justify-center gap-1.5 min-h-[68px]"
-              >
-                <i data-lucide="help-circle" class="w-5 h-5"></i>
-                <span class="text-[11px] sm:text-xs">Geraten</span>
-              </button>
-              <button
-                onclick="app.anki.next(3)"
-                title="Nicht gewusst (4)"
-                class="py-3 px-3 sm:py-3.5 sm:px-4 bg-dark-danger/10 border border-dark-danger/40 text-dark-danger hover:bg-dark-danger/20 font-bold rounded-xl transition-all flex flex-col items-center justify-center gap-1.5 min-h-[68px]"
-              >
-                <i data-lucide="x" class="w-5 h-5"></i>
-                <span class="text-[11px] sm:text-xs">Nicht gewusst</span>
-              </button>
-            </div>
-            <div
-              class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono"
-            >
-              Shortcuts: [1]/[←] Sofort | [2]/[↓] Nachgedacht | [3]/[→] Geraten
-              | [4]/[↑] Nicht gewusst &nbsp;|&nbsp; [Esc] Schließen
-            </div>
-            <button
-              type="button"
-              onclick="app.anki.openReportModal()"
-              class="mt-4 inline-flex items-center gap-1.5 text-xs text-dark-muted hover:text-rose-400 transition-colors py-1.5 px-3 rounded-lg hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20"
-              title="Fehler oder Verbesserung zu dieser Karte melden"
-            >
-              <i data-lucide="flag" class="w-3.5 h-3.5"></i>
-              <span>Fehler zu dieser Karte melden</span>
-            </button>
-          </div>
-
-          <div
-            id="ankiFinishView"
-            class="w-full hidden animate-in fade-in zoom-in duration-500 flex flex-col items-center text-center"
-          >
-            <div class="relative mb-8">
-              <div
-                class="w-28 h-28 bg-dark-success/20 rounded-full flex items-center justify-center mx-auto border border-dark-success/30 relative z-10"
-              >
-                <i
-                  data-lucide="circle-check"
-                  class="text-4xl text-dark-success"
-                ></i>
-              </div>
-              <div
-                class="absolute inset-0 bg-dark-success/10 blur-3xl rounded-full"
-              ></div>
-            </div>
-            <h3
-              class="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight"
-            >
-              Thema abgeschlossen!
-            </h3>
-            <p
-              class="text-dark-muted mb-10 max-w-xs mx-auto text-xs sm:text-sm leading-relaxed"
-            >
-              Hervorragend! Du hast alle Karten für dieses Modul
-              durchgearbeitet.
-            </p>
-            <button
-              onclick="app.anki.close()"
-              class="w-full max-w-md py-4 px-6 bg-dark-accent text-white font-bold rounded-xl shadow-glow transform hover:scale-[1.02] active:scale-[0.98] text-base"
-            >
-              Zurück zur Übersicht
-            </button>
-            <div
-              class="hidden md:block mt-6 text-[10px] text-dark-muted font-mono"
-            >
-              Shortcuts: [Leertaste] Schließen
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal: Fehler zur Lernkarte melden -->
-    <div
-      id="cardReportModal"
-      class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[10000] hidden items-center justify-center p-4 no-print"
-    >
-      <div
-        class="bg-dark-card border border-dark-border rounded-2xl w-full max-w-lg p-5 sm:p-6 shadow-2xl relative animate-in fade-in zoom-in duration-200"
-      >
-        <button
-          onclick="app.anki.closeReportModal()"
-          class="absolute top-4 right-4 text-dark-muted hover:text-white p-1.5 rounded-lg hover:bg-dark-bg transition-colors"
-          title="Schließen (Esc)"
-        >
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-
-        <!-- 1. Formular-Ansicht -->
-        <div id="reportFormView">
-          <div class="flex items-center gap-3 mb-4">
-            <div
-              class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0"
-            >
-              <i data-lucide="flag" class="w-5 h-5"></i>
-            </div>
-            <div>
-              <h3 class="text-base font-bold text-white">Fehler / Feedback melden</h3>
-              <p id="reportModalSubtitle" class="text-xs text-dark-muted">
-                Karte wird geladen...
-              </p>
-            </div>
-          </div>
-
-          <!-- Karten-Vorschau -->
-          <div class="bg-[#020617] border border-dark-border/60 rounded-xl p-3.5 mb-4 text-xs space-y-2">
-            <div>
-              <div class="text-dark-muted uppercase tracking-wider font-mono text-[10px]">Frage:</div>
-              <p id="reportModalQuestion" class="text-white font-medium line-clamp-3 mt-0.5">...</p>
-            </div>
-            <div>
-              <div class="text-dark-muted uppercase tracking-wider font-mono text-[10px]">Lösung:</div>
-              <p id="reportModalAnswer" class="text-dark-muted line-clamp-2 mt-0.5">...</p>
-            </div>
-          </div>
-
-          <!-- Honeypot (Spamschutz, unsichtbar) -->
-          <input type="text" id="reportHpCheck" class="hidden" tabindex="-1" autocomplete="off" />
-
-          <!-- Eingabefeld -->
-          <div class="mb-4">
-            <label for="reportFeedbackText" class="block text-xs font-semibold text-white mb-1.5">
-              Was ist fehlerhaft oder unklar? <span class="text-rose-400">*</span>
-            </label>
-            <textarea
-              id="reportFeedbackText"
-              rows="3"
-              placeholder="z. B. Tippfehler in der Antwort, veraltete IHK-Norm, unklare Formulierung..."
-              class="w-full bg-[#020617] border border-dark-border rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-dark-muted focus:outline-none focus:border-dark-accent focus:ring-1 focus:ring-dark-accent transition-all resize-none"
-            ></textarea>
-            <p id="reportErrorHint" class="text-[11px] text-rose-400 mt-1 hidden">Bitte beschreibe kurz den Fehler.</p>
-          </div>
-
-          <!-- Submit Button -->
-          <button
-            id="reportSubmitBtn"
-            type="button"
-            onclick="app.anki.submitReport()"
-            class="w-full py-3 px-4 bg-dark-accent hover:bg-sky-400 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all shadow-glow active:scale-[0.98]"
-          >
-            <i data-lucide="send" class="w-4 h-4"></i>
-            <span>Fehler jetzt absenden</span>
-          </button>
-
-          <p class="text-[10px] text-center text-dark-muted mt-3">
-            🔒 100% datensparsam & anonym · Geht direkt an den Entwickler
-          </p>
-        </div>
-
-        <!-- 2. Erfolgs-Ansicht -->
-        <div id="reportSuccessView" class="hidden py-6 text-center animate-in fade-in zoom-in duration-300">
-          <div class="w-14 h-14 bg-dark-success/15 border border-dark-success/30 text-dark-success rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <i data-lucide="circle-check" class="w-8 h-8"></i>
-          </div>
-          <h4 class="text-lg font-bold text-white mb-1.5">Vielen Dank für deinen Hinweis!</h4>
-          <p class="text-xs text-dark-muted max-w-sm mx-auto mb-6">
-            Deine Meldung wurde erfolgreich übermittelt und hilft, die Lernkarten für alle Azubis aktuell zu halten.
-          </p>
-          <button
-            type="button"
-            onclick="app.anki.closeReportModal()"
-            class="py-2.5 px-6 bg-dark-bg border border-dark-border hover:border-dark-accent/40 text-white font-semibold rounded-xl text-xs transition-all"
-          >
-            Weiterlernen
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Andere Tracker Cross-Promo Sektion -->
-    <section
-      class="border-t border-dark-border bg-gradient-to-r from-dark-bg/80 to-dark-card py-8 no-print"
-    >
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-5">
-          <p
-            class="text-[10px] font-mono text-dark-muted uppercase tracking-widest mb-1.5 flex items-center justify-center gap-2"
-          >
-            <i data-lucide="star" class="w-3 h-3 text-dark-warning"></i>
-            Mehr AP-Tracker für deine Prüfungsvorbereitung
-          </p>
-          <h3 class="text-base sm:text-lg font-bold text-white">
-            Auch für die AP2 vorbereiten?
-          </h3>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
-          <a
-            href="https://ap2.cwillam.de/"
-            target="_blank"
-            rel="noopener"
-            class="group flex items-center gap-3 p-4 bg-dark-card border border-dark-border hover:border-violet-400/50 rounded-xl transition-all hover:bg-violet-400/5 no-underline"
-          >
-            <div
-              class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-violet-400/10 border border-violet-400/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
-            >
-              <i
-                data-lucide="code-2"
-                class="text-violet-400 text-lg sm:text-xl"
-              ></i>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p
-                class="text-sm font-bold text-white group-hover:text-violet-400 transition-colors"
-              >
-                AP2 FIAE
-              </p>
-              <p class="text-[11px] text-dark-muted leading-tight mt-0.5">
-                Fachinformatiker Anwendungsentwicklung
-              </p>
-            </div>
-            <i
-              data-lucide="arrow-right"
-              class="text-dark-muted group-hover:text-violet-400 group-hover:translate-x-1 transition-all shrink-0"
-            ></i>
-          </a>
-          <a
-            href="https://ap2-fisi.cwillam.de/"
-            target="_blank"
-            rel="noopener"
-            class="group flex items-center gap-3 p-4 bg-dark-card border border-dark-border hover:border-dark-success/50 rounded-xl transition-all hover:bg-dark-success/5 no-underline"
-          >
-            <div
-              class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-dark-success/10 border border-dark-success/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
-            >
-              <i
-                data-lucide="server"
-                class="text-dark-success text-lg sm:text-xl"
-              ></i>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p
-                class="text-sm font-bold text-white group-hover:text-dark-success transition-colors"
-              >
-                AP2 FISI
-              </p>
-              <p class="text-[11px] text-dark-muted leading-tight mt-0.5">
-                Fachinformatiker für Systemintegration
-              </p>
-            </div>
-            <i
-              data-lucide="arrow-right"
-              class="text-dark-muted group-hover:text-dark-success group-hover:translate-x-1 transition-all shrink-0"
-            ></i>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer
-      class="border-t border-dark-border bg-dark-card mt-auto py-8 no-print"
-    >
-      <div
-        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-dark-muted"
-      >
+    <!-- ============================================================
+         7. FOOTER (Aligned flush with content boundaries)
+         ============================================================ -->
+    <footer class="border-t border-dark-border py-8 px-4 sm:px-6 text-xs font-mono text-dark-dim w-full">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-2">
-          <span class="font-bold text-white">cwillam</span> &copy; 2026
+          <a href="https://github.com/cwillam" target="_blank" rel="noopener" class="text-white font-semibold hover:text-blue-400 transition-colors">cwillam</a>
+          <span>© 2026</span>
+          <span>·</span>
+          <span>Open Source & 100% Lokal</span>
         </div>
-        <div class="flex gap-6 items-center flex-wrap justify-center">
-          <button
-            onclick="
-              document
-                .getElementById('supportModal')
-                .classList.remove('hidden');
-              if (window.lucide) {
-                lucide.createIcons();
-              }
-            "
-            class="hover:text-[#FFDD00] transition flex items-center gap-2 font-bold"
-          >
-            <i data-lucide="coffee"></i> Spendier nen Kaffee
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-5 text-dark-muted">
+          <button onclick="openSupportModal()" class="hover:text-[#FFDD00] transition-colors flex items-center gap-1 font-bold">
+            <i data-lucide="coffee" class="w-3.5 h-3.5 text-[#FFDD00]"></i> Support
           </button>
-
-          <!-- Footer Updates Button (Mobile & Desktop) -->
-          <a
-            href="updates.html"
-            class="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-dark-card border border-dark-border hover:border-dark-accent transition-all"
-          >
-            <div class="relative flex h-2 w-2">
-              <span
-                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
-              ></span>
-              <span
-                class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"
-              ></span>
-            </div>
-            <span
-              class="text-xs font-bold text-dark-muted group-hover:text-white transition-colors"
-              >Updates</span
-            >
+          <a href="updates.html" class="hover:text-white transition-colors">Updates</a>
+          <a href="help.html" class="hover:text-white transition-colors">Hilfe & FAQ</a>
+          <button onclick="app.openLegal('datenschutz')" class="hover:text-white transition-colors">Datenschutz</button>
+          <button onclick="app.openLegal('impressum')" class="hover:text-white transition-colors">Impressum</button>
+          <a href="https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml&title=%5BBug%5D%20&body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5">
+            <i data-lucide="bug" class="w-3.5 h-3.5 text-rose-400"></i> Bug melden
           </a>
-
-          <a
-            href="https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml&title=%5BBug%5D%20&body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
-            target="_blank"
-            rel="noopener"
-            class="hover:text-dark-accent transition flex items-center gap-1.5"
-          >
-            <i data-lucide="bug" class="w-3.5 h-3.5"></i> Bug melden
-          </a>
-          <a
-            href="https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml&title=%5BFeature%5D%20&body=%0A%0A**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**App%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
-            target="_blank"
-            rel="noopener"
-            class="hover:text-dark-accent transition flex items-center gap-1.5"
-          >
-            <i data-lucide="lightbulb" class="w-3.5 h-3.5"></i> Feature wünschen
-          </a>
-          <a
-            href="https://github.com/cwillam"
-            target="_blank"
-            class="hover:text-white transition flex items-center gap-1.5"
-          >
+          <a href="https://github.com/cwillam" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5">
             <i data-lucide="code-2" class="w-3.5 h-3.5"></i> GitHub
           </a>
-          <a
-            href="https://discord.gg/5BM5YJadDs"
-            target="_blank"
-            rel="noopener"
-            class="hover:text-[#5865F2] transition flex items-center gap-1.5"
-          >
-            <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Discord
+          <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1.5">
+            <i data-lucide="message-square" class="w-3.5 h-3.5 text-[#5865F2]"></i> Discord
           </a>
-          <button
-            onclick="app.openLegal('impressum')"
-            class="hover:text-white transition"
-          >
-            Impressum
-          </button>
-          <button
-            onclick="app.openLegal('privacy')"
-            class="hover:text-white transition"
-          >
-            Datenschutz
-          </button>
         </div>
       </div>
     </footer>
 
-    <!-- Templates -->
+    <!-- ============================================================
+         8. TEMPLATES (Renderer-Hooks für app.js)
+         ============================================================ -->
+
+    <!-- Category Template (LF 1 bis LF 5) -->
     <template id="tpl-category">
-      <div class="scroll-mt-32 category-block">
-        <div
-          class="flex items-center gap-4 mb-4 pb-2 border-b border-dark-border sticky top-0 bg-dark-bg/95 backdrop-blur z-10 py-2"
-        >
-          <div
-            class="relative w-10 h-10 flex items-center justify-center shrink-0"
-          >
-            <svg
-              class="absolute inset-0 w-full h-full transform -rotate-90"
-              viewBox="0 0 36 36"
-            >
-              <circle
-                class="text-dark-border"
-                stroke-width="3"
-                stroke="currentColor"
-                fill="none"
-                r="15.9155"
-                cx="18"
-                cy="18"
-              />
-              <circle
-                class="text-dark-accent transition-all duration-500 stroke-dash cat-progress-ring"
-                stroke-width="3"
-                stroke-dasharray="0 100"
-                stroke-linecap="round"
-                stroke="currentColor"
-                fill="none"
-                r="15.9155"
-                cx="18"
-                cy="18"
-              />
-            </svg>
-            <div
-              class="z-10 text-[10px] font-bold text-white font-mono cat-icon flex items-center justify-center"
-            >
-              LF
+      <div class="category-block scroll-mt-28">
+        <!-- Category Hairline Header -->
+        <div class="flex items-center justify-between gap-3 pb-2.5 mb-3 border-b border-dark-border">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="cat-icon kbd-cap font-mono text-xs text-blue-400 bg-blue-600/15 border-blue-500/30">LF 1</span>
+            <div class="min-w-0">
+              <h2 class="cat-title text-base font-bold text-white tracking-tight truncate">Lernfeld</h2>
+              <p class="cat-desc text-[11px] text-dark-dim truncate hidden sm:block">Beschreibung</p>
             </div>
           </div>
-          <div class="flex-1 min-w-0">
-            <h2 class="text-lg font-bold text-white cat-title truncate">
-              Kategorie
-            </h2>
-            <div class="flex items-center gap-3">
-              <p
-                class="text-[10px] text-dark-muted uppercase tracking-wider cat-desc truncate hidden sm:block"
-              >
-                Beschreibung
-              </p>
-              <button
-                class="cat-reset text-[9px] text-dark-danger hover:underline hidden group-hover:block transition-all opacity-70 hover:opacity-100 whitespace-nowrap"
-                title="Kategorie zurücksetzen"
-              >
-                <i data-lucide="rotate-ccw" class="mr-1"></i>Reset
-              </button>
-            </div>
-          </div>
-          <div class="text-right shrink-0">
-            <span
-              class="cat-pct text-xs font-mono font-bold text-dark-accent bg-dark-accent/10 px-2 py-0.5 rounded border border-dark-accent/20"
-              >0%</span
+          <div class="flex items-center gap-3 shrink-0">
+            <button
+              class="cat-reset text-[10px] font-mono text-dark-dim hover:text-dark-danger transition-colors flex items-center gap-1"
+              title="Kategorie zurücksetzen"
             >
+              <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+              <span class="hidden sm:inline">Reset</span>
+            </button>
+            <span class="cat-pct font-mono text-xs font-bold text-dark-muted px-2 py-0.5 rounded border border-dark-border bg-dark-card">
+              0%
+            </span>
+            <!-- Hidden circle to satisfy app.js progress query -->
+            <svg class="hidden cat-progress-ring" viewBox="0 0 36 36"><circle r="15.9"></circle></svg>
           </div>
         </div>
-        <div class="grid gap-3 cat-topics"></div>
+        <!-- Topics Container -->
+        <div class="grid gap-2 cat-topics"></div>
       </div>
     </template>
 
+    <!-- Topic Card Template -->
     <template id="tpl-topic">
-      <div
-        class="topic-card bg-dark-card border border-dark-border rounded-xl hover:border-dark-accent/30 transition-all duration-300 group shadow-card"
-        data-id=""
-      >
-        <div class="p-3 sm:p-4 cursor-pointer select-none header-area relative">
-          <div class="flex gap-3 sm:gap-4 pl-1 sm:pl-3 items-center">
-            <div
-              class="shrink-0 flex items-center justify-center h-full"
-              onclick="event.stopPropagation()"
-            >
-              <label
-                class="checkbox-wrapper relative flex items-center justify-center cursor-pointer w-6 h-6 sm:w-7 sm:h-7"
-              >
-                <input type="checkbox" class="peer sr-only topic-check" />
-                <div
-                  class="w-6 h-6 sm:w-7 sm:h-7 border-2 border-dark-border rounded-lg bg-dark-bg transition-all peer-hover:border-dark-muted flex items-center justify-center checkbox-bg"
-                >
-                  <svg
-                    class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white transform scale-0 transition-transform duration-200"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="3"
-                  >
+      <div class="topic-card border border-dark-border rounded-lg bg-dark-card transition-all" data-id="">
+        <div class="header-area p-3 cursor-pointer select-none">
+          <div class="flex items-center gap-3">
+            <!-- Topic Completion Checkbox -->
+            <div class="shrink-0" onclick="event.stopPropagation()">
+              <label class="relative flex items-center justify-center cursor-pointer w-5 h-5">
+                <input type="checkbox" class="topic-check absolute inset-0 opacity-0 cursor-pointer z-10" />
+                <div class="w-5 h-5 border border-dark-border rounded bg-dark-bg hover:border-dark-muted transition-all flex items-center justify-center pointer-events-none">
+                  <svg class="w-3 h-3 text-white transform scale-0 transition-transform duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path d="M5 13l4 4L19 7"></path>
                   </svg>
                 </div>
               </label>
             </div>
 
-            <div class="flex-1 min-w-0 flex flex-col justify-center py-1">
-              <h3
-                class="text-sm sm:text-base font-bold text-white topic-title group-hover:text-dark-accent transition-colors leading-tight mb-1.5 sm:mb-2"
-              >
-                Title
-              </h3>
-
-              <div
-                class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
-              >
-                <!-- Links: Gewichtung & Suche -->
-                <div class="flex items-center gap-3 flex-wrap">
-                  <div class="flex gap-2 items-center">
-                    <span
-                      class="weight-badge text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider shrink-0"
-                    ></span>
-                    <span
-                      class="rep-indicator hidden text-[9px] font-bold px-2 py-0.5 rounded border border-dark-accent/30 bg-dark-accent/10 text-dark-accent uppercase tracking-wider shrink-0"
-                    ></span>
-                  </div>
-
-                  <div
-                    class="hidden sm:flex gap-2 items-center border-l border-dark-border/50 pl-3"
-                  >
-                    <a
-                      href="#"
-                      target="_blank"
-                      class="google-link inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold"
-                      onclick="event.stopPropagation()"
-                      ><i data-lucide="globe" class="mr-1"></i>Suche</a
-                    >
-                    <a
-                      href="#"
-                      target="_blank"
-                      class="duckduckgo-link inline-flex items-center text-dark-muted hover:text-dark-accent transition-colors text-[10px] bg-dark-bg px-2 py-1 rounded border border-dark-border uppercase tracking-wider font-bold"
-                      onclick="event.stopPropagation()"
-                      ><i data-lucide="search" class="mr-1"></i>DuckDuckGo</a
-                    >
-                  </div>
-                </div>
-
-                <!-- Rechts/Unten: Lernkarten -->
-                <div
-                  class="relative flex items-center group/anki w-fit mt-0.5 sm:mt-0"
-                >
-                  <button
-                    class="anki-btn hidden items-center text-dark-accent hover:bg-dark-accent hover:text-white transition-all text-[10px] bg-dark-accent/10 px-2.5 py-1 rounded border border-dark-accent/30 uppercase tracking-wider font-bold"
-                  >
-                    <i data-lucide="layers" class="mr-1.5"></i> Lernkarten
-                  </button>
-                  <span
-                    class="anki-badge hidden absolute -top-2 -right-2 text-[7px] sm:text-[8px] font-extrabold px-1.5 py-0.5 rounded border bg-dark-bg leading-none transition-transform group-hover/anki:scale-110 shadow-sm z-10"
-                  ></span>
-                </div>
+            <!-- Title & Metadata -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="topic-title text-sm font-semibold text-white group-hover:text-blue-400 transition-colors leading-snug">
+                  Thema Title
+                </h3>
+                <span class="weight-badge text-[9px] font-mono font-bold px-1.5 py-0.2 rounded border uppercase tracking-wider"></span>
+                <span class="rep-indicator hidden text-[9px] font-mono font-bold px-1.5 py-0.2 rounded border border-blue-500/30 bg-blue-500/10 text-blue-400 uppercase"></span>
               </div>
             </div>
 
-            <div
-              class="w-8 h-8 flex items-center justify-center text-dark-muted accordion-icon transition-transform duration-300 bg-dark-bg/50 rounded-full border border-dark-border group-hover:border-dark-muted shrink-0"
-            >
-              <i data-lucide="chevron-down" class="text-xs"></i>
+            <!-- Right Actions: Search, Anki & Chevron -->
+            <div class="flex items-center gap-2 shrink-0">
+              <!-- Web search links (Desktop) -->
+              <div class="hidden sm:flex items-center gap-1 border-r border-dark-border pr-2" onclick="event.stopPropagation()">
+                <a href="#" target="_blank" rel="noopener" class="google-link p-1 text-dark-dim hover:text-white transition-colors" title="Auf Google recherchieren">
+                  <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener" class="duckduckgo-link p-1 text-dark-dim hover:text-white transition-colors" title="Auf DuckDuckGo recherchieren">
+                  <i data-lucide="search" class="w-3.5 h-3.5"></i>
+                </a>
+                <a href="#" target="_blank" class="google-link-mobile hidden"></a>
+                <a href="#" target="_blank" class="duckduckgo-link-mobile hidden"></a>
+              </div>
+
+              <!-- Anki Flashcard Button -->
+              <div class="relative flex items-center" onclick="event.stopPropagation()">
+                <button
+                  class="anki-btn hidden items-center gap-1.5 px-2.5 py-1 rounded bg-blue-600/15 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/30 transition-all text-xs font-mono font-semibold"
+                >
+                  <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                  <span>Lernkarten</span>
+                </button>
+                <span class="anki-badge hidden absolute -top-1.5 -right-1.5 font-mono text-[8px] font-bold px-1 rounded bg-dark-bg border border-dark-border text-dark-muted"></span>
+              </div>
+
+              <!-- Expand Accordion Chevron -->
+              <div class="accordion-icon w-6 h-6 flex items-center justify-center text-dark-dim group-hover:text-white transition-transform">
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="topic-body bg-dark-bg/50">
-          <div
-            class="topic-content p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
-          >
+        <!-- Accordion Body (Subtasks & Repetitions) -->
+        <div class="topic-body">
+          <div class="topic-content p-4 border-t border-dark-border bg-dark-card/40 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Subtask Checklist -->
             <div>
-              <div class="flex justify-between items-center mb-3">
-                <h4
-                  class="text-[10px] font-bold text-dark-muted uppercase flex items-center gap-2"
-                >
-                  <i data-lucide="list-checks"></i> Lerninhalte
-                </h4>
-                <div class="flex gap-3 sm:hidden">
-                  <a
-                    href="#"
-                    target="_blank"
-                    class="google-link-mobile inline-flex items-center text-dark-accent text-[10px] uppercase font-bold"
-                    onclick="event.stopPropagation()"
-                  >
-                    <i data-lucide="globe" class="mr-1"></i> Google
-                  </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    class="duckduckgo-link-mobile inline-flex items-center text-dark-muted text-[10px] uppercase font-bold"
-                    onclick="event.stopPropagation()"
-                  >
-                    <i data-lucide="search" class="mr-1"></i> DuckDuckGo
-                  </a>
-                </div>
+              <div class="text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-2 flex items-center gap-1.5">
+                <i data-lucide="list-checks" class="w-3.5 h-3.5"></i>
+                <span>Lerninhalte & Stichworte</span>
               </div>
-              <ul class="subtask-list space-y-2.5"></ul>
+              <ul class="subtask-list space-y-1.5 text-xs text-dark-muted"></ul>
             </div>
-            <div
-              class="flex flex-col gap-5 border-t md:border-t-0 md:border-l border-dark-border pt-5 md:pt-0 md:pl-6"
-            >
+
+            <!-- Repetitions (3x Spaced Repetition) -->
+            <div class="border-t md:border-t-0 md:border-l border-dark-border pt-3 md:pt-0 md:pl-4 flex flex-col justify-between">
               <div>
-                <span
-                  class="text-[10px] font-bold text-dark-muted uppercase mb-1 block"
-                  >Wiederholungen</span
-                >
-                <p class="text-[10px] text-dark-muted/70 mb-3 leading-tight">
-                  Empfehlung: Festige dein Wissen durch mindestens 3
-                  Wiederholungen.
+                <div class="text-[10px] font-mono uppercase tracking-widest text-dark-dim mb-1">
+                  Wiederholungs-Phasen
+                </div>
+                <p class="text-[11px] text-dark-muted leading-relaxed mb-3">
+                  Wiederhole das Thema in zeitlichen Abständen, um es im Langzeitgedächtnis zu verankern.
                 </p>
-                <div class="flex gap-2">
-                  <label class="cursor-pointer group/rep w-10 h-10">
-                    <input
-                      type="checkbox"
-                      class="rep-check sr-only"
-                      data-idx="0"
-                    />
-                    <div
-                      class="w-full h-full flex items-center justify-center rounded-lg border border-dark-border bg-dark-bg text-xs font-bold text-dark-muted hover:border-dark-muted transition-all peer-checked:bg-dark-accent peer-checked:text-white peer-checked:border-dark-accent peer-checked:shadow-glow"
-                    >
-                      1
+                <div class="flex items-center gap-2">
+                  <label class="cursor-pointer">
+                    <input type="checkbox" class="rep-check sr-only peer" data-idx="0" />
+                    <div class="w-8 h-8 rounded border border-dark-border bg-dark-bg text-xs font-mono font-bold text-dark-muted hover:border-dark-muted flex items-center justify-center transition-colors peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-500">
+                      1x
                     </div>
                   </label>
-                  <label class="cursor-pointer group/rep w-10 h-10">
-                    <input
-                      type="checkbox"
-                      class="rep-check sr-only"
-                      data-idx="1"
-                    />
-                    <div
-                      class="w-full h-full flex items-center justify-center rounded-lg border border-dark-border bg-dark-bg text-xs font-bold text-dark-muted hover:border-dark-muted transition-all peer-checked:bg-dark-accent peer-checked:text-white peer-checked:border-dark-accent peer-checked:shadow-glow"
-                    >
-                      2
+                  <label class="cursor-pointer">
+                    <input type="checkbox" class="rep-check sr-only peer" data-idx="1" />
+                    <div class="w-8 h-8 rounded border border-dark-border bg-dark-bg text-xs font-mono font-bold text-dark-muted hover:border-dark-muted flex items-center justify-center transition-colors peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-500">
+                      2x
                     </div>
                   </label>
-                  <label class="cursor-pointer group/rep w-10 h-10">
-                    <input
-                      type="checkbox"
-                      class="rep-check sr-only"
-                      data-idx="2"
-                    />
-                    <div
-                      class="w-full h-full flex items-center justify-center rounded-lg border border-dark-border bg-dark-bg text-xs font-bold text-dark-muted hover:border-dark-muted transition-all peer-checked:bg-dark-accent peer-checked:text-white peer-checked:border-dark-accent peer-checked:shadow-glow"
-                    >
-                      3
+                  <label class="cursor-pointer">
+                    <input type="checkbox" class="rep-check sr-only peer" data-idx="2" />
+                    <div class="w-8 h-8 rounded border border-dark-border bg-dark-bg text-xs font-mono font-bold text-dark-muted hover:border-dark-muted flex items-center justify-center transition-colors peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-500">
+                      3x
                     </div>
                   </label>
                 </div>
@@ -1916,187 +911,476 @@
       </div>
     </template>
 
-    <script src="assets/js/confetti.js?v=2.7.1"></script>
-
-    <script src="assets/js/data.js?v=2.7.1"></script>
-    <script src="assets/js/questions.js?v=2.7.1"></script>
-
-    <script src="assets/js/lucide.min.js?v=2.7.1"></script>
-    <script>
-      // Lucide initialisieren - ersetzt alle <i data-lucide="..."> durch SVGs
-      if (window.lucide) lucide.createIcons();
-    </script>
-    <script src="assets/js/app.js?v=2.7.2"></script>
-
-    <!-- PWA Service Worker Registration -->
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("sw.js?v=2.7.1")
-            .then((reg) =>
-              console.log("PWA Service Worker registered successfully", reg),
-            )
-            .catch((err) =>
-              console.error("PWA Service Worker registration failed", err),
-            );
-        });
-      }
-    </script>
-    <!-- TWA Kaffeekasse Redirect Weiche -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const isTWA =
-          window.matchMedia("(display-mode: standalone)").matches ||
-          window.navigator.standalone ||
-          document.referrer.includes("android-app://") ||
-          window.location.search.includes("mode=twa");
-        if (isTWA) {
-          const coffeeButtons = document.querySelectorAll(
-            'button[title="Kaffeekasse"], a[title="Kaffeekasse"]',
-          );
-          coffeeButtons.forEach((btn) => {
-            btn.removeAttribute("onclick");
-            btn.addEventListener("click", (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const targetUrl = "https://cwillam.de/spende.html";
-              window.open(targetUrl, "_blank");
-            });
-          });
-        } else {
-          if (window.location.search.includes("openKaffeekasse=true")) {
-            const modal = document.getElementById("supportModal");
-            if (modal) {
-              modal.classList.remove("hidden");
-              if (window.lucide) {
-                lucide.createIcons();
-              }
-              const cleanUrl =
-                window.location.protocol +
-                "//" +
-                window.location.host +
-                window.location.pathname;
-              window.history.replaceState({ path: cleanUrl }, "", cleanUrl);
-            }
-          }
-        }
-      });
-    </script>
-    <!-- Mobile Navigation Drawer Overlay -->
+    <!-- ============================================================
+         9. ANKI FLASHCARD PLAYER MODAL (Distraction-Free Terminal)
+         ============================================================ -->
     <div
-      id="mobileMenu"
-      class="fixed inset-0 bg-dark-bg/40 backdrop-blur-md z-45 hidden transition-all duration-300 pointer-events-none opacity-0"
-      onclick="app.toggleMobileMenu()"
+      id="ankiModal"
+      class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6"
     >
-      <div
-        class="absolute top-0 right-0 w-64 h-full bg-dark-card/95 border-l border-dark-border p-6 shadow-2xl flex flex-col gap-6 pointer-events-auto transform translate-x-full transition-transform duration-300"
-        onclick="event.stopPropagation()"
-      >
-        <div
-          class="flex items-center justify-between border-b border-dark-border pb-4"
-        >
-          <span class="font-bold text-white tracking-tight">Navigation</span>
+      <div class="w-full max-w-2xl bg-dark-card border border-dark-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+        <!-- Top Hairline Progress Bar -->
+        <div class="hairline-track">
+          <div id="ankiProgress" class="hairline-fill bg-blue-500" style="width: 0%;"></div>
         </div>
 
-        <div class="flex flex-col gap-3">
-          <a
-            href="subnet.html"
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
-          >
-            <i data-lucide="binary" class="w-4 h-4 text-dark-accent"></i>
-            Subnetz-Trainer
-          </a>
-          <a
-            href="sql.html"
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
-          >
-            <i data-lucide="database" class="w-4 h-4 text-dark-accent"></i>
-            SQL-Labor
-          </a>
-          <a
-            href="pseudocode.html"
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
-          >
-            <i data-lucide="code-2" class="w-4 h-4 text-dark-accent"></i>
-            Pseudocode-Labor
-          </a>
-          <a
-            href="glossar.html"
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
-          >
-            <i data-lucide="brain" class="w-4 h-4 text-dark-accent"></i>
-            Glossar &amp; Eselsbrücken
-          </a>
-          <a
-            href="help.html"
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
-          >
-            <i data-lucide="help-circle" class="w-4 h-4 text-dark-accent"></i>
-            Hilfe & FAQ
-          </a>
-          <a
-            href="updates.html"
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
-          >
-            <i data-lucide="bell" class="w-4 h-4 text-dark-accent"></i>
-            Updates &amp; Roadmap
-          </a>
-          <a
-            href="https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml&amp;title=%5BBug%5D%20&amp;body=**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**Browser%3A**%20%0A**OS%3A**%20%0A**App-Installation%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
-            target="_blank"
-            rel="noopener"
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
-          >
-            <i data-lucide="bug" class="w-4 h-4 text-dark-accent"></i>
-            Bug melden
-          </a>
-          <a
-            href="https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml&amp;title=%5BFeature%5D%20&amp;body=%0A%0A**Ger%C3%A4t%3A**%20(Smartphone%2FTablet%2FDesktop)%0A**App%3A**%20(PWA%2FPlay%20Store%2FWeb)%0A**URL%3A**%20"
-            target="_blank"
-            rel="noopener"
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all no-underline text-sm font-bold"
-          >
-            <i data-lucide="lightbulb" class="w-4 h-4 text-dark-accent"></i>
-            Feature wünschen
-          </a>
-          <button
-            onclick="
-              app.toggleMobileMenu();
-              document
-                .getElementById('supportModal')
-                .classList.remove('hidden');
-              if (window.lucide) {
-                lucide.createIcons();
-              }
-            "
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-[#FFDD00] hover:border-[#FFDD00]/30 hover:bg-[#FFDD00]/5 transition-all text-left text-sm font-bold"
-          >
-            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
-            Kaffeekasse
+        <!-- Terminal Header -->
+        <div class="px-5 py-3 border-b border-dark-border flex items-center justify-between gap-3 bg-dark-card">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="kbd-cap text-[10px] text-blue-400 bg-blue-950/30 border-blue-800/40">ANKI</span>
+            <span id="ankiTopicTitle" class="font-bold text-sm text-white truncate">Thema</span>
+            <span id="ankiModeBadge" class="hidden font-mono text-[10px] text-dark-muted border border-dark-border rounded px-1.5 py-0.5">Modus</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <!-- Flag / Report Button -->
+            <button
+              id="ankiHeaderReportBtn"
+              onclick="app.anki.openReportModal()"
+              class="hidden p-1.5 rounded text-dark-dim hover:text-amber-400 transition-colors"
+              title="Karte korrigieren oder melden"
+            >
+              <i data-lucide="flag" class="w-4 h-4"></i>
+            </button>
+            <!-- Close Button -->
+            <button
+              onclick="app.anki.close()"
+              class="p-1.5 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors"
+              title="Schließen (Esc)"
+            >
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal Body Content -->
+        <div class="p-6 overflow-y-auto flex-1 flex flex-col justify-center">
+          <!-- 1. Mode Selection View -->
+          <div id="ankiModeView" class="space-y-4 text-center">
+            <div>
+              <h3 class="text-xl font-bold text-white tracking-tight">Lernstrategie wählen</h3>
+              <p class="text-xs text-dark-muted mt-1">Wähle deinen Trainingsmodus für dieses Thema.</p>
+            </div>
+
+            <!-- Stats Container -->
+            <div id="ankiTopicStats" class="hidden"></div>
+
+            <!-- 4 Tactile Mode Options -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left pt-2">
+              <button
+                onclick="app.anki.start('manual')"
+                class="p-4 rounded-xl border border-dark-border bg-dark-bg hover:border-blue-500/50 hover:bg-dark-card-hover transition-all group"
+              >
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-sm text-white group-hover:text-blue-400">Freies Training</span>
+                  <span class="kbd-cap">1</span>
+                </div>
+                <p class="text-xs text-dark-muted">Alle Karten dieses Moduls nacheinander durchgehen.</p>
+              </button>
+
+              <button
+                onclick="app.anki.start('spaced')"
+                class="p-4 rounded-xl border border-dark-border bg-dark-bg hover:border-blue-500/50 hover:bg-dark-card-hover transition-all group"
+              >
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-sm text-white group-hover:text-blue-400">Strategie-Modus</span>
+                  <span class="kbd-cap">2</span>
+                </div>
+                <p class="text-xs text-dark-muted">Spaced Repetition: Richtige Antworten erhöhen die Intervalle.</p>
+              </button>
+
+              <button
+                onclick="app.anki.start('exam-prep')"
+                class="p-4 rounded-xl border border-dark-border bg-dark-bg hover:border-blue-500/50 hover:bg-dark-card-hover transition-all group"
+              >
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-sm text-white group-hover:text-blue-400">Prüfungs-Modus</span>
+                  <span class="kbd-cap">3</span>
+                </div>
+                <p class="text-xs text-dark-muted">Schnellere Wiederholungen zur intensiven Prüfungsvorbereitung.</p>
+              </button>
+
+              <button
+                onclick="app.anki.start('weaknesses')"
+                class="p-4 rounded-xl border border-dark-border bg-dark-bg hover:border-blue-500/50 hover:bg-dark-card-hover transition-all group"
+              >
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-sm text-white group-hover:text-blue-400">Schwachstellen</span>
+                  <span class="kbd-cap">4</span>
+                </div>
+                <p class="text-xs text-dark-muted">Nur Karten trainieren, die du zuletzt geraten oder falsch hattest.</p>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Question View -->
+          <div id="ankiQuestionView" class="hidden flex flex-col items-center justify-center text-center space-y-6 py-6">
+            <span id="ankiCardCounter" class="font-mono text-xs text-dark-dim uppercase tracking-widest">Karte 1 von 10</span>
+            <div id="ankiQuestionText" class="text-xl sm:text-2xl font-bold text-white max-w-xl leading-relaxed">
+              Frage wird geladen...
+            </div>
+            <button
+              onclick="app.anki.showAnswer()"
+              class="py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm flex items-center gap-2 shadow-sm transition-colors"
+            >
+              <i data-lucide="eye" class="w-4 h-4"></i>
+              <span>Antwort aufdecken</span>
+              <span class="kbd-cap ml-1.5">Space</span>
+            </button>
+          </div>
+
+          <!-- 3. Answer View -->
+          <div id="ankiAnswerView" class="hidden flex flex-col space-y-5">
+            <!-- Question muted at top -->
+            <div class="p-3.5 rounded-lg border border-dark-border bg-dark-bg/60 text-xs text-dark-muted">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-dark-dim block mb-1">Frage:</span>
+              <div id="ankiAnswerQuestionText" class="font-semibold text-zinc-300"></div>
+            </div>
+
+            <!-- Answer Box -->
+            <div class="p-5 rounded-xl border border-dark-border bg-dark-bg">
+              <span class="kbd-cap text-[9px] text-emerald-400 border-emerald-900/40 bg-emerald-950/20 mb-2">LÖSUNG</span>
+              <div id="ankiAnswerText" class="text-sm sm:text-base text-white leading-relaxed mt-2 whitespace-pre-line font-medium"></div>
+            </div>
+
+            <!-- 4-Level Confidence Rating -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+              <button
+                onclick="app.anki.next(0)"
+                class="p-3 rounded-lg border border-emerald-900/40 bg-emerald-950/20 hover:bg-emerald-950/40 text-emerald-400 hover:border-emerald-500 transition-all text-center flex flex-col items-center justify-center gap-1 group"
+              >
+                <span class="kbd-cap text-emerald-300">1</span>
+                <span class="text-xs font-bold font-mono">Sofort gewusst</span>
+              </button>
+              <button
+                onclick="app.anki.next(1)"
+                class="p-3 rounded-lg border border-blue-900/40 bg-blue-950/20 hover:bg-blue-950/40 text-blue-400 hover:border-blue-500 transition-all text-center flex flex-col items-center justify-center gap-1 group"
+              >
+                <span class="kbd-cap text-blue-300">2</span>
+                <span class="text-xs font-bold font-mono">Nachgedacht</span>
+              </button>
+              <button
+                onclick="app.anki.next(2)"
+                class="p-3 rounded-lg border border-amber-900/40 bg-amber-950/20 hover:bg-amber-950/40 text-amber-400 hover:border-amber-500 transition-all text-center flex flex-col items-center justify-center gap-1 group"
+              >
+                <span class="kbd-cap text-amber-300">3</span>
+                <span class="text-xs font-bold font-mono">Geraten</span>
+              </button>
+              <button
+                onclick="app.anki.next(3)"
+                class="p-3 rounded-lg border border-red-900/40 bg-red-950/20 hover:bg-red-950/40 text-red-400 hover:border-red-500 transition-all text-center flex flex-col items-center justify-center gap-1 group"
+              >
+                <span class="kbd-cap text-red-300">4</span>
+                <span class="text-xs font-bold font-mono">Nicht gewusst</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. Finish View -->
+          <div id="ankiFinishView" class="hidden text-center space-y-4 py-8">
+            <div class="w-12 h-12 rounded-full bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 mx-auto flex items-center justify-center">
+              <i data-lucide="check" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-white tracking-tight">Sitzung abgeschlossen!</h3>
+              <p class="text-xs text-dark-muted mt-1">Alle Lernkarten dieser Runde wurden bearbeitet.</p>
+            </div>
+            <div class="pt-2 flex items-center justify-center gap-3">
+              <button
+                onclick="app.anki.start(app.anki.mode)"
+                class="px-4 py-2 rounded-lg border border-dark-border bg-dark-bg hover:border-dark-strong text-white font-mono text-xs transition-colors"
+              >
+                Runde wiederholen
+              </button>
+              <button
+                onclick="app.anki.close()"
+                class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold transition-colors"
+              >
+                Zurück zur Übersicht
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         10. IN-APP CARD REPORT MODAL (api/report.php Hook)
+         ============================================================ -->
+    <div
+      id="cardReportModal"
+      class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4"
+    >
+      <div class="w-full max-w-lg bg-dark-card border border-dark-border rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Form View -->
+        <div id="reportFormView" class="p-5 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+            <div class="flex items-center gap-2">
+              <i data-lucide="flag" class="w-4 h-4 text-amber-400"></i>
+              <h3 class="font-bold text-sm text-white">Lernkarte melden / korrigieren</h3>
+            </div>
+            <button onclick="app.anki.closeReportModal()" class="text-dark-dim hover:text-white p-1">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <p id="reportModalSubtitle" class="text-xs text-dark-muted">
+            Thema: <span class="text-white font-mono">—</span>
+          </p>
+
+          <!-- Snippet Preview -->
+          <div class="p-3 rounded-lg bg-dark-bg border border-dark-border space-y-2 text-xs">
+            <div>
+              <span class="text-[9px] font-mono text-dark-dim uppercase">Frage:</span>
+              <p id="reportModalQuestion" class="text-zinc-300 italic truncate">—</p>
+            </div>
+            <div>
+              <span class="text-[9px] font-mono text-dark-dim uppercase">Antwort:</span>
+              <p id="reportModalAnswer" class="text-zinc-400 truncate">—</p>
+            </div>
+          </div>
+
+          <!-- Feedback input -->
+          <div>
+            <label for="reportFeedbackText" class="block text-xs font-mono text-dark-muted mb-1.5">
+              Was sollte korrigiert oder verbessert werden?
+            </label>
+            <textarea
+              id="reportFeedbackText"
+              rows="3"
+              placeholder="z.B. Tippfehler, veraltete Norm, Erklärung unklar..."
+              class="w-full bg-dark-bg border border-dark-border rounded-lg p-2.5 text-xs text-white placeholder-dark-dim focus:outline-none focus:border-blue-500 font-sans"
+            ></textarea>
+            <!-- Honeypot -->
+            <input type="text" id="reportHpCheck" class="hidden" tabindex="-1" autocomplete="off" />
+            <p id="reportErrorHint" class="hidden text-xs text-red-400 mt-1">Bitte gib einen kurzen Hinweis ein.</p>
+          </div>
+
+          <div class="flex items-center justify-end gap-2 pt-2 border-t border-dark-border">
+            <button
+              type="button"
+              onclick="app.anki.closeReportModal()"
+              class="px-3 py-1.5 rounded-lg border border-dark-border text-xs font-mono text-dark-muted hover:text-white"
+            >
+              Abbrechen
+            </button>
+            <button
+              id="reportSubmitBtn"
+              type="button"
+              onclick="app.anki.submitReport()"
+              class="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold flex items-center gap-1.5"
+            >
+              <span>Feedback senden</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Success View -->
+        <div id="reportSuccessView" class="p-8 text-center space-y-3 hidden">
+          <div class="w-10 h-10 rounded-full bg-emerald-600/20 text-emerald-400 mx-auto flex items-center justify-center">
+            <i data-lucide="check" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-white text-base">Vielen Dank für dein Feedback!</h4>
+          <p class="text-xs text-dark-muted max-w-xs mx-auto">
+            Dein Hinweis hilft allen Fachinformatikern, mit noch präziseren Prüfungsfragen zu lernen.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         11. BACKUP MODAL (Export / Import LocalStorage)
+         ============================================================ -->
+    <div
+      id="backupModal"
+      class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4"
+    >
+      <div class="w-full max-w-md bg-dark-card border border-dark-border rounded-2xl p-5 space-y-4 shadow-2xl">
+        <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+          <div class="flex items-center gap-2">
+            <i data-lucide="database" class="w-4 h-4 text-blue-400"></i>
+            <h3 class="font-bold text-sm text-white">Lernstand sichern & übertragen</h3>
+          </div>
+          <button onclick="document.getElementById('backupModal').classList.add('hidden')" class="text-dark-dim hover:text-white p-1">
+            <i data-lucide="x" class="w-4 h-4"></i>
           </button>
+        </div>
+
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Dein Fortschritt liegt zu 100% lokal in deinem Browser. Exportiere regelmäßig ein Backup oder übertrage deinen Stand auf ein anderes Gerät.
+        </p>
+
+        <div class="space-y-2 pt-2">
           <button
-            onclick="
-              app.toggleMobileMenu();
-              app.exportData();
-            "
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all text-left text-sm font-bold"
+            onclick="app.exportData(); document.getElementById('backupModal').classList.add('hidden');"
+            class="w-full py-2.5 px-4 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
           >
-            <i data-lucide="download" class="w-4 h-4 text-dark-accent"></i>
-            Backup speichern
+            <i data-lucide="download" class="w-4 h-4"></i> Backup herunterladen (JSON)
           </button>
-          <button
-            onclick="
-              app.toggleMobileMenu();
-              document.getElementById('importFile').click();
-            "
-            class="flex items-center gap-3 px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-slate-300 hover:text-white hover:border-dark-accent/40 hover:bg-dark-accent/5 transition-all text-left text-sm font-bold"
-          >
-            <i data-lucide="upload" class="w-4 h-4 text-dark-accent"></i>
-            Backup laden
+
+          <label class="w-full py-2.5 px-4 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-bg text-dark-muted hover:text-white font-mono text-xs flex items-center justify-center gap-2 cursor-pointer transition-colors">
+            <i data-lucide="upload" class="w-4 h-4"></i> Backup importieren
+            <input
+              type="file"
+              id="importFile"
+              accept=".json"
+              class="hidden"
+              onchange="app.importData(event)"
+            />
+          </label>
+        </div>
+
+        <div class="pt-3 border-t border-dark-border flex items-center justify-between text-[11px] font-mono text-dark-dim">
+          <span>Gespeicherte Schlüssel: </span>
+          <button onclick="if(confirm('Wirklich gesamten Lernstand löschen?')){localStorage.removeItem('ap1_dark_state_v1'); location.reload();}" class="text-red-400 hover:underline">
+            Zurücksetzen
           </button>
         </div>
       </div>
     </div>
+
+    <!-- ============================================================
+         12. SUPPORT / SPENDE MODAL
+         ============================================================ -->
+    <div
+      id="supportModal"
+      class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4"
+      onclick="if(event.target === this) closeSupportModal()"
+    >
+      <div class="w-full max-w-md bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl space-y-4 relative">
+        <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[#FFDD00]/15 border border-[#FFDD00]/30 flex items-center justify-center text-[#FFDD00]">
+              <i data-lucide="coffee" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-white leading-tight">Projekt unterstützen</h3>
+              <span class="text-[10px] font-mono text-dark-dim leading-none">Freiwillig &amp; 100% werbefrei</span>
+            </div>
+          </div>
+          <button
+            onclick="closeSupportModal()"
+            class="w-8 h-8 rounded-lg border border-dark-border hover:border-dark-border/80 bg-dark-bg hover:bg-dark-border/40 text-dark-muted hover:text-white transition-all flex items-center justify-center"
+            title="Schließen"
+            aria-label="Modal schließen"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Die Tracker sind komplett kostenlos, werbefrei und quelloffen. Wenn dir das Tool bei der Prüfungsvorbereitung hilft, freue ich mich riesig über einen Kaffee!
+        </p>
+        <div class="flex flex-col gap-3 pt-1">
+          <!-- PayPal Button -->
+          <a
+            href="https://www.paypal.com/paypalme/parablepanorama"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#0070BA]/10 border border-[#0070BA]/30 hover:border-[#0070BA]/60 hover:bg-[#0070BA]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#0070BA]/20 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
+                <i data-lucide="wallet" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">PayPal</span>
+                <span class="text-[10px] text-dark-muted font-mono">paypal.me/parablepanorama · Schnell &amp; unkompliziert</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+
+          <!-- Buy Me A Coffee Button -->
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#FFDD00]/10 border border-[#FFDD00]/30 hover:border-[#FFDD00]/60 hover:bg-[#FFDD00]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#FFDD00]/20 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
+                <i data-lucide="coffee" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">Buy Me a Coffee</span>
+                <span class="text-[10px] text-dark-muted font-mono">buymeacoffee.com/cwillam · Einmalig spenden</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+        </div>
+        <div class="pt-2 border-t border-dark-border/60 flex items-center justify-center gap-1.5 text-[11px] font-mono text-dark-dim">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Sichere Weiterleitung · Keine Datenübertragung</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         13. LEGAL / PRIVACY MODAL
+         ============================================================ -->
+    <div
+      id="legalModal"
+      class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4"
+    >
+      <div class="w-full max-w-2xl bg-dark-card border border-dark-border rounded-2xl shadow-2xl max-h-[85vh] flex flex-col">
+        <div class="p-4 border-b border-dark-border flex justify-end">
+          <button onclick="document.getElementById('legalModal').classList.add('hidden')" class="text-dark-dim hover:text-white">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <div id="legalContent" class="p-6 overflow-y-auto text-sm space-y-4"></div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         14. JAVASCRIPT BUNDLES & ENGINE
+         ============================================================ -->
+    <script src="assets/js/confetti.js?v=3.0.0"></script>
+    <script src="assets/js/data.js?v=3.0.0"></script>
+    <script src="assets/js/questions.js?v=3.0.0"></script>
+    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script>
+      // Lucide SVGs initialisieren
+      if (window.lucide) lucide.createIcons();
+
+      function openSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) {
+          modal.classList.remove("hidden");
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+
+      function closeSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) modal.classList.add("hidden");
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeSupportModal();
+      });
+    </script>
+    <script src="assets/js/app.js?v=3.0.0"></script>
+
+    <!-- PWA Service Worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("sw.js?v=3.0.0").catch(() => {});
+        });
+      }
+
+      // Quick shortcuts: Ctrl+K or / for Search
+      window.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+          e.preventDefault();
+          const search = document.getElementById("searchInput");
+          if (search) {
+            search.focus();
+            search.select();
+          }
+        }
+      });
+    </script>
   </body>
 </html>

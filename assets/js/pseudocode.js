@@ -50,18 +50,18 @@
 
       if (id === tabId) {
         content.classList.remove("hidden");
-        btn.className = "tab-btn active flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-accent text-white shadow-md shadow-sky-500/20 border border-sky-400/40";
-        if (iconBox) iconBox.className = "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0 transition-colors";
-        if (icon) icon.className = "w-4 h-4 text-white";
+        btn.className = "tab-btn active flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card border border-blue-500/50 text-white shadow-sm";
+        if (iconBox) iconBox.className = "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 transition-colors";
+        if (icon) icon.className = "w-4 h-4 text-blue-400";
         if (title) title.className = "tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-white";
-        if (sub) sub.className = "tab-sub text-[9px] sm:text-[10px] text-sky-100 hidden sm:block truncate opacity-95";
+        if (sub) sub.className = "tab-sub text-[9px] sm:text-[10px] text-blue-300 hidden sm:block truncate opacity-95";
       } else {
         content.classList.add("hidden");
-        btn.className = "tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card border border-dark-border text-slate-400 hover:text-white hover:border-slate-600";
-        if (iconBox) iconBox.className = "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-800/80 flex items-center justify-center shrink-0 transition-colors";
-        if (icon) icon.className = "w-4 h-4 text-slate-400";
-        if (title) title.className = "tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-slate-300";
-        if (sub) sub.className = "tab-sub text-[9px] sm:text-[10px] text-slate-500 hidden sm:block truncate";
+        btn.className = "tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card/40 border border-dark-border text-dark-muted hover:text-white hover:border-dark-dim/40";
+        if (iconBox) iconBox.className = "tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-dark-bg border border-dark-border flex items-center justify-center shrink-0 transition-colors";
+        if (icon) icon.className = "w-4 h-4 text-dark-muted";
+        if (title) title.className = "tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-dark-muted";
+        if (sub) sub.className = "tab-sub text-[9px] sm:text-[10px] text-dark-dim hidden sm:block truncate";
       }
     });
 
@@ -399,8 +399,8 @@
           .map((l) => {
             const isActive = l.line === step.line;
             return `
-              <div class="code-line ${isActive ? "active font-bold" : "text-slate-400"} flex items-center px-2.5 py-1 rounded text-xs font-mono">
-                <span class="w-6 text-slate-600 select-none text-[10px] shrink-0 text-right pr-2">${l.line}</span>
+              <div class="code-line ${isActive ? "active font-bold" : "text-dark-muted"} flex items-center px-2.5 py-1 rounded text-xs font-mono">
+                <span class="w-6 text-dark-dim select-none text-[10px] shrink-0 text-right pr-2">${l.line}</span>
                 <span class="whitespace-pre">${escapeHtml(l.text)}</span>
               </div>
             `;
@@ -419,7 +419,7 @@
             const heightPercent = Math.max(18, Math.round((val / maxVal) * 80));
             const highlightType = step.highlights[idx];
 
-            let bgClass = "bg-sky-500/80 border-sky-400 text-sky-100";
+            let bgClass = "bg-blue-600/80 border-blue-500 text-blue-100";
             let glow = "";
             if (highlightType === "compare") {
               bgClass = "bg-amber-400 border-amber-300 text-slate-950 font-black";
@@ -454,7 +454,7 @@
                 </div>
                 <!-- Index Label & Pointers -->
                 <div class="mt-1 text-center font-mono">
-                  <div class="text-[10px] text-slate-400">[${idx}]</div>
+                  <div class="text-[10px] text-dark-dim">[${idx}]</div>
                   <div class="h-4 text-[10px] font-bold text-amber-400 tracking-tighter truncate">
                     ${activePointers.length > 0 ? `▲ ${activePointers.join(",")}` : ""}
                   </div>
@@ -471,16 +471,16 @@
         const vars = step.vars || {};
         const entries = Object.entries(vars);
         if (entries.length === 0) {
-          varInspector.innerHTML = `<div class="text-slate-500 text-xs font-mono italic">Keine aktiven Variablen</div>`;
+          varInspector.innerHTML = `<div class="text-dark-dim text-xs font-mono italic">Keine aktiven Variablen</div>`;
         } else {
           varInspector.innerHTML = `
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
               ${entries
                 .map(
                   ([k, v]) => `
-                <div class="bg-dark-bg border border-dark-border rounded-xl p-2.5 font-mono">
-                  <div class="text-[10px] text-slate-400 uppercase tracking-wider">${escapeHtml(k)}</div>
-                  <div class="text-xs sm:text-sm font-bold text-sky-400 truncate mt-0.5">${escapeHtml(String(v))}</div>
+                <div class="bg-dark-bg border border-dark-border rounded-lg p-2.5 font-mono">
+                  <div class="text-[10px] text-dark-dim uppercase tracking-wider">${escapeHtml(k)}</div>
+                  <div class="text-xs sm:text-sm font-bold text-blue-400 truncate mt-0.5">${escapeHtml(String(v))}</div>
                 </div>
               `,
                 )
@@ -1048,12 +1048,12 @@
       const btnPuzzle = document.getElementById("btnSubMode-puzzle");
 
       if (mode === "trace") {
-        btnTrace.className = "px-3.5 py-2 rounded-lg font-semibold transition-all bg-dark-accent text-white shadow-sm";
-        btnPuzzle.className = "px-3.5 py-2 rounded-lg font-semibold transition-all text-slate-400 hover:text-white";
+        btnTrace.className = "px-2.5 sm:px-3.5 py-1.5 rounded-md font-semibold transition-all bg-blue-600 text-white shadow-sm text-center text-[11px] sm:text-xs";
+        btnPuzzle.className = "px-2.5 sm:px-3.5 py-1.5 rounded-md font-semibold transition-all text-dark-muted hover:text-white text-center text-[11px] sm:text-xs";
         this.currentExId = EXERCISES_TRACE[0].id;
       } else {
-        btnPuzzle.className = "px-3.5 py-2 rounded-lg font-semibold transition-all bg-dark-accent text-white shadow-sm";
-        btnTrace.className = "px-3.5 py-2 rounded-lg font-semibold transition-all text-slate-400 hover:text-white";
+        btnPuzzle.className = "px-2.5 sm:px-3.5 py-1.5 rounded-md font-semibold transition-all bg-blue-600 text-white shadow-sm text-center text-[11px] sm:text-xs";
+        btnTrace.className = "px-2.5 sm:px-3.5 py-1.5 rounded-md font-semibold transition-all text-dark-muted hover:text-white text-center text-[11px] sm:text-xs";
         this.currentExId = EXERCISES_PUZZLE[0].id;
       }
 
@@ -1098,45 +1098,45 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3.5 border-b border-dark-border">
           <div>
             <div class="flex items-center gap-2">
-              <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30">
+              <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/30">
                 ${escapeHtml(ex.difficulty)}
               </span>
               ${isSolved ? '<span class="text-xs font-mono text-emerald-400 flex items-center gap-1 font-bold">✓ Bereits gelöst</span>' : ""}
             </div>
             <h2 class="text-base sm:text-lg font-bold text-white mt-1.5">${escapeHtml(ex.title)}</h2>
           </div>
-          <div class="text-xs text-slate-400">
+          <div class="text-xs text-dark-muted">
             Fülle alle freien Felder aus und klicke auf <strong>Prüfen</strong>.
           </div>
         </div>
 
         <!-- Code Block -->
-        <div class="bg-dark-bg border border-dark-border rounded-xl p-3.5 sm:p-4 font-mono text-xs text-slate-200 leading-relaxed custom-scroll overflow-x-auto">
-          ${ex.code.map((line, i) => `<div><span class="text-slate-600 select-none pr-3 text-[10px]">${i + 1}</span>${escapeHtml(line)}</div>`).join("")}
+        <div class="bg-dark-bg border border-dark-border rounded-lg p-3.5 sm:p-4 font-mono text-xs text-dark-text leading-relaxed custom-scroll overflow-x-auto">
+          ${ex.code.map((line, i) => `<div><span class="text-dark-dim select-none pr-3 text-[10px]">${i + 1}</span>${escapeHtml(line)}</div>`).join("")}
         </div>
 
-        <p class="text-xs sm:text-sm text-slate-300 font-medium">${escapeHtml(ex.explanation)}</p>
+        <p class="text-xs sm:text-sm text-dark-muted font-medium">${escapeHtml(ex.explanation)}</p>
 
         <!-- Trace Table -->
-        <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono"><span class="hidden sm:inline">Trace-Tabelle:</span><span class="sm:hidden flex items-center gap-1 text-slate-500 text-[10px]"><i data-lucide="move-horizontal" class="w-3 h-3"></i> Horizontal wischen</span></div>
-        <div class="custom-scroll overflow-x-auto rounded-xl border border-dark-border">
+        <div class="flex items-center justify-between text-[11px] text-dark-muted font-mono"><span class="hidden sm:inline">Trace-Tabelle:</span><span class="sm:hidden flex items-center gap-1 text-dark-dim text-[10px]"><i data-lucide="move-horizontal" class="w-3 h-3"></i> Horizontal wischen</span></div>
+        <div class="custom-scroll overflow-x-auto rounded-lg border border-dark-border">
           <table class="w-full text-left text-xs font-mono border-collapse">
             <thead>
-              <tr class="bg-slate-900 text-slate-300 border-b border-dark-border">
+              <tr class="bg-dark-card text-dark-text border-b border-dark-border">
                 ${ex.headers.map((h) => `<th class="p-2.5 sm:p-3 font-bold border-r border-dark-border last:border-r-0 whitespace-nowrap">${escapeHtml(h)}</th>`).join("")}
               </tr>
             </thead>
-            <tbody class="divide-y divide-dark-border/70 bg-dark-bg">
+            <tbody class="divide-y divide-dark-border bg-dark-bg">
               ${ex.rows
                 .map((row, rIdx) => {
                   return `
-                  <tr class="hover:bg-slate-900/40 transition-colors">
-                    <td class="p-2.5 sm:p-3 font-bold text-slate-400 bg-slate-900/30 border-r border-dark-border whitespace-nowrap">${escapeHtml(row.step)}</td>
+                  <tr class="hover:bg-dark-card/50 transition-colors">
+                    <td class="p-2.5 sm:p-3 font-bold text-dark-muted bg-dark-bg/60 border-r border-dark-border whitespace-nowrap">${escapeHtml(row.step)}</td>
                     ${row.values
                       .map((val, cIdx) => {
                         const isLocked = row.locked[cIdx];
                         if (isLocked) {
-                          return `<td class="p-2.5 sm:p-3 text-slate-400 border-r border-dark-border last:border-r-0 text-center bg-slate-900/20 whitespace-nowrap">${escapeHtml(val)}</td>`;
+                          return `<td class="p-2.5 sm:p-3 text-dark-muted border-r border-dark-border last:border-r-0 text-center bg-dark-bg/40 whitespace-nowrap">${escapeHtml(val)}</td>`;
                         }
                         return `
                           <td class="p-1 sm:p-1.5 border-r border-dark-border last:border-r-0 text-center">
@@ -1144,7 +1144,7 @@
                               type="text"
                               id="trace_${rIdx}_${cIdx}"
                               data-correct="${escapeHtml(val.toUpperCase())}"
-                              class="trace-input w-full min-w-[75px] bg-slate-950 border border-dark-border rounded-lg px-2 py-1.5 text-center text-xs sm:text-sm text-white font-mono focus:border-dark-accent focus:outline-none uppercase"
+                              class="trace-input w-full min-w-[75px] bg-dark-bg border border-dark-border rounded-md px-2 py-1.5 text-center text-xs sm:text-sm text-white font-mono focus:border-blue-500 focus:outline-none uppercase"
                               placeholder="?"
                             />
                           </td>
@@ -1165,7 +1165,7 @@
             <button
               type="button"
               onclick="exerciseEngine.checkTraceTable()"
-              class="flex-1 sm:flex-initial px-4 sm:px-5 py-2.5 bg-dark-accent hover:bg-dark-accent-hover text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-md shadow-sky-500/20 transition-all active:scale-95"
+              class="flex-1 sm:flex-initial px-4 sm:px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95"
             >
               <i data-lucide="check" class="w-4 h-4"></i>
               <span>Ergebnis prüfen</span>
@@ -1173,7 +1173,7 @@
             <button
               type="button"
               onclick="exerciseEngine.revealTraceHint()"
-              class="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2.5 bg-dark-bg border border-dark-border hover:border-slate-600 text-slate-300 rounded-xl text-xs font-mono flex items-center justify-center gap-1.5 transition-colors active:scale-95"
+              class="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 bg-dark-card border border-dark-border hover:border-dark-dim text-dark-muted hover:text-white rounded-lg text-xs font-mono flex items-center justify-center gap-1.5 transition-colors active:scale-95"
             >
               <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-400"></i>
               <span>Tipp aufdecken</span>
@@ -1267,11 +1267,11 @@
             </div>
             <h2 class="text-base sm:text-lg font-bold text-white mt-1.5">${escapeHtml(ex.title)}</h2>
           </div>
-          <p class="text-xs text-slate-400">${escapeHtml(ex.description)}</p>
+          <p class="text-xs text-dark-muted">${escapeHtml(ex.description)}</p>
         </div>
 
-        <p class="text-xs sm:text-sm text-slate-300">
-          Verschiebe die Code-Zeilen mit den Pfeilen <span class="font-bold text-sky-400">▲ / ▼</span> in die richtige logische Reihenfolge:
+        <p class="text-xs sm:text-sm text-dark-muted">
+          Verschiebe die Code-Zeilen mit den Pfeilen <span class="font-bold text-blue-400">▲ / ▼</span> in die richtige logische Reihenfolge:
         </p>
 
         <!-- Puzzle List -->
@@ -1279,9 +1279,9 @@
           ${this.puzzleState
             .map((item, idx) => {
               return `
-              <div class="puzzle-line flex items-center justify-between gap-2 sm:gap-3 bg-dark-bg border border-dark-border hover:border-slate-600 rounded-xl p-2.5 sm:p-3.5 transition-all overflow-hidden">
-                <div class="flex items-center gap-2 sm:gap-3 font-mono text-[11px] sm:text-xs md:text-sm text-slate-200 min-w-0 flex-1 overflow-x-auto custom-scroll py-0.5">
-                  <span class="text-slate-500 select-none text-[10px] w-4 text-right shrink-0">${idx + 1}</span>
+              <div class="puzzle-line flex items-center justify-between gap-2 sm:gap-3 bg-dark-bg border border-dark-border hover:border-dark-dim/50 rounded-lg p-2.5 sm:p-3 transition-all overflow-hidden">
+                <div class="flex items-center gap-2 sm:gap-3 font-mono text-[11px] sm:text-xs md:text-sm text-dark-text min-w-0 flex-1 overflow-x-auto custom-scroll py-0.5">
+                  <span class="text-dark-dim select-none text-[10px] w-4 text-right shrink-0">${idx + 1}</span>
                   <span class="whitespace-nowrap font-mono">${escapeHtml(item.text)}</span>
                 </div>
                 <div class="flex items-center gap-1 shrink-0 ml-1">
@@ -1289,7 +1289,7 @@
                     type="button"
                     onclick="exerciseEngine.movePuzzleLine(${idx}, -1)"
                     ${idx === 0 ? "disabled" : ""}
-                    class="p-1.5 sm:p-2 rounded-lg bg-dark-card border border-dark-border text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors active:scale-95"
+                    class="p-1.5 sm:p-2 rounded-md bg-dark-card border border-dark-border text-dark-muted hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors active:scale-95"
                     title="Nach oben"
                     aria-label="Nach oben"
                   >
@@ -1299,7 +1299,7 @@
                     type="button"
                     onclick="exerciseEngine.movePuzzleLine(${idx}, 1)"
                     ${idx === this.puzzleState.length - 1 ? "disabled" : ""}
-                    class="p-1.5 sm:p-2 rounded-lg bg-dark-card border border-dark-border text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors active:scale-95"
+                    class="p-1.5 sm:p-2 rounded-md bg-dark-card border border-dark-border text-dark-muted hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors active:scale-95"
                     title="Nach unten"
                     aria-label="Nach unten"
                   >
@@ -1317,7 +1317,7 @@
           <button
             type="button"
             onclick="exerciseEngine.checkPuzzleOrder()"
-            class="w-full sm:w-auto px-5 py-2.5 bg-dark-accent hover:bg-dark-accent-hover text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-md shadow-sky-500/20 transition-all active:scale-95"
+            class="w-full sm:w-auto px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95"
           >
             <i data-lucide="check" class="w-4 h-4"></i>
             <span>Reihenfolge prüfen</span>

@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v2.7.2-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v3.0.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
@@ -26,12 +26,12 @@ Der **AP1 Tracker** wurde entwickelt, um Fachinformatikern eine strukturierte Ü
 
 Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwendung anfühlt, aber komplett im Browser läuft. Der Fokus lag auf sauberem Code, Performance und maximalem Datenschutz.
 
-### Highlights v2.7.2 (In-App Feedback-System & Qualitätssicherung)
+### Highlights v3.0.0 (Design System Relaunch & In-App Feedback)
 
+- **Design System Relaunch (Obsidian Zinc):** Vollständige Neugestaltung aller Seiten mit einheitlicher Typografie, optimierten Kontrasten und responsivem Hairline-Layout.
 - **In-App Karten-Feedback:** Fehler, veraltete Prüfungsnormen oder Unklarheiten direkt auf jeder Lernkarte mit 1 Klick an die Redaktion melden.
-- **Automatischer Kontext:** Übermittlung von Karten-ID, Modul, Fragetext und Antwortauszug ohne manuelles Copy-Paste.
-- **100% DSGVO- & Offline-Safe:** Anonyme Übertragung ohne Cookies, Tracker oder Mailprogramm-Zwang.
-- **Service Worker & Cache-Busting:** Caching auf `v2.7.2` aktualisiert für sofortige automatische Updates.
+- **Harmonisierte Fachlabore:** Subnetz-Trainer, SQL-Labor, Pseudocode-Labor und Fach-Glossar nahtlos mit einheitlichem Support und Navigation verzahnt.
+- **Service Worker & Cache-Busting:** Caching auf `v3.0.0` aktualisiert für sofortige automatische Updates.
 
 ### Highlights v2.7.1 (Pseudocode-Labor & Schreibtischtests)
 
@@ -59,18 +59,19 @@ Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwend
 
 ---
 
-## Tech Stack & Workflow
+## Tech Stack & Architektur
 
-Dieses Projekt ist ein Showcase für moderne Web-Entwicklung mit KI-Unterstützung. Es wurde bewusst auf komplexe Frameworks (React/Vue) verzichtet, um "Vanilla Web Technologies" auszureizen.
+Dieses Projekt setzt auf maximale Ausführungsgeschwindigkeit, Barrierefreiheit und vollständige Unabhängigkeit durch "Vanilla Web Technologies".
 
-| Bereich                 | Technologie                                                                     |
-| :---------------------- | :------------------------------------------------------------------------------ |
-| **Frontend**            | HTML5, Vanilla JavaScript (ES6+)                                                |
-| **Styling**             | Tailwind CSS (Lokal eingebunden)                                                |
-| **Icons**               | Lucide Icons (Lokal gehostet)                                                   |
-| **Animation**           | Canvas Confetti                                                                 |
-| **IDE**                 | VS Code                                                                         |
-| **AI Pair Programming** | API-Unterstützung durch **Gemini**, **Perplexity** und die **MiniMaxM3 API**    |
+| Bereich | Technologie |
+| :--- | :--- |
+| **Markup & Struktur** | Semantic HTML5, WAI-ARIA Barrierefreiheit |
+| **Styling & Design** | Tailwind CSS (lokale Engine v3), CSS Custom Properties, Dark Mode (`#09090b`) |
+| **Logik & Interaktion** | Vanilla JavaScript (ES6+), kein schweres Framework-Overhead |
+| **Icons & Assets** | Lucide Icons (lokal eingebunden als Vektorgrafiken) |
+| **Typografie** | Inter (woff2 lokal gehostet, Zero-CDN) |
+| **Offline & PWA** | Service Worker mit Stale-While-Revalidate Caching (`v3.0.0`), Web App Manifest |
+| **Datenschutz & Speicher** | 100 % Client-Side via `localStorage`, keine Tracking-Cookies |
 
 ---
 
@@ -86,11 +87,11 @@ Datenschutz war ein Kernaspekt der Architektur. Um das Projekt rechtssicher und 
 
 ## Changelog
 
-### v2.7.2 (17. September 2026)
+### v3.0.0 (18. September 2026)
 - **In-App Feedback-System:** 1-Klick-Meldesystem direkt auf jeder Lernkarte zur Meldung von Fehlern, veralteten Prüfungsnormen oder Unklarheiten.
 - **Kontext-Übertragung:** Automatische Erfassung von Karten-ID, Modul, Frage, Antwort und Lernmodus.
-- **100% DSGVO-konform:** Kein Tracking, keine externen Bibliotheken, vollkommen anonym nutzbar.
-- **Service Worker & Cache:** Cache auf `v2.7.2` gebumpt.
+- **DSGVO-konform:** Kein Tracking, keine externen Bibliotheken, vollkommen anonym nutzbar.
+- **Service Worker & Cache:** Cache auf `v3.0.0` gebumpt.
 
 ### v2.7.1 (14. September 2026)
 - **Pseudocode-Labor:** Neuer interaktiver Algorithmen-Visualizer für Lineare Suche, Minimum-Suche und Bubble Sort.

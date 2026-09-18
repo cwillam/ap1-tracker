@@ -1,725 +1,768 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AP-Tracker für Berufsschulen & Bildungsträger</title>
+<!doctype html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AP-Tracker für Berufsschulen &amp; Bildungsträger | Kostenlos &amp; Open Source</title>
     <link rel="canonical" href="https://ap1.cwillam.de/bildungseinrichtungen.html" />
-    <meta name="description" content="Kostenlose, werbefreie Prüfungs-Lernkarten für den Berufsschul-Unterricht. 1.228 AP1-Fragen, 897 AP2-FIAE, 840 AP2-FISI. Open Source, DSGVO-konform, läuft komplett im Browser.">
-    <meta name="author" content="Christoph Willam">
+    <meta
+      name="description"
+      content="Kostenlose, werbefreie Prüfungs-Lernkarten für den Berufsschul-Unterricht. 1.228 AP1-Fragen, 897 AP2-FIAE, 840 AP2-FISI. Open Source, datenschutzfreundlich, läuft komplett im Browser."
+    />
+    <meta name="author" content="Christoph Willam" />
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#09090b" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- Local Fonts -->
     <style>
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('assets/fonts/Inter-Regular.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 600;
-            font-display: swap;
-            src: url('assets/fonts/Inter-SemiBold.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 700;
-            font-display: swap;
-            src: url('assets/fonts/Inter-Bold.woff2') format('woff2');
-        }
-
-        * { box-sizing: border-box; }
-
-        :root {
-            --bg: #020617;
-            --card: #0f172a;
-            --card-2: #131a2a;
-            --border: #1e293b;
-            --border-2: #334155;
-            --text: #f8fafc;
-            --text-muted: #cbd5e1;
-            --text-dim: #94a3b8;
-            --text-faint: #64748b;
-            --accent: #0ea5e9;
-            --accent-2: #38bdf8;
-            --accent-3: #7dd3fc;
-            --accent-bg: rgba(14, 165, 233, 0.15);
-            --accent-bg-2: rgba(14, 165, 233, 0.22);
-            --accent-border-2: rgba(14, 165, 233, 0.25);
-            --accent-glow: rgba(14, 165, 233, 0.18);
-        }
-
-        html, body {
-            background-color: var(--bg);
-            color: var(--text);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 15px;
-            line-height: 1.65;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 820px;
-            margin: 0 auto;
-            padding: 40px 20px 64px;
-        }
-
-        /* === Unified icon-box (matches AP1 tracker) === */
-        .icon-box {
-            width: 40px;
-            height: 40px;
-            background: var(--accent-bg);
-            border: 1px solid var(--accent-border-2);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-2);
-            flex-shrink: 0;
-        }
-        .icon-box svg { width: 18px; height: 18px; }
-        .icon-box.compact { width: 28px; height: 28px; border-radius: 6px; }
-        .icon-box.compact svg { width: 14px; height: 14px; }
-
-        /* === Top bar - matches AP1 tracker logo style === */
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-        .topbar .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text);
-            text-decoration: none;
-        }
-        .topbar .brand .icon {
-            width: 40px;
-            height: 40px;
-            background: var(--accent-bg);
-            border: 1px solid var(--accent-border-2);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-2);
-        }
-        .topbar .brand .icon svg { width: 18px; height: 18px; }
-        .topbar .brand .text { display: flex; flex-direction: column; line-height: 1.2; }
-        .topbar .brand .name {
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--text);
-        }
-        .topbar .brand .badge {
-            display: inline-block;
-            padding: 1px 6px;
-            background: var(--accent-bg);
-            border: 1px solid var(--accent-border-2);
-            color: var(--accent-2);
-            border-radius: 4px;
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 2px;
-            align-self: flex-start;
-        }
-        .topbar .back {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 13px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid transparent;
-        }
-        .topbar .back:hover { color: var(--text); border-color: var(--border); }
-        .topbar .back svg { width: 14px; height: 14px; }
-
-        /* === Hero === */
-        .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            border: 1px solid var(--accent-border-2);
-            border-radius: 12px;
-            padding: 32px 32px 28px;
-            margin-bottom: 48px;
-            box-shadow: 0 0 24px var(--accent-glow);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -80px;
-            right: -80px;
-            width: 280px;
-            height: 280px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero .label {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            background: var(--accent-bg);
-            border: 1px solid var(--accent-border-2);
-            color: var(--accent-2);
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 16px;
-            position: relative;
-        }
-        .hero .label svg { width: 11px; height: 11px; }
-        .hero h1 {
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin: 0 0 16px 0;
-            color: var(--text);
-            position: relative;
-        }
-        .hero .lede {
-            font-size: 15.5px;
-            line-height: 1.6;
-            color: var(--text-muted);
-            margin: 0;
-            position: relative;
-        }
-        .hero .lede strong { color: var(--text); font-weight: 600; }
-
-        /* === Section base === */
-        section {
-            margin-top: 48px;
-        }
-        section h2 {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--text-dim);
-            margin: 0 0 18px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        section h2::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-        section h2 .num {
-            color: var(--accent);
-            font-variant-numeric: tabular-nums;
-        }
-        section p {
-            color: var(--text-muted);
-            margin: 0 0 14px 0;
-        }
-        section p strong { color: var(--text); font-weight: 600; }
-        section a {
-            color: var(--accent-2);
-            text-decoration: none;
-        }
-        section a:hover { color: var(--accent-3); text-decoration: underline; }
-
-        /* === Tracker list === */
-        .tracker-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        a.tracker-item {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px 20px;
-            display: grid;
-            grid-template-columns: 40px 1fr auto auto;
-            align-items: center;
-            gap: 16px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s;
-        }
-        a.tracker-item:hover {
-            border-color: var(--accent-border-2);
-            background-color: var(--card-2);
-        }
-        a.tracker-item:hover .arrow { color: var(--accent-2); }
-        .tracker-item .name {
-            font-weight: 700;
-            color: var(--text);
-            font-size: 15px;
-        }
-        .tracker-item .name small {
-            display: block;
-            font-weight: 400;
-            color: var(--text-dim);
-            font-size: 12px;
-            margin-top: 2px;
-        }
-        .tracker-item .count {
-            text-align: right;
-            font-variant-numeric: tabular-nums;
-        }
-        .tracker-item .count .num {
-            display: block;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--accent-2);
-            line-height: 1;
-        }
-        .tracker-item .count .lbl {
-            display: block;
-            font-size: 9px;
-            font-weight: 700;
-            color: var(--text-faint);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-top: 4px;
-        }
-        .tracker-item .arrow {
-            color: var(--text-faint);
-            display: flex;
-            transition: all 0.2s;
-        }
-        .tracker-item .arrow svg { width: 16px; height: 16px; }
-
-        /* === Scenarios === */
-        .scenarios {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .scenario {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px 18px;
-            display: grid;
-            grid-template-columns: 40px 1fr;
-            gap: 14px;
-            align-items: start;
-        }
-        .scenario h4 {
-            margin: 0 0 4px 0;
-            font-size: 14.5px;
-            font-weight: 600;
-            color: var(--text);
-        }
-        .scenario p {
-            margin: 0;
-            font-size: 13.5px;
-            color: var(--text-muted);
-            line-height: 1.55;
-        }
-
-        /* === Data flow === */
-        .dataflow {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px 22px;
-            margin: 12px 0;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Cascadia Code", "Courier New", monospace;
-            font-size: 12.5px;
-            line-height: 2.1;
-            color: var(--text-muted);
-            overflow-x: auto;
-        }
-        .dataflow .row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            white-space: nowrap;
-        }
-        .dataflow .row.indent { padding-left: 14px; }
-        .dataflow .arrow { color: var(--text-faint); }
-        .dataflow .here { color: var(--accent-2); font-weight: 600; }
-        .dataflow .away {
-            color: var(--text-faint);
-            text-decoration: line-through;
-            text-decoration-color: var(--text-faint);
-        }
-        .dataflow .lbl {
-            color: var(--text-faint);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            min-width: 70px;
-            display: inline-block;
-        }
-        .dataflow .desc {
-            color: var(--text-faint);
-            font-size: 11px;
-            font-style: italic;
-        }
-
-        /* === Google Play section === */
-        .play-section {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            border: 1px solid var(--accent-border-2);
-            border-radius: 12px;
-            padding: 28px;
-            display: grid;
-            grid-template-columns: 48px 1fr;
-            gap: 18px;
-            align-items: start;
-            box-shadow: 0 0 24px var(--accent-glow);
-        }
-        .play-section .icon-box { width: 48px; height: 48px; border-radius: 10px; }
-        .play-section .icon-box svg { width: 22px; height: 22px; }
-        .play-section h3 {
-            margin: 0 0 8px 0;
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .play-section h3 .tag {
-            display: inline-block;
-            padding: 2px 7px;
-            background: var(--accent-bg);
-            border: 1px solid var(--accent-border-2);
-            color: var(--accent-2);
-            border-radius: 4px;
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-        .play-section p {
-            margin: 0 0 18px 0;
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-        .play-section p strong { color: var(--text); font-weight: 600; }
-
-        /* === Contact === */
-        .contact {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .contact-text { margin: 0; }
-        .contact-text p { margin: 0; color: var(--text-muted); font-size: 14.5px; line-height: 1.6; }
-        .contact-cta {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 16px 18px;
-            background: var(--accent-bg);
-            border: 1px solid var(--accent-border-2);
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.2s;
-            min-width: 0;
-        }
-        .contact-cta:hover {
-            background: var(--accent-bg-2);
-            border-color: var(--accent-2);
-            text-decoration: none;
-            transform: translateY(-1px);
-        }
-        .contact-cta .icon-box { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; }
-        .contact-cta .icon-box svg { width: 20px; height: 20px; }
-        .contact-cta-text {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.3;
-        }
-        .contact-cta .title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text);
-            word-break: break-all;
-        }
-        .contact-cta .sub {
-            font-size: 12px;
-            color: var(--text-dim);
-            margin-top: 4px;
-            line-height: 1.4;
-        }
-        .contact-cta .arrow {
-            color: var(--text-faint);
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-        .contact-cta .arrow svg { width: 18px; height: 18px; }
-        .contact-cta:hover .arrow { color: var(--accent-2); transform: translateX(2px); }
-
-        /* === Unified action button (small, same style for both) === */
-        .action {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 14px 8px 8px;
-            background: var(--accent-bg);
-            border: 1px solid var(--accent-border-2);
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.2s;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .action:hover {
-            background: var(--accent-bg-2);
-            border-color: var(--accent-2);
-            text-decoration: none;
-        }
-        .action .icon-box { width: 32px; height: 32px; border-radius: 7px; }
-        .action .icon-box svg { width: 15px; height: 15px; }
-        .action .text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.25;
-        }
-        .action .title { font-size: 13.5px; font-weight: 700; color: var(--text); }
-        .action .sub { font-size: 11.5px; font-weight: 400; color: var(--text-dim); margin-top: 1px; }
-        .action .arrow { color: var(--text-faint); transition: all 0.2s; flex-shrink: 0; }
-        .action .arrow svg { width: 14px; height: 14px; }
-        .action:hover .arrow { color: var(--accent-2); transform: translateX(2px); }
-
-        /* === Footer === */
-        footer {
-            margin-top: 56px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            font-size: 12px;
-            color: var(--text-dim);
-        }
-        footer .links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 20px;
-            margin-bottom: 16px;
-        }
-        footer .links a {
-            color: var(--text-dim);
-            text-decoration: none;
-        }
-        footer .links a:hover { color: var(--text); }
-        footer .meta {
-            color: var(--text-faint);
-            line-height: 1.7;
-            font-size: 11.5px;
-        }
-        footer .meta a { color: var(--text-dim); text-decoration: underline; text-decoration-color: var(--border-2); }
-        footer .meta a:hover { color: var(--text-muted); }
-
-        @media (max-width: 640px) {
-            .container { padding: 24px 14px 40px; }
-            .topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .hero { padding: 24px 20px 20px; }
-            .hero h1 { font-size: 23px; }
-            .hero .lede { font-size: 14.5px; }
-            a.tracker-item { grid-template-columns: 40px 1fr; padding: 12px 14px; gap: 12px; }
-            .tracker-item .count { grid-column: 2 / 3; text-align: left; }
-            .tracker-item .count .num { display: inline-block; }
-            .tracker-item .count .lbl { display: inline-block; margin-left: 6px; }
-            .tracker-item .arrow { display: none; }
-            .dataflow { font-size: 11.5px; padding: 14px 16px; }
-            .scenario { padding: 12px 14px; }
-            .play-section { padding: 20px; grid-template-columns: 40px 1fr; gap: 14px; }
-            .play-section .icon-box { width: 40px; height: 40px; }
-            .play-section .icon-box svg { width: 18px; height: 18px; }
-            .contact { padding: 20px; gap: 16px; }
-            .contact-cta { padding: 14px 16px; gap: 12px; }
-            .contact-cta .icon-box { width: 40px; height: 40px; }
-            .contact-cta .icon-box svg { width: 18px; height: 18px; }
-            .contact-cta .title { font-size: 14px; }
-            .contact-cta .sub { font-size: 11.5px; }
-            section h2 { font-size: 10.5px; }
-        }
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/Inter-Regular.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/Inter-SemiBold.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("assets/fonts/Inter-Bold.woff2") format("woff2");
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="topbar">
-            <a href="index.html" class="brand">
-                <span class="icon"><i data-lucide="graduation-cap"></i></span>
-                <span class="text">
-                    <span class="name">AP-Tracker</span>
-                    <span class="badge">Berufsschule &amp; Bildungsträger</span>
-                </span>
-            </a>
-            <a href="index.html" class="back">
-                <i data-lucide="arrow-left"></i> Zurück zur App
-            </a>
+
+    <!-- Tailwind CSS (Offline / Local) -->
+    <script src="assets/js/tailwind.js?v=3.0.0"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "dark-bg": "#09090b",
+              "dark-card": "#18181b",
+              "dark-border": "#27272a",
+              "dark-dim": "#3f3f46",
+              "dark-muted": "#a1a1aa",
+              "dark-text": "#f4f4f5",
+              "dark-accent": "#3b82f6",
+              "dark-accent-hover": "#2563eb",
+            },
+            fontFamily: {
+              sans: [
+                "Inter",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "Roboto",
+                "sans-serif",
+              ],
+              mono: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "monospace",
+              ],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .kbd-cap {
+        box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.4);
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      button, a {
+        -webkit-tap-highlight-color: transparent;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 5rem;
+      }
+    </style>
+  </head>
+
+  <body
+    class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-blue-600 selection:text-white font-sans"
+  >
+    <!-- ============================================================
+         TOP COMMAND BAR (Hairline Header)
+         ============================================================ -->
+    <!-- ============================================================
+         TOP COMMAND BAR (Hairline Header)
+         ============================================================ -->
+    <header class="sticky top-0 z-40 w-full border-b border-dark-border bg-dark-bg/90 backdrop-blur-md">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+        <!-- Left: Back link & Title -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <a href="index.html" class="flex items-center gap-2 group focus:outline-none shrink-0" title="Zurück zum Dashboard">
+            <div class="w-8 h-8 rounded-lg border border-dark-border bg-dark-card group-hover:border-blue-500 transition-all flex items-center justify-center text-dark-muted group-hover:text-blue-400">
+              <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-0.5"></i>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="kbd-cap bg-blue-600/15 border-blue-500/40 text-blue-400 font-bold px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs">AP1</span>
+              <span class="font-bold text-sm sm:text-base tracking-tight text-white group-hover:text-blue-400 transition-colors">Tracker</span>
+            </div>
+          </a>
+          <span class="hidden md:inline-flex items-center font-mono text-[10px] text-dark-dim border border-dark-border rounded px-2 py-0.5 uppercase tracking-wider">
+            Berufsschulen &amp; Didaktik
+          </span>
         </div>
 
-        <div class="hero">
-            <span class="label">
-                <i data-lucide="shield-check"></i>
-                Kostenlos · Werbefrei · DSGVO-konform
-            </span>
-            <h1>Prüfungs-Lernkarten, die im Klassenzimmer tatsächlich funktionieren.</h1>
-            <p class="lede">
-                Hallo, ich bin Christoph, FI für Anwendungsentwicklung. Diese drei Tracker habe ich gebaut, weil ich in meiner eigenen Ausbildung gemerkt habe, dass es für die AP-Vorbereitung (Abschlussprüfung Teil 1 und Teil 2) entweder teure Lernplattformen oder unübersichtliche PDF-Sammlungen gibt. Hier ist die kostenlose Alternative – direkt im Browser, ohne Anmeldung, ohne Schüler-Tracking.
-            </p>
+        <!-- Right: Switcher, Support & Discord -->
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <div class="hidden lg:flex items-center gap-1.5 border-r border-dark-border pr-3 mr-1">
+            <a href="subnet.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Subnetz-Trainer">
+              <i data-lucide="network" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span>Subnetz</span>
+            </a>
+            <a href="sql.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="SQL-Labor">
+              <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>SQL</span>
+            </a>
+            <a href="pseudocode.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Pseudocode-Labor">
+              <i data-lucide="code" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Pseudocode</span>
+            </a>
+            <a href="glossar.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Fach-Glossar">
+              <i data-lucide="book-open" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Glossar</span>
+            </a>
+            <a href="help.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Hilfe &amp; FAQ">
+              <i data-lucide="help-circle" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>Hilfe</span>
+            </a>
+          </div>
+
+          <!-- Discord -->
+          <a
+            href="https://discord.gg/5BM5YJadDs"
+            target="_blank"
+            rel="noopener"
+            class="hidden sm:flex px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#5865F2]/50 bg-dark-card hover:bg-[#5865F2]/10 text-dark-muted hover:text-white transition-all text-xs items-center gap-1.5"
+            title="Discord-Community"
+          >
+            <i data-lucide="message-square" class="w-4 h-4 text-[#5865F2]"></i>
+            <span class="hidden md:inline font-mono text-[11px]">Discord</span>
+          </a>
+
+          <!-- Support Button -->
+          <button
+            type="button"
+            onclick="openSupportModal()"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#FFDD00]/40 bg-dark-card hover:bg-[#FFDD00]/10 text-dark-muted hover:text-[#FFDD00] transition-all text-xs flex items-center gap-1.5 shrink-0"
+            title="Support / Projekt unterstützen"
+          >
+            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
+            <span class="hidden sm:inline font-mono text-[11px] font-medium">Support</span>
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button
+            onclick="toggleMobileMenu()"
+            class="lg:hidden p-2 rounded-lg border border-dark-border bg-dark-card text-dark-muted hover:text-white transition-colors shrink-0"
+            aria-label="Menü öffnen"
+          >
+            <i data-lucide="menu" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div
+      id="mobileMenu"
+      class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden transition-opacity duration-200"
+      onclick="if(event.target === this) toggleMobileMenu()"
+    >
+      <div class="fixed right-0 top-0 bottom-0 w-72 bg-dark-card border-l border-dark-border p-5 flex flex-col justify-between transform translate-x-full transition-transform duration-300">
+        <div>
+          <div class="flex items-center justify-between pb-4 border-b border-dark-border mb-4">
+            <span class="font-bold text-sm tracking-wide text-white">Navigation</span>
+            <button onclick="toggleMobileMenu()" class="p-1 rounded text-dark-muted hover:text-white">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+          <div class="space-y-1 font-mono text-xs">
+            <a href="index.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-blue-400"></i> Dashboard
+            </a>
+            <a href="subnet.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="network" class="w-4 h-4 text-blue-400"></i> Subnetz-Trainer
+            </a>
+            <a href="sql.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="database" class="w-4 h-4 text-emerald-400"></i> SQL-Labor
+            </a>
+            <a href="pseudocode.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="code" class="w-4 h-4 text-purple-400"></i> Pseudocode-Labor
+            </a>
+            <a href="glossar.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i> Fach-Glossar
+            </a>
+            <a href="help.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="help-circle" class="w-4 h-4 text-sky-400"></i> Hilfe &amp; FAQ
+            </a>
+            <a href="updates.html" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-white hover:bg-dark-bg transition-colors">
+              <i data-lucide="history" class="w-4 h-4 text-blue-400"></i> Updates &amp; Changelog
+            </a>
+            <a href="bildungseinrichtungen.html" class="flex items-center gap-2.5 px-3 py-2 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">
+              <i data-lucide="graduation-cap" class="w-4 h-4 text-teal-400"></i> Für Berufsschulen
+            </a>
+            <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-[#5865F2] hover:bg-dark-bg transition-colors">
+              <i data-lucide="message-square" class="w-4 h-4 text-[#5865F2]"></i> Discord-Community
+            </a>
+            <button onclick="openSupportModal(); toggleMobileMenu();" class="w-full flex items-center gap-2.5 px-3 py-2 rounded text-dark-muted hover:text-[#FFDD00] hover:bg-dark-bg transition-colors text-left">
+              <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i> Support
+            </button>
+          </div>
         </div>
 
-        <section>
-            <h2><span class="num">01</span>Die drei Tracker</h2>
-            <p style="margin-bottom: 16px;">Insgesamt <strong>2.965 Lernkarten</strong>, alle nach den offiziellen Lehrplan-Lernfeldern sortiert, jede mit ausführlicher Antwort.</p>
-            <div class="tracker-list">
-                <a class="tracker-item" href="https://ap1.cwillam.de/" target="_blank" rel="noopener">
-                    <div class="icon-box"><i data-lucide="graduation-cap"></i></div>
-                    <div class="name">AP1 Tracker<small>Alle Fachrichtungen · FI-AE, FI-SI, FI-DP, DV</small></div>
-                    <div class="count"><span class="num">1.228</span><span class="lbl">Karten</span></div>
-                    <div class="arrow"><i data-lucide="arrow-up-right"></i></div>
-                </a>
-                <a class="tracker-item" href="https://ap2.cwillam.de/" target="_blank" rel="noopener">
-                    <div class="icon-box"><i data-lucide="code-2"></i></div>
-                    <div class="name">AP2 FIAE<small>Anwendungsentwicklung</small></div>
-                    <div class="count"><span class="num">897</span><span class="lbl">Karten</span></div>
-                    <div class="arrow"><i data-lucide="arrow-up-right"></i></div>
-                </a>
-                <a class="tracker-item" href="https://ap2-fisi.cwillam.de/" target="_blank" rel="noopener">
-                    <div class="icon-box"><i data-lucide="server"></i></div>
-                    <div class="name">AP2 FISI<small>Systemintegration</small></div>
-                    <div class="count"><span class="num">840</span><span class="lbl">Karten</span></div>
-                    <div class="arrow"><i data-lucide="arrow-up-right"></i></div>
-                </a>
-            </div>
-        </section>
-
-        <section>
-            <h2><span class="num">02</span>Wie kann man die App einsetzen</h2>
-            <p style="margin-bottom: 16px;">Ein paar bewährte Szenarien für den Unterrichtsalltag:</p>
-            <div class="scenarios">
-                <div class="scenario">
-                    <div class="icon-box"><i data-lucide="graduation-cap"></i></div>
-                    <div>
-                        <h4>Flipped Classroom</h4>
-                        <p>Schüler lernen die Prüfungsthemen zu Hause mit den Lernkarten, im Unterricht wird vertieft und diskutiert. Funktioniert, weil man ohne Anmeldung sofort loslegen kann.</p>
-                    </div>
-                </div>
-                <div class="scenario">
-                    <div class="icon-box"><i data-lucide="monitor-play"></i></div>
-                    <div>
-                        <h4>Präsenzunterricht am Beamer</h4>
-                        <p>Lehrer zeigt eine Frage über den Beamer oder das Whiteboard, die Klasse diskutiert und löst gemeinsam. Funktioniert auf jedem Gerät mit Bildschirm.</p>
-                    </div>
-                </div>
-                <div class="scenario">
-                    <div class="icon-box"><i data-lucide="house"></i></div>
-                    <div>
-                        <h4>Selbststudium zu Hause</h4>
-                        <p>Schüler wiederholen eigenständig, die App speichert alles im Browser. Kein Account, keine Mail, keine Bestätigungsmails an die Eltern.</p>
-                    </div>
-                </div>
-                <div class="scenario">
-                    <div class="icon-box"><i data-lucide="user-check"></i></div>
-                    <div>
-                        <h4>Vertretungsstunden</h4>
-                        <p>Funktioniert ohne Lehrer-Anleitung. Schüler können selbstständig üben, weil die Bedienung selbsterklärend ist.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2><span class="num">03</span>Wo die Daten bleiben</h2>
-            <p>Das ist mir wichtig. Hier der genaue Datenfluss, damit du das deinen Schülern erklären kannst, falls die fragen:</p>
-            <div class="dataflow">
-                <div class="row"><span class="lbl">Browser</span> <span class="here">LocalStorage</span> <span class="desc">// Lernfortschritt: abgehakte Karten, Streak, Timer</span></div>
-                <div class="row indent"><span class="arrow">↓</span> <span class="here">HTML + JS</span> <span class="desc">// läuft komplett im Browser, kein Server-Code</span></div>
-                <div class="row indent"><span class="arrow">↓</span> <span class="here">IONOS (EU)</span> <span class="desc">// liefert nur die HTML-Dateien aus, Server-Logs 7 Tage</span></div>
-                <div class="row indent"><span class="arrow">↓</span> <span class="away">an Dritte</span> <span class="desc">// geht nirgendwo hin</span></div>
-            </div>
-            <p>Keine Benutzer-Accounts, keine Cookies, keine externen CDNs, keine Google Fonts, keine Analyse-Tools. Wer das prüfen will: <a href="datenschutz.html">Datenschutzerklärung</a> oder einfach in den Browser-Devtools unter „Network" schauen, während die Seite offen ist.</p>
-        </section>
-
-        <section>
-            <h2><span class="num">04</span>Android-App im Google Play Store</h2>
-            <div class="play-section">
-                <div class="icon-box"><i data-lucide="smartphone"></i></div>
-                <div>
-                    <h3>Offizielle Android-App <span class="tag">Play Store</span></h3>
-                    <p>Die Tracker sind als <strong>offizielle Android-Apps im Google Play Store</strong> verfügbar. Schüler und Lehrkräfte können die App direkt auf dem Smartphone installieren, vollständig offline nutzen und ohne Benutzer-Accounts dauerhaft 100 % kostenlos und werbefrei lernen.</p>
-                    <a class="action" href="mailto:christoph.willam@googlemail.com?subject=Google%20Play%20App%20%E2%80%93%20Einsatz%20im%20Unterricht&body=Hallo%20Christoph%2C%0A%0Aich%20m%C3%B6chte%2C%20dass%20meine%20Sch%C3%BCler%20die%20AP-Tracker%20als%20App%20nutzen.%0A%0AMeine%20Einrichtung%3A%20%0A%0AKlassen%20%2F%20Fachrichtung%3A%20%0A%0AAnzahl%20Sch%C3%BCler%3A%20%0A%0ALiebe%20Gr%C3%BC%C3%9Fe">
-                        <span class="icon-box"><i data-lucide="mail"></i></span>
-                        <span class="text">
-                            <span class="title">Einsatz im Unterricht abstimmen</span>
-                            <span class="sub">Fragen, Begleitmaterial &amp; Feedback</span>
-                        </span>
-                        <i data-lucide="arrow-right" class="arrow"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2><span class="num">05</span>Lizenz &amp; Kontakt</h2>
-            <p>Die Tracker stehen unter der <strong>AGPL-3.0-Lizenz</strong>. Eine spezielle „Schullizenz" gibt es nicht, weil nicht nötig: kommerzielle Nutzung im Bildungsbereich ist ausdrücklich erlaubt. Wer den Code anpassen will (eigene Lernfelder, andere Sprache, schulinternes Branding) – der Quellcode ist offen.</p>
-            <div class="contact">
-                <div class="contact-text">
-                    <p>Fragen, Feedback, Einsatz für die ganze Klasse, oder einfach nur „ich setze das ein, danke" – schreib mir.</p>
-                </div>
-                <a class="contact-cta" href="mailto:christoph.willam@googlemail.com?subject=Anfrage%20Berufsschule%20%2F%20Bildungseinrichtung%20AP-Tracker&body=Hallo%20Christoph%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20den%20Einsatz%20der%20AP-Tracker%20im%20Unterricht.%0A%0AMeine%20Einrichtung%3A%20%0A%0AKlassen%20%2F%20Fachrichtung%3A%20%0A%0AVorhaben%20%2F%20Frage%3A%20%0A%0ALiebe%20Gr%C3%BC%C3%9Fe">
-                    <div class="icon-box"><i data-lucide="mail"></i></div>
-                    <div class="contact-cta-text">
-                        <span class="title">christoph.willam@googlemail.com</span>
-                        <span class="sub">Antwort max. innerhalb von 24 Stunden · Bei „DRINGEND" im Betreff</span>
-                    </div>
-                    <i data-lucide="arrow-up-right" class="arrow"></i>
-                </a>
-            </div>
-        </section>
-
-        <footer>
-            <div class="links">
-                <a href="https://ap1.cwillam.de/">AP1</a>
-                <a href="https://ap2.cwillam.de/">AP2 FIAE</a>
-                <a href="https://ap2-fisi.cwillam.de/">AP2 FISI</a>
-                <a href="datenschutz.html">Datenschutz</a>
-                <a href="index.html">Startseite</a>
-            </div>
-            <div class="meta">
-                Christoph Willam · Tocklergasse 14, 96129 Strullendorf · <a href="mailto:christoph.willam@googlemail.com">christoph.willam@googlemail.com</a><br>
-                Hosting: IONOS Webhosting Plus (Server in Deutschland) · Open Source unter AGPL-3.0<br>
-                Diese Seite enthält keine externen Skripte, keine CDNs, keine Cookies, kein Tracking. Nur Inter-Font (lokal) und Lucide-Icons (lokal).
-            </div>
-        </footer>
+        <div class="pt-4 border-t border-dark-border space-y-2 text-xs font-mono text-dark-dim">
+          <div class="flex items-center justify-between">
+            <span>AP1 Tracker</span>
+            <span class="text-blue-400">v3.0.0</span>
+          </div>
+          <div class="text-[11px] text-dark-dim">
+            100% Offline-fähig &amp; Open Source
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script src="assets/js/lucide.min.js"></script>
+    <!-- ============================================================
+         MAIN CONTENT AREA
+         ============================================================ -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-8">
+
+      <!-- ============================================================
+           HERO SECTION
+           ============================================================ -->
+      <section class="bg-dark-card border border-dark-border rounded-xl p-6 sm:p-8 space-y-4 relative overflow-hidden">
+        <div class="flex items-center gap-2">
+          <span class="kbd-cap bg-blue-600/15 border-blue-500/30 text-blue-400 px-2.5 py-0.5 text-[10px] font-mono font-bold flex items-center gap-1.5 uppercase tracking-wider">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            Kostenlos · Werbefrei · Lokal im Browser
+          </span>
+        </div>
+
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
+          Prüfungs-Lernkarten, die im Klassenzimmer tatsächlich funktionieren.
+        </h1>
+
+        <p class="text-xs sm:text-sm text-dark-muted leading-relaxed max-w-3xl">
+          Hallo, ich bin Christoph, Fachinformatiker für Anwendungsentwicklung. Diese drei Tracker habe ich gebaut, weil ich in meiner eigenen Ausbildung gemerkt habe, dass es für die AP-Vorbereitung (Abschlussprüfung Teil 1 und Teil 2) entweder teure Lernplattformen oder unübersichtliche PDF-Sammlungen gibt. Hier ist die kostenlose Alternative – direkt im Browser, ohne Anmeldung, ohne Schüler-Tracking.
+        </p>
+      </section>
+
+      <!-- ============================================================
+           SECTION 01: DIE DREI TRACKER
+           ============================================================ -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-dark-border">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-dark-muted">
+            <span class="text-blue-400">01</span>
+            <span>Die drei Tracker</span>
+          </div>
+          <span class="text-[11px] font-mono text-dark-dim">2.965 Lernkarten gesamt</span>
+        </div>
+
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Alle Fragen sind nach den bundeseinheitlichen IHK-Lernfeldern strukturiert, praxiserprobt und enthalten ausführliche Musterantworten sowie Eselsbrücken:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+          <!-- AP1 Tracker (Aktuell) -->
+          <a
+            href="index.html"
+            class="p-4 rounded-xl bg-dark-card border border-blue-500/50 hover:border-blue-400 transition-all group flex flex-col justify-between gap-4 shadow-sm"
+          >
+            <div class="flex items-start justify-between">
+              <div class="w-10 h-10 rounded-lg bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+              </div>
+              <span class="kbd-cap bg-blue-600/20 border-blue-500/40 text-blue-400 font-mono text-[9px] px-1.5 py-0.2 font-bold">Aktiv</span>
+            </div>
+            <div>
+              <div class="flex items-baseline justify-between mb-1">
+                <span class="font-bold text-white text-sm group-hover:text-blue-400 transition-colors">AP1 Tracker</span>
+                <span class="font-mono text-xs font-bold text-blue-400">1.228</span>
+              </div>
+              <p class="text-[11px] text-dark-muted leading-snug">
+                Alle Fachrichtungen (FI-AE, FI-SI, FI-DP, DV). Grundlegende Lernfelder 1 bis 5.
+              </p>
+            </div>
+          </a>
+
+          <!-- AP2 FIAE -->
+          <a
+            href="https://ap2.cwillam.de/"
+            target="_blank"
+            rel="noopener"
+            class="p-4 rounded-xl bg-dark-card border border-dark-border hover:border-purple-500/50 transition-all group flex flex-col justify-between gap-4"
+          >
+            <div class="flex items-start justify-between">
+              <div class="w-10 h-10 rounded-lg bg-purple-600/15 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                <i data-lucide="code-2" class="w-5 h-5"></i>
+              </div>
+              <i data-lucide="arrow-up-right" class="w-4 h-4 text-dark-dim group-hover:text-purple-400 transition-colors"></i>
+            </div>
+            <div>
+              <div class="flex items-baseline justify-between mb-1">
+                <span class="font-bold text-white text-sm group-hover:text-purple-400 transition-colors">AP2 FIAE</span>
+                <span class="font-mono text-xs font-bold text-purple-400">897</span>
+              </div>
+              <p class="text-[11px] text-dark-muted leading-snug">
+                Fachinformatiker Anwendungsentwicklung. OOP, Entwurfsmuster, SQL &amp; Clean Code.
+              </p>
+            </div>
+          </a>
+
+          <!-- AP2 FISI -->
+          <a
+            href="https://ap2-fisi.cwillam.de/"
+            target="_blank"
+            rel="noopener"
+            class="p-4 rounded-xl bg-dark-card border border-dark-border hover:border-emerald-500/50 transition-all group flex flex-col justify-between gap-4"
+          >
+            <div class="flex items-start justify-between">
+              <div class="w-10 h-10 rounded-lg bg-emerald-600/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <i data-lucide="server" class="w-5 h-5"></i>
+              </div>
+              <i data-lucide="arrow-up-right" class="w-4 h-4 text-dark-dim group-hover:text-emerald-400 transition-colors"></i>
+            </div>
+            <div>
+              <div class="flex items-baseline justify-between mb-1">
+                <span class="font-bold text-white text-sm group-hover:text-emerald-400 transition-colors">AP2 FISI</span>
+                <span class="font-mono text-xs font-bold text-emerald-400">840</span>
+              </div>
+              <p class="text-[11px] text-dark-muted leading-snug">
+                Fachinformatiker Systemintegration. Routing, Switching, IT-Sicherheit &amp; Cloud.
+              </p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 02: DIDAKTISCHE SZENARIEN
+           ============================================================ -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-dark-border">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-dark-muted">
+            <span class="text-blue-400">02</span>
+            <span>Einsatz im Unterricht</span>
+          </div>
+          <span class="text-[11px] font-mono text-dark-dim">Praxiserprobt</span>
+        </div>
+
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Bewährte didaktische Szenarien für Berufsschulklassen, Umschulungsträger und betriebliche Lerngruppen:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+          <!-- Scenario 1 -->
+          <div class="p-4 rounded-xl bg-dark-card border border-dark-border space-y-2">
+            <div class="flex items-center gap-2.5 text-blue-400 font-semibold text-xs font-mono">
+              <div class="w-7 h-7 rounded-lg bg-blue-600/15 border border-blue-500/30 flex items-center justify-center shrink-0">
+                <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+              </div>
+              <span>Flipped Classroom</span>
+            </div>
+            <p class="text-xs text-dark-muted leading-relaxed">
+              Schüler lernen die Prüfungsthemen zu Hause mit den Lernkarten, im Unterricht wird vertieft und diskutiert. Funktioniert ideal, weil man ohne Anmeldung sofort auf jedem Endgerät loslegen kann.
+            </p>
+          </div>
+
+          <!-- Scenario 2 -->
+          <div class="p-4 rounded-xl bg-dark-card border border-dark-border space-y-2">
+            <div class="flex items-center gap-2.5 text-purple-400 font-semibold text-xs font-mono">
+              <div class="w-7 h-7 rounded-lg bg-purple-600/15 border border-purple-500/30 flex items-center justify-center shrink-0">
+                <i data-lucide="monitor" class="w-4 h-4"></i>
+              </div>
+              <span>Präsenzunterricht am Beamer</span>
+            </div>
+            <p class="text-xs text-dark-muted leading-relaxed">
+              Lehrkraft projiziert eine Frage über den Beamer oder das Whiteboard, die Klasse diskutiert und löst gemeinsam. Funktioniert ohne Setup auf jedem Laptop, Tablet oder Smartboard.
+            </p>
+          </div>
+
+          <!-- Scenario 3 -->
+          <div class="p-4 rounded-xl bg-dark-card border border-dark-border space-y-2">
+            <div class="flex items-center gap-2.5 text-emerald-400 font-semibold text-xs font-mono">
+              <div class="w-7 h-7 rounded-lg bg-emerald-600/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                <i data-lucide="home" class="w-4 h-4"></i>
+              </div>
+              <span>Selbststudium zu Hause</span>
+            </div>
+            <p class="text-xs text-dark-muted leading-relaxed">
+              Schüler wiederholen eigenständig im Spaced-Repetition-Modus. Die App speichert alles autark im Browser. Kein Account, keine Schülerdatenbank, keine Bestätigungsmails an Erziehungsberechtigte.
+            </p>
+          </div>
+
+          <!-- Scenario 4 -->
+          <div class="p-4 rounded-xl bg-dark-card border border-dark-border space-y-2">
+            <div class="flex items-center gap-2.5 text-amber-400 font-semibold text-xs font-mono">
+              <div class="w-7 h-7 rounded-lg bg-amber-600/15 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <i data-lucide="user-check" class="w-4 h-4"></i>
+              </div>
+              <span>Vertretungsstunden &amp; Freiarbeit</span>
+            </div>
+            <p class="text-xs text-dark-muted leading-relaxed">
+              Funktioniert sofort ohne zeitraubende Lehrer-Einweisung. Schüler können unmittelbar im Subnetz-Trainer, SQL-Labor oder bei den Lernfeldern produktiv und zielgerichtet arbeiten.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 03: DATENFLUSS & DATENSCHUTZ
+           ============================================================ -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-dark-border">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-dark-muted">
+            <span class="text-blue-400">03</span>
+            <span>Wo die Daten bleiben</span>
+          </div>
+          <span class="text-[11px] font-mono text-dark-dim">Datenschutzfreundlich</span>
+        </div>
+
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Maximale Transparenz für Lehrkräfte und Schul-Datenschutzbeauftragte. Der gesamte Datenfluss im Detail:
+        </p>
+
+        <!-- Terminal Box -->
+        <div class="p-4 sm:p-5 rounded-xl bg-dark-card border border-dark-border font-mono text-xs text-dark-muted space-y-2 overflow-x-auto">
+          <div class="flex items-center gap-2 text-dark-dim text-[11px] pb-2 border-b border-dark-border/60">
+            <div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-amber-500/60"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></div>
+            <span class="ml-2">Architektur &amp; Datenfluss</span>
+          </div>
+
+          <div class="space-y-1.5 pt-1 text-[11px] leading-relaxed">
+            <div class="flex items-baseline gap-2">
+              <span class="text-blue-400 font-bold w-24 shrink-0">[Client]</span>
+              <span class="text-dark-text font-semibold">Browser LocalStorage</span>
+              <span class="text-dark-dim">// Lernfortschritt, Checkboxen, Streak, Timer (verlässt das Endgerät nie)</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-purple-400 font-bold w-24 shrink-0">[Runtime]</span>
+              <span class="text-dark-text font-semibold">HTML5 + Vanilla JS</span>
+              <span class="text-dark-dim">// Läuft zu 100% lokal im Browser des Schülers, kein dynamischer Backend-Code</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-emerald-400 font-bold w-24 shrink-0">[Hosting]</span>
+              <span class="text-dark-text font-semibold">IONOS SE (EU-Server)</span>
+              <span class="text-dark-dim">// Reines statisches Dateihosting, Server-Logs (7 Tage gem. Art. 6 Abs. 1 lit. f DSGVO)</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-red-400 font-bold w-24 shrink-0">[Dritte]</span>
+              <span class="text-dark-dim line-through">Tracking &amp; Werbung</span>
+              <span class="text-emerald-400 font-semibold">// Keine Cookies, keine CDNs, keine Google Fonts, keine Analyse-Tools</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Keine Schülerkonten, keine Kennwörter, keine Profilbildung. Weitere juristische Details finden sich in der 
+          <a href="datenschutz.html" class="text-blue-400 hover:underline">Datenschutzerklärung</a> – oder direkt mit den Browser-DevTools im Tab „Network“ verifizierbar.
+        </p>
+      </section>
+
+      <!-- ============================================================
+           SECTION 04: GOOGLE PLAY STORE ANDROID APP
+           ============================================================ -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-dark-border">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-dark-muted">
+            <span class="text-blue-400">04</span>
+            <span>Google Play Store &amp; App-Verfügbarkeit</span>
+          </div>
+          <span class="text-[11px] font-mono text-dark-dim">AP2 FIAE Live</span>
+        </div>
+
+        <div class="p-5 sm:p-6 rounded-xl bg-dark-card border border-dark-border flex flex-col md:flex-row md:items-center justify-between gap-5">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-purple-600/15 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+              <i data-lucide="smartphone" class="w-6 h-6"></i>
+            </div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="text-base font-bold text-white">AP2 FIAE im Google Play Store</h3>
+                <span class="kbd-cap bg-emerald-950/40 border-emerald-500/40 text-emerald-400 font-mono text-[10px] px-2 py-0.5">Live</span>
+                <span class="kbd-cap bg-blue-600/20 border-blue-500/40 text-blue-400 font-mono text-[10px] px-2 py-0.5">AP1 PWA / Vorbereitung</span>
+              </div>
+              <p class="text-xs text-dark-muted leading-relaxed max-w-xl">
+                Der <strong>AP2 FIAE Tracker</strong> ist bereits offiziell im Google Play Store veröffentlicht. Der <strong>AP1 Tracker</strong> läuft als vollwertige, offline-fähige Progressive Web App (PWA) direkt im Browser auf jedem Smartphone und befindet sich aktuell in Vorbereitung für den Store-Rollout.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+            <a
+              href="https://play.google.com/store/apps/details?id=de.cwillam.ap2.tracker"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 text-xs font-semibold transition-colors"
+            >
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+              <span>AP2 im Play Store</span>
+            </a>
+            <a
+              href="mailto:info@cwillam.de?subject=Anfrage%20Schule%20%E2%80%93%20Einsatz%20im%20Unterricht&amp;body=Hallo%20Christoph%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20den%20Einsatz%20der%20Tracker%20im%20Unterricht.%0A%0AMeine%20Einrichtung%3A%20%0AKlassen%20%2F%20Fachrichtung%3A%20%0AAnzahl%20Sch%C3%BCler%3A%20%0A%0ALiebe%20Gr%C3%BC%C3%9Fe"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-dark-bg hover:bg-dark-border/40 text-dark-text border border-dark-border text-xs font-semibold transition-colors"
+            >
+              <i data-lucide="mail" class="w-4 h-4 text-blue-400"></i>
+              <span>Einsatz abstimmen</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 05: LIZENZ & KONTAKT
+           ============================================================ -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-dark-border">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-dark-muted">
+            <span class="text-blue-400">05</span>
+            <span>Lizenz &amp; Direkter Kontakt</span>
+          </div>
+          <span class="text-[11px] font-mono text-dark-dim">AGPL-3.0 Open Source</span>
+        </div>
+
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Die Tracker stehen unter der <strong>AGPL-3.0-Lizenz</strong>. Eine gesonderte „Schullizenz“ ist nicht erforderlich: Die freie Nutzung im Bildungsbereich ist ausdrücklich erwünscht und erlaubt. Wer den Code anpassen möchte (z. B. eigene Lernfelder oder schulinternes Branding): Der Quellcode ist vollständig offen.
+        </p>
+
+        <!-- Contact Box -->
+        <a
+          href="mailto:info@cwillam.de?subject=Anfrage%20Berufsschule%20%2F%20Bildungseinrichtung%20AP-Tracker&amp;body=Hallo%20Christoph%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20den%20Einsatz%20der%20AP-Tracker%20im%20Unterricht.%0A%0AMeine%20Einrichtung%3A%20%0A%0AKlassen%20%2F%20Fachrichtung%3A%20%0A%0AVorhaben%20%2F%20Frage%3A%20%0A%0ALiebe%20Gr%C3%BC%C3%9Fe"
+          class="p-5 sm:p-6 rounded-xl bg-dark-card border border-dark-border hover:border-blue-500/40 transition-all flex items-center justify-between gap-4 group"
+        >
+          <div class="flex items-center gap-4 min-w-0">
+            <div class="w-11 h-11 rounded-xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+            </div>
+            <div class="min-w-0">
+              <span class="text-sm font-bold text-white block group-hover:text-blue-400 transition-colors truncate">
+                info@cwillam.de
+              </span>
+              <span class="text-xs text-dark-muted block mt-0.5">
+                Antwort in der Regel innerhalb von 24 Stunden · Vermerk „DRINGEND“ im Betreff möglich
+              </span>
+            </div>
+          </div>
+          <i data-lucide="arrow-up-right" class="w-5 h-5 text-dark-dim group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all shrink-0"></i>
+        </a>
+      </section>
+
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="border-t border-dark-border mt-auto bg-dark-bg/60 text-xs text-dark-dim font-mono">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span>cwillam © 2026</span>
+          <span>·</span>
+          <span>Open Source · Lokal im Browser</span>
+        </div>
+        <div class="flex items-center gap-4 flex-wrap justify-center text-dark-muted">
+          <button onclick="openSupportModal()" class="hover:text-[#FFDD00] transition-colors flex items-center gap-1 font-bold">
+            <i data-lucide="coffee" class="w-3.5 h-3.5 text-[#FFDD00]"></i> Support
+          </button>
+          <a href="index.html" class="hover:text-white transition-colors">Dashboard</a>
+          <a href="subnet.html" class="hover:text-white transition-colors">Subnetz-Trainer</a>
+          <a href="sql.html" class="hover:text-white transition-colors">SQL-Labor</a>
+          <a href="pseudocode.html" class="hover:text-white transition-colors">Pseudocode</a>
+          <a href="glossar.html" class="hover:text-white transition-colors">Glossar</a>
+          <a href="help.html" class="hover:text-white transition-colors">Hilfe &amp; FAQ</a>
+          <a href="updates.html" class="hover:text-white transition-colors">Updates</a>
+          <a href="https://github.com/cwillam" target="_blank" rel="noopener" class="hover:text-white transition-colors flex items-center gap-1">
+            <i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub
+          </a>
+          <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="hover:text-[#5865F2] transition-colors flex items-center gap-1">
+            <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Discord
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Standardized Support Modal -->
+    <div
+      id="supportModal"
+      class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4"
+      onclick="if(event.target === this) closeSupportModal()"
+    >
+      <div class="w-full max-w-md bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl space-y-4 relative">
+        <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[#FFDD00]/15 border border-[#FFDD00]/30 flex items-center justify-center text-[#FFDD00]">
+              <i data-lucide="coffee" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-white leading-tight">Projekt unterstützen</h3>
+              <span class="text-[10px] font-mono text-dark-dim leading-none">Freiwillig &amp; 100% werbefrei</span>
+            </div>
+          </div>
+          <button
+            onclick="closeSupportModal()"
+            class="w-8 h-8 rounded-lg border border-dark-border hover:border-dark-border/80 bg-dark-bg hover:bg-dark-border/40 text-dark-muted hover:text-white transition-all flex items-center justify-center"
+            title="Schließen"
+            aria-label="Modal schließen"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Die Tracker sind komplett kostenlos, werbefrei und quelloffen. Wenn dir das Tool bei der Prüfungsvorbereitung hilft, freue ich mich riesig über einen Kaffee!
+        </p>
+        <div class="flex flex-col gap-3 pt-1">
+          <!-- PayPal Button -->
+          <a
+            href="https://www.paypal.com/paypalme/parablepanorama"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#0070BA]/10 border border-[#0070BA]/30 hover:border-[#0070BA]/60 hover:bg-[#0070BA]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#0070BA]/20 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
+                <i data-lucide="wallet" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">PayPal</span>
+                <span class="text-[10px] text-dark-muted font-mono">paypal.me/parablepanorama · Schnell &amp; unkompliziert</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+
+          <!-- Buy Me A Coffee Button -->
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#FFDD00]/10 border border-[#FFDD00]/30 hover:border-[#FFDD00]/60 hover:bg-[#FFDD00]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#FFDD00]/20 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
+                <i data-lucide="coffee" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">Buy Me a Coffee</span>
+                <span class="text-[10px] text-dark-muted font-mono">buymeacoffee.com/cwillam · Einmalig spenden</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+        </div>
+        <div class="pt-2 border-t border-dark-border/60 flex items-center justify-center gap-1.5 text-[11px] font-mono text-dark-dim">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Sichere Weiterleitung · Keine Datenübertragung</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
     <script>
-        if (window.lucide) {
-            lucide.createIcons();
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        if (!menu) return;
+        const drawer = menu.querySelector("div");
+        if (menu.classList.contains("hidden")) {
+          menu.classList.remove("hidden");
+          setTimeout(() => {
+            drawer.classList.remove("translate-x-full");
+          }, 10);
+        } else {
+          drawer.classList.add("translate-x-full");
+          setTimeout(() => {
+            menu.classList.add("hidden");
+          }, 300);
         }
+      }
+
+      function openSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) {
+          modal.classList.remove("hidden");
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+
+      function closeSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) {
+          modal.classList.add("hidden");
+        }
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeSupportModal();
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        if (window.lucide) lucide.createIcons();
+
+        const isTWA =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          window.navigator.standalone ||
+          document.referrer.includes("android-app://") ||
+          window.location.search.includes("mode=twa");
+
+        if (isTWA) {
+          const coffeeButtons = document.querySelectorAll('button[onclick*="openSupportModal"]');
+          coffeeButtons.forEach((btn) => {
+            btn.removeAttribute("onclick");
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              window.open("https://cwillam.de/spende.html", "_blank");
+            });
+          });
+        } else {
+          if (
+            window.location.search.includes("openSupport=true") ||
+            window.location.search.includes("openKaffeekasse=true")
+          ) {
+            openSupportModal();
+            const cleanUrl =
+              window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.replaceState({ path: cleanUrl }, "", cleanUrl);
+          }
+        }
+      });
+
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("sw.js?v=3.0.0").catch(() => {});
+        });
+      }
     </script>
-</body>
+  </body>
 </html>

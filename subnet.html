@@ -3,264 +3,533 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Subnetz-Trainer | AP1 Tracker</title>
+    <title>Subnetz- &amp; IP-Labor | AP1 Tracker</title>
     <link rel="canonical" href="https://ap1.cwillam.de/subnet.html" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    
+
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#0ea5e9" />
+    <meta name="theme-color" content="#09090b" />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.7.1" />
-    
-    <!-- Tailwind Configuration -->
-    <script src="assets/js/tailwind.js?v=2.7.1"></script>
+    <!-- Preload Local Typography -->
+    <link rel="preload" href="assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
+    <script src="assets/js/tailwind.js?v=3.0.0"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class',
+        darkMode: "class",
         theme: {
           extend: {
             fontFamily: {
               sans: [
+                "Inter",
                 "system-ui",
                 "-apple-system",
                 "BlinkMacSystemFont",
                 "Segoe UI",
                 "Roboto",
-                "Helvetica Neue",
-                "Arial",
                 "sans-serif",
               ],
               mono: [
                 "ui-monospace",
                 "SFMono-Regular",
+                "JetBrains Mono",
                 "Menlo",
                 "Monaco",
                 "Consolas",
-                "Liberation Mono",
-                "Courier New",
                 "monospace",
               ],
             },
             colors: {
               dark: {
-                bg: '#020617',
-                card: '#0f172a',
-                border: '#1e293b',
-                muted: '#94a3b8',
-                text: '#f8fafc',
-                accent: '#0ea5e9',
-                'accent-hover': '#0284c7',
-                success: '#10b981',
-                warning: '#f59e0b',
-                danger: '#ef4444',
+                bg: "#09090b", // Pure obsidian / Zinc 950
+                card: "#121215", // Dense workbench surface
+                "card-hover": "#18181d",
+                border: "#23232a", // Hairline border
+                "border-subtle": "#191920",
+                text: "#f4f4f5", // High-contrast Zinc 100
+                muted: "#a1a1aa", // Zinc 400
+                dim: "#71717a", // Zinc 500
+                accent: "#3b82f6", // Electric Cobalt
+                "accent-dim": "rgba(59, 130, 246, 0.12)",
+                success: "#10b981", // Crisp Emerald
+                warning: "#f59e0b", // Amber
+                danger: "#ef4444", // Crimson
               },
             },
           },
         },
       };
     </script>
+
+    <!-- Custom High-Craft CSS Tokens & Keycaps -->
+    <link href="assets/css/style.css?v=3.0.0" rel="stylesheet" />
   </head>
-  <body class="bg-dark-bg text-dark-text min-h-screen flex flex-col font-sans selection:bg-dark-accent selection:text-white">
-    <!-- Header -->
-    <header class="w-full border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-0 z-50">
-      <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="index.html" class="flex items-center gap-3 group hover:opacity-80 transition-opacity">
-          <div class="w-8 h-8 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center group-hover:border-dark-accent transition-colors">
-            <i data-lucide="arrow-left" class="text-dark-muted group-hover:text-dark-accent transition-colors"></i>
+
+  <body class="flex flex-col min-h-screen bg-dark-bg text-dark-text antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- ============================================================
+         TOP COMMAND BAR (Sticky Hairline Header)
+         ============================================================ -->
+    <header class="sticky top-0 z-40 w-full border-b border-dark-border bg-dark-bg/90 backdrop-blur-md">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+        <!-- Left: Back to Dashboard & Title -->
+        <a href="index.html" class="flex items-center gap-2.5 sm:gap-3 group focus:outline-none shrink-0">
+          <div class="w-8 h-8 rounded-lg border border-dark-border bg-dark-card group-hover:border-dark-strong flex items-center justify-center text-dark-muted group-hover:text-white transition-all">
+            <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-0.5"></i>
           </div>
-          <div class="flex flex-col">
-            <span class="font-bold text-lg tracking-tight leading-none">AP1 <span class="text-dark-accent">Tracker</span></span>
-            <span class="text-[10px] text-dark-muted font-mono">Zurück zum Dashboard</span>
+          <div class="flex items-center gap-2">
+            <span class="kbd-cap bg-blue-600/15 border-blue-500/40 text-blue-400 font-bold px-2 py-0.5 text-xs">AP1</span>
+            <div class="flex flex-col">
+              <span class="font-bold text-sm tracking-tight text-white group-hover:text-blue-400 transition-colors">
+                Subnetz-Labor
+              </span>
+              <span class="text-[10px] font-mono text-dark-dim leading-none hidden sm:block">IPv4 CIDR &amp; IPv6 Trainer</span>
+            </div>
           </div>
         </a>
-        <span class="text-xs font-mono bg-dark-card border border-dark-border px-2 py-1 rounded text-dark-muted">v2.7.2</span>
+
+        <!-- Right: Tools Quick Switcher & Discord -->
+        <div class="flex items-center gap-2">
+          <div class="hidden md:flex items-center gap-1.5 border-r border-dark-border pr-3 mr-1">
+            <a href="index.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Dashboard">
+              <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span>Dashboard</span>
+            </a>
+            <a href="sql.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="SQL-Labor">
+              <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>SQL</span>
+            </a>
+            <a href="pseudocode.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Pseudocode-Labor">
+              <i data-lucide="code" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Pseudocode</span>
+            </a>
+            <a href="glossar.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Fach-Glossar">
+              <i data-lucide="book-open" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Glossar</span>
+            </a>
+            <a href="help.html" class="px-2.5 py-1.5 rounded-lg text-xs font-mono text-dark-muted hover:text-white hover:bg-dark-card transition-colors flex items-center gap-1.5" title="Hilfe & FAQ">
+              <i data-lucide="help-circle" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>Hilfe</span>
+            </a>
+          </div>
+
+          <!-- Support Button -->
+          <button
+            type="button"
+            onclick="openSupportModal()"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#FFDD00]/40 bg-dark-card hover:bg-[#FFDD00]/10 text-dark-muted hover:text-[#FFDD00] transition-all text-xs flex items-center gap-1.5 shrink-0"
+            title="Support / Projekt unterstützen"
+          >
+            <i data-lucide="coffee" class="w-4 h-4 text-[#FFDD00]"></i>
+            <span class="hidden sm:inline font-mono text-[11px] font-medium">Support</span>
+          </button>
+
+          <a
+            href="https://discord.gg/5BM5YJadDs"
+            target="_blank"
+            rel="noopener"
+            class="px-2.5 py-1.5 rounded-lg border border-dark-border hover:border-[#5865F2]/50 bg-dark-card hover:bg-[#5865F2]/10 text-dark-muted hover:text-white transition-all text-xs flex items-center gap-1.5 shrink-0"
+            title="Discord: Lerngruppen & Fragen"
+          >
+            <i data-lucide="message-square" class="w-4 h-4 text-[#5865F2]"></i>
+            <span class="hidden sm:inline font-mono text-[11px]">Discord</span>
+          </a>
+        </div>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow w-full max-w-2xl mx-auto px-4 py-8 flex flex-col justify-center">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-extrabold bg-gradient-to-r from-white to-dark-accent bg-clip-text text-transparent mb-2 pb-1">
-          Subnetz- &amp; IP-Trainer
-        </h1>
-        <p class="text-dark-muted text-sm max-w-md mx-auto">
-          Trainiere IHK-Prüfungsfragen zur IP-Adressierung und Subnetzberechnung spielerisch und komplett offline.
-        </p>
+    <!-- ============================================================
+         MAIN WORKSPACE
+         ============================================================ -->
+    <main class="flex-1 max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 space-y-6">
 
-        <!-- Tabs -->
-        <div class="inline-flex justify-center mt-6 gap-2 bg-dark-card/50 p-1 rounded-full border border-dark-border mx-auto">
-          <button id="btn-ipv4" onclick="switchTab('ipv4')" class="px-5 py-1.5 rounded-full text-xs font-bold transition-all bg-dark-accent text-white shadow-lg shadow-blue-900/20">
-            IPv4 Grundlagen
+      <!-- Workbench Header & Segmented Mode Switcher -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-dark-border">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="kbd-cap text-[9px] text-blue-400 border-blue-900/40 bg-blue-950/20">INTERAKTIVES LABOR</span>
+            <span class="font-mono text-[11px] text-dark-dim uppercase tracking-wider">IHK AP1 Standard</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+            Subnetz- &amp; IP-Trainer
+          </h1>
+        </div>
+
+        <!-- Segmented Tab Switcher -->
+        <div class="p-1 rounded-xl border border-dark-border bg-dark-card inline-flex items-center gap-1 self-start sm:self-center">
+          <button
+            id="btn-ipv4"
+            onclick="switchTab('ipv4')"
+            class="px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-colors bg-blue-600/15 border border-blue-500/40 text-blue-400"
+          >
+            IPv4 Subnetting
           </button>
-          <button id="btn-ipv6" onclick="switchTab('ipv6')" class="px-5 py-1.5 rounded-full text-xs font-bold text-dark-muted hover:text-white transition-all">
+          <button
+            id="btn-ipv6"
+            onclick="switchTab('ipv6')"
+            class="px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-colors text-dark-muted hover:text-white border border-transparent"
+          >
             IPv6 Kompression
           </button>
         </div>
       </div>
 
-      <!-- IPv4 Area -->
-      <div id="tab-ipv4" class="space-y-6 fade-in">
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 relative overflow-hidden shadow-2xl">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/5 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
+      <!-- ============================================================
+           TAB 1: IPv4 SUBNETTING WORKBENCH
+           ============================================================ -->
+      <div id="tab-ipv4" class="space-y-6">
+        <div class="p-6 rounded-xl border border-dark-border bg-dark-card relative overflow-hidden space-y-6 shadow-sm">
           
-          <div class="flex justify-between items-center mb-6 border-b border-dark-border/40 pb-4">
-            <span class="text-xs font-mono text-dark-muted uppercase font-bold tracking-wider">Aufgabe</span>
-            <span id="ipv4Streak" class="text-xs font-bold text-dark-warning flex items-center gap-1">🔥 0er Streak</span>
+          <!-- Card Header & Streak -->
+          <div class="flex items-center justify-between border-b border-dark-border pb-3.5">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-[11px] font-bold text-dark-muted uppercase tracking-wider">// AUFGABE</span>
+              <span class="text-dark-dim text-xs font-mono">CIDR-Berechnung</span>
+            </div>
+            <div id="ipv4Streak" class="font-mono text-xs font-bold text-dark-muted flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-dark-border bg-dark-bg">
+              <i data-lucide="flame" class="w-3.5 h-3.5 text-dark-dim"></i> 0er Streak
+            </div>
           </div>
 
-          <!-- Task Display -->
-          <div class="text-center mb-8">
-            <span class="text-xs text-dark-muted uppercase font-mono tracking-widest block mb-2">Berechne für IP:</span>
-            <h2 id="ipv4Target" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight select-all"></h2>
+          <!-- Target IP Hero -->
+          <div class="text-center py-4 px-6 rounded-xl border border-dark-border bg-dark-bg/60">
+            <span class="text-[10px] uppercase font-mono tracking-widest text-dark-dim block mb-1.5">
+              Gegebene Host-IP &amp; Präfix:
+            </span>
+            <div id="ipv4Target" class="font-mono text-3xl sm:text-4xl font-black text-white tracking-tight select-all">
+              192.168.1.1/24
+            </div>
           </div>
 
-          <!-- Input Fields Grid -->
+          <!-- Input Fields Grid (2x2 Matrix) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Subnet Mask -->
+            <!-- 01 Subnet Mask -->
             <div class="flex flex-col gap-1.5">
-              <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Subnetzmaske (Dezimal)</label>
+              <label for="ansMask" class="text-[11px] uppercase font-mono font-semibold text-dark-muted tracking-wider flex items-center justify-between">
+                <span>Subnetzmaske (Dezimal)</span>
+                <span class="text-dark-dim text-[10px]">z.B. 255.255.255.0</span>
+              </label>
               <div class="relative">
-                <input type="text" id="ansMask" placeholder="z.B. 255.255.255.0" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
-                <span id="feedbackMask" class="absolute right-3 top-3.5 text-lg"></span>
+                <input
+                  type="text"
+                  id="ansMask"
+                  placeholder="255.255.255.0"
+                  class="w-full bg-dark-bg border border-dark-border rounded-lg px-3.5 py-2.5 text-sm text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none font-mono transition-colors"
+                />
+                <span id="feedbackMask" class="absolute right-3 top-2.5 text-sm font-bold"></span>
               </div>
             </div>
 
-            <!-- Network ID -->
+            <!-- 02 Network ID -->
             <div class="flex flex-col gap-1.5">
-              <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Netz-ID / Netzadresse</label>
+              <label for="ansNet" class="text-[11px] uppercase font-mono font-semibold text-dark-muted tracking-wider flex items-center justify-between">
+                <span>Netz-ID / Netzadresse</span>
+                <span class="text-dark-dim text-[10px]">Erste Adresse</span>
+              </label>
               <div class="relative">
-                <input type="text" id="ansNet" placeholder="z.B. 192.168.1.0" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
-                <span id="feedbackNet" class="absolute right-3 top-3.5 text-lg"></span>
+                <input
+                  type="text"
+                  id="ansNet"
+                  placeholder="192.168.1.0"
+                  class="w-full bg-dark-bg border border-dark-border rounded-lg px-3.5 py-2.5 text-sm text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none font-mono transition-colors"
+                />
+                <span id="feedbackNet" class="absolute right-3 top-2.5 text-sm font-bold"></span>
               </div>
             </div>
 
-            <!-- Broadcast -->
+            <!-- 03 Broadcast -->
             <div class="flex flex-col gap-1.5">
-              <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Broadcast-Adresse</label>
+              <label for="ansBcast" class="text-[11px] uppercase font-mono font-semibold text-dark-muted tracking-wider flex items-center justify-between">
+                <span>Broadcast-Adresse</span>
+                <span class="text-dark-dim text-[10px]">Letzte Adresse</span>
+              </label>
               <div class="relative">
-                <input type="text" id="ansBcast" placeholder="z.B. 192.168.1.255" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
-                <span id="feedbackBcast" class="absolute right-3 top-3.5 text-lg"></span>
+                <input
+                  type="text"
+                  id="ansBcast"
+                  placeholder="192.168.1.255"
+                  class="w-full bg-dark-bg border border-dark-border rounded-lg px-3.5 py-2.5 text-sm text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none font-mono transition-colors"
+                />
+                <span id="feedbackBcast" class="absolute right-3 top-2.5 text-sm font-bold"></span>
               </div>
             </div>
 
-            <!-- Total Hosts -->
+            <!-- 04 Total Usable Hosts -->
             <div class="flex flex-col gap-1.5">
-              <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Nutzbare Hosts (Anzahl)</label>
+              <label for="ansHosts" class="text-[11px] uppercase font-mono font-semibold text-dark-muted tracking-wider flex items-center justify-between">
+                <span>Nutzbare Hosts (Anzahl)</span>
+                <span class="text-dark-dim text-[10px]">2^(32-n) - 2</span>
+              </label>
               <div class="relative">
-                <input type="text" id="ansHosts" placeholder="z.B. 254" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
-                <span id="feedbackHosts" class="absolute right-3 top-3.5 text-lg"></span>
+                <input
+                  type="text"
+                  id="ansHosts"
+                  placeholder="254"
+                  class="w-full bg-dark-bg border border-dark-border rounded-lg px-3.5 py-2.5 text-sm text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none font-mono transition-colors"
+                />
+                <span id="feedbackHosts" class="absolute right-3 top-2.5 text-sm font-bold"></span>
               </div>
             </div>
           </div>
 
-          <!-- Actions -->
-          <div class="mt-8 flex flex-wrap gap-3 items-center justify-between border-t border-dark-border/40 pt-6">
-            <button id="btnSolution" onclick="showSolution()" class="px-5 py-3 border border-dark-border text-dark-muted hover:text-white rounded-xl text-sm font-bold transition-all bg-dark-bg hidden">
-              Lösungsweg anzeigen
+          <!-- Actions Row -->
+          <div class="pt-4 border-t border-dark-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <button
+              id="btnSolution"
+              onclick="showSolution()"
+              class="hidden px-4 py-2.5 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-bg text-dark-muted hover:text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+            >
+              <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
+              <span>Lösungsweg anzeigen</span>
             </button>
-            <div class="flex gap-3 ml-auto">
-              <button onclick="checkIPv4()" class="px-6 py-3 bg-dark-accent hover:bg-dark-accent-hover text-white rounded-xl text-sm font-bold transition-all shadow-md">
-                Prüfen
+
+            <div class="flex items-center gap-2.5 sm:ml-auto">
+              <button
+                onclick="checkIPv4()"
+                class="flex-1 sm:flex-none px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm"
+              >
+                <i data-lucide="check" class="w-4 h-4"></i>
+                <span>Prüfen</span>
               </button>
-              <button onclick="generateIPv4()" class="px-6 py-3 bg-dark-bg border border-dark-border text-slate-300 hover:text-white rounded-xl text-sm font-bold transition-all">
-                Nächste Aufgabe
+              <button
+                onclick="generateIPv4()"
+                class="flex-1 sm:flex-none px-4 py-2.5 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-bg text-dark-muted hover:text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+              >
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                <span>Nächste Aufgabe</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Explanation Panel -->
-        <div id="solutionPanel" class="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl hidden fade-in">
-          <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <i data-lucide="help-circle" class="text-dark-accent"></i>
-            Schritt-für-Schritt Erklärung
-          </h3>
-          <div class="text-sm text-dark-muted space-y-4 font-mono leading-relaxed" id="solutionContent"></div>
+        <!-- Step-by-Step Explanation Panel -->
+        <div id="solutionPanel" class="hidden p-5 rounded-xl border border-dark-border bg-dark-card space-y-4">
+          <div class="flex items-center gap-2 pb-3 border-b border-dark-border">
+            <i data-lucide="calculator" class="w-4 h-4 text-blue-400"></i>
+            <h3 class="font-bold text-sm text-white">Schritt-für-Schritt Rechenweg</h3>
+          </div>
+          <div id="solutionContent" class="space-y-4 text-xs text-dark-muted font-mono leading-relaxed"></div>
         </div>
       </div>
 
-      <!-- IPv6 Area -->
-      <div id="tab-ipv6" class="space-y-6 fade-in hidden">
-        <div class="bg-dark-card border border-dark-border rounded-2xl p-6 relative overflow-hidden shadow-2xl">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-dark-accent/5 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none"></div>
+      <!-- ============================================================
+           TAB 2: IPv6 COMPRESSION WORKBENCH
+           ============================================================ -->
+      <div id="tab-ipv6" class="space-y-6 hidden">
+        <div class="p-6 rounded-xl border border-dark-border bg-dark-card relative overflow-hidden space-y-6 shadow-sm">
           
-          <div class="flex justify-between items-center mb-6 border-b border-dark-border/40 pb-4">
-            <span class="text-xs font-mono text-dark-muted uppercase font-bold tracking-wider">Kompression</span>
-            <span id="ipv6Streak" class="text-xs font-bold text-dark-warning flex items-center gap-1">🔥 0er Streak</span>
+          <!-- Card Header & Streak -->
+          <div class="flex items-center justify-between border-b border-dark-border pb-3.5">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-[11px] font-bold text-dark-muted uppercase tracking-wider">// AUFGABE</span>
+              <span class="text-dark-dim text-xs font-mono">IPv6 Adresskompression (RFC 5952)</span>
+            </div>
+            <div id="ipv6Streak" class="font-mono text-xs font-bold text-dark-muted flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-dark-border bg-dark-bg">
+              <i data-lucide="flame" class="w-3.5 h-3.5 text-dark-dim"></i> 0er Streak
+            </div>
           </div>
 
-          <!-- Task Display -->
-          <div class="text-center mb-8">
-            <span class="text-xs text-dark-muted uppercase font-mono tracking-widest block mb-2">Kürze diese IPv6-Adresse maximal:</span>
-            <h2 id="ipv6Target" class="text-xl sm:text-2xl font-bold text-white tracking-tight break-all select-all font-mono"></h2>
+          <!-- Target IPv6 Hero -->
+          <div class="text-center py-4 px-6 rounded-xl border border-dark-border bg-dark-bg/60">
+            <span class="text-[10px] uppercase font-mono tracking-widest text-dark-dim block mb-1.5">
+              Kürze diese ungekürzte IPv6 maximal:
+            </span>
+            <div id="ipv6Target" class="font-mono text-lg sm:text-2xl font-black text-white tracking-tight break-all select-all">
+              2001:0db8:0000:0000:0000:ff00:0042:8329
+            </div>
           </div>
 
-          <!-- Input Fields -->
-          <div class="flex flex-col gap-2">
-            <label class="text-[10px] uppercase font-mono font-black text-dark-muted tracking-wider">Deine gekürzte IPv6</label>
+          <!-- Input Field -->
+          <div class="flex flex-col gap-1.5">
+            <label for="ansIpv6" class="text-[11px] uppercase font-mono font-semibold text-dark-muted tracking-wider flex items-center justify-between">
+              <span>Deine komprimierte IPv6-Adresse</span>
+              <span class="text-dark-dim text-[10px]">z.B. 2001:db8::ff00:42:8329</span>
+            </label>
             <div class="relative">
-              <input type="text" id="ansIpv6" placeholder="z.B. 2001:db8::1" class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono">
-              <span id="feedbackIpv6" class="absolute right-3 top-3.5 text-lg"></span>
+              <input
+                type="text"
+                id="ansIpv6"
+                placeholder="2001:db8::ff00:42:8329"
+                class="w-full bg-dark-bg border border-dark-border rounded-lg px-3.5 py-2.5 text-sm text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none font-mono transition-colors"
+              />
+              <span id="feedbackIpv6" class="absolute right-3 top-2.5 text-sm font-bold"></span>
             </div>
           </div>
 
-          <!-- Actions -->
-          <div class="mt-8 flex flex-wrap gap-3 items-center border-t border-dark-border/40 pt-6">
-            <div class="flex gap-3 ml-auto">
-              <button onclick="checkIPv6()" class="px-6 py-3 bg-dark-accent hover:bg-dark-accent-hover text-white rounded-xl text-sm font-bold transition-all shadow-md">
-                Prüfen
-              </button>
-              <button onclick="generateIPv6()" class="px-6 py-3 bg-dark-bg border border-dark-border text-slate-300 hover:text-white rounded-xl text-sm font-bold transition-all">
-                Nächste Aufgabe
-              </button>
-            </div>
+          <!-- Actions Row -->
+          <div class="pt-4 border-t border-dark-border flex items-center justify-end gap-2.5">
+            <button
+              onclick="checkIPv6()"
+              class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm"
+            >
+              <i data-lucide="check" class="w-4 h-4"></i>
+              <span>Prüfen</span>
+            </button>
+            <button
+              onclick="generateIPv6()"
+              class="px-4 py-2.5 rounded-lg border border-dark-border hover:border-dark-strong bg-dark-bg text-dark-muted hover:text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+            >
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+              <span>Nächste Aufgabe</span>
+            </button>
           </div>
         </div>
-        
-        <!-- Explanation Panel -->
-        <div id="solutionPanelIpv6" class="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl hidden fade-in">
-          <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <i data-lucide="help-circle" class="text-dark-accent"></i>
-            Kürzungsregeln
-          </h3>
-          <div class="text-xs sm:text-sm text-dark-muted space-y-3 leading-relaxed">
-            <p><strong>1. Führende Nullen entfernen:</strong> Innerhalb jedes Hexadezimalblocks dürfen führende Nullen weggelassen werden (z.B. wird <code class="text-white font-mono">0db8</code> zu <code class="text-white font-mono">db8</code> und <code class="text-white font-mono">0000</code> zu <code class="text-white font-mono">0</code>).</p>
-            <p><strong>2. Blöcke aus Nullen einsparen:</strong> Eine oder mehrere aufeinanderfolgende Gruppen, die nur aus Nullen bestehen (z.B. <code class="text-white font-mono">:0000:0000:</code>), dürfen durch ein einziges Doppel-Doppelpunkt-Zeichen <code class="text-white font-mono">::</code> ersetzt werden.</p>
-            <p class="text-dark-warning">⚠️ <strong>Achtung:</strong> Die <code class="text-white font-mono">::</code>-Kürzung darf <strong>nur ein einziges Mal</strong> in der gesamten Adresse angewendet werden, um Eindeutigkeit zu wahren!</p>
-            <div class="bg-dark-bg border border-dark-border rounded-xl p-3 mt-4 text-xs font-mono">
-              <span class="block text-[10px] text-dark-muted uppercase font-bold mb-1">Berechnete korrekte Antwort:</span>
-              <span id="ipv6SolutionText" class="text-white font-bold font-mono"></span>
+
+        <!-- IPv6 Solution & Rule Breakdown -->
+        <div id="solutionPanelIpv6" class="hidden p-5 rounded-xl border border-dark-border bg-dark-card space-y-4">
+          <div class="flex items-center gap-2 pb-3 border-b border-dark-border">
+            <i data-lucide="info" class="w-4 h-4 text-amber-400"></i>
+            <h3 class="font-bold text-sm text-white">IHK Kürzungsregeln nach RFC 5952</h3>
+          </div>
+          <div class="text-xs text-dark-muted space-y-2.5 leading-relaxed">
+            <p><strong class="text-white">1. Führende Nullen entfernen:</strong> Innerhalb jedes 16-Bit-Blocks dürfen führende Nullen weggelassen werden (z.B. wird <code class="text-blue-400 font-mono">0db8</code> zu <code class="text-white font-mono">db8</code> und <code class="text-blue-400 font-mono">0000</code> zu <code class="text-white font-mono">0</code>).</p>
+            <p><strong class="text-white">2. Null-Blöcke zusammenfassen:</strong> Eine oder mehrere aufeinanderfolgende Gruppen reiner Nullen dürfen durch einen einzigen Doppel-Doppelpunkt <code class="text-blue-400 font-mono">::</code> ersetzt werden.</p>
+            <div class="p-3 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300 font-mono text-[11px] flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0"></i>
+              <span><strong>Wichtig:</strong> Die <code class="text-white">::</code>-Kompression darf <strong>nur ein einziges Mal</strong> in der gesamten Adresse angewendet werden!</span>
+            </div>
+            <div class="p-3 rounded-lg border border-dark-border bg-dark-bg text-xs font-mono mt-3">
+              <span class="block text-[10px] text-dark-dim uppercase font-bold mb-1">Berechnete korrekte Antwort:</span>
+              <span id="ipv6SolutionText" class="text-emerald-400 font-bold font-mono"></span>
             </div>
           </div>
         </div>
       </div>
+
     </main>
 
-    <script src="assets/js/lucide.min.js?v=2.7.1"></script>
-    <script src="assets/js/subnet.js?v=2.7.1"></script>
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="border-t border-dark-border mt-auto bg-dark-bg/60 text-xs text-dark-dim font-mono">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span>cwillam © 2026</span>
+          <span>·</span>
+          <span>Open Source &amp; 100% Lokal</span>
+        </div>
+        <div class="flex items-center gap-4 flex-wrap justify-center text-dark-muted">
+          <button onclick="openSupportModal()" class="hover:text-[#FFDD00] transition-colors flex items-center gap-1 font-bold">
+            <i data-lucide="coffee" class="w-3.5 h-3.5 text-[#FFDD00]"></i> Support
+          </button>
+          <a href="index.html" class="hover:text-white transition-colors">Dashboard</a>
+          <a href="sql.html" class="hover:text-white transition-colors">SQL-Labor</a>
+          <a href="pseudocode.html" class="hover:text-white transition-colors">Pseudocode</a>
+          <a href="glossar.html" class="hover:text-white transition-colors">Glossar</a>
+          <a href="help.html" class="hover:text-white transition-colors">Hilfe &amp; FAQ</a>
+          <a href="https://discord.gg/5BM5YJadDs" target="_blank" rel="noopener" class="hover:text-[#5865F2] transition-colors flex items-center gap-1">
+            <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Discord
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Standardized Support Modal -->
+    <div
+      id="supportModal"
+      class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4"
+      onclick="if(event.target === this) closeSupportModal()"
+    >
+      <div class="w-full max-w-md bg-dark-card border border-dark-border rounded-2xl p-6 shadow-2xl space-y-4 relative">
+        <div class="flex items-center justify-between pb-3 border-b border-dark-border">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[#FFDD00]/15 border border-[#FFDD00]/30 flex items-center justify-center text-[#FFDD00]">
+              <i data-lucide="coffee" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-base text-white leading-tight">Projekt unterstützen</h3>
+              <span class="text-[10px] font-mono text-dark-dim leading-none">Freiwillig &amp; 100% werbefrei</span>
+            </div>
+          </div>
+          <button
+            onclick="closeSupportModal()"
+            class="w-8 h-8 rounded-lg border border-dark-border hover:border-dark-border/80 bg-dark-bg hover:bg-dark-border/40 text-dark-muted hover:text-white transition-all flex items-center justify-center"
+            title="Schließen"
+            aria-label="Modal schließen"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <p class="text-xs text-dark-muted leading-relaxed">
+          Die Tracker sind komplett kostenlos, werbefrei und quelloffen. Wenn dir das Tool bei der Prüfungsvorbereitung hilft, freue ich mich riesig über einen Kaffee!
+        </p>
+        <div class="flex flex-col gap-3 pt-1">
+          <!-- PayPal Button -->
+          <a
+            href="https://www.paypal.com/paypalme/parablepanorama"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#0070BA]/10 border border-[#0070BA]/30 hover:border-[#0070BA]/60 hover:bg-[#0070BA]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#0070BA]/20 flex items-center justify-center text-[#0079C1] group-hover:scale-105 transition-transform">
+                <i data-lucide="wallet" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">PayPal</span>
+                <span class="text-[10px] text-dark-muted font-mono">paypal.me/parablepanorama · Schnell &amp; unkompliziert</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+
+          <!-- Buy Me A Coffee Button -->
+          <a
+            href="https://buymeacoffee.com/cwillam"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between p-3.5 rounded-xl bg-[#FFDD00]/10 border border-[#FFDD00]/30 hover:border-[#FFDD00]/60 hover:bg-[#FFDD00]/20 transition-all group"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#FFDD00]/20 flex items-center justify-center text-[#FFDD00] group-hover:scale-105 transition-transform">
+                <i data-lucide="coffee" class="w-4 h-4"></i>
+              </div>
+              <div class="flex flex-col text-left">
+                <span class="font-bold text-white text-xs">Buy Me a Coffee</span>
+                <span class="text-[10px] text-dark-muted font-mono">buymeacoffee.com/cwillam · Einmalig spenden</span>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-dark-muted group-hover:translate-x-0.5 transition-transform"></i>
+          </a>
+        </div>
+        <div class="pt-2 border-t border-dark-border/60 flex items-center justify-center gap-1.5 text-[11px] font-mono text-dark-dim">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Sichere Weiterleitung · Keine Datenübertragung</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script src="assets/js/subnet.js?v=3.0.0"></script>
     <script>
+      function openSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) {
+          modal.classList.remove("hidden");
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+      function closeSupportModal() {
+        const modal = document.getElementById("supportModal");
+        if (modal) modal.classList.add("hidden");
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeSupportModal();
+      });
       document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) { lucide.createIcons(); }
       });
-    </script>
-
-    <!-- PWA Service Worker Registration -->
-    <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("sw.js?v=2.7.1")
-            .then((reg) =>
-              console.log("PWA Service Worker registered successfully", reg),
-            )
-            .catch((err) =>
-              console.error("PWA Service Worker registration failed", err),
-            );
+          navigator.serviceWorker.register("sw.js?v=3.0.0").catch(() => {});
         });
       }
     </script>

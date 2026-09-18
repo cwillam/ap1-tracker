@@ -722,18 +722,21 @@ const app = {
 				}
 			}
 
-			["schoolBox", "infoBox"].forEach((boxId) => {
-				const storagePrefix = "ap1_";
-				if (localStorage.getItem(storagePrefix + boxId + "_dismissed") === "true") {
-					const el = document.getElementById(boxId);
-					if (el) el.remove();
-				} else if (localStorage.getItem(storagePrefix + boxId + "_collapsed") === "true") {
-					const content = document.getElementById(boxId + "Content");
-					const chevron = document.getElementById(boxId + "Chevron");
-					if (content) content.classList.add("hidden");
-					if (chevron) chevron.classList.add("rotate-180");
-				}
-			});
+			// Bereinige evtl. altes dismissed-Flag für infoBox
+			localStorage.removeItem("ap1_infoBox_dismissed");
+
+			if (localStorage.getItem("ap1_schoolBox_dismissed") === "true") {
+				const el = document.getElementById("schoolBox");
+				if (el) el.remove();
+			}
+
+			// infoBox: Kann nur ein-/ausgeklappt werden, standardmäßig ausgeklappt
+			if (localStorage.getItem("ap1_infoBox_collapsed") === "true") {
+				const content = document.getElementById("infoBoxContent");
+				const chevron = document.getElementById("infoBoxChevron");
+				if (content) content.classList.add("hidden");
+				if (chevron) chevron.classList.add("rotate-180");
+			}
 
 			// --- UPDATE NOTIFICATION ---
 			this.checkForUpdate();
@@ -935,13 +938,18 @@ const app = {
 	},
 
 	dismissBox(boxId) {
+		if (boxId === "infoBox") return;
 		const el = document.getElementById(boxId);
 		if (el) el.remove();
 		localStorage.setItem("ap1_" + boxId + "_dismissed", "true");
 	},
 
 	hideInfoBox() {
-		this.dismissBox("infoBox");
+		// infoBox wird nur eingeklappt, nicht mehr gelöscht
+		const content = document.getElementById("infoBoxContent");
+		if (content && !content.classList.contains("hidden")) {
+			this.toggleBox("infoBox");
+		}
 	},
 
 	getState(id) {
@@ -984,7 +992,7 @@ const app = {
 			if (count > 8) colorClass = "bg-dark-accent";
 
 			const el = document.createElement("div");
-			el.className = `w-3 h-3 sm:w-4 sm:h-4 rounded-sm ${colorClass} streak-cell cursor-default`;
+			el.className = `w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-sm ${colorClass} streak-cell cursor-default`;
 			el.title = `${dateStr}: ${count} Aktionen`;
 			container.appendChild(el);
 		}
@@ -1517,6 +1525,23 @@ const app = {
 		}, 100);
 	},
 
+	startSmartFocus() {
+		if (this.recId && window.ANKI_QUESTIONS && window.ANKI_QUESTIONS[this.recId]) {
+			this.anki.open(this.recId);
+		} else if (this.recId) {
+			this.scrollToRec();
+		} else {
+			this.randomTopic();
+		}
+	},
+
+	startRandomTopic() {
+		this.randomTopic();
+		if (this.recId && window.ANKI_QUESTIONS && window.ANKI_QUESTIONS[this.recId]) {
+			this.anki.open(this.recId);
+		}
+	},
+
 	resetCategory(catId) {
 		if (!confirm("Wirklich den Fortschritt dieser Kategorie zurücksetzen?"))
 			return;
@@ -1584,7 +1609,7 @@ const app = {
 
                   <h2 class="text-lg font-bold text-white mt-4">3. Lokale Speicherung (LocalStorage)</h2>
                   <p>Diese Anwendung speichert Ihren Lernfortschritt (Status der Checkboxen, Timer-Einstellungen) ausschließlich lokal in Ihrem Browser ("LocalStorage").</p>
-                  <p><strong>Rechtsgrundlage:</strong> Die Speicherung ist für die Funktion der Website (Lern-Tracker) <strong>unbedingt erforderlich</strong> (gemäß § 25 Abs. 2 Nr. 2 TTDSG). Ohne diese Speicherung kann der Dienst "Fortschrittskontrolle" nicht erbracht werden. Es findet <strong>kein Tracking</strong>, keine Analyse und keine Weitergabe an Dritte statt. Die Daten verlassen Ihr Endgerät nicht.</p>
+                  <p><strong>Rechtsgrundlage:</strong> Die Speicherung ist für die Funktion der Website (Lern-Tracker) <strong>unbedingt erforderlich</strong> (gemäß § 25 Abs. 2 Nr. 2 TDDDG). Ohne diese Speicherung kann der Dienst "Fortschrittskontrolle" nicht erbracht werden. Es findet <strong>kein Tracking</strong>, keine Analyse und keine Weitergabe an Dritte statt. Die Daten verlassen Ihr Endgerät nicht.</p>
 
                   <h2 class="text-lg font-bold text-white mt-4">4. Externe Dienste</h2>
                   <p>Diese Website arbeitet <strong>autark</strong>. Es werden keine externen CDNs (Content Delivery Networks), keine Google Fonts und keine externen Analysetools (wie Google Analytics) eingesetzt. Alle Skripte und Ressourcen werden vom eigenen Server geladen.</p>
@@ -1691,7 +1716,7 @@ const app = {
         <!-- NEU IN DIESER VERSION -->
         <div class="bg-dark-bg/50 rounded-xl p-4 sm:p-5 mb-5 border border-dark-border shrink-0 overflow-hidden">
           <p class="text-[10px] sm:text-xs text-dark-muted mb-3 font-bold uppercase flex items-center gap-2">
-            <i data-lucide="sparkles" class="text-dark-accent"></i>
+            <i data-lucide="git-commit" class="text-dark-accent"></i>
             Neu in dieser Version:
           </p>
           <ul class="space-y-2 text-xs sm:text-sm text-gray-300">
@@ -1717,7 +1742,7 @@ const app = {
         <!-- WERBUNG FÜR ANDERE TRACKER -->
         <div class="bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 rounded-xl p-3 sm:p-4 mb-5 shrink-0">
           <p class="text-[10px] sm:text-xs text-indigo-300 mb-2.5 sm:mb-3 font-bold uppercase flex items-center gap-1.5 sm:gap-2">
-            <i data-lucide="star" class="text-[10px] sm:text-xs"></i>
+            <i data-lucide="layers" class="text-[10px] sm:text-xs"></i>
             Mehr Tracker
           </p>
           <div class="space-y-2">

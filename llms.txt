@@ -8,20 +8,23 @@
 - **Lernkarten-System (Anki 2.0):** Über 1.200 praxisnahe Karteikarten mit Spaced-Repetition-Algorithmus, 4-stufiger Bewertung und Tastatur-Shortcuts.
 - **SQL-Labor (`/sql.html`):** Integrierte, offline-fähige SQL-Übungsumgebung mit Mock-Datenbank, Echtzeit-Parser und Streak-System.
 - **Subnetz-Trainer (`/subnet.html`):** Interaktives Training für IPv4-Subnetting, Netzmasken, Host-Berechnungen und IPv6-Kompression.
+- **Pseudocode-Labor (`/pseudocode.html`):** Interaktiver Algorithmen-Visualizer (Lineare Suche, Minimum-Suche, Bubble Sort) und prüfungsnahe Schreibtischtests (Trace-Tabellen).
 - **Glossar & Eselsbrücken (`/glossar.html`):** Spickzettel-Verzeichnis für 100 Kernbegriffe mit Merkhilfen, Kategorie- und Buchstabensuche sowie Merkliste.
 - **Fokus-Timer:** Pomodoro-Timer für strukturierte Lernintervalle.
-- **Datenschutz & Offline-First:** 100 % clientseitige Datenspeicherung (`localStorage`), PWA-Support und Android-App im Google Play Store.
+- **Datenschutz & Offline-First:** 100 % clientseitige Datenspeicherung (`localStorage`), PWA-Support (Play Store App für AP2 FIAE live, AP1 in Vorbereitung).
 
 ## Relevante Seiten
 
 - [Startseite & Checkliste](https://ap1.cwillam.de/)
 - [SQL-Labor](https://ap1.cwillam.de/sql.html)
 - [Subnetz- & IP-Trainer](https://ap1.cwillam.de/subnet.html)
+- [Pseudocode-Labor](https://ap1.cwillam.de/pseudocode.html)
 - [Glossar & Eselsbrücken](https://ap1.cwillam.de/glossar.html)
 - [Updates & Roadmap](https://ap1.cwillam.de/updates.html)
 - [Hilfe & FAQ](https://ap1.cwillam.de/help.html)
 - [Für Schulen & Bildungseinrichtungen](https://ap1.cwillam.de/bildungseinrichtungen.html)
 - [Datenschutzerklärung](https://ap1.cwillam.de/datenschutz.html)
+- [Impressum](https://ap1.cwillam.de/impressum.html)
 
 ## Community & Open Source
 

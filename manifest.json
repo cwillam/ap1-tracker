@@ -5,8 +5,8 @@
   "description": "AP-Tracker für die Fachinformatiker AP1",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#020617",
-  "theme_color": "#3b82f6",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
   "orientation": "portrait",
   "categories": [
     "education",
