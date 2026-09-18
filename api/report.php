@@ -53,6 +53,17 @@ if (!empty($data['hp_check'])) {
     exit;
 }
 
+// Session-basierte Rate-Begrenzung: verhindert Missbrauch des unauthentifizierten
+// Endpunkts durch automatisierte/wiederholte Anfragen (z. B. Mail-Relay-Spam).
+session_start();
+$rate_limit_seconds = 30;
+if (!empty($_SESSION['ap_report_last']) && (time() - (int)$_SESSION['ap_report_last']) < $rate_limit_seconds) {
+    http_response_code(429);
+    echo json_encode(['success' => false, 'error' => 'Zu viele Anfragen. Bitte warte kurz und versuche es erneut.']);
+    exit;
+}
+$_SESSION['ap_report_last'] = time();
+
 // Pflichtfeld Feedback prüfen
 $feedback = trim((string)($data['feedback'] ?? ''));
 if (empty($feedback)) {
