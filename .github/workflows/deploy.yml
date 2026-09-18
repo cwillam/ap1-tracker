@@ -1,0 +1,25 @@
+name: Deploy to IONOS via SFTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: SFTP Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sync files via SFTP
+        uses: wangyucode/sftp-upload-action@v3
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 22
+          localDir: '.'
+          remoteDir: '/ap1-tracker'
+          exclude: '.git/**, .github/**, .gitignore, README.md, LICENSE, node_modules/**'
