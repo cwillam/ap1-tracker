@@ -37,6 +37,24 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Rate Limiting (IP-basiert, APCu-Zähler - schützt vor automatisiertem Massenversand)
+if (function_exists('apcu_fetch')) {
+    $rl_ip = filter_var($_SERVER['REMOTE_ADDR'] ?? '', FILTER_VALIDATE_IP) ?: 'unknown';
+    $rl_key = 'aptracker_rl_' . hash('sha256', $rl_ip);
+    $rl_limit = 5;      // max. Anfragen
+    $rl_window = 3600;  // Sekunden
+    $rl_count = apcu_fetch($rl_key);
+    if ($rl_count === false) {
+        apcu_store($rl_key, 1, $rl_window);
+    } elseif ($rl_count >= $rl_limit) {
+        http_response_code(429);
+        echo json_encode(['success' => false, 'error' => 'Zu viele Anfragen. Bitte versuche es später erneut.']);
+        exit;
+    } else {
+        apcu_inc($rl_key);
+    }
+}
+
 // JSON-Body auslesen
 $raw_input = file_get_contents('php://input');
 $data = json_decode($raw_input, true);
