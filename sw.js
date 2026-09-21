@@ -1,4 +1,4 @@
-const CACHE_NAME = "ap1-tracker-v3.0.0";
+const CACHE_NAME = "ap1-tracker-v3.0.1";
 const ASSETS = [
 	"index.html",
 	"subnet.html",
@@ -19,7 +19,7 @@ const ASSETS = [
 	"assets/js/lucide.min.js?v=3.0.0",
 	"assets/js/confetti.js?v=3.0.0",
 	"assets/js/data.js?v=3.0.0",
-	"assets/js/questions.js?v=3.0.0",
+	"assets/js/questions.js?v=3.0.1",
 	"assets/js/app.js?v=3.0.0",
 	"assets/js/subnet.js?v=3.0.0",
 	"assets/js/sql.js?v=3.0.0",
