@@ -239,7 +239,7 @@ window.ANKI_QUESTIONS = {
     { id: '1.4_2_10', q: 'Wie geht man mit Widerständlern um?', a: 'Gespräche, Bedenken ernst nehmen, einbinden, bei Bedarf Konsequenzen.' },
 
     // --- SubTask 3: Ursachen für Widerstände (10 Karten) ---
-    { id: '1.4_3_1', q: 'Was sind typische Ursachen für Widerstände?', a: 'Angst, Wissenslücken, schlechte Erfahrungen, mangelndes Vertrauen.' },
+    { id: '1.4_3_1', q: 'Was sind typische Ursachen für Widerstände im Change Management?', a: 'Ängste (Überforderung, Job-/Statusverlust), mangelnde Kommunikation, unklarer Sinn/Mehrwert des Wandels, fehlendes Vertrauen sowie schlechte Vorerfahrungen.' },
     { id: '1.4_3_2', q: 'Was ist Angst vor Kompetenzverlust?', a: 'Mitarbeiter fürchten Machtverlust oder Statusverlust.' },
     { id: '1.4_3_3', q: 'Was ist Angst vor Überforderung?', a: 'Mitarbeiter fürchten neuen Anforderungen nicht gewachsen zu sein.' },
     { id: '1.4_3_4', q: 'Was ist Angst vor Arbeitsverlust?', a: 'Mitarbeiter fürchten Entlassung oder Versetzung.' },
@@ -247,12 +247,12 @@ window.ANKI_QUESTIONS = {
     { id: '1.4_3_6', q: 'Was ist mangelndes Vertrauen?', a: 'Mitarbeiter vertrauen Führung oder Change-Prozess nicht.' },
     { id: '1.4_3_7', q: 'Was ist Gewohnheit als Widerstand?', a: 'Mitarbeiter wollen bewährte Prozesse nicht ändern.' },
     { id: '1.4_3_8', q: 'Was ist schlechte Kommunikation als Ursache?', a: 'Mitarbeiter fühlen sich nicht informiert oder übergangen.' },
-    { id: '1.4_3_9', q: 'Was ist persönliche Historie als Ursache?', a: 'Schlechte Erfahrungen mit früheren Change-Projekten.' },
+    { id: '1.4_3_9', q: 'Inwiefern ist die "persönliche Historie" eine Ursache für Widerstand im Change?', a: 'Mitarbeiter haben in der Vergangenheit schlechte Erfahrungen mit gescheiterten oder schlecht geführten Projekten gemacht ("Das klappt doch eh wieder nicht").' },
     { id: '1.4_3_10', q: 'Wie baut man Widerstände ab?', a: 'Information, Beteiligung, Qualifizierung, Anreize, transparente Kommunikation.' },
 
     // --- SubTask 4: Maßnahmen gegen Widerstände (10 Karten) ---
     { id: '1.4_4_1', q: 'Was ist Partizipation im Change?', a: 'Beteiligung der Mitarbeiter an Planung und Umsetzung.' },
-    { id: '1.4_4_2', q: 'Warum hilft Partizipation gegen Widerstand?', a: 'Mitarbeiter fühlen sich ernst genommen, identifizieren sich mit Lösung.' },
+    { id: '1.4_4_2', q: 'Warum hilft Partizipation (Mitarbeiterbeteiligung) wirksam gegen Widerstände im Change?', a: 'Mitarbeiter identifizieren sich stärker mit der Lösung ("Betroffene zu Beteiligten machen"), fühlen sich ernst genommen und können praxisnahe Probleme frühzeitig ansprechen, die das Management übersehen hätte.' },
     { id: '1.4_4_3', q: 'Was ist Kommunikation im Change?', a: 'Regelmäßige, transparente Information über Ziele, Fortschritt, Probleme.' },
     { id: '1.4_4_4', q: 'Was ist Qualifizierung im Change?', a: 'Schulung der Mitarbeiter für neue Anforderungen.' },
     { id: '1.4_4_5', q: 'Warum hilft Qualifizierung gegen Widerstand?', a: 'Mitarbeiter fühlen sich kompetent, Ängste werden abgebaut.' },
