@@ -286,7 +286,7 @@ window.ANKI_QUESTIONS = {
     { id: '2.1_1_3', q: 'Wie berechnet man den Nutzwert?', a: 'Nutzwert = Σ (Einzelbewertung × Gewichtung). Die Alternative mit dem höchsten Nutzwert gewinnt.' },
     { id: '2.1_1_4', q: 'Was sind die Schritte einer Nutzwertanalyse?', a: '1. Kriterien festlegen, 2. Gewichten, 3. Bewerten, 4. Nutzwert berechnen, 5. Entscheiden.' },
     { id: '2.1_1_5', q: 'Was ist die Gewichtung bei der Nutzwertanalyse?', a: 'Prozentuale Bedeutung jedes Kriteriums (muss zusammen 100% ergeben).' },
-    { id: '2.1_1_6', q: 'Wie bewertet man bei der Nutzwertanalyse?', a: 'Skala von 1-5 oder 1-10 für jedes Kriterium je Alternative.' },
+    { id: '2.1_1_6', q: 'Wie erfolgt die Bewertung der Kriterien bei der Nutzwertanalyse?', a: 'Über eine einheitliche, numerische Punkteskala (z.B. 1–10 Punkte), damit die Bewertungen anschließend mit den prozentualen Gewichtungen multipliziert und summiert werden können.' },
     { id: '2.1_1_7', q: 'Was ist der Unterschied zwischen einer Nutzwertanalyse (NWA) und einer Kosten-Nutzen-Analyse (KNA)?', a: 'Kosten-Nutzen-Analyse (KNA): Bewertet ausschließlich monetäre (in Geld messbare) Größen (z.B. Anschaffungskosten vs. Umsatzerlös). Nutzwertanalyse (NWA): Berücksichtigt auch qualitative, nicht-monetäre Kriterien (z.B. Usability, Servicequalität, Zukunftsfähigkeit).' },
     { id: '2.1_1_8', q: 'Nenne ein typisches Beispiel für Kriterien einer Nutzwertanalyse in der IT.', a: 'Softwareauswahl: Funktionalität (z.B. 40%), Preis/Lizenzkosten (30%), Support/Wartung (20%), Usability/Benutzerfreundlichkeit (10%). Die Gesamtgewichtung ergibt stets 100%.' },
     { id: '2.1_1_9', q: 'Was ist ein Zielkonflikt bei der Nutzwertanalyse?', a: 'Wenn Kriterien sich widersprechen (z.B. hohe Qualität vs. niedriger Preis).' },
@@ -350,7 +350,7 @@ window.ANKI_QUESTIONS = {
     { id: '2.2_1_5', q: 'Was ist ein Treuerabatt?', a: 'Preisnachlass für langjährige Kunden.' },
     { id: '2.2_1_6', q: 'Was ist ein Saisonrabatt?', a: 'Preisnachlass außerhalb der Hauptsaison.' },
     { id: '2.2_1_7', q: 'Was ist ein Funktionsrabatt?', a: 'Preisnachlass für übernommene Funktionen (z.B. Selbstabholung).' },
-    { id: '2.2_1_8', q: 'Lohnt sich Skonto immer?', a: 'Ja, wenn liquide Mittel vorhanden (2% in 10 Tagen = 73% p.a.!).' },
+    { id: '2.2_1_8', q: 'Warum lohnt sich die Inanspruchnahme von Skonto in der Praxis fast immer?', a: 'Weil der effektive Jahreszins extrem hoch ist (z.B. 2% Skonto bei Zahlung innerhalb von 10 statt 30 Tagen entspricht ca. 36% bis über 70% p.a.). Selbst eine kurzfristige Kreditaufnahme (Kontokorrent) ist meist günstiger als der Verzicht auf Skonto.' },
     { id: '2.2_1_9', q: 'Was ist ein Zahlungsziel?', a: 'Frist bis zur Zahlung (z.B. 30 Tage netto).' },
     { id: '2.2_1_10', q: 'Was bedeutet "netto" bei Zahlungszielen?', a: 'Zahlung ohne Abzug (kein Skonto).' },
 
@@ -374,9 +374,9 @@ window.ANKI_QUESTIONS = {
     { id: '2.2_3_5', q: 'Was ist die Break-Even-Analyse?', a: 'Berechnung wann Erlöse = Kosten (Gewinnschwelle).' },
     { id: '2.2_3_6', q: 'Was ist ein Kostenvergleich über die Nutzungsdauer?', a: 'Alle Kosten über gesamte Lebensdauer betrachten (TCO).' },
     { id: '2.2_3_7', q: 'Was ist Leasing?', a: 'Mietähnliche Finanzierung. Regelmäßige Zahlungen, kein Eigentum, oft mit Wartung.' },
-    { id: '2.2_3_8', q: 'Was sind Vorteile von Leasing?', a: 'Schonung der Liquidität, steuerliche Absetzbarkeit, kein Restwertrisiko.' },
+    { id: '2.2_3_8', q: 'Was sind typische Vorteile von Leasing (z.B. bei IT-Hardware)?', a: 'Schonung der Anfangsliquidität (kein hoher Sofortkauf nötig), Raten sind steuerlich sofort als Betriebsausgabe absetzbar (Opex statt Capex), planbare Fixkosten und kein Restwert- bzw. Veraltungsrisiko (stets aktuelle Hardware).' },
     { id: '2.2_3_9', q: 'Was sind Nachteile von Leasing?', a: 'Teurer als Kauf, kein Eigentum, Vertragsbindung.' },
-    { id: '2.2_3_10', q: 'Wann lohnt sich Leasing?', a: 'Bei Liquiditätsengpässen, steuerlichen Vorteilen, regelmäßigem Wechsel.' },
+    { id: '2.2_3_10', q: 'In welchen Situationen ist Leasing gegenüber dem Kauf wirtschaftlich sinnvoll?', a: 'Wenn hohe Einmalinvestitionen vermieden werden sollen (Schonung des Eigenkapitals), Hardware regelmäßig erneuert werden muss (z.B. Laptops alle 3 Jahre) oder die Raten voll steuermindernd geltend gemacht werden sollen.' },
 
     // --- SubTask 4: Finanzierungskosten (10 Karten) ---
     { id: '2.2_4_1', q: 'Was sind Finanzierungskosten?', a: 'Kosten für die Beschaffung von Fremdkapital (Zinsen, Gebühren).' },
