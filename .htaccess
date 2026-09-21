@@ -1,3 +1,7 @@
+# Standard-Zeichensatz auf UTF-8 erzwingen (Umlaute ä, ö, ü überall korrekt ausliefern)
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .js .css .html .json .xml
+
 # Cache-Control: HTML-Dateien niemals cachen (immer vom Server validieren)
 <FilesMatch "\.(html|htm|xml|json)$">
     <IfModule mod_headers.c>

@@ -162,17 +162,17 @@ window.ANKI_QUESTIONS = {
     { id: '1.3_1_7', q: 'Was ist der Unterschied zwischen Werk- und Dienstvertrag?', a: 'Werkvertrag: Erfolg. Dienstvertrag: Tätigkeit.' },
     { id: '1.3_1_8', q: 'Nenne ein Beispiel für einen Werkvertrag.', a: 'Softwareentwicklung, Hausbau, Autoreparatur.' },
     { id: '1.3_1_9', q: 'Nenne ein Beispiel für einen Dienstvertrag.', a: 'IT-Beratung, Anwalt, Steuerberater, Unterricht.' },
-    { id: '1.3_1_10', q: 'Was ist ein Service Level Agreement (SLA)?', a: 'Vertragliche Vereinbarung über Art, Umfang und Qualität von Dienstleistungen.' },
+    { id: '1.3_1_10', q: 'Was ist ein Service Level Agreement (SLA)?', a: 'Eine vertragliche Vereinbarung zwischen Auftraggeber und IT-Dienstleister über Art, Umfang, Qualität und Rahmenbedingungen wiederkehrender Dienstleistungen (z.B. Cloud-Hosting, Support).' },
 
     // --- SubTask 2: SLA Inhalte (10 Karten) ---
-    { id: '1.3_2_1', q: 'Was enthält ein SLA?', a: 'Leistungsbeschreibung, Reaktionszeiten, Verfügbarkeit, Sanktionen, Preise.' },
-    { id: '1.3_2_2', q: 'Was ist eine Reaktionszeit im SLA?', a: 'Zeit bis der Dienstleister auf eine Störung reagiert.' },
-    { id: '1.3_2_3', q: 'Was ist eine Lösungszeit im SLA?', a: 'Zeit bis eine Störung behoben wird.' },
-    { id: '1.3_2_4', q: 'Was ist Verfügbarkeit im SLA?', a: 'Prozentualer Anteil der Zeit in der der Service verfügbar sein muss (z.B. 99,9%).' },
+    { id: '1.3_2_1', q: 'Welche typischen Inhalte hat ein Service Level Agreement (SLA)?', a: 'Genaue Leistungsbeschreibung, Verfügbarkeitsgarantien (z.B. 99,5%), Reaktions- und Wiederherstellungszeiten, Monitoring/Reporting sowie Sanktionen bei Nichterfüllung.' },
+    { id: '1.3_2_2', q: 'Was versteht man unter der Reaktionszeit in einem SLA (Service Level Agreement)?', a: 'Die vertraglich garantierte Zeitspanne ab Störungsmeldung bis zur ersten aktiven Bearbeitung durch den Support (noch nicht die endgültige Lösung!).' },
+    { id: '1.3_2_3', q: 'Was ist eine Lösungs- bzw. Wiederherstellungszeit im SLA?', a: 'Die vertraglich zugesicherte Zeitspanne, innerhalb derer eine gemeldete Störung behoben oder der Dienst wieder betriebsbereit sein muss.' },
+    { id: '1.3_2_4', q: 'Was beschreibt die Verfügbarkeit (Availability) in einem SLA?', a: 'Der prozentuale Anteil der vereinbarten Betriebszeit, in dem ein IT-Service funktionsfähig sein muss (z.B. 99,9% = max. ca. 8,7 Stunden Ausfallzeit pro Jahr).' },
     { id: '1.3_2_5', q: 'Was sind Sanktionen bei SLA-Verletzung?', a: 'Vertragsstrafen, Preisnachlässe, Sonderkündigungsrecht.' },
     { id: '1.3_2_6', q: 'Was ist eine Penalty-Klausel?', a: 'Vertragliche Strafe bei Nichteinhaltung von SLA-Vereinbarungen.' },
-    { id: '1.3_2_7', q: 'Was ist ein Escalation-Procedure im SLA?', a: 'Festgelegte Eskalationsstufen bei Problemen (1st, 2nd, 3rd Level).' },
-    { id: '1.3_2_8', q: 'Was ist Reporting im SLA?', a: 'Regelmäßige Berichte über SLA-Einhaltung (Verfügbarkeit, Reaktionszeiten).' },
+    { id: '1.3_2_7', q: 'Was versteht man unter einer Eskalationsprozedur (Escalation Procedure) im SLA?', a: 'Ein klar definierter Stufenplan, wer bei nicht eingehaltener Reaktionszeit oder kritischen Störungen benachrichtigt wird (z.B. Weiterleitung von 1st Level an 2nd/3rd Level Support oder ans Management).' },
+    { id: '1.3_2_8', q: 'Welchen Zweck hat das Reporting in einem SLA?', a: 'Regelmäßige Berichte und Nachweise über die tatsächliche Servicequalität (z.B. gemessene Verfügbarkeit, eingehaltene Reaktionszeiten) zur Kontrolle der Vertragsabsprachen.' },
     { id: '1.3_2_9', q: 'Was ist ein Service Credit?', a: 'Gutschrift bei SLA-Verletzung (z.B. 10% Rabatt bei <99% Verfügbarkeit).' },
     { id: '1.3_2_10', q: 'Warum sind SLAs wichtig?', a: 'Klare Erwartungen, messbare Qualität, Rechtssicherheit, Vertrauensbildung.' },
 
@@ -201,9 +201,9 @@ window.ANKI_QUESTIONS = {
     { id: '1.3_4_10', q: 'Was ist ein Fixgeschäft?', a: 'Leistung muss genau zum vereinbarten Termin erfolgen (z.B. Hochzeitsfotos).' },
 
     // --- SubTask 5: Vertragsbestandteile (10 Karten) ---
-    { id: '1.3_5_1', q: 'Was sind essentielle Vertragsbestandteile?', a: 'Elemente ohne die kein Vertrag zustande kommt (z.B. Ware, Preis).' },
-    { id: '1.3_5_2', q: 'Was sind natürliche Vertragsbestandteile?', a: 'Regelungen die automatisch gelten wenn nicht anders vereinbart.' },
-    { id: '1.3_5_3', q: 'Was sind zufällige Vertragsbestandteile?', a: 'Individuelle Vereinbarungen die explizit ausgehandelt werden.' },
+    { id: '1.3_5_1', q: 'Was sind wesentliche Vertragsbestandteile (Essentialia negotii)?', a: 'Die gesetzlichen Mindestinhalte, ohne die kein Vertrag zustande kommt: Vertragsparteien, Vertragsgegenstand (Leistung) und Gegenleistung (Preis).' },
+    { id: '1.3_5_2', q: 'Was sind natürliche Vertragsbestandteile (Naturalia negotii)?', a: 'Gesetzliche Regelungen (z.B. aus dem BGB zu Gewährleistung, Fälligkeit oder Erfüllungsort), die automatisch gelten, falls die Vertragsparteien nichts Abweichendes vereinbart haben.' },
+    { id: '1.3_5_3', q: 'Was sind zufällige Vertragsbestandteile (Accidentalia negotii)?', a: 'Individuelle Sondervereinbarungen der Vertragspartner, die ausdrücklich ausgehandelt werden müssen (z.B. Ratenzahlung, Eigentumsvorbehalt, Vertragsstrafen, Skonto).' },
     { id: '1.3_5_4', q: 'Was ist eine Leistungsbeschreibung?', a: 'Detaillierte Beschreibung was geliefert/erbracht wird.' },
     { id: '1.3_5_5', q: 'Was ist eine Preisvereinbarung?', a: 'Festlegung des Preises und der Zahlungsbedingungen.' },
     { id: '1.3_5_6', q: 'Was sind Lieferbedingungen?', a: 'Regelungen zu Lieferzeit, -ort, Versandkosten.' },
