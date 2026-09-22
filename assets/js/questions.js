@@ -497,7 +497,7 @@ window.ANKI_QUESTIONS = {
     // --- SubTask 3: Schnittstellen (10 Karten) ---
     { id: '3.1_3_1', q: 'Was ist USB-C?', a: 'Reversibler Stecker. Bis zu 40 Gbit/s (USB4), Power Delivery bis 100W.' },
     { id: '3.1_3_2', q: 'Was ist Thunderbolt?', a: 'Intel-Entwicklung. Bis zu 40 Gbit/s, Daisy-Chaining, DisplayPort, PCIe.' },
-    { id: '3.1_3_3', q: 'Was ist der Unterschied zwischen USB-C und Thunderbolt?', a: 'USB-C: Bis 40 Gbit/s. Thunderbolt 3/4: Bis 40 Gbit/s + mehr Features.' },
+    { id: '3.1_3_3', q: 'Was ist der Unterschied zwischen USB-C und Thunderbolt (TB3/TB4)?', a: 'USB-C ist die Bauform des Steckers. Thunderbolt 3/4 nutzt denselben USB-C-Stecker, garantiert aber mind. 40 Gbit/s Datenrate, PCIe-Tunneling (z.B. für eGPUs/NVMe), Daisy-Chaining mehrerer Geräte und Ansteuerung von mind. zwei 4K-Displays.' },
     { id: '3.1_3_4', q: 'Was ist HDMI?', a: 'High Definition Multimedia Interface. Video + Audio digital.' },
     { id: '3.1_3_5', q: 'Was ist DisplayPort?', a: 'Video-Schnittstelle für Monitore. Höhere Bandbreite als HDMI.' },
     { id: '3.1_3_6', q: 'Was ist Ethernet?', a: 'Kabelgebundenes Netzwerk. 100 Mbit/s (Fast Ethernet), 1 Gbit/s (Gigabit), 10 Gbit/s.' },
@@ -521,7 +521,7 @@ window.ANKI_QUESTIONS = {
     // --- SubTask 5: Hardware-Berechnungen (10 Karten) ---
     { id: '3.1_5_1', q: 'Wie berechnet man den Stromverbrauch?', a: 'Leistung (Watt) × Zeit (Stunden) = Verbrauch (Wh).' },
     { id: '3.1_5_2', q: 'Wie berechnet man Stromkosten?', a: 'Verbrauch (kWh) × Strompreis (€/kWh) = Kosten.' },
-    { id: '3.1_5_3', q: 'Was ist der Power Factor?', a: 'Verhältnis von Wirkleistung zu Scheinleistung (meist 0,6-0,9).' },
+    { id: '3.1_5_3', q: 'Was ist der Power Factor (Leistungsfaktor cos φ)?', a: 'Verhältnis von Wirkleistung (in Watt, tatsächlich verbrauchte Nutzleistung) zu Scheinleistung (in VA, gesamte vom Netz bezogene Leistung). Typischer Wert bei IT-Netzteilen: 0,6 bis 0,9. Formel: Wirkleistung (W) = Scheinleistung (VA) × Power Factor.' },
     { id: '3.1_5_4', q: 'Wie berechnet man USV-Kapazität?', a: 'Geräteleistung (W) × Laufzeit (h) / Power Factor = VA.' },
     { id: '3.1_5_5', q: 'Was beschreibt der PUE-Wert (Power Usage Effectiveness) im Rechenzentrum?', a: 'Kennzahl für Energieeffizienz: Verhältnis des gesamten Rechenzentrums-Energiebedarfs (inkl. Kühlung, USV, Licht) zum reinen Stromverbrauch der IT-Geräte (Server, Storage, Netzwerk). Formel: PUE = Gesamtenergie / IT-Energie (Idealwert: 1,0).' },
     { id: '3.1_5_6', q: 'Wie berechnet man Speicherbedarf?', a: 'Anzahl Nutzer × Daten pro Nutzer × Jahre = Gesamtspeicher.' },
@@ -720,14 +720,14 @@ window.ANKI_QUESTIONS = {
   '3.5': [
     // --- SubTask 1: Übertragungsdauer (10 Karten) ---
     { id: '3.5_1_1', q: 'Wie berechnet man die Übertragungsdauer?', a: 'Zeit = Datenmenge / Geschwindigkeit. Beispiel: 1 GB / 100 Mbit/s = 80 Sekunden.' },
-    { id: '3.5_1_2', q: 'Wie rechnet man GB in Mbit um?', a: 'GB × 8 × 1024 = Mbit. Beispiel: 1 GB = 8192 Mbit.' },
+    { id: '3.5_1_2', q: 'Wie rechnet man GB bzw. GiB in Mbit um?', a: 'Dezimal (SI, Basis 1000): 1 GB = 1.000 MB × 8 = 8.000 Mbit. Binär (IEC, Basis 1024 / GiB): 1 GiB = 1.024 MiB × 8 = 8.192 Mibit. In IHK-Prüfungen stets prüfen, ob laut Aufgabenstellung mit 1000 oder 1024 gerechnet werden soll!' },
     { id: '3.5_1_3', q: 'Wie rechnet man Mbit/s in MB/s um?', a: 'Mbit/s / 8 = MB/s. Beispiel: 100 Mbit/s = 12,5 MB/s.' },
     { id: '3.5_1_4', q: 'Warum ist 100 Mbit/s nicht 12,5 MB/s in der Praxis?', a: 'Overhead (Protokoll-Header), Netzwerklast, Server-Limits.' },
     { id: '3.5_1_5', q: 'Was ist Overhead?', a: 'Zusätzliche Daten für Protokolle (Header, Prüfsummen). Ca. 10-20%.' },
     { id: '3.5_1_6', q: 'Wie berechnet man benötigte Bandbreite?', a: 'Datenmenge / Zeit = Bandbreite. Beispiel: 10 GB in 1 Stunde = 22 Mbit/s.' },
     { id: '3.5_1_7', q: 'Was ist die praktische Übertragungsrate?', a: 'Theoretische Rate × 0,7-0,9 (wegen Overhead).' },
-    { id: '3.5_1_8', q: 'Wie lange dauert 1 GB bei 1 Gbit/s?', a: '8192 Mbit / 1000 Mbit/s = 8,2 Sekunden (theoretisch).' },
-    { id: '3.5_1_9', q: 'Wie lange dauert 10 GB bei 100 Mbit/s?', a: '81920 Mbit / 100 Mbit/s = 819 Sekunden = 13,6 Minuten.' },
+    { id: '3.5_1_8', q: 'Wie lange dauert die Übertragung von 1 GB bei 1 Gbit/s?', a: 'Dezimal (1 GB = 8.000 Mbit): 8.000 Mbit / 1.000 Mbit/s = 8,0 Sekunden. Binär (1 GiB = 8.192 Mbit): 8.192 Mbit / 1.000 Mbit/s = ca. 8,2 Sekunden (jeweils theoretisch ohne Overhead).' },
+    { id: '3.5_1_9', q: 'Wie lange dauert die Übertragung von 10 GB bei 100 Mbit/s?', a: 'Weg 1 (dezimal / SI): 100 Mbit/s / 8 = 12,5 MB/s -> 10.000 MB / 12,5 MB/s = 800 s (13 min 20 s). Weg 2 (binär mit 1024): 10 × 1.024 × 8 = 81.920 Mbit -> 81.920 / 100 = 819,2 s (ca. 13 min 39 s). Beide Wege werden in der IHK je nach Vorgabe gewertet.' },
     { id: '3.5_1_10', q: 'Was beeinflusst die Übertragungsgeschwindigkeit?', a: 'Bandbreite, Latenz, Overhead, Server-Limit, Netzwerklast.' },
 
     // --- SubTask 2: Speicherbedarf (10 Karten) ---
@@ -759,17 +759,17 @@ window.ANKI_QUESTIONS = {
     { id: '3.5_4_2', q: 'Was ist ein Kibibyte?', a: '1024 Bytes. Binäre Einheit (IEC-Standard).' },
     { id: '3.5_4_3', q: 'Was ist ein Kilobyte?', a: '1000 Bytes. Dezimale Einheit (SI-Standard).' },
     { id: '3.5_4_4', q: 'Warum gibt es zwei Systeme?', a: 'Computer arbeiten binär (1024), Menschen dezimal (1000).' },
-    { id: '3.5_4_5', q: 'Was zeigt Windows?', a: 'Binäre Einheiten (KiB, MiB, GiB) aber beschriftet als KB, MB, GB.' },
-    { id: '3.5_4_6', q: 'Was zeigt ein Festplattenhersteller?', a: 'Dezimale Einheiten (KB, MB, GB).' },
-    { id: '3.5_4_7', q: 'Warum ist eine 1TB Festplatte kleiner?', a: '1TB = 1.000.000.000.000 Bytes. Windows zeigt 931 GiB.' },
+    { id: '3.5_4_5', q: 'Welche Einheiten verwendet das Windows-Dateisystem bei Speichergrößen?', a: 'Windows rechnet binär (Basis 1024, also KiB, MiB, GiB), beschriftet die Anzeige im Explorer aber historisch bedingt fälschlicherweise mit den dezimalen SI-Kürzeln (KB, MB, GB).' },
+    { id: '3.5_4_6', q: 'Welche Einheiten verwenden Festplatten- und SSD-Hersteller bei Kapazitätsangaben?', a: 'Hersteller rechnen nach SI-Standard dezimal (Basis 1000): 1 TB = 1.000 GB = 1.000.000 MB = 10^12 Bytes (1.000.000.000.000 Byte).' },
+    { id: '3.5_4_7', q: 'Warum wird eine 1-TB-Festplatte unter Windows nur mit ca. 931 GB angezeigt?', a: 'Weil der Hersteller dezimal rechnet (1 TB = 10^12 Byte), Windows aber binär durch 1024^3 (bzw. 1024^4) teilt: 1.000.000.000.000 / 1.073.741.824 = ca. 931,3 GiB. Die Festplatte ist nicht kleiner, Windows verwendet lediglich die binäre GiB-Basis, beschriftet sie aber als GB.' },
     { id: '3.5_4_8', q: 'Was ist ein Mebibyte?', a: '1024 × 1024 = 1.048.576 Bytes.' },
-    { id: '3.5_4_9', q: 'Was ist ein Gigibyte?', a: '1024 × 1024 × 1024 = 1.073.741.824 Bytes.' },
+    { id: '3.5_4_9', q: 'Was ist ein Gibibyte (GiB)?', a: '1024 × 1024 × 1024 = 1.073.741.824 Bytes (2^30 Byte). Binäre IEC-Einheit.' },
     { id: '3.5_4_10', q: 'Was ist ein Terabyte?', a: '1000^4 = 1.000.000.000.000 Bytes (dezimal).' },
 
     // --- SubTask 5: Netzwerk-Berechnungen (10 Karten) ---
     { id: '3.5_5_1', q: 'Wie berechnet man Subnetzgröße?', a: '2^(32-Präfix) - 2. Beispiel: /24 = 2^8 - 2 = 254 Hosts.' },
     { id: '3.5_5_2', q: 'Wie berechnet man Subnetzmaske aus Präfix?', a: 'Präfix Bits auf 1, Rest 0. /24 = 255.255.255.0.' },
-    { id: '3.5_5_3', q: 'Wie berechnet man Netzwerkadresse?', a: 'IP AND Subnetzmaske. Beispiel: 192.168.1.100 & 255.255.255.0 = 192.168.1.0.' },
+    { id: '3.5_5_3', q: 'Wie berechnet man die Netzwerkadresse aus IP-Adresse und Subnetzmaske?', a: 'Durch eine bitweise logische UND-Verknüpfung (AND) der binären IP-Adresse mit der Subnetzmaske (1 UND 1 = 1, sonst 0). Beispiel: 192.168.1.100 & 255.255.255.0 = 192.168.1.0.' },
     { id: '3.5_5_4', q: 'Wie berechnet man Broadcast-Adresse?', a: 'Netzwerkadresse + (Hosts - 1). Beispiel: 192.168.1.0 + 254 = 192.168.1.255.' },
     { id: '3.5_5_5', q: 'Wie viele /24-Netze passen in ein /16-Netz?', a: '2^(24-16) = 2^8 = 256 Netze.' },
     { id: '3.5_5_6', q: 'Was ist Supernetting?', a: 'Zusammenfassen mehrerer kleiner Netze zu einem großen.' },
