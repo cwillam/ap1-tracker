@@ -596,7 +596,7 @@ window.ANKI_QUESTIONS = {
   '3.3': [
     // --- SubTask 1: WLAN Standards (10 Karten) ---
     { id: '3.3_1_1', q: 'Was ist der Unterschied zwischen Wi-Fi 5 und Wi-Fi 6?', a: 'Wi-Fi 5 (802.11ac): Bis 3,5 Gbit/s, nur 5 GHz. Wi-Fi 6 (802.11ax): Bis 9,6 Gbit/s, 2,4 + 5 GHz.' },
-    { id: '3.3_1_2', q: 'Welche Frequenzen nutzt WLAN?', a: '2,4 GHz (Reichweite, Störungen) und 5 GHz (Geschwindigkeit, weniger Störungen).' },
+    { id: '3.3_1_2', q: 'Welche Frequenzen nutzt WLAN?', a: '2,4 GHz (größere Reichweite, störanfälliger) und 5 GHz (höhere Frequenz ⇒ höhere Informationsdichte/Schnelligkeit und kürzere Wellenlänge ⇒ geringere Reichweite bei gleicher Energie).' },
     { id: '3.3_1_3', q: 'Was ist Wi-Fi 7?', a: '802.11be. Bis 30 Gbit/s, 6 GHz Band, MLO (Multi-Link Operation).' },
     { id: '3.3_1_4', q: 'Was ist der Vorteil von 5 GHz?', a: 'Mehr Kanäle, weniger Störungen, höhere Geschwindigkeit.' },
     { id: '3.3_1_5', q: 'Was ist der Nachteil von 5 GHz?', a: 'Geringere Reichweite, schlechtere Durchdringung.' },
@@ -608,7 +608,7 @@ window.ANKI_QUESTIONS = {
 
     // --- SubTask 2: WLAN Sicherheit (10 Karten) ---
     { id: '3.3_2_1', q: 'Was ist der Unterschied zwischen WPA2 und WPA3?', a: 'WPA2: AES-Verschlüsselung. WPA3: SAE (stärkerer Schlüsselaustausch), Forward Secrecy.' },
-    { id: '3.3_2_2', q: 'Was ist WEP?', a: 'Wired Equivalent Privacy. Veraltet, unsicher, nicht mehr verwenden.' },
+    { id: '3.3_2_2', q: 'Was ist WEP?', a: 'Wired Equivalent Privacy. Ersetzt durch WPA/WPA2/WPA3. Veraltet, unsicher, nicht mehr verwenden.' },
     { id: '3.3_2_3', q: 'Was ist WPA?', a: 'Wi-Fi Protected Access. Veraltet, durch WPA2 ersetzt.' },
     { id: '3.3_2_4', q: 'Was ist WPA2-Personal?', a: 'Wi-Fi Protected Access 2 mit Pre-Shared Key (WPA2-PSK). Alle Geräte nutzen dasselbe WLAN-Passwort (Standard für Heimnetze und Kleinstbüros).' },
     { id: '3.3_2_5', q: 'Was ist WPA2-Enterprise?', a: 'WPA2 mit RADIUS-Server. Für Unternehmen, individuelle Benutzer.' },
@@ -643,7 +643,7 @@ window.ANKI_QUESTIONS = {
     { id: '3.3_4_10', q: 'Warum verwendet man VPN?', a: 'Sicherheit im öffentlichen WLAN, Zugriff aufs Firmennetzwerk, Umgehung von Zensur.' },
 
     // --- SubTask 5: WLAN-Berechnungen (10 Karten) ---
-    { id: '3.3_5_1', q: 'Wie berechnet man WLAN-Reichweite?', a: 'Freiraumdämpfung: 20×log(d) + 20×log(f) + 32,44 (d in km, f in MHz).' },
+    { id: '3.3_5_1', q: 'Wie berechnet man WLAN-Reichweite?', a: 'Freiraumdämpfung in dB (Näherungsformel): 20·log(d) + 20·log(f) + 32,44 (d in km, f in MHz). Reale Reichweite weicht durch Wände/Hindernisse und Störungen ab.' },
     { id: '3.3_5_2', q: 'Was ist EIRP?', a: 'Effective Isotropic Radiated Power. Sendeleistung × Antennengewinn.' },
     { id: '3.3_5_3', q: 'Was ist dBm?', a: 'Dezibel Milliwatt. Logarithmische Leistungseinheit. 0 dBm = 1 mW.' },
     { id: '3.3_5_4', q: 'Was ist SNR?', a: 'Signal-to-Noise Ratio. Verhältnis Signal zu Rauschen. Höher = besser.' },
@@ -671,10 +671,10 @@ window.ANKI_QUESTIONS = {
     // --- SubTask 2: Speicherlösungen (10 Karten) ---
     { id: '3.4_2_1', q: 'Was ist NAS?', a: 'Network Attached Storage. Dateiserver im Netzwerk. Bietet zentrale Speicherung.' },
     { id: '3.4_2_2', q: 'Was ist SAN?', a: 'Storage Area Network. Hochgeschwindigkeits-Netzwerk für Storage (Block-Level).' },
-    { id: '3.4_2_3', q: 'Was ist der Unterschied zwischen NAS und SAN?', a: 'NAS: File-Level (NFS, SMB). SAN: Block-Level (iSCSI, Fibre Channel).' },
+    { id: '3.4_2_3', q: 'Was ist der Unterschied zwischen NAS und SAN?', a: 'NAS (Network Attached Storage): File-Level (NFS, SMB). SAN (Storage Area Network): Block-Level (iSCSI, Fibre Channel).' },
     { id: '3.4_2_4', q: 'Was ist DAS?', a: 'Direct Attached Storage. Direkt am Server angeschlossene Festplatten.' },
     { id: '3.4_2_5', q: 'Was ist RAID?', a: 'Redundant Array of Independent Disks. Kombination mehrerer Festplatten.' },
-    { id: '3.4_2_6', q: 'Was ist RAID 0?', a: 'Striping. Höhere Geschwindigkeit, keine Redundanz. Ausfall = alle Daten weg.' },
+    { id: '3.4_2_6', q: 'Was ist RAID 0?', a: 'Striping. Höhere Geschwindigkeit v. a. bei HDDs (kein mechanisches Bottleneck mehr); bei SSDs kaum messbarer Vorteil. Keine Redundanz – Ausfall einer Platte = alle Daten weg.' },
     { id: '3.4_2_7', q: 'Was ist RAID 1?', a: 'Mirroring. Volle Redundanz, 50% Kapazität. Ausfall einer Platte tolerierbar.' },
     { id: '3.4_2_8', q: 'Was ist RAID 5?', a: 'Striping mit verteilter Parität. Mind. 3 Platten. Ausfall einer Platte tolerierbar.' },
     { id: '3.4_2_9', q: 'Was ist RAID 10?', a: 'RAID 1+0. Spiegelung + Striping. Mind. 4 Platten. Schnell und sicher.' },
@@ -752,7 +752,7 @@ window.ANKI_QUESTIONS = {
     { id: '3.5_3_7', q: 'Was ist ein Byte?', a: '8 Bit. Kleinste adressierbare Einheit.' },
     { id: '3.5_3_8', q: 'Was ist ein Nibble?', a: '4 Bit. Hälfte eines Bytes.' },
     { id: '3.5_3_9', q: 'Was ist die maximale Zahl mit 8 Bit?', a: '255 (2^8 - 1).' },
-    { id: '3.5_3_10', q: 'Was ist die maximale Zahl mit 16 Bit?', a: '65535 (2^16 - 1).' },
+    { id: '3.5_3_10', q: 'Was ist die größtmögliche Zahl mit 16 Bit?', a: '65535 (2^16 - 1).' },
 
     // --- SubTask 4: Einheiten (10 Karten) ---
     { id: '3.5_4_1', q: 'Was ist der Unterschied zwischen KB und KiB?', a: 'KB = Kilobyte (1000 Bytes, dezimal). KiB = Kibibyte (1024 Bytes, binär).' },

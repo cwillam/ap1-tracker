@@ -1,4 +1,4 @@
-const CACHE_NAME = "ap1-tracker-v3.0.8";
+const CACHE_NAME = "ap1-tracker-v3.0.9";
 const ASSETS = [
 	"index.html",
 	"subnet.html",
