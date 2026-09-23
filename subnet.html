@@ -390,11 +390,13 @@
           </div>
           <div class="text-xs text-dark-muted space-y-2.5 leading-relaxed">
             <p><strong class="text-white">1. Führende Nullen entfernen:</strong> Innerhalb jedes 16-Bit-Blocks dürfen führende Nullen weggelassen werden (z.B. wird <code class="text-blue-400 font-mono">0db8</code> zu <code class="text-white font-mono">db8</code> und <code class="text-blue-400 font-mono">0000</code> zu <code class="text-white font-mono">0</code>).</p>
-            <p><strong class="text-white">2. Null-Blöcke zusammenfassen:</strong> Eine oder mehrere aufeinanderfolgende Gruppen reiner Nullen dürfen durch einen einzigen Doppel-Doppelpunkt <code class="text-blue-400 font-mono">::</code> ersetzt werden.</p>
+            <p><strong class="text-white">2. Null-Blöcke zusammenfassen (mind. 2 Blöcke):</strong> Mindestens zwei aufeinanderfolgende Gruppen reiner Nullen (z.B. <code class="text-blue-400 font-mono">:0000:0000:</code>) müssen durch einen einzigen Doppel-Doppelpunkt <code class="text-blue-400 font-mono">::</code> ersetzt werden.</p>
+            <p class="text-dark-dim"><strong class="text-amber-400">Achtung (RFC 5952 § 4.2.2):</strong> Ein einzelner 16-Bit-Nullblock darf <strong>nicht</strong> durch <code class="text-white font-mono">::</code> ersetzt werden (er bleibt als <code class="text-white font-mono">:0:</code> stehen, da <code class="text-white font-mono">::</code> hier keine Zeichenersparnis bringt)!</p>
             <div class="p-3 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-300 font-mono text-[11px] flex items-center gap-2">
               <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0"></i>
-              <span><strong>Wichtig:</strong> Die <code class="text-white">::</code>-Kompression darf <strong>nur ein einziges Mal</strong> in der gesamten Adresse angewendet werden!</span>
+              <span><strong>Wichtig:</strong> Die <code class="text-white">::</code>-Kompression darf <strong>nur ein einziges Mal</strong> angewendet werden. Bei Gleichstand wird die erste Sequenz gekürzt (RFC 5952 § 4.2.3).</span>
             </div>
+            <div id="ipv6Hint" class="hidden p-3 rounded-lg border border-blue-500/30 bg-blue-500/10 text-blue-300 font-mono text-[11px]"></div>
             <div class="p-3 rounded-lg border border-dark-border bg-dark-bg text-xs font-mono mt-3">
               <span class="block text-[10px] text-dark-dim uppercase font-bold mb-1">Berechnete korrekte Antwort:</span>
               <span id="ipv6SolutionText" class="text-emerald-400 font-bold font-mono"></span>
@@ -508,7 +510,7 @@
 
     <!-- Scripts -->
     <script src="assets/js/lucide.min.js?v=3.0.0"></script>
-    <script src="assets/js/subnet.js?v=3.0.0"></script>
+    <script src="assets/js/subnet.js?v=3.0.12"></script>
     <script>
       function openSupportModal() {
         const modal = document.getElementById("supportModal");

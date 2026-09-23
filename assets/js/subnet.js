@@ -102,24 +102,65 @@ function generateIPv6() {
 	const solutionPanelIpv6 = document.getElementById("solutionPanelIpv6");
 	const ansIpv6 = document.getElementById("ansIpv6");
 	const feedbackIpv6 = document.getElementById("feedbackIpv6");
+	const ipv6Hint = document.getElementById("ipv6Hint");
 
 	if (solutionPanelIpv6) solutionPanelIpv6.classList.add("hidden");
+	if (ipv6Hint) {
+		ipv6Hint.classList.add("hidden");
+		ipv6Hint.innerText = "";
+	}
 	if (ansIpv6) {
 		ansIpv6.value = "";
 		ansIpv6.className = "w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-sm text-white focus:border-dark-accent outline-none font-mono";
 	}
 	if (feedbackIpv6) feedbackIpv6.innerText = "";
 
-	const hextetts = [];
-	for (let i = 0; i < 8; i++) {
-		// Generate blocks of zeros or standard hex values randomly
-		const rand = Math.random();
-		if (rand < 0.25) {
-			hextetts.push("0000");
-		} else if (rand < 0.45) {
-			hextetts.push("000" + Math.floor(Math.random() * 9));
+	const hextetts = new Array(8).fill(null);
+	const mode = Math.random();
+
+	if (mode < 0.50) {
+		// Scenario 1: One contiguous sequence of 2-4 zeros
+		const len = 2 + Math.floor(Math.random() * 3); // 2, 3, or 4
+		const start = Math.floor(Math.random() * (9 - len));
+		for (let i = 0; i < len; i++) {
+			hextetts[start + i] = "0000";
+		}
+	} else if (mode < 0.72) {
+		// Scenario 2: Two zero sequences (e.g. 2 and 2, or 2 and 3) to practice tie-breaking / longest sequence
+		hextetts[1] = "0000";
+		hextetts[2] = "0000";
+		hextetts[5] = "0000";
+		hextetts[6] = "0000";
+		if (Math.random() < 0.5) hextetts[7] = "0000"; // 2nd sequence is longer (3 vs 2)
+	} else if (mode < 0.88) {
+		// Scenario 3: Only isolated single zero blocks (trains RFC 5952 § 4.2.2 rule!)
+		const pos1 = Math.floor(Math.random() * 3);
+		const pos2 = 4 + Math.floor(Math.random() * 3);
+		hextetts[pos1] = "0000";
+		hextetts[pos2] = "0000";
+	} else {
+		// Scenario 4: Boundary patterns (loopback ::1 or network prefix ::)
+		if (Math.random() < 0.5) {
+			for (let i = 0; i < 7; i++) hextetts[i] = "0000";
+			hextetts[7] = "0001";
 		} else {
-			hextetts.push(Math.floor(Math.random() * 65536).toString(16).padStart(4, '0'));
+			hextetts[0] = "2001";
+			hextetts[1] = "0db8";
+			for (let i = 4; i < 8; i++) hextetts[i] = "0000";
+		}
+	}
+
+	// Fill remaining empty hextets
+	for (let i = 0; i < 8; i++) {
+		if (hextetts[i] === null) {
+			const r = Math.random();
+			if (r < 0.35) {
+				// Small values with leading zeros (e.g. 0005, 004a)
+				const val = Math.floor(1 + Math.random() * 255).toString(16);
+				hextetts[i] = val.padStart(4, "0");
+			} else {
+				hextetts[i] = Math.floor(Math.random() * 65536).toString(16).padStart(4, "0");
+			}
 		}
 	}
 
@@ -262,6 +303,7 @@ function checkIPv6() {
 	const ipv6StreakEl = document.getElementById("ipv6Streak");
 	const solutionPanelIpv6 = document.getElementById("solutionPanelIpv6");
 	const ipv6SolutionText = document.getElementById("ipv6SolutionText");
+	const ipv6Hint = document.getElementById("ipv6Hint");
 
 	const ans = ansEl ? ansEl.value.trim().toLowerCase() : "";
 	const expected = currentIpv6.compressed.toLowerCase();
@@ -273,6 +315,7 @@ function checkIPv6() {
 			feedbackEl.innerText = "✓";
 			feedbackEl.className = "absolute right-3 top-2.5 text-emerald-400 font-bold";
 		}
+		if (ipv6Hint) ipv6Hint.classList.add("hidden");
 		ipv6Streak++;
 		if (ipv6StreakEl) ipv6StreakEl.innerHTML = `<i data-lucide="flame" class="w-3.5 h-3.5 text-amber-500"></i> ${ipv6Streak}er Streak`;
 	} else {
@@ -285,6 +328,26 @@ function checkIPv6() {
 		if (ipv6StreakEl) ipv6StreakEl.innerHTML = `<i data-lucide="flame" class="w-3.5 h-3.5 text-dark-dim"></i> 0er Streak`;
 		if (solutionPanelIpv6) solutionPanelIpv6.classList.remove("hidden");
 		if (ipv6SolutionText) ipv6SolutionText.innerText = currentIpv6.compressed;
+
+		// Pedagogical hint based on specific mistake
+		if (ipv6Hint) {
+			let hintText = "";
+			if (ans.includes("::") && !expected.includes("::")) {
+				hintText = "💡 IHK-Tipp (RFC 5952 § 4.2.2): Ein einzelner 0-Block darf NICHT durch :: ersetzt werden, sondern bleibt als :0: stehen (keine Zeichenersparnis). :: erfordert mindestens 2 aufeinanderfolgende 0-Blöcke.";
+			} else if (ans.split("::").length > 2) {
+				hintText = "💡 RFC 5952 Regel: '::' darf in der gesamten IPv6-Adresse nur genau ein einziges Mal vorkommen!";
+			} else if (!ans.includes("::") && expected.includes("::")) {
+				hintText = "💡 RFC 5952 Regel: Aufeinanderfolgende 0-Blöcke (mind. 2) müssen zwingend mit :: zusammengefasst werden.";
+			} else if (ans.includes("::") && expected.includes("::") && ans !== expected) {
+				hintText = "💡 RFC 5952 § 4.2.3: Es muss immer die längste Null-Sequenz gekürzt werden (bei Gleichstand die am weitesten links stehende).";
+			}
+			if (hintText) {
+				ipv6Hint.innerText = hintText;
+				ipv6Hint.classList.remove("hidden");
+			} else {
+				ipv6Hint.classList.add("hidden");
+			}
+		}
 	}
 	if (window.lucide) lucide.createIcons();
 }

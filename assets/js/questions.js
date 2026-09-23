@@ -1332,7 +1332,7 @@ window.ANKI_QUESTIONS = {
 
     // --- SubTask 3: Kommunikation im Support (10 Karten) ---
     { id: '6.1_3_1', q: 'Was ist aktives Zuhören?', a: 'Aufmerksames Zuhören mit Rückmeldung. Paraphrasieren, Nachfragen, Zusammenfassen.' },
-    { id: '6.1_3_2', q: 'Was sind gute Fragetechniken im Support?', a: 'Offene Fragen (Was? Wie?), geschlossene Fragen (Ja/Nein), zirkuläre Fragen.' },
+    { id: '6.1_3_2', q: 'Welche Fragearten werden im IT-Support gezielt als Fragetechniken eingesetzt?', a: 'Offene Fragen (zur Informationsgewinnung am Gesprächsbeginn: Wer? Was? Wie?), geschlossene Fragen (zur schnellen Faktenklärung: Ja/Nein) und zirkuläre/vertiefende Fragen (zur Ursacheneingrenzung).' },
     { id: '6.1_3_3', q: 'Was ist eine offene Frage?', a: 'Frage die ausführliche Antwort erfordert (Wer? Was? Wann? Wo? Warum?).' },
     { id: '6.1_3_4', q: 'Was ist eine geschlossene Frage?', a: 'Frage die mit Ja/Nein beantwortet wird.' },
     { id: '6.1_3_5', q: 'Was ist eine zirkuläre Frage?', a: 'Frage nach Auswirkungen auf Dritte (z.B. "Wie wirkt sich das auf Ihre Kollegen aus?").' },
