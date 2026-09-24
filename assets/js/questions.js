@@ -541,8 +541,8 @@ window.ANKI_QUESTIONS = {
     { id: '3.2_1_6', q: 'Was ist die Aufgabe der Session Layer (5)?', a: 'Aufbau, Verwaltung, Abbau von Sitzungen.' },
     { id: '3.2_1_7', q: 'Was ist die Aufgabe der Presentation Layer (6)?', a: 'Datenformatierung, Verschlüsselung, Kompression.' },
     { id: '3.2_1_8', q: 'Was ist die Aufgabe der Application Layer (7)?', a: 'Anwendungsprotokolle (HTTP, FTP, SMTP).' },
-    { id: '3.2_1_9', q: 'Auf welcher Layer arbeitet ein Switch?', a: 'Layer 2 (Data Link). Arbeitet mit MAC-Adressen.' },
-    { id: '3.2_1_10', q: 'Auf welcher Layer arbeitet ein Router?', a: 'Layer 3 (Network). Arbeitet mit IP-Adressen.' },
+    { id: '3.2_1_9', q: 'Auf welcher OSI-Schicht (Layer) arbeitet ein Switch?', a: 'Layer 2 (Data Link). Arbeitet mit MAC-Adressen.' },
+    { id: '3.2_1_10', q: 'Auf welcher OSI-Schicht (Layer) arbeitet ein Router?', a: 'Layer 3 (Network). Arbeitet mit IP-Adressen.' },
 
     // --- SubTask 2: IPv4 & Subnetting (10 Karten) ---
     { id: '3.2_2_1', q: 'Was ist eine IPv4-Adresse?', a: '32-Bit-Adresse im Format xxx.xxx.xxx.xxx (4 Bytes). Ca. 4,3 Milliarden Adressen möglich.' },
