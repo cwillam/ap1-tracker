@@ -964,6 +964,28 @@
             <!-- Stats Container -->
             <div id="ankiTopicStats" class="hidden"></div>
 
+            <!-- Session Settings (Stapelgröße & Active Recall Loop) -->
+            <div class="p-3.5 bg-dark-bg/60 border border-dark-border/60 rounded-xl space-y-2.5 text-left max-w-lg mx-auto w-full">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-dark-muted flex items-center gap-1.5">
+                  <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-400"></i> Karten pro Runde:
+                </span>
+                <div id="ankiBatchSelector" class="inline-flex rounded-lg p-0.5 bg-dark-bg border border-dark-border text-xs font-mono"></div>
+              </div>
+              <label class="flex items-center gap-2.5 cursor-pointer select-none pt-2 border-t border-dark-border/40">
+                <input
+                  type="checkbox"
+                  id="ankiLoopCheckbox"
+                  onchange="app.anki.toggleLoop(this.checked)"
+                  checked
+                  class="rounded border-dark-border bg-dark-bg text-blue-600 focus:ring-0 focus:ring-offset-0 w-4 h-4 accent-blue-600 cursor-pointer shrink-0"
+                />
+                <span class="text-[11px] text-dark-muted hover:text-zinc-200 transition-colors leading-snug">
+                  <strong class="text-white">Active Recall Loop:</strong> Ungewusste Karten am Rundenende wiederholen, bis alle sitzen
+                </span>
+              </label>
+            </div>
+
             <!-- 4 Tactile Mode Options -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left pt-2">
               <button
@@ -1081,8 +1103,8 @@
               <i data-lucide="check" class="w-6 h-6"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white tracking-tight">Sitzung abgeschlossen!</h3>
-              <p class="text-xs text-dark-muted mt-1">Alle Lernkarten dieser Runde wurden bearbeitet.</p>
+              <h3 id="ankiFinishTitle" class="text-xl font-bold text-white tracking-tight">Sitzung abgeschlossen!</h3>
+              <p id="ankiFinishSubtitle" class="text-xs text-dark-muted mt-1">Alle Lernkarten dieser Runde wurden bearbeitet.</p>
             </div>
             <div class="pt-2 flex items-center justify-center gap-3">
               <button
@@ -1360,7 +1382,7 @@
         if (e.key === "Escape") closeSupportModal();
       });
     </script>
-    <script src="assets/js/app.js?v=3.0.0"></script>
+    <script src="assets/js/app.js?v=3.1.0"></script>
 
     <!-- PWA Service Worker -->
     <script>

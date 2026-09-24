@@ -63,21 +63,71 @@ const app = {
 	// Anki/Lernkarten System (wie AP2-Tracker)
 	anki: {
 		currentTopicId: null,
+		allTopicCards: [],
 		cards: [],
 		currentIndex: 0,
 		mode: "manual", // 'manual' oder 'spaced'
+		totalTarget: 0,
+		masteredCards: new Set(),
+		repetitionCount: 0,
+		batchSize: "all",
+		loopEnabled: true,
+
+		setBatchSize(size) {
+			this.batchSize = size;
+			if (!app.state.ankiSession) app.state.ankiSession = {};
+			app.state.ankiSession.batchSize = size;
+			app.save();
+			this.renderBatchSelector();
+		},
+
+		toggleLoop(enabled) {
+			this.loopEnabled = !!enabled;
+			if (!app.state.ankiSession) app.state.ankiSession = {};
+			app.state.ankiSession.loopEnabled = this.loopEnabled;
+			app.save();
+		},
+
+		renderBatchSelector() {
+			const container = document.getElementById("ankiBatchSelector");
+			if (!container) return;
+
+			if (app.state.ankiSession?.batchSize !== undefined) {
+				this.batchSize = app.state.ankiSession.batchSize;
+			}
+			if (app.state.ankiSession?.loopEnabled !== undefined) {
+				this.loopEnabled = app.state.ankiSession.loopEnabled;
+			}
+			const chk = document.getElementById("ankiLoopCheckbox");
+			if (chk) chk.checked = this.loopEnabled;
+
+			const total = (this.allTopicCards && this.allTopicCards.length) || (this.cards && this.cards.length) || 0;
+			const sizes = [10, 20, 30];
+			let current = this.batchSize;
+			if (typeof current === "number" && current >= total) {
+				current = "all";
+			}
+
+			const activeClass = "px-2.5 py-1 rounded-md transition-all text-xs font-mono font-bold bg-blue-600 text-white shadow-sm";
+			const inactiveClass = "px-2.5 py-1 rounded-md transition-all text-xs font-mono text-dark-muted hover:text-white";
+
+			let html = sizes
+				.filter((s) => s < total)
+				.map((s) => `<button type="button" onclick="app.anki.setBatchSize(${s})" class="${current === s ? activeClass : inactiveClass}">${s}</button>`)
+				.join("");
+
+			html += `<button type="button" onclick="app.anki.setBatchSize('all')" class="${current === 'all' ? activeClass : inactiveClass}">Alle (${total})</button>`;
+			container.innerHTML = html;
+		},
 
 		open(topicId) {
 			// Debug-Log für Fehlersuche (Browser-Kompatibilität)
 			console.log("[AP1] 🎴 Opening Anki for topic:", topicId);
-			console.log(
-				"[AP1] 📚 Cards available:",
-				window.ANKI_QUESTIONS?.[topicId]?.length || 0,
-			);
 
 			const allQuestions = window.ANKI_QUESTIONS || {};
-			this.cards = allQuestions[topicId] || [];
-			if (this.cards.length === 0) {
+			this.allTopicCards = allQuestions[topicId] || [];
+			this.cards = [...this.allTopicCards];
+			if (this.allTopicCards.length === 0) {
 				console.warn("[AP1] ⚠️ No cards found for topic:", topicId);
 				app.showNotification(
 					"Keine Lernkarten",
@@ -99,6 +149,8 @@ const app = {
 				rBtn.classList.add("hidden");
 				rBtn.classList.remove("inline-flex");
 			}
+
+			this.renderBatchSelector();
 
 			// Statistiken laden
 			if (!app.state.ankiStats) app.state.ankiStats = {};
@@ -195,6 +247,8 @@ const app = {
 		start(mode) {
 			this.mode = mode;
 			this.currentIndex = 0;
+			this.masteredCards = new Set();
+			this.repetitionCount = 0;
 
 			// Global Stats tracken (Session zählt ab Start)
 			if (!app.state.ankiStats) app.state.ankiStats = {};
@@ -209,9 +263,12 @@ const app = {
 			app.save();
 			app.updateStats(); // UI sofort aktualisieren
 
+			// Pool vorbereiten: Basis sind alle Karten des Themas
+			let pool = [...(this.allTopicCards && this.allTopicCards.length > 0 ? this.allTopicCards : this.cards)];
+
 			// Filter-Logik für den Schwachstellen-Modus
 			if (mode === "weaknesses") {
-				const filtered = this.cards.filter((card) => {
+				const filtered = pool.filter((card) => {
 					const cardData = app.state.anki?.[card.id];
 					if (!cardData) return false;
 					return cardData.confidence === 2 || cardData.confidence === 3 || cardData.level === 1;
@@ -225,16 +282,31 @@ const app = {
 					);
 					return;
 				}
-				this.cards = filtered;
+				pool = filtered;
 			}
 
 			// Karten für diese Session mischen (Fisher-Yates Shuffle)
-			const shuffled = [...this.cards];
-			for (let i = shuffled.length - 1; i > 0; i--) {
+			for (let i = pool.length - 1; i > 0; i--) {
 				const j = Math.floor(Math.random() * (i + 1));
-				[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+				[pool[i], pool[j]] = [pool[j], pool[i]];
 			}
-			this.cards = shuffled;
+
+			// Stapelgröße anwenden (falls numerisch gewählt und kleiner als Pool)
+			let selectedSize = this.batchSize;
+			if (app.state.ankiSession?.batchSize !== undefined) {
+				selectedSize = app.state.ankiSession.batchSize;
+			}
+			if (typeof selectedSize === "number" && selectedSize > 0 && selectedSize < pool.length) {
+				pool = pool.slice(0, selectedSize);
+			}
+
+			if (app.state.ankiSession?.loopEnabled !== undefined) {
+				this.loopEnabled = app.state.ankiSession.loopEnabled;
+			}
+
+			this.cards = pool;
+			this.totalTarget = pool.length;
+			this.currentIndex = 0;
 
 			const badge = document.getElementById("ankiModeBadge");
 			badge.classList.remove("hidden");
@@ -270,12 +342,31 @@ const app = {
 		},
 
 		showCard() {
+			if (!this.cards || !this.cards[this.currentIndex]) {
+				this.showFinish();
+				return;
+			}
 			const card = this.cards[this.currentIndex];
-			const progress = (this.currentIndex / this.cards.length) * 100;
+			const mastered = this.masteredCards ? this.masteredCards.size : 0;
+			const total = this.totalTarget || this.cards.length;
+
+			// Fortschritt: Bei aktivem Loop an gemeisterten Karten orientieren
+			let progress = 0;
+			if (this.loopEnabled) {
+				progress = total > 0 ? Math.min(100, Math.round((mastered / total) * 100)) : 0;
+			} else {
+				progress = (this.currentIndex / total) * 100;
+			}
 
 			document.getElementById("ankiProgress").style.width = `${progress}%`;
-			document.getElementById("ankiCardCounter").textContent =
-				`Karte ${this.currentIndex + 1} von ${this.cards.length}`;
+			const counterEl = document.getElementById("ankiCardCounter");
+			if (counterEl) {
+				if (this.loopEnabled) {
+					counterEl.textContent = `Karte ${this.currentIndex + 1} · ${mastered} von ${total} gemeistert`;
+				} else {
+					counterEl.textContent = `Karte ${this.currentIndex + 1} von ${total}`;
+				}
+			}
 			document.getElementById("ankiQuestionText").textContent = card.q;
 			const ansQElement = document.getElementById("ankiAnswerQuestionText");
 			if (ansQElement) ansQElement.textContent = card.q;
@@ -319,7 +410,8 @@ const app = {
 			if (isCorrect) gStats.correct++;
 
 			// Card-Data mit erweitertem Schema (rückwärtskompatibel)
-			const cardId = this.cards[this.currentIndex].id;
+			const currentCard = this.cards[this.currentIndex];
+			const cardId = currentCard.id;
 			if (!app.state.anki) app.state.anki = {};
 			if (!app.state.anki[cardId]) {
 				app.state.anki[cardId] = {
@@ -345,8 +437,19 @@ const app = {
 				this.updateCardLevel(cardId, confidence);
 			}
 
+			// Active Recall Loop & Mastered Tracking:
+			let queuedForRepeat = false;
+			if (isCorrect) {
+				if (this.masteredCards) this.masteredCards.add(cardId);
+			} else if (this.loopEnabled) {
+				// Nicht gewusst / geraten: Karte ans Ende des aktiven Stapels hängen
+				this.cards.push(currentCard);
+				this.repetitionCount = (this.repetitionCount || 0) + 1;
+				queuedForRepeat = true;
+			}
+
 			// Sichtbares Confidence-Feedback: kurze Notification mit dem gewählten Level
-			// und dem Hinweis, wann die Karte das nächste Mal kommt
+			// und dem Hinweis, wann die Karte das nächste Mal kommt (oder ob sie im Loop wiederholt wird)
 			const confLabels = [
 				{ text: "Sofort gewusst", type: "success", icon: "zap" },
 				{ text: "Nachgedacht", type: "info", icon: "brain" },
@@ -359,9 +462,10 @@ const app = {
 				day: "2-digit",
 				month: "2-digit",
 			});
+			const repeatNote = queuedForRepeat ? " · Wird am Rundenende wiederholt" : "";
 			app.showNotification(
 				"Bewertung gespeichert",
-				`${conf.text} · Stufe ${cardData.level} · Nächste Wiederholung: ${nextReviewStr}`,
+				`${conf.text} · Stufe ${cardData.level}${repeatNote} · Nächste Wiederholung: ${nextReviewStr}`,
 				conf.type,
 				2000,
 			);
@@ -436,8 +540,20 @@ const app = {
 				rBtn.classList.remove("inline-flex");
 			}
 			document.getElementById("ankiProgress").style.width = "100%";
-			document.getElementById("ankiAnswerView").classList.add("hidden");
+			document.getElementById("ankiModeView")?.classList.add("hidden");
+			document.getElementById("ankiQuestionView")?.classList.add("hidden");
+			document.getElementById("ankiAnswerView")?.classList.add("hidden");
 			document.getElementById("ankiFinishView").classList.remove("hidden");
+
+			const subtitle = document.getElementById("ankiFinishSubtitle");
+			if (subtitle) {
+				const target = this.totalTarget || (this.cards ? this.cards.length : 0);
+				if (this.loopEnabled && this.repetitionCount > 0) {
+					subtitle.textContent = `Alle ${target} Karten gemeistert! (${this.repetitionCount}x im Active Recall Loop wiederholt)`;
+				} else {
+					subtitle.textContent = `Alle ${target} Lernkarten dieser Runde wurden erfolgreich gemeistert.`;
+				}
+			}
 
 			if (typeof confetti === "function") {
 				confetti({
