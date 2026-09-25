@@ -222,24 +222,40 @@
     </header>
 
     <!-- ============================================================
-         3-MODULE NAVIGATOR (Subtle Sticky Bar)
+         3-MODULE NAVIGATOR (High-Visibility Sticky Dock)
          ============================================================ -->
-    <div class="border-b border-dark-border bg-dark-bg/80 backdrop-blur-md sticky top-16 z-40">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5">
-        <nav class="grid grid-cols-3 gap-2 sm:gap-3" aria-label="Hauptnavigation Module">
+    <div class="border-b border-dark-border bg-dark-bg/95 backdrop-blur-md sticky top-16 z-40 shadow-md">
+      <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2 sm:py-2.5">
+        <!-- Tab Bar Header / Kicker -->
+        <div class="flex items-center justify-between text-[11px] font-mono mb-1.5 px-0.5">
+          <div class="flex items-center gap-1.5 font-bold uppercase tracking-wider text-slate-200">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>3 Labor-Module:</span>
+          </div>
+          <span class="text-[10px] text-dark-muted font-mono flex items-center gap-1">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Klicke zum Wechseln
+          </span>
+        </div>
+
+        <!-- Segmented Tab Dock -->
+        <nav class="grid grid-cols-3 gap-1.5 sm:gap-2.5 p-1 sm:p-1.5 bg-dark-card/90 rounded-2xl border border-dark-border shadow-inner" aria-label="Hauptnavigation Module">
           <!-- Tab 1 -->
           <button
             type="button"
             id="tabBtn-guide"
             onclick="switchTab('guide')"
-            class="tab-btn active flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card border border-blue-500/50 text-white shadow-sm"
+            class="tab-btn active flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-3.5 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 border border-blue-300/40 cursor-pointer"
           >
-            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 transition-colors">
-              <i data-lucide="book-open" class="w-4 h-4 text-blue-400"></i>
+            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0 transition-colors">
+              <i data-lucide="book-open" class="w-4 h-4 text-white"></i>
             </div>
-            <div class="min-w-0">
-              <div class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-white">1. Grundlagen</div>
-              <div class="tab-sub text-[9px] sm:text-[10px] text-blue-300 hidden sm:block truncate opacity-95">Spickzettel &amp; Algos</div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-center sm:justify-between gap-1">
+                <span class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-white">1. Grundlagen</span>
+                <span class="tab-badge text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/20 text-white font-semibold hidden sm:inline-block">● Aktiv</span>
+              </div>
+              <div class="tab-sub text-[9px] sm:text-[10px] text-blue-100 hidden sm:block truncate opacity-95">Spickzettel &amp; Algos</div>
             </div>
           </button>
 
@@ -248,14 +264,17 @@
             type="button"
             id="tabBtn-visualizer"
             onclick="switchTab('visualizer')"
-            class="tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card/40 border border-dark-border text-dark-muted hover:text-white hover:border-dark-dim/40"
+            class="tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-3.5 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-bg/70 hover:bg-dark-bg border border-dark-border/80 hover:border-blue-500/40 text-slate-300 hover:text-white cursor-pointer group"
           >
-            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-dark-bg border border-dark-border flex items-center justify-center shrink-0 transition-colors">
-              <i data-lucide="play-circle" class="w-4 h-4 text-dark-muted"></i>
+            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0 transition-colors">
+              <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i>
             </div>
-            <div class="min-w-0">
-              <div class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-dark-muted">2. Visualizer</div>
-              <div class="tab-sub text-[9px] sm:text-[10px] text-dark-dim hidden sm:block truncate">Schritt-für-Schritt</div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-center sm:justify-between gap-1">
+                <span class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-slate-300 group-hover:text-white">2. Visualizer</span>
+                <span class="tab-badge text-[9px] font-mono px-1.5 py-0.5 rounded bg-dark-card border border-dark-border text-dark-muted group-hover:text-white hidden sm:inline-block">Simulator</span>
+              </div>
+              <div class="tab-sub text-[9px] sm:text-[10px] text-slate-500 hidden sm:block truncate">Schritt-für-Schritt</div>
             </div>
           </button>
 
@@ -264,14 +283,17 @@
             type="button"
             id="tabBtn-exercises"
             onclick="switchTab('exercises')"
-            class="tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-4 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-card/40 border border-dark-border text-dark-muted hover:text-white hover:border-dark-dim/40"
+            class="tab-btn flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-2.5 p-2 sm:px-3.5 sm:py-2.5 rounded-xl text-center sm:text-left transition-all bg-dark-bg/70 hover:bg-dark-bg border border-dark-border/80 hover:border-blue-500/40 text-slate-300 hover:text-white cursor-pointer group"
           >
-            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-dark-bg border border-dark-border flex items-center justify-center shrink-0 transition-colors">
-              <i data-lucide="check-square" class="w-4 h-4 text-dark-muted"></i>
+            <div class="tab-icon w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 transition-colors">
+              <i data-lucide="check-square" class="w-4 h-4 text-cyan-400"></i>
             </div>
-            <div class="min-w-0">
-              <div class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-dark-muted">3. Üben &amp; Test</div>
-              <div class="tab-sub text-[9px] sm:text-[10px] text-dark-dim hidden sm:block truncate">Schreibtischtests</div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-center sm:justify-between gap-1">
+                <span class="tab-title text-[11px] sm:text-xs font-bold leading-tight truncate text-slate-300 group-hover:text-white">3. Üben &amp; Test</span>
+                <span class="tab-badge text-[9px] font-mono px-1.5 py-0.5 rounded bg-dark-card border border-dark-border text-dark-muted group-hover:text-white hidden sm:inline-block">12 Aufgaben</span>
+              </div>
+              <div class="tab-sub text-[9px] sm:text-[10px] text-slate-500 hidden sm:block truncate">Schreibtischtests</div>
             </div>
           </button>
         </nav>
@@ -958,7 +980,7 @@
     <!-- Scripts -->
     <script src="assets/js/lucide.min.js?v=3.0.0"></script>
     <script src="assets/js/confetti.js?v=3.0.0"></script>
-    <script src="assets/js/pseudocode.js?v=3.0.0"></script>
+    <script src="assets/js/pseudocode.js?v=3.0.1"></script>
     <script>
       function openSupportModal() {
         const modal = document.getElementById("supportModal");
