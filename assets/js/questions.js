@@ -147,7 +147,7 @@ window.ANKI_QUESTIONS = {
     { id: '1.2_5_6', q: 'Was ist der Unterschied zwischen Einzelprokura und Gesamtprokura?', a: 'Einzel: Allein handeln. Gesamt: Nur mit anderem Prokuristen.' },
     { id: '1.2_5_7', q: 'Was ist Handlungsvollmacht?', a: 'Ermächtigung zum Betrieb eines Handelsgewerbes. Umfasst typische Geschäfte.' },
     { id: '1.2_5_8', q: 'Was ist der Unterschied zwischen Prokura und Handlungsvollmacht?', a: 'Prokura: Umfassend. Handlungsvollmacht: Nur typische Geschäfte.' },
-    { id: '1.2_5_9', q: 'Nenne Beispiele für Handlungsvollmacht.', a: 'Verkäufer, Einkäufer, Sachbearbeiter mit Vertretungsbefugnis.' },
+    { id: '1.2_5_9', q: 'Nenne typische Beispiele für betriebliche Rollen mit Handlungsvollmacht.', a: 'Einkäufer (Warenbestellungen im Rahmen der Arthandlungsvollmacht), Verkäufer (Kaufverträge im Ladengeschäft) oder Sachbearbeiter im jeweiligen Aufgabengebiet.' },
     { id: '1.2_5_10', q: 'Wie endet Prokura?', a: 'Durch Widerruf, Kündigung, Erlöschen des Unternehmens, Tod des Inhabers.' },
   ],
   
@@ -928,7 +928,7 @@ window.ANKI_QUESTIONS = {
     { id: '4.3_2_5', q: 'Was ist Datenminimierung?', a: 'Nur so viele Daten verarbeiten wie nötig (nicht mehr als erforderlich).' },
     { id: '4.3_2_6', q: 'Was ist Zweckbindung?', a: 'Daten nur für festgelegte, legitime Zwecke verwenden.' },
     { id: '4.3_2_7', q: 'Was ist Speicherbegrenzung?', a: 'Daten nur so lange speichern wie nötig.' },
-    { id: '4.3_2_8', q: 'Was ist Integrität und Vertraulichkeit?', a: 'Schutz vor unbefugter Verarbeitung und Datenpannen.' },
+    { id: '4.3_2_8', q: 'Was bedeuten die DSGVO-Grundsätze „Integrität und Vertraulichkeit“ (Art. 5 DSGVO)?', a: 'Vertraulichkeit: Nur Berechtigte dürfen Daten einsehen/lesen (Zugriffsschutz, z.B. per Verschlüsselung). Integrität: Schutz vor unbemerkter Veränderung oder Manipulation der Daten (Korrektheit & Vollständigkeit).' },
     { id: '4.3_2_9', q: 'Was ist Rechenschaftspflicht?', a: 'Verantwortlicher muss Einhaltung der DSGVO nachweisen können.' },
     { id: '4.3_2_10', q: 'Was ist Transparenz?', a: 'Betroffene müssen über Datenverarbeitung informiert werden.' },
 
@@ -936,7 +936,7 @@ window.ANKI_QUESTIONS = {
     { id: '4.3_3_1', q: 'Was sind die Rechtsgrundlagen der DSGVO?', a: 'Einwilligung, Vertrag, Gesetzliche Verpflichtung, Lebenswichtige Interessen, Öffentliches Interesse, Berechtigte Interessen.' },
     { id: '4.3_3_2', q: 'Was ist eine Einwilligung?', a: 'Freiwillige, informierte, eindeutige Zustimmung zur Datenverarbeitung.' },
     { id: '4.3_3_3', q: 'Was ist Vertragserfüllung als Rechtsgrundlage?', a: 'Datenverarbeitung für Vertragserfüllung (z.B. Lieferadresse für Bestellung).' },
-    { id: '4.3_3_4', q: 'Was ist gesetzliche Verpflichtung?', a: 'Datenverarbeitung wegen gesetzlicher Pflicht (z.B. Steuerdaten).' },
+    { id: '4.3_3_4', q: 'Was besagt die Rechtsgrundlage „Rechtliche Verpflichtung“ (Art. 6 DSGVO)?', a: 'Daten dürfen (und müssen) ohne Einwilligung verarbeitet werden, wenn ein Gesetz dies vorschreibt (z.B. Aufbewahrung von Buchungsbelegen nach HGB/AO, Meldung zur Sozialversicherung).' },
     { id: '4.3_3_5', q: 'Was ist berechtigtes Interesse?', a: 'Datenverarbeitung für legitime Interessen des Verantwortlichen (z.B. Betrugsprävention).' },
     { id: '4.3_3_6', q: 'Wann ist Einwilligung erforderlich?', a: 'Bei Marketing, Cookies, sensiblen Daten, wenn keine andere Rechtsgrundlage greift.' },
     { id: '4.3_3_7', q: 'Wie muss Einwilligung erfolgen?', a: 'Aktiv (Opt-In), nicht vorangekreuzt, widerrufbar, dokumentiert.' },
