@@ -509,6 +509,15 @@
                 <i data-lucide="shuffle" class="w-3.5 h-3.5"></i>
                 <span>Zufallsmix</span>
               </button>
+              <button
+                id="bookmarkedCardsBtn"
+                onclick="app.startBookmarkedSession()"
+                class="w-full sm:w-auto py-2.5 px-3 rounded-lg border border-dark-border hover:border-amber-500/50 bg-dark-bg text-dark-muted hover:text-amber-400 font-mono text-xs flex items-center justify-center gap-1.5 transition-colors group"
+                title="Alle gemerkten Karten üben"
+              >
+                <i data-lucide="bookmark" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Gemerkt (<span id="bookmarkedCount" class="font-bold">0</span>)</span>
+              </button>
             </div>
           </div>
 
@@ -932,6 +941,15 @@
             <span id="ankiModeBadge" class="hidden font-mono text-[10px] text-dark-muted border border-dark-border rounded px-1.5 py-0.5">Modus</span>
           </div>
           <div class="flex items-center gap-2 shrink-0">
+            <!-- Bookmark Button -->
+            <button
+              id="ankiHeaderBookmarkBtn"
+              onclick="app.anki.toggleBookmark()"
+              class="hidden p-1.5 rounded transition-all text-dark-dim hover:text-amber-400"
+              title="Karte merken / Lesezeichen (Taste B)"
+            >
+              <i data-lucide="bookmark" class="w-4 h-4"></i>
+            </button>
             <!-- Flag / Report Button -->
             <button
               id="ankiHeaderReportBtn"
