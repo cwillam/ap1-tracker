@@ -1,10 +1,10 @@
-# AP1 Tracker - Dein Lernbegleiter
+# AP1 Tracker - Dein Lernbegleiter (v3.1.4 Update)
 
 [![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://github.com/cwillam/ap1-tracker)
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v3.0.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Version](https://img.shields.io/badge/Version-v3.1.4-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
@@ -25,6 +25,15 @@ Das Projekt ist live und einsatzbereit gehostet:
 Der **AP1 Tracker** wurde entwickelt, um Fachinformatikern eine strukturierte Übersicht über die Lerninhalte der Abschlussprüfung Teil 1 zu geben.
 
 Das Ziel war eine **„Offline-First" Web-App**, die sich wie eine native Anwendung anfühlt, aber komplett im Browser läuft. Der Fokus lag auf sauberem Code, Performance und maximalem Datenschutz.
+
+### Highlights v3.1.4 (Lesezeichen, Active-Recall & Quick-Dock)
+
+- **Karten-Lesezeichen & Favoriten-Modus:** Anspruchsvolle oder fehleranfällige Lernkarten mit Stern markieren und in einer dedizierten Übungssession wiederholen.
+- **Flexible Stapelgröße (Batch-Size):** Vor der Lernrunde zwischen 10, 20, 50 oder allen Karten wählen – ideal für fokussierte Lerneinheiten unterwegs.
+- **Active-Recall-Wiederholung:** Falsch beantwortete Lernkarten am Rundenende direkt mit 1 Klick in einer Wiederholungsschleife vertiefen.
+- **3-Modul Quick-Dock:** Barrierefreie Schnellzugriffs-Leiste am unteren Bildschirmrand für den schnellen Wechsel zwischen Lernkarten, Subnetz-Trainer und SQL/Pseudocode.
+- **Fachliche Nachschärfungen:** Präzisierte IPv6-Kompression (RFC 5952), aktuelle JAV-Wahlrechtsregelungen nach BetrVG und optimierte Prüfungsfragen zu Netzwerken und OSI-Modell.
+- **Service Worker & Cache-Busting:** Caching auf `v3.1.4` aktualisiert für sofortige, automatische Offline-Updates.
 
 ### Highlights v3.0.0 (Design System Relaunch & In-App Feedback)
 
