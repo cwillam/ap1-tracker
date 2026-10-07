@@ -4,7 +4,8 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue?style=for-the-badge)](LICENSE)
 [![Hosting](https://img.shields.io/badge/Hosted_on-IONOS-003D51?style=for-the-badge&logo=ionos)](https://ap1.cwillam.de)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=for-the-badge)](https://ap1.cwillam.de)
-[![Version](https://img.shields.io/badge/Version-v3.1.4-blue?style=for-the-badge)](https://ap1.cwillam.de)
+[![Google Play](https://img.shields.io/badge/Google_Play-AP1_Tracker-green?style=for-the-badge&logo=google-play)](https://play.google.com/store/apps/details?id=de.cwillam.ap1.tracker)
+[![Version](https://img.shields.io/badge/Version-v3.2.0-blue?style=for-the-badge)](https://ap1.cwillam.de)
 
 > 🐛 [**Bug melden**](https://github.com/cwillam/ap1-tracker/issues/new?template=bug.yml) · 💡 [**Feature wünschen**](https://github.com/cwillam/ap1-tracker/issues/new?template=feature.yml)
 
