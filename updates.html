@@ -25,7 +25,7 @@
     <link rel="preload" href="assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Tailwind 3 Engine (Local, Zero-CDN) -->
-    <script src="assets/js/tailwind.js?v=3.0.0"></script>
+    <script src="assets/js/tailwind.js?v=3.1.4"></script>
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -74,7 +74,7 @@
     </script>
 
     <!-- Custom High-Craft CSS Tokens & Keycaps -->
-    <link href="assets/css/style.css?v=3.0.0" rel="stylesheet" />
+    <link href="assets/css/style.css?v=3.1.4" rel="stylesheet" />
 
     <style>
       .custom-scroll::-webkit-scrollbar {
@@ -198,7 +198,7 @@
             <div class="flex items-center gap-2 text-blue-400 text-xs font-mono mb-2 uppercase tracking-wider">
               <span class="kbd-cap bg-blue-600/15 border-blue-500/30 text-blue-400 px-2 py-0.5 text-[10px]">ENTWICKLUNGS-HISTORIE</span>
               <span class="text-dark-dim">·</span>
-              <span class="text-emerald-400 font-bold">v3.1.3 LIVE</span>
+              <span class="text-emerald-400 font-bold">v3.1.4 LIVE</span>
             </div>
             <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
               <span>Changelog &amp; Roadmap</span>
@@ -235,12 +235,49 @@
            ============================================================ -->
       <div id="tabUpdatesContent" class="space-y-6">
 
-        <!-- v3.1.3 · AKTUELL -->
+        <!-- v3.1.4 · AKTUELL -->
         <article class="bg-dark-card border border-blue-500/40 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-sm relative">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
             <div class="flex items-center gap-2.5 flex-wrap">
               <span class="kbd-cap bg-blue-600/20 border-blue-500/50 text-blue-400 font-mono text-xs font-bold px-2.5 py-0.5">
-                v3.1.3 · AKTUELL
+                v3.1.4 · AKTUELL
+              </span>
+              <h2 class="text-base sm:text-lg font-bold text-white">
+                Fachliche Nachschärfungen, Prüfungsnormen &amp; Cache-Harmonisierung
+              </h2>
+            </div>
+            <span class="text-xs font-mono text-dark-dim">3. Oktober 2026</span>
+          </div>
+
+          <p class="text-xs text-dark-muted leading-relaxed">
+            Aktualisierung der Lerninhalte auf aktuelle IHK-Prüfungsstandards: Präzisierte IPv6-Kompression nach RFC 5952, aktuelle JAV-Wahlrechtsregelungen nach BetrVG sowie optimierte Prüfungsfragen zu Netzwerken und OSI-Modell.
+          </p>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-dark-muted pt-1">
+            <li class="flex items-start gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
+              <span><strong class="text-dark-text font-semibold">IPv6-Kompression (RFC 5952):</strong> Strikte Anwendung der Kürzungsregeln in Erklärungen und Fragen.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
+              <span><strong class="text-dark-text font-semibold">JAV &amp; Betriebsverfassungsrecht:</strong> Anpassung der Alters- und Wählbarkeitsgrenzen an die aktuelle Rechtslage.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
+              <span><strong class="text-dark-text font-semibold">Offline-Cache v3.1.4:</strong> Aktualisierte Service-Worker-Cache-Strategie für unterbrechungsfreien Offline-Betrieb.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
+              <span><strong class="text-dark-text font-semibold">Google Play Vorbereitung:</strong> Harmonisierung aller PWA-Metadaten für das offizielle Store-Release.</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- v3.1.3 -->
+        <article class="bg-dark-card border border-blue-500/40 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-sm relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-dark-border pb-3">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="kbd-cap bg-blue-600/20 border-blue-500/50 text-blue-400 font-mono text-xs font-bold px-2.5 py-0.5">
+                v3.1.3
               </span>
               <h2 class="text-base sm:text-lg font-bold text-white">
                 Lernkarten-Lesezeichen, Active-Recall-Schleife &amp; Quick-Dock
@@ -1279,7 +1316,7 @@
     <!-- ============================================================
          SCRIPTS & TAB CONTROLLER
          ============================================================ -->
-    <script src="assets/js/lucide.min.js?v=3.0.0"></script>
+    <script src="assets/js/lucide.min.js?v=3.1.4"></script>
     <script>
       function switchTab(tab) {
         const updatesContent = document.getElementById("tabUpdatesContent");
@@ -1356,7 +1393,7 @@
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js?v=3.0.0")
+            .register("sw.js?v=3.1.4")
             .catch(() => {});
         });
       }
