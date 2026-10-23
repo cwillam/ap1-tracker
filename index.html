@@ -407,7 +407,7 @@
               <span id="totalPercentTop" class="text-2xl sm:text-3xl font-bold font-mono text-white tabular-nums">0%</span>
             </div>
             <p class="text-xs text-dark-muted mt-1 truncate">
-              <span id="doneCount" class="font-mono font-semibold text-white">0</span> von 50 Themen abgehakt
+              <span id="doneCount" class="font-mono font-semibold text-white">0</span> von <span id="totalTopicsCount">24</span> Themen abgehakt
             </p>
           </div>
           <!-- 1px Hairline Progress Bar (User Request: Visueller Anker) -->
@@ -1293,9 +1293,9 @@
             <input
               type="file"
               id="importFile"
-              accept=".json"
+              accept=".json,application/json,text/plain"
               class="hidden"
-              onchange="app.importData(event)"
+              onchange="app.importData(this)"
             />
           </label>
         </div>
@@ -1408,7 +1408,7 @@
          ============================================================ -->
     <script src="assets/js/confetti.js?v=3.1.4"></script>
     <script src="assets/js/data.js?v=3.1.4"></script>
-    <script src="assets/js/questions.js?v=3.1.4"></script>
+    <script src="assets/js/questions.js?v=3.1.4.1"></script>
     <script src="assets/js/lucide.min.js?v=3.1.4"></script>
     <script>
       // Lucide SVGs initialisieren
@@ -1431,7 +1431,7 @@
         if (e.key === "Escape") closeSupportModal();
       });
     </script>
-    <script src="assets/js/app.js?v=3.1.4"></script>
+    <script src="assets/js/app.js?v=3.1.4.1"></script>
 
     <!-- PWA Service Worker -->
     <script>

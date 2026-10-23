@@ -1308,20 +1308,41 @@ const app = {
 
 	// --- IMPORT / EXPORT ---
 	exportData() {
-		const dataStr = JSON.stringify(this.state);
-		const dataUri =
-			"data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
-		const linkElement = document.createElement("a");
-		linkElement.setAttribute("href", dataUri);
-		linkElement.setAttribute(
-			"download",
-			"ap1_master_backup_" + new Date().toISOString().slice(0, 10) + ".json",
-		);
-		linkElement.click();
+		try {
+			const dataStr = JSON.stringify(this.state, null, 2);
+			const blob = new Blob([dataStr], { type: "application/json" });
+			const url = URL.createObjectURL(blob);
+			const linkElement = document.createElement("a");
+			linkElement.setAttribute("href", url);
+			linkElement.setAttribute(
+				"download",
+				"ap1_master_backup_" + new Date().toISOString().slice(0, 10) + ".json",
+			);
+			document.body.appendChild(linkElement);
+			linkElement.click();
+			document.body.removeChild(linkElement);
+			setTimeout(() => URL.revokeObjectURL(url), 1000);
+			this.showNotification("Export erfolgreich", "Deine Daten wurden heruntergeladen.", "success");
+		} catch (err) {
+			console.error("[AP1] Blob export failed, using data-uri fallback:", err);
+			const dataStr = JSON.stringify(this.state);
+			const dataUri =
+				"data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+			const linkElement = document.createElement("a");
+			linkElement.setAttribute("href", dataUri);
+			linkElement.setAttribute(
+				"download",
+				"ap1_master_backup_" + new Date().toISOString().slice(0, 10) + ".json",
+			);
+			linkElement.click();
+			this.showNotification("Export erfolgreich", "Deine Daten wurden heruntergeladen.", "success");
+		}
 	},
 
 	/**
 	 * Validiert die Struktur eines importierten State-Objekts
+	 * @param {any} data - Das zu validierende Datenobjekt
+	 * @returns {{valid: boolean, error?: string, needsMigration?: boolean, version?: string}}
 	 */
 	validateImport(data) {
 		// 1. Typ-Check
@@ -1332,23 +1353,26 @@ const app = {
 			};
 		}
 
-		// 2. Minimale Struktur-Checks
-		const requiredKeys = ["activity"];
-		for (const key of requiredKeys) {
-			if (!(key in data)) {
-				return {
-					valid: false,
-					error: `Fehlendes Feld: "${key}". Datei ist korrupt oder inkompatibel.`,
-				};
-			}
-		}
-
-		// 3. Größen-Check (max 5 MB = LocalStorage Limit)
-		const size = new Blob([JSON.stringify(data)]).size;
-		if (size > 5 * 1024 * 1024) {
+		// 2. Plausibilitäts-Check: Entweder leer oder enthält bekannte Tracker-Properties / Topic-IDs
+		const keys = Object.keys(data);
+		const hasKnownKeys = keys.some(
+			(k) =>
+				/^\d+\.\d+$/.test(k) ||
+				["activity", "anki", "bookmarks", "ankiStats", "notes", "_version", "filter"].includes(k),
+		);
+		if (keys.length > 0 && !hasKnownKeys) {
 			return {
 				valid: false,
-				error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 5 MB)`,
+				error: "Die Datei enthält keine gültigen AP-Tracker-Daten.",
+			};
+		}
+
+		// 3. Größen-Check (max 10 MB Raw-Datei)
+		const size = new Blob([JSON.stringify(data)]).size;
+		if (size > 10 * 1024 * 1024) {
+			return {
+				valid: false,
+				error: `Datei zu groß: ${(size / 1024 / 1024).toFixed(2)} MB (Max. 10 MB)`,
 			};
 		}
 
@@ -1364,7 +1388,7 @@ const app = {
 			};
 		}
 
-		// 5. Plausibilitäts-Check
+		// 5. Plausibilitäts-Check für bekannte Felder
 		if (data.activity && typeof data.activity !== "object") {
 			return { valid: false, error: 'Feld "activity" muss ein Objekt sein.' };
 		}
@@ -1378,31 +1402,52 @@ const app = {
 
 	/**
 	 * Führt Migrationen zwischen verschiedenen State-Versionen durch
+	 * @param {object} data - Das zu migrierende Datenobjekt
+	 * @returns {object} Das migrierte Datenobjekt
 	 */
 	migrateState(data) {
 		const currentVersion = data._version || "v1";
 		const migrated = { ...data };
 
-		// Beispiel für zukünftige Migrationen:
-		// if (currentVersion === 'v1') {
-		//   migrated = { ...migrated, newField: defaultValue };
-		//   migrated._version = 'v2';
-		// }
-
 		if (!migrated._version) {
 			migrated._version = "v1";
+		}
+		if (!migrated.activity || typeof migrated.activity !== "object") {
+			migrated.activity = {};
+		}
+		if (!migrated.anki || typeof migrated.anki !== "object") {
+			migrated.anki = {};
+		}
+		if (!Array.isArray(migrated.bookmarks)) {
+			migrated.bookmarks = [];
 		}
 
 		console.log(`[AP1] Migration: ${currentVersion} -> ${migrated._version}`);
 		return migrated;
 	},
 
-	importData(input) {
-		const file = input.files[0];
-		if (!file) return;
+	importData(eventOrInput) {
+		// Unterstützt sowohl Aufruf mit Event (onchange="app.importData(event)")
+		// als auch mit Element (onchange="app.importData(this)")
+		// sowie Fallback auf #importFile.
+		let input = null;
+		if (eventOrInput && eventOrInput.target && eventOrInput.target.files) {
+			input = eventOrInput.target;
+		} else if (eventOrInput && eventOrInput.files) {
+			input = eventOrInput;
+		} else {
+			input = document.getElementById("importFile");
+		}
 
-		// Reset input damit gleiche Datei erneut gewählt werden kann
-		input.value = "";
+		const file = input && input.files ? input.files[0] : null;
+		if (!file) {
+			console.warn("[AP1] Keine Datei zum Import ausgewählt.");
+			return;
+		}
+
+		// Modal sofort schließen, damit Toast-Benachrichtigung auf Mobile sichtbar ist
+		const backupModal = document.getElementById("backupModal");
+		if (backupModal) backupModal.classList.add("hidden");
 
 		// Größen-Check vor dem Lesen (max 10 MB Raw-Datei)
 		if (file.size > 10 * 1024 * 1024) {
@@ -1411,6 +1456,7 @@ const app = {
 				`Maximale Größe: 10 MB. Deine Datei: ${(file.size / 1024 / 1024).toFixed(2)} MB`,
 				"error",
 			);
+			if (input) input.value = "";
 			return;
 		}
 
@@ -1423,68 +1469,73 @@ const app = {
 				"Die Datei konnte nicht gelesen werden.",
 				"error",
 			);
+			if (input) input.value = "";
 		};
 
 		reader.onload = (e) => {
-			const content = e.target.result;
-
-			// 1. JSON parsen
-			let parsed;
 			try {
-				parsed = JSON.parse(content);
-			} catch (err) {
-				console.error("[AP1] JSON parse error:", err);
-				this.showNotification(
-					"Ungültiges JSON",
-					"Die Datei ist kein gültiges JSON-Format.",
-					"error",
-				);
-				return;
-			}
+				const content = e.target.result;
 
-			// 2. Struktur validieren
-			const validation = this.validateImport(parsed);
-			if (!validation.valid) {
-				console.error("[AP1] Validation failed:", validation.error);
-				this.showNotification(
-					"Import fehlgeschlagen",
-					validation.error,
-					"error",
-					0,
-				);
-				return;
-			}
+				// 1. JSON parsen
+				let parsed;
+				try {
+					parsed = JSON.parse(content);
+				} catch (err) {
+					console.error("[AP1] JSON parse error:", err);
+					this.showNotification(
+						"Ungültiges JSON",
+						"Die Datei ist kein gültiges JSON-Format.",
+						"error",
+					);
+					return;
+				}
 
-			// 3. Migration durchführen (falls nötig)
-			const migrated = this.migrateState(parsed);
+				// 2. Struktur validieren
+				const validation = this.validateImport(parsed);
+				if (!validation.valid) {
+					console.error("[AP1] Validation failed:", validation.error);
+					this.showNotification(
+						"Import fehlgeschlagen",
+						validation.error,
+						"error",
+						0,
+					);
+					return;
+				}
 
-			// 4. State ersetzen und speichern
-			const oldState = this.state;
-			this.state = migrated;
+				// 3. Migration durchführen (falls nötig)
+				const migrated = this.migrateState(parsed);
 
-			try {
-				this.save();
+				// 4. State ersetzen und speichern
+				const oldState = this.state;
+				this.state = migrated;
 
-				// 5. Erfolg melden
-				const stats = this.getImportStats(migrated);
-				this.showNotification(
-					"Import erfolgreich",
-					`Lade Fortschritt: ${stats.topics} Themen, ${stats.cards} Karten${stats.days ? `, ${stats.days} Tage Aktivität` : ""}`,
-					"success",
-				);
+				try {
+					this.save();
 
-				// 6. Reload nach kurzer Verzögerung
-				setTimeout(() => location.reload(), 1500);
-			} catch (err) {
-				console.error("[AP1] Import save failed:", err);
-				// Rollback bei Save-Fehler
-				this.state = oldState;
-				this.showNotification(
-					"Speicherfehler",
-					"Import erfolgreich validiert, aber Speicher voll. Bitte erst Export machen.",
-					"error",
-					0,
-				);
+					// 5. Erfolg melden
+					const stats = this.getImportStats(migrated);
+					this.showNotification(
+						"Import erfolgreich",
+						`Lade Fortschritt: ${stats.topics} Themen, ${stats.cards} Karten${stats.days ? `, ${stats.days} Tage Aktivität` : ""}`,
+						"success",
+					);
+
+					// 6. Reload nach kurzer Verzögerung
+					setTimeout(() => location.reload(), 1500);
+				} catch (err) {
+					console.error("[AP1] Import save failed:", err);
+					// Rollback bei Save-Fehler
+					this.state = oldState;
+					this.showNotification(
+						"Speicherfehler",
+						"Import erfolgreich validiert, aber Speicher voll. Bitte erst Export machen.",
+						"error",
+						0,
+					);
+				}
+			} finally {
+				if (input) input.value = "";
 			}
 		};
 
@@ -2114,6 +2165,9 @@ const app = {
 
 			const doneCountEl = document.getElementById("doneCount");
 			if (doneCountEl) doneCountEl.textContent = done;
+
+			const totalTopicsEl = document.getElementById("totalTopicsCount");
+			if (totalTopicsEl) totalTopicsEl.textContent = total;
 
 			let currentRank = this.ranks[0];
 			let nextRank = null;

@@ -1,4 +1,4 @@
-const CACHE_NAME = "ap1-tracker-v3.1.4";
+const CACHE_NAME = "ap1-tracker-v3.1.4-rev2"; // rev: fix-import-and-stats
 const ASSETS = [
 	"index.html",
 	"subnet.html",
@@ -19,8 +19,8 @@ const ASSETS = [
 	"assets/js/lucide.min.js?v=3.1.4",
 	"assets/js/confetti.js?v=3.1.4",
 	"assets/js/data.js?v=3.1.4",
-	"assets/js/questions.js?v=3.1.4",
-	"assets/js/app.js?v=3.1.4",
+	"assets/js/questions.js?v=3.1.4.1",
+	"assets/js/app.js?v=3.1.4.1",
 	"assets/js/subnet.js?v=3.1.4",
 	"assets/js/sql.js?v=3.1.4",
 	"assets/js/pseudocode.js?v=3.1.4",
